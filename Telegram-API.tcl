@@ -261,7 +261,7 @@ proc tg2irc_pollTelegram {} {
 	set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getUpdates?offset=$tg_update_id]
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getUpdates method"
+		putlog "Telegram-API: bad result from getUpdates method: [jsonGetValue $result "" "description"]"
 	}
 
 	set recordstart [string first "\{\"update_id\":" $result]
