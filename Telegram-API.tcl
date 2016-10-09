@@ -39,7 +39,7 @@ proc initialize {} {
 	set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getMe]
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		die "Telegram-API: bad result from getMe method"
+		die "Telegram-API: bad result from getMe method: [jsonGetValue $result "" "description"]"
 	}
 
 	set tg_botname [jsonGetValue $result "result" "username"]
