@@ -3,7 +3,7 @@ A gateway between IRC chat channels and Telegram groups
 
 How do I setup this IRC-Telegram gateway?<br>
 1. First get an eggdrop bot up and running<br>
-2. On your Telegram client, send a message to @BotFather: `/start`<br>
+2. On your Telegram client, send `/start` to @BotFather<br>
 3. Send `/newbot` to @BotFather<br>
 4. Enter the nickname of the bot you want to create<br>
 5. Enter the username of the bot you want to create<br>
