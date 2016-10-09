@@ -4,9 +4,6 @@
 # written by Eelco Huininga 2016                                               #
 # ---------------------------------------------------------------------------- #
 
-# When a document is sent to the telegram group, the file size is not displayed in the IRC message
-# Find some other means of declaring the MSG_ translation variables in the proc's, instead of enumaring every single one of them
-
 # ---------------------------------------------------------------------------- #
 # Configuration settings                                                       #
 # ---------------------------------------------------------------------------- #
