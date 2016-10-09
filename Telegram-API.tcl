@@ -756,11 +756,11 @@ proc jsonGetValue {record object key} {
 # ---------------------------------------------------------------------------- #
 
 # Load some stuff
-source "/volume1/homes/eggdrop/.eggdrop/scripts/Telegram-API/utftable.tcl"
-source "/volume1/homes/eggdrop/.eggdrop/scripts/Telegram-API/Telegram-API.$language.tcl"
+source "utftable.tcl"
+source "Telegram-API.$language.tcl"
 
 # Load modules
-source "/volume1/homes/eggdrop/.eggdrop/scripts/Telegram-API/ImageSearch.tcl"
+source "ImageSearch.tcl"
 
 
 bind pubm - * irc2tg_sendMessage
