@@ -526,7 +526,7 @@ proc tg2irc_pollTelegram {} {
 # ---------------------------------------------------------------------------- #
 proc tg2irc_botCommands {chat_id msgid channel message} {
 	global tg_botname irc_botname
-	global MSG_BOT_HELP MSG_BOT_TG_TOPIC MSG_BOT_IRC_TOPIC MSG_BOT_HELP_IRCUSER MSG_BOT_IRCUSER MSG_BOT_TG_UNKNOWNUSER MSG_BOT_IRCUSERS
+	global MSG_BOT_HELP MSG_BOT_TG_TOPIC MSG_BOT_IRC_TOPIC MSG_BOT_HELP_IRCUSER MSG_BOT_IRCUSER MSG_BOT_TG_UNKNOWNUSER MSG_BOT_IRCUSERS TG_BOT_UNKNOWNCMD
 
 	set message [string trim [string map -nocase {"@$tg_botname" ""} $message]]
 	set parameter_start [string wordend $message 1]
@@ -580,6 +580,7 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 		}
 
 		default {
+			set response "[format $TG_BOT_UNKNOWNCMD "$irc_botname"]"
 			tg_sendChatAction $chat_id "typing"
 			tg_sendReplyToMessage $chat_id $msgid "markdown" "$TG_BOT_UNKNOWNCMD"
 			putchan $channel "$response"
