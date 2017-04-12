@@ -31,6 +31,7 @@ set MSG_TG_PICCHANGE		"\026%s@Telegram has changed the Telegram group picture. U
 set MSG_TG_PICDELETE		"\026%s@Telegram has removed the Telegram group picture."
 set MSG_TG_UNKNOWNSTICKER	"Unknown sticker."
 set MSG_TG_UNIMPL			"Unknown Telegram message received."
+set TG_BOT_UNKNOWNCMD		"Unknown command."
 
 # Messages for user commands for your bot
 set MSG_BOT_HELP			"I'm <i>%s</i>, your personal barkeeper. Start a command with <b>/</b> and I'll show you a list of commands."
