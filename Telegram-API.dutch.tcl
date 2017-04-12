@@ -31,6 +31,7 @@ set MSG_TG_PICCHANGE		"\026%1\$s@Telegram heeft de afbeelding van de Telegram gr
 set MSG_TG_PICDELETE		"\026%1\$s@Telegram heeft de afbeelding van de Telegram groep verwijderd."
 set MSG_TG_UNKNOWNSTICKER	"Onbekende sticker."
 set MSG_TG_UNIMPL			"Onbekend Telegram bericht ontvangen."
+set TG_BOT_UNKNOWNCMD		"Onbekend ."
 
 # Messages for user commands for your bot
 set MSG_BOT_HELP			"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. Begin een commando met <b>/</b> en je krijgt een lijst van mogelijkheden te zien."
@@ -55,4 +56,4 @@ set MSG_QUOTE_HELP			"Gebruik <i>/addquote</i> om een quote toe te voegen."
 
 # Messages for the PSN-module
 set MSG_PSN_RESULT			"Speler: %s\%0ANiveau: %s\%0ARecent gespeelde spellen:\%0A1. %s\%0A2. %s\%0a3. %s"
-set MSG_PSN_NOTFOUND		"Geen gegevens gevonden. Deze gebruiker heeft mogelijk een privé-profiel."
+set MSG_PSN_NOTFOUND		"Geen gegevens gevonden. Deze gebruiker heeft mogelijk een privÃ©-profiel."
