@@ -315,6 +315,9 @@ proc tg2irc_pollTelegram {} {
 					set tg_performer [jsonGetValue $record "audio" "performer"]
 					set tg_title [jsonGetValue $record "audio" "title"]
 					set tg_duration [jsonGetValue $record "audio" "duration"]
+					if { [ string length $tg_duration ] == 0 } {
+						set tg_duration 0
+					}
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -368,6 +371,10 @@ proc tg2irc_pollTelegram {} {
 				if {[jsonHasKey $record "video"]} {
 					set tg_file_id [jsonGetValue $record "video" "file_id"]
 					set tg_duration [jsonGetValue $record "video" "duration"]
+					if { [ string length $tg_duration ] == 0 } {
+						set tg_duration 0
+					}
+
 					if {[jsonHasKey $record "caption"]} {
 						# Bug: the object should really be "video" and not ""
 						set caption " ([utf2ascii [remove_slashes [jsonGetValue $record "" "caption"]]])"
@@ -386,11 +393,15 @@ proc tg2irc_pollTelegram {} {
 				if {[jsonHasKey $record "voice"]} {
 					set tg_file_id [jsonGetValue $record "voice" "file_id"]
 					set tg_duration [jsonGetValue $record "voice" "duration"]
+					if { [ string length $tg_duration ] == 0 } {
+						set tg_duration 0
+					}
+
 					set tg_file_size [jsonGetValue $record "document" "file_size"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_VOICESENT "[utf2ascii $name]" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$tg_fie_size" "$irc_botname" "$tg_file_id"]
+							putchan $irc_channel [format $MSG_TG_VOICESENT "[utf2ascii $name]" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$tg_file_size" "$irc_botname" "$tg_file_id"]
 						}
 					}
 				}
