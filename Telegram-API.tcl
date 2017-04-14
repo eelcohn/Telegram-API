@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v0.1 for Eggdrop                                         #
+# Telegram-API module v20170414 for Eggdrop                                    #
 #                                                                              #
-# written by Eelco Huininga 2016                                               #
+# written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
@@ -258,8 +258,10 @@ proc tg2irc_pollTelegram {} {
 	global tg_bot_id tg_bot_token tg_update_id tg_poll_freq tg_channels utftable irc_botname
 	global MSG_TG_MSGSENT MSG_TG_AUDIOSENT MSG_TG_PHOTOSENT MSG_TG_DOCSENT MSG_TG_STICKERSENT MSG_TG_VIDEOSENT MSG_TG_VOICESENT MSG_TG_CONTACTSENT MSG_TG_LOCATIONSENT MSG_TC_VENUESENT MSG_TG_USERADD MSG_TG_USERLEFT MSG_TG_CHATTITLE MSG_TG_PICCHANGE MSG_TG_PICDELETE MSG_TG_UNIMPL
 
-	if { [catch { set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getUpdates?offset=$tg_update_id] } ] } {
-		putlog "Error while polling telegram. Result $result"
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getUpdates?offset=$tg_update_id]
+	} ] } {
+		putlog "Telegram-API: error while polling telegram: $result"
 		return 1
 	}
 
@@ -268,8 +270,7 @@ proc tg2irc_pollTelegram {} {
 	}
 
 	set recordstart [string first "\{\"update_id\":" $result]
-	set idstart $recordstart
-
+	
 	while {$recordstart != -1} {
 		set recordend [string first "\{\"update_id\":" $result $recordstart+13]
 		if {$recordend == -1} {
@@ -318,8 +319,8 @@ proc tg2irc_pollTelegram {} {
 					set tg_performer [jsonGetValue $record "audio" "performer"]
 					set tg_title [jsonGetValue $record "audio" "title"]
 					set tg_duration [jsonGetValue $record "audio" "duration"]
-					if { [ string length $tg_duration ] == 0 } {
-						set tg_duration 0
+					if {$tg_duration eq ""} {
+						set tg_duration "0"
 					}
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
@@ -361,7 +362,7 @@ proc tg2irc_pollTelegram {} {
 
 				# Check if a sticker has been sent to the Telegram group
 				if {[jsonHasKey $record "sticker"]} {
-					set emoji [jsonGetValue $record "thumb" "file_id"]
+					set emoji [jsonGetValue $record "sticker" "emoji"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -374,8 +375,8 @@ proc tg2irc_pollTelegram {} {
 				if {[jsonHasKey $record "video"]} {
 					set tg_file_id [jsonGetValue $record "video" "file_id"]
 					set tg_duration [jsonGetValue $record "video" "duration"]
-					if { [ string length $tg_duration ] == 0 } {
-						set tg_duration 0
+					if {$tg_duration eq ""} {
+						set tg_duration "0"
 					}
 
 					if {[jsonHasKey $record "caption"]} {
@@ -396,11 +397,10 @@ proc tg2irc_pollTelegram {} {
 				if {[jsonHasKey $record "voice"]} {
 					set tg_file_id [jsonGetValue $record "voice" "file_id"]
 					set tg_duration [jsonGetValue $record "voice" "duration"]
-					if { [ string length $tg_duration ] == 0 } {
-						set tg_duration 0
-					}
-
 					set tg_file_size [jsonGetValue $record "document" "file_size"]
+					if {$tg_duration eq ""} {
+						set tg_duration "0"
+					}
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -526,12 +526,15 @@ proc tg2irc_pollTelegram {} {
 		set recordstart $recordend
 	}
 
-	if {$idstart != -1} {
-		set idend [string first "," $result $idstart+13]
-		set tg_update_id [string range $result $idstart+13 $idend-1]
+	# Set the update_id for the next poll
+	set recordend [string last "\{\"update_id\":" $result]
+	if {$recordend != -1} {
+		set idend [string first "," $result $recordend+13]
+		set tg_update_id [string range $result $recordend+13 $idend-1]
 		incr tg_update_id
 	}
 
+	# ...and set a timer so it triggers the next poll
 	utimer $tg_poll_freq tg2irc_pollTelegram
 }
 
@@ -540,7 +543,7 @@ proc tg2irc_pollTelegram {} {
 # ---------------------------------------------------------------------------- #
 proc tg2irc_botCommands {chat_id msgid channel message} {
 	global tg_botname irc_botname
-	global MSG_BOT_HELP MSG_BOT_TG_TOPIC MSG_BOT_IRC_TOPIC MSG_BOT_HELP_IRCUSER MSG_BOT_IRCUSER MSG_BOT_TG_UNKNOWNUSER MSG_BOT_IRCUSERS TG_BOT_UNKNOWNCMD
+	global MSG_BOT_HELP MSG_BOT_TG_TOPIC MSG_BOT_IRC_TOPIC MSG_BOT_HELP_IRCUSER MSG_BOT_IRCUSER MSG_BOT_TG_UNKNOWNUSER MSG_BOT_IRCUSERS MSG_BOT_UNKNOWNCMD
 
 	set message [string trim [string map -nocase {"@$tg_botname" ""} $message]]
 	set parameter_start [string wordend $message 1]
@@ -593,10 +596,29 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 			imagesearch_getImage $chat_id $msgid $channel $message $parameter_start
 		}
 
+		"spotify" {
+			spotify_getTrack $chat_id $msgid $channel $message $parameter_start
+		}
+
+		"soundcloud" {
+			soundcloud_getTrack $chat_id $msgid $channel $message $parameter_start
+		}
+
+		"psn" {
+			psn_getPSNInfo $chat_id $msgid $channel $message $parameter_start
+		}
+
+		"quote" {
+			quotes_getQuote $chat_id $msgid $channel $message $parameter_start
+		}
+
+		"addquote" {
+			quotes_addQuote $chat_id $msgid $channel $message $parameter_start
+		}
+
 		default {
-			set response "[format $TG_BOT_UNKNOWNCMD "$irc_botname"]"
 			tg_sendChatAction $chat_id "typing"
-			tg_sendReplyToMessage $chat_id $msgid "markdown" "$TG_BOT_UNKNOWNCMD"
+			tg_sendReplyToMessage $chat_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
 			putchan $channel "$response"
 		}
 	}
@@ -679,7 +701,7 @@ proc ascii2utf {txt} {
 	foreach {utfstring asciistring} [array get utftable] {
 		set txt [string map [concat $asciistring $utfstring] $txt]
 	}
-	return $txt
+	return [encoding convertto unicode $txt]
 }
 
 # ---------------------------------------------------------------------------- #
@@ -755,7 +777,16 @@ proc jsonGetValue {record object key} {
 				return [string range $record [expr $keystart+$length+4] $end-1]
 			} else {
 				set end [string first "," $record [expr $keystart+$length+3]]
-				return [string range $record [expr $keystart+$length+3] $end-1]
+				if {$end != -1} {
+					return [string range $record [expr $keystart+$length+3] $end-1]
+				} else {
+					set end [string first "\}" $record [expr $keystart+$length+3]]
+					if {$end != -1} {
+						return [string trim [string range $record [expr $keystart+$length+3] $end-1]]
+					} else {
+						return "UNKNOWN"
+					}
+				}
 			}
 		}
 	}
@@ -770,13 +801,14 @@ proc jsonGetValue {record object key} {
 # Start bot by loading Telegram modules, bind actions and do a Telegram poll   #
 # ---------------------------------------------------------------------------- #
 
-# Load some stuff
 source "utftable.tcl"
 source "Telegram-API.$language.tcl"
 
-# Load modules
 source "ImageSearch.tcl"
-
+source "PSN.tcl"
+source "Quotes.tcl"
+source "Soundcloud.tcl"
+source "Spotify.tcl"
 
 bind pubm - * irc2tg_sendMessage
 bind join - * irc2tg_nickJoined
