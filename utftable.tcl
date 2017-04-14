@@ -3,113 +3,173 @@
 # http://www.charbase.com/block/miscellaneous-symbols-and-pictographs
 
 array set utftable {
-	{\\u00a1}	{°}
-	{\\u00a2}	{¢}
-	{\\u00a3}	{£}
-	{\\u00a4}	{§}
-	{\\u00a5}	{•}
-	{\\u00a6}	{¶}
-	{\\u00a7}	{ß}
-	{\\u00a8}	{®}
-	{\\u00a9}	{©}
-    {\\u00aa}	{™}
-	{\\u00ab}	{´}
-	{\\u00ac}	{¨}
-    {\\u00ae}	{Æ}
-    {\\u00af}	{Ø}
-	{\\u00b0}	{∞}
-    {\\u00b1}	{±}
-    {\\u00b2}	{≤}
-    {\\u00b3}	{≥}
-    {\\u00b4}	{¥}
-    {\\u00b5}	{µ}
-    {\\u00b6}	{∂}
-    {\\u00b7}	{∑}
-    {\\u00b8}	{∏}
-    {\\u00b9}	{π}
-    {\\u00ba}	{∫}
-    {\\u00bb}	{ª}
-    {\\u00bc}	{º}
-    {\\u00bd}	{Ω}
-    {\\u00be}	{æ}
-    {\\u00bf}	{ø}
-	{\\u00c0}	{¿}
-    {\\u00c1}	{¡}
-    {\\u00c2}	{¬}
-    {\\u00c3}	{√}
-    {\\u00c4}	{ƒ}
-    {\\u00c5}	{≈}
-    {\\u00c6}	{∆}
-    {\\u00c7}	{«}
-    {\\u00c8}	{»}
-    {\\u00c9}	{…}
-    {\\u00ca}	{ }
-	{\\u00cb}	{À}
-    {\\u00cc}	{Ã}
-    {\\u00cd}	{Õ}
-    {\\u00ce}	{Œ}
-    {\\u00cf}	{œ}
-	{\\u00e0}	{‡}
-    {\\u00e1}	{·}
-    {\\u00e2}	{‚}
-    {\\u00e3}	{„}
-    {\\u00e4}	{‰}
-    {\\u00e5}	{Â}
-    {\\u00e6}	{Ê}
-    {\\u00e7}	{Á}
-    {\\u00e8}	{Ë}
-	{\\u00e9}	{È}
-    {\\u00ea}	{Í}
-    {\\u00eb}	{Î}
-    {\\u00ec}	{Ï}
-    {\\u00ed}	{Ì}
-    {\\u00ee}	{Ó}
-    {\\u00ef}	{Ô}
-	{\\u00f0}	{}
-    {\\u00f1}	{Ò}
-    {\\u00f2}	{Ú}
-    {\\u00f3}	{Û}
-    {\\u00f4}	{Ù}
-    {\\u00f5}	{ı}
-    {\\u00f6}	{ˆ}
-    {\\u00f7}	{˜}
-    {\\u00f8}	{¯}
-    {\\u00f9}	{˘}
-    {\\u00fa}	{˙}
-    {\\u00fb}	{˚}
-    {\\u00fc}	{¸}
-    {\\u00fd}	{˝}
-    {\\u00fe}	{˛}
-    {\\u00ff}	{ˇ}
-	{\\u203c}	{" :!!:"}
-	{\\u2049}	{" :!?:"}
+	{\\u00a1}	{¬°}
+	{\\u00a2}	{¬¢}
+	{\\u00a3}	{¬£}
+	{\\u00a4}	{‚Ç¨}
+	{\\u00a5}	{¬•}
+	{\\u00a6}	{≈†}
+	{\\u00a7}	{¬ß}
+	{\\u00a8}	{≈°}
+	{\\u00a9}	{¬©}
+	{\\u00aa}	{¬™}
+	{\\u00ab}	{¬´}
+	{\\u00ac}	{¬¨}
+	{\\u00ae}	{¬Æ}
+	{\\u00af}	{¬Ø}
+	{\\u00b0}	{¬∞}
+	{\\u00b1}	{¬±}
+	{\\u00b2}	{¬≤}
+	{\\u00b3}	{¬≥}
+	{\\u00b4}	{≈Ω}
+	{\\u00b5}	{¬µ}
+	{\\u00b6}	{¬∂}
+	{\\u00b7}	{¬∑}
+	{\\u00b8}	{≈æ}
+	{\\u00b9}	{¬π}
+	{\\u00ba}	{¬∫}
+	{\\u00bb}	{¬ª}
+	{\\u00bc}	{≈í}
+	{\\u00bd}	{≈ì}
+	{\\u00be}	{≈∏}
+	{\\u00bf}	{¬ø}
+	{\\u00c0}	{√Ä}
+	{\\u00c1}	{√Å}
+	{\\u00c2}	{√Ç}
+	{\\u00c3}	{√É}
+	{\\u00c4}	{√Ñ}
+	{\\u00c5}	{√Ö}
+	{\\u00c6}	{√Ü}
+	{\\u00c7}	{√á}
+	{\\u00c8}	{√à}
+	{\\u00c9}	{√â}
+	{\\u00ca}	{√ä}
+	{\\u00cb}	{√ã}
+	{\\u00cc}	{√å}
+	{\\u00cd}	{√ç}
+	{\\u00ce}	{√é}
+	{\\u00cf}	{√è}
+	{\\u00e0}	{√†}
+	{\\u00e1}	{√°}
+	{\\u00e2}	{√¢}
+	{\\u00e3}	{√£}
+	{\\u00e4}	{√§}
+	{\\u00e5}	{√•}
+	{\\u00e6}	{√¶}
+	{\\u00e7}	{√ß}
+	{\\u00e8}	{√®}
+	{\\u00e9}	{√©}
+	{\\u00ea}	{√™}
+	{\\u00eb}	{√´}
+	{\\u00ec}	{√¨}
+	{\\u00ed}	{√≠}
+	{\\u00ee}	{√Æ}
+	{\\u00ef}	{√Ø}
+	{\\u00f0}	{√∞}
+	{\\u00f1}	{√±}
+	{\\u00f2}	{√≤}
+	{\\u00f3}	{√≥}
+	{\\u00f4}	{√¥}
+	{\\u00f5}	{√µ}
+	{\\u00f6}	{√∂}
+	{\\u00f7}	{√∑}
+	{\\u00f8}	{√∏}
+	{\\u00f9}	{√π}
+	{\\u00fa}	{√∫}
+	{\\u00fb}	{√ª}
+	{\\u00fc}	{√º}
+	{\\u00fd}	{√Ω}
+	{\\u00fe}	{√æ}
+	{\\u00ff}	{√ø}
+	{\\u00fb}	{≈±}
+	{\\u00fc}	{√º}
+	{\\u00fd}	{√Ω}
+	{\\u00fe}	{≈£}
+	{\\u00ff}	{Àô}
+	{\\u203c}	{" !!"}
+	{\\u2049}	{" !?"}
+	{\\u2105}	{" c/o"}
 	{\\u2139}	{" :information_source:"}
+	{\\u2194}	{" :left_right:"}
+	{\\u2195}	{" :up_down:"}
+	{\\u2196}	{" :northwest:"}
+	{\\u2197}	{" :northeaast:"}
+	{\\u2198}	{" :southeast:"}
+	{\\u2199}	{" :southwest:"}
+	{\\u21a9}	{" :back_left:"}
+	{\\u21aa}	{" :back_right:"}
+	{\\u231a}	{" :watch:"}
+	{\\u231b}	{" :hourglass:"}
 	{\\u23ec}	{" :arrow_double_down:"}
+	{\\u24c2}	{" :m:"}
 	{\\u25aa}	{" :black_small_square:"}
 	{\\u25ab}	{" :white_small_square:"}
+	{\\u25c0}	{" :arrow_backward:"}
+	{\\u25fb}	{" :white_medium_square:"}
 	{\\u25fc}	{" :black_medium_square:"}
 	{\\u25fd}	{" :white_medium_small_square:"}
+	{\\u2600}	{" :sunny:"}
+	{\\u2601}	{" :cloud:"}
+	{\\u2615}	{" :coffee:"}
+	{\\u2648}	{" :aries:"}
+	{\\u2649}	{" :taurus:"}
+	{\\u264a}	{" :gemini:"}
+	{\\u264b}	{" :cancer:"}
+	{\\u264d}	{" :virgo:"}
+	{\\u264e}	{" :libra:"}
+	{\\u2650}	{" :sagittarius:"}
+	{\\u2651}	{" :capricorn:"}
+	{\\u2652}	{" :aquarius:"}
+	{\\u2653}	{" :pisces:"}
 	{\\u2660}	{" :spades:"}
+	{\\u2663}	{" :clubs:"}
+	{\\u2665}	{" :hearts:"}
+	{\\u2668}	{" :warning_hot:"}
 	{\\u267b}	{" :recycle:"}
+	{\\u267f}	{" :wheelchair:"}
+	{\\u2693}	{" :anchor:"}
+	{\\u26a0}	{" :warning:"}
 	{\\u26a1}	{" :zap:"}
 	{\\u26aa}	{" :white_circle:"}
 	{\\u26ab}	{" :black_circle:"}
+	{\\u26b0}	{" :coffin:"}
+	{\\u26bd}	{" :soccer:"}
+	{\\u26d4}	{" :no_entry:"}
+	{\\u26ea}	{" :church:"}
+	{\\u26f2}	{" :fountain:"}
 	{\\u26f3}	{" :golf:"}
+	{\\u26f5}	{" :sailboat:"}
+	{\\u26fa}	{" :tent:"}
+	{\\u26fb}	{" :gaspump:"}
 	{\\u2702}	{" :scissors:"}
+	{\\u2705}	{" :check_mark:"}
+	{\\u2708}	{" :airplane:"}
+	{\\u2709}	{" :envelope:"}
+	{\\u270a}	{" :raised_fist:"}
+	{\\u270c}	{" :v:"}
+	{\\u270f}	{" :pencil:"}
+	{\\u2712}	{" :ink_pen:"}
 	{\\u2716}	{" :heavy_multiplication_x:"}
 	{\\u2728}	{" :sparkles:"}
 	{\\u2734}	{" :eight_pointed_black_star:"}
+	{\\u2744}	{" :snowflake:"}
 	{\\u2753}	{" :?_black:"}
 	{\\u2754}	{" :?_grey:"}
 	{\\u2755}	{" :!_grey:"}
 	{\\u2757}	{" :!:"}
+	{\\u2763}	{" :heart_exclamation_mark:"}
 	{\\u2764}	{" :heart:"}
 	{\\u2797}	{" :heavy_division_sign:"}
 	{\\u27b0}	{" :curly_loop:"}
+	{\\u2935}	{" :arrow_heading_down:"}
+	{\\u2b05}	{" :arrow_left:"}
 	{\\u2b1b}	{" :black_large_square:"}
 	{\\u2b1c}	{" :white_large_square:"}
 	{\\u2b50}	{" :star:"}
+	{\\u2b55}	{" :circle:"}
 	{\\u3030}	{" :wavy_dash:"}
+	{\\ud83c\\udd8e}	{" :bloodtype_ab:"}
+	{\\ud83c\\udd93}	{" :free:"}
 	{\\ud83c\\udde6\\ud83c\\udde6}	{" :flag_:"}
 	{\\ud83c\\udde6\\ud83c\\udde7}	{" :flag_:"}
 	{\\ud83c\\udde6\\ud83c\\udde8}	{" :flag_:"}
@@ -307,7 +367,7 @@ array set utftable {
 	{\\ud83c\\udf31}	{" :seedling:"}
 	{\\ud83c\\udf32}	{" :evergreen_tree:"}
 	{\\ud83c\\udf33}	{" :deciduous_tree:"}
-	{\\ud83c\\udf34}	{" :palmtree:"}
+	{\\ud83c\\udf34}	{" :palm_tree:"}
 	{\\ud83c\\udf35}	{" :cactus:"}
 	{\\ud83c\\udf36}	{" :hot_pepper:"}
 	{\\ud83c\\udf37}	{" :tulip:"}
@@ -402,6 +462,13 @@ array set utftable {
 	{\\ud83c\\udf93}	{" :graduation_cap:"}
 	{\\ud83c\\udf94}	{" :heart_tip:"}
 	{\\ud83c\\udf95}	{" :bouquet:"}
+	{\\ud83c\\udf96}	{" :medal:"}
+	{\\ud83c\\udf97}	{" :ribbon:"}
+	{\\ud83c\\udf98}	{" :keyboard:"}
+	{\\ud83c\\udf99}	{" :microphone:"}
+	{\\ud83c\\udf9a}	{" :mixer_slider:"}
+	{\\ud83c\\udf9b}	{" :mixer_knobs:"}
+	{\\ud83c\\udf9c}	{" :music_note:"}
 	{\\ud83c\\udfa9}	{" :tophat:"}
 	{\\ud83c\\udfaa}	{" :circus_tent:"}
 	{\\ud83c\\udfae}	{" :video_game:"}
@@ -479,11 +546,16 @@ array set utftable {
 	{\\ud83d\\udca2}	{" :anger:"}
 	{\\ud83d\\udca3}	{" :bomb:"}
 	{\\ud83d\\udca4}	{" :zzz:"}
+	{\\ud83d\\udca5}	{" :boom:"}
+	{\\ud83d\\udca6}	{" :splash:"}
 	{\\ud83d\\udca7}	{" :droplet:"}
 	{\\ud83d\\udca8}	{" :dash:"}
 	{\\ud83d\\udca9}	{" :poo:"}
 	{\\ud83d\\udcaa}	{" :muscle:"}
+	{\\ud83d\\udcab}	{" :dizzy:"}
+	{\\ud83d\\udcb0}	{" :moneybag:"}
 	{\\ud83d\\udcc0}	{" :dvd:"}
+	{\\ud83d\\udcdd}	{" :memo:"}
 	{\\ud83d\\udcf0}	{" :newspaper:"}
 	{\\ud83d\\udcfb}	{" :radio:"}
 	{\\ud83d\\udcfc}	{" :vhs:"}
@@ -494,7 +566,7 @@ array set utftable {
 	{\\ud83d\\udd11}	{" :key:"}
 	{\\ud83d\\udd12}	{" :padlock_locked:"}
 	{\\ud83d\\udd13}	{" :padlock_unlock:"}
-	{\\ud83d\\udd14}	{" :thinking:"}
+	{\\ud83d\\udd14}	{" :bell:"}
 	{\\ud83d\\udd15}	{" :no_bell:"}
 	{\\ud83d\\udd16}	{" :bookmark:"}
 	{\\ud83d\\udd17}	{" :link:"}
@@ -604,11 +676,15 @@ array set utftable {
 	{\\ud83d\\udea9}	{" ::triangular_flag_on_post:"}
 	{\\ud83d\\udeab}	{" :no_entry_sign:"}
 	{\\ud83d\\udeb2}	{" :bicycle:"}
+	{\\ud83d\\udeb5}	{" :cyclist:"}
+	{\\ud83d\\udebf}	{" :shower:"}
 	{\\ud83d\\udf44}	{" :mushroom:"}
 	{\\ud83d\\udf7a}	{" :beer:"}
 	{\\ud83d\\udffb}	{" "}
 	{\\ud83e\\udd10}	{" :zipper_mouth:"}
 	{\\ud83e\\udd11}	{" :money_mouth:"}
+	{\\ud83e\\udd13}	{" :nerd:"}
+	{\\ud83e\\udd14}	{" :thinking:"}
 	{\\ud83e\\udd17}	{" :hugging_face:"}
 	{\\udbb8\\uddc4}	{" :monkey_face:"}
 	{\\uddba\\udf1a}	{" :hearts:"}
@@ -623,16 +699,36 @@ array set stickertable {
 	{AAQEABOts2MwAARERrlaWMzXi8J_AAIC}	{"Che Guevaris - "}
 	{AAQEABPOomEwAAQqtykoeUY8lou3AAIC}	{"Julius Cesar - https://telegram.org/file/811140801/1/14Ka_5LSkus/11ef924b87783bd339"}
 	{AAQEABNRmYQrAATLequs1ck4PNl7AQABAg}	{"Marilyn Monroe - https://telegram.org/file/811140117/2/dGMVFePbDos/68ae9b4e90b10c1fb8"}
-	{AAQEABOEd2kwAAT24gqehv_rqF5JAAIC}	{"Unknown - "}
-	{AAQEABPFRIYrAATlp6QFaaAJCkI4AQABAg}	{"Unknown - "}
+	{AAQEABOEd2kwAAT24gqehv_rqF5JAAIC}	{"Elvis Presley - "}
+	{AAQEABPFRIYrAATlp6QFaaAJCkI4AQABAg}	{"Arthur C. Doyle - "}
 	{AAQEABNeCWswAARz2dBqScX90ZsPAAIC}	{"Mark Twain - https://telegram.org/file/811140849/1/cpP6i93xxaA/c082e8a2ad59522cfd"}
-	{AAQEABPGomEwAAQm3v4nLOR3uoC6AAIC}	{"Unknown - "}
-	{AAQEABMGbGMwAARSZNANBNBQvBkxAQABAg}	{"Unknown - "}
+	{AAQEABPGomEwAAQm3v4nLOR3uoC6AAIC}	{"George Washington - "}
+	{AAQEABMGbGMwAARSZNANBNBQvBkxAQABAg}	{"H.P. Lovecraft - "}
 	{AAQEABNPn2EwAASL_WcSQChc61S4AAIC}	{"Mahatma Gandhi - https://telegram.org/file/811140053/1/A6JVcXDZiZM/d28d4a5029d010e953"}
 	{AAQEABMiuWEwAATJEb7_dTu2iRemAAIC}	{"Cleopatra - https://telegram.org/file/811140617/2/JdFfZi4Ruhk/3444e8ea6e1a88ace4"}
 	{AAQEABN_CWswAARC8Q8U6_h76-oOAAIC}	{"Jimi Hendrix - https://telegram.org/file/811140525/2/vCDL8Gv_k6U/a39c95e5aa621c46c6"}
-	{AAQEABOWqGEwAATCLTFEv_jbcmq2AAIC}	{"Unknown - "}
+	{AAQEABOWqGEwAATCLTFEv_jbcmq2AAIC}	{"Benjamin Franklin - "}
+	{"\\ud83d\\udc4b"}	{"Kurt Cobain - "}
+	{"\\ud83d\\udc80"}	{"Franz Kafka - https://telegram.org/file/811140332/2/KJzzslK440U/b11181fd7bbf1c56aa"}
+	{"\\ud83d\\ude26"}	{"John Lennon - https://telegram.org/file/811140517/1/yDccYORy60c/da6c69de6ad5afcb8f"}
+	{"\\ud83d\\ude32"}	{"Jay Hawkins - https://telegram.org/file/811140885/1/r4SVbb90Quc/7333932a5fdcf5f057"}
+	{"\\ud83d\\ude14"}	{"Charlie Chaplin - https://telegram.org/file/811140437/2/VdpCps5zB1o/c906dac5e81170dc74"}
+	{"\\ud83d\\ude15"}	{"Edgar Allan Poe - https://telegram.org/file/811140654/1/xFdm58wPNH4/191814f44f5d36f9a4"}
+	{"\\ud83d\\udc4c"}	{"J.R.R. Tolkien - https://telegram.org/file/811140679/1/qyTW5F98KLA/ed2db7cc24b8938e07"}
+	{"\\ud83d\\ude20"}	{"Coco Chanel - https://telegram.org/file/811140860/1/_sVhXePrr-I/02a6e44c917d7c7f6f"}
+	{"\\ud83d\\ude21"}	{"Napoleon Bonaparte - https://telegram.org/file/811140354/1/-NUBye754Pw/2fa1e3148047b624b3"}
+	{"\\ud83d\\ude4c"}	{"Albert Einstein - https://telegram.org/file/811140981/1/9ypk7z_8T4Q/4381a7a74256fe0b9b"}
+	{"\\u263a\\ufe0f"}	{"Leopold von Sacher-Masoch - "}
+	{"\\ud83d\\ude16"}	{"Dante Alighieri - https://telegram.org/file/811140444/1/NqWMRLWzg1U/623bd278ff0179ded9"}
+	{"\\ud83d\\ude06"}	{"Bob Marley - https://telegram.org/file/811140235/2/_ZthaAI89Ds/4a2f85c6feac9e1bca"}
+	{"\\ud83d\\udc4d"}	{"Louis Armstrong - "}
+	{"\\ud83d\\ude03"}	{"Steve Jobs - https://telegram.org/file/811140823/2/gEXq-ZISs9g/55f6c9c9f87c4dceb0"}
+	{"\\ud83d\\ude03"}	{"George Carlin - "}
+	{"\\ud83d\\udc48"}	{"Richard Wagner - "}
+	{"\\ud83d\\ude31"}	{"Edvard Munch - "}
+	{"\\ud83d\\ude2f"}	{"Malcom X - "}
+	{"\\ud83d\\ude0a"}	{"Walt Disney - "}
+
 	{AAQEABNsymEwAAQjRc1BdLs5LtVjAAIC}	{"Abraham Lincoln - https://telegram.org/file/811140066/1/7fM-CwKk4F0/53f9f1fc731c63547d"}
 	{AAQEABMwvGEwAASDDInROz3Y6cuaAAIC}	{"Unknown - "}
 }
-
