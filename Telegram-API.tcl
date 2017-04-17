@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20170414 for Eggdrop                                    #
+# Telegram-API module v20170417 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -801,14 +801,14 @@ proc jsonGetValue {record object key} {
 # Start bot by loading Telegram modules, bind actions and do a Telegram poll   #
 # ---------------------------------------------------------------------------- #
 
-source "utftable.tcl"
-source "Telegram-API.$language.tcl"
+source "[file dirname [info script]]/utftable.tcl"
+source "[file dirname [info script]]/Telegram-API.$language.tcl"
 
-source "ImageSearch.tcl"
-source "PSN.tcl"
-source "Quotes.tcl"
-source "Soundcloud.tcl"
-source "Spotify.tcl"
+source "[file dirname [info script]]/ImageSearch.tcl"
+source "[file dirname [info script]]/PSN.tcl"
+source "[file dirname [info script]]/Quotes.tcl"
+source "[file dirname [info script]]/Soundcloud.tcl"
+source "[file dirname [info script]]/Spotify.tcl"
 
 bind pubm - * irc2tg_sendMessage
 bind join - * irc2tg_nickJoined
@@ -823,4 +823,4 @@ initialize
 
 tg2irc_pollTelegram
 
-putlog "Script loaded: conf/scripts/Telegram-API/Telegram-API.tcl ($tg_botname)"
+putlog "Script loaded: Telegram-API.tcl ($tg_botname)"
