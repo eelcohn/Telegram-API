@@ -1,34 +1,4 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20170417 for Eggdrop                                    #
-#                                                                              #
-# written by Eelco Huininga 2016-2017                                          #
-# ---------------------------------------------------------------------------- #
-
-# ---------------------------------------------------------------------------- #
-# Configuration settings                                                       #
-# ---------------------------------------------------------------------------- #
-set tg_bot_id			123456789
-set tg_bot_token		AABCD-EfGhIj_KlMn_OpQrStUvWxYz12345
-set tg_poll_freq		5
-set tg_owner_id			98765432
-set tg_web_page_preview	false
-set language			"english"
-
-array set tg_channels {
-	"-21436587"		"#lamer"
-	"-171615141"		"#lamer-test"
-}
-
-# ---------------------------------------------------------------------------- #
-# Global internal variables                                                    #
-# ---------------------------------------------------------------------------- #
-set tg_update_id	0
-set tg_botname		""
-set irc_botname		""
-
-
-
-# ---------------------------------------------------------------------------- #
 # Initialization procedures                                                    #
 # ---------------------------------------------------------------------------- #
 # Initialize some variables (botnames)                                         #
@@ -801,6 +771,7 @@ proc jsonGetValue {record object key} {
 # Start bot by loading Telegram modules, bind actions and do a Telegram poll   #
 # ---------------------------------------------------------------------------- #
 
+source "[file dirname [info script]]/Telegram-config.tcl"
 source "[file dirname [info script]]/utftable.tcl"
 source "[file dirname [info script]]/Telegram-API.$language.tcl"
 
