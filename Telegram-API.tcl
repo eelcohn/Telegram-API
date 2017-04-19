@@ -786,9 +786,9 @@ proc jsonGetValue {record object key} {
 # Start bot by loading Telegram modules, bind actions and do a Telegram poll   #
 # ---------------------------------------------------------------------------- #
 
-source "[file dirname [info script]]/Telegram-config.tcl"
-source "[file dirname [info script]]/utftable.tcl"
+source "[file dirname [info script]]/Telegram-API-config.tcl"
 source "[file dirname [info script]]/Telegram-API.$language.tcl"
+source "[file dirname [info script]]/utftable.tcl"
 
 source "[file dirname [info script]]/ImageSearch.tcl"
 source "[file dirname [info script]]/PSN.tcl"
