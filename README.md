@@ -1,6 +1,8 @@
 # Telegram-API
 A gateway between IRC chat channels and Telegram groups
 
+This script requires `curl` and `jq`.
+
 How do I setup this IRC-Telegram gateway?<br>
 1. First get an eggdrop bot up and running<br>
 2. On your Telegram client, send `/start` to @BotFather<br>
