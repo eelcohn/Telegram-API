@@ -21,7 +21,12 @@ set irc_botname		""
 proc initialize {} {
 	global tg_bot_id tg_bot_token tg_botname irc_botname nick
 
-	set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getMe]
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getMe]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using getMe method: $result"
+		return -1
+	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
 		die "Telegram-API: bad result from getMe method: [jsonGetValue $result "" "description"]"
@@ -41,7 +46,12 @@ proc initialize {} {
 proc tg_sendChatAction {chat_id action} {
 	global tg_bot_id tg_bot_token
 
-	set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendChatAction -d chat_id=$chat_id -d action=$action]
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendChatAction -d chat_id=$chat_id -d action=$action]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendChatAction method: $result"
+		return -1
+	}
 	return result
 }
 
@@ -51,17 +61,27 @@ proc tg_sendChatAction {chat_id action} {
 proc tg_sendMessage {chat_id parse_mode message} {
 	global tg_bot_id tg_bot_token tg_web_page_preview
 
-	set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendMessage -d disable_web_page_preview=$tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d text=$message]
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendMessage -d disable_web_page_preview=$tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d text=$message]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendMessage method: $result"
+		return -1
+	}
 	return result
 }
 
 # ---------------------------------------------------------------------------- #
-# Sends a message to a chat group in Telegram                                  #
+# Sends a reply-to message to a chat group in Telegram                         #
 # ---------------------------------------------------------------------------- #
 proc tg_sendReplyToMessage {chat_id msg_id parse_mode message} {
 	global tg_bot_id tg_bot_token tg_web_page_preview
 
-	set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendMessage -d disable_web_page_preview=$tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d reply_to_message_id=$msg_id -d text=$message]
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendMessage -d disable_web_page_preview=$tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d reply_to_message_id=$msg_id -d text=$message]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendMessage reply method: $result"
+		return -1
+	}
 	return result
 }
 
@@ -71,7 +91,12 @@ proc tg_sendReplyToMessage {chat_id msg_id parse_mode message} {
 proc tg_sendPhoto {chat_id msg_id photo caption} {
 	global tg_bot_id tg_bot_token
 
-	set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendPhoto -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d photo=$photo -d caption=$caption]
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendPhoto -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d photo=$photo -d caption=$caption]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendPhoto method: $result"
+		return -1
+	}
 	return result
 }
 
@@ -81,7 +106,12 @@ proc tg_sendPhoto {chat_id msg_id photo caption} {
 proc tg_kickChatMember {chat_id user_id} {
 	global tg_bot_id tg_bot_token
 
-	set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/kickChatMember -d chat_id=$chat_id -d user_id=$user_id]
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/kickChatMember -d chat_id=$chat_id -d user_id=$user_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using kickChatMember method: $result"
+		return -1
+	}
 	return result
 }
 
@@ -91,7 +121,12 @@ proc tg_kickChatMember {chat_id user_id} {
 proc tg_getChat {chat_id} {
 	global tg_bot_id tg_bot_token
 
-	set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getChat -d chat_id=$chat_id]
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getChat -d chat_id=$chat_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using getChat method: $result"
+		return -1
+	}
 	return result
 }
 
@@ -101,7 +136,12 @@ proc tg_getChat {chat_id} {
 proc tg_getChatAdministrators {chat_id} {
 	global tg_bot_id tg_bot_token
 
-	set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getChatAdministrators -d chat_id=$chat_id]
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getChatAdministrators -d chat_id=$chat_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using getChatAdministrators method: $result"
+		return -1
+	}
 	return result
 }
 
@@ -111,7 +151,12 @@ proc tg_getChatAdministrators {chat_id} {
 proc tg_getChatMembersCount {chat_id} {
 	global tg_bot_id tg_bot_token
 
-	set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getChatMembersCount -d chat_id=$chat_id]
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getChatMembersCount -d chat_id=$chat_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using getChatMembersCount method: $result"
+		return -1
+	}
 	return result
 }
 
@@ -121,7 +166,12 @@ proc tg_getChatMembersCount {chat_id} {
 proc tg_getChatMember {chat_id user_id} {
 	global tg_bot_id tg_bot_token
 
-	set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getChatMember -d chat_id=$chat_id -d user_id=$user_id]
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getChatMember -d chat_id=$chat_id -d user_id=$user_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using getChatMember method: $result"
+		return -1
+	}
 	return result
 }
 
@@ -147,13 +197,13 @@ proc irc2tg_sendMessage {nick uhost hand channel msg} {
 # Let the Telegram group(s) know that someone joined an IRC channel            #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_nickJoined {nick uhost handle channel} {
-	global irc_botname
+	global irc_botname serveraddress
 	global tg_channels MSG_IRC_NICKJOINED
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {$nick ne "$irc_botname"} {
-				tg_sendMessage $chat_id "html" [format $MSG_IRC_NICKJOINED "$nick" "irc.tweakers.net/$channel" "$channel"]
+#				tg_sendMessage $chat_id "html" [format $MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
 			}
 		}
 	}
@@ -164,11 +214,11 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 # Let the Telegram group(s) know that someone has left an IRC channel          #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_nickLeft {nick uhost handle channel message} {
-	global tg_channels MSG_IRC_NICKLEFT
+	global  serveraddress tg_channels MSG_IRC_NICKLEFT
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-			tg_sendMessage $chat_id "html" [format $MSG_IRC_NICKLEFT "$nick" "irc.tweakers.net/$channel" "$channel" "$message"]
+#			tg_sendMessage $chat_id "html" [format $MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
 		}
 	}
 	return 0
@@ -206,12 +256,12 @@ proc irc2tg_nickChange {nick uhost handle channel newnick} {
 # Inform the Telegram group(s) that the topic of an IRC channel has changed    #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_topicChange {nick uhost handle channel topic} {
-	global tg_channels MSG_IRC_TOPICCHANGE
+	global  serveraddress tg_channels MSG_IRC_TOPICCHANGE
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {$nick ne "*"} {
-				tg_sendMessage $chat_id "html" [format $MSG_IRC_TOPICCHANGE "$nick" "irc.tweakers.net/$channel" "$channel" "$topic"]
+				tg_sendMessage $chat_id "html" [format $MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"]
 			}
 		}
 	}
@@ -246,8 +296,8 @@ proc tg2irc_pollTelegram {} {
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getUpdates?offset=$tg_update_id]
 	} ] } {
-		putlog "Telegram-API: error while polling telegram: $result"
-		return 1
+		putlog "Telegram-API: cannot connect to api.telegram.com using getUpdates method: $result"
+		return -1
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
@@ -527,7 +577,7 @@ proc tg2irc_pollTelegram {} {
 # Respond to group commands send by Telegram users                             #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_botCommands {chat_id msgid channel message} {
-	global tg_botname irc_botname
+	global serveraddress tg_botname irc_botname
 	global MSG_BOT_HELP MSG_BOT_TG_TOPIC MSG_BOT_IRC_TOPIC MSG_BOT_HELP_IRCUSER MSG_BOT_IRCUSER MSG_BOT_TG_UNKNOWNUSER MSG_BOT_IRCUSERS MSG_BOT_UNKNOWNCMD
 
 	set message [string trim [string map -nocase {"@$tg_botname" ""} $message]]
@@ -546,7 +596,7 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 		"irctopic" {
 			tg_sendChatAction $chat_id "typing"
 
-			set response "[format $MSG_BOT_TG_TOPIC "irc.tweakers.net/$channel" "$channel" "[topic $channel]"]"
+			set response "[format $MSG_BOT_TG_TOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
 			tg_sendReplyToMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
@@ -558,9 +608,9 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 			if {$handle != ""} {
 				if {[onchan $handle $channel]} {
 					set online_since [getchanjoin $handle $channel]
-					set response "[format $MSG_BOT_IRCUSER $handle $online_since irc.tweakers.net/$channel $channel [getchanhost $handle $channel]]"
+					set response "[format $MSG_BOT_IRCUSER "$handle" "$online_since" "$serveraddress/$channel" "$channel" "[getchanhost $handle $channel]"]"
 				} else {
-					set response "[format $MSG_BOT_TG_UNKNOWNUSER $handle irc.tweakers.net/$channel $channel]"
+					set response "[format $MSG_BOT_TG_UNKNOWNUSER "$handle" "$serveraddress/$channel" "channel"]"
 				}
 			} else {
 				set response $MSG_BOT_HELP_IRCUSER
@@ -572,7 +622,7 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 		"ircusers" {
 			tg_sendChatAction $chat_id "typing"
 
-			set response "[format $MSG_BOT_IRCUSERS irc.tweakers.net/$channel $channel [chanlist $channel]]"
+			set response "[format $MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[chanlist $channel]"]"
 			tg_sendReplyToMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
@@ -604,7 +654,7 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 		default {
 			tg_sendChatAction $chat_id "typing"
 			tg_sendReplyToMessage $chat_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
-			putchan $channel "$response"
+			putchan $channel "$MSG_BOT_UNKNOWNCMD"
 		}
 	}
 }
@@ -633,7 +683,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 
 		"connect" {
 			if {$from_id == $tg_owner_id} {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_CONNECTED "-12345" "Lamer test" "#lamer-test"]"
+				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_CONNECTED "-171580291" "Loungecafé test" "#loungecafe"]"
 			} else {
 				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNAUTHORIZED"
 			}
@@ -641,7 +691,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 
 		"disconnect" {
 			if {$from_id == $tg_owner_id} {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_DISCONNECTED "-12345" "Lamer test" "#lamer-test"]"
+				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_DISCONNECTED "-171580291" "Loungecafé test" "#loungecafe"]"
 			} else {
 				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNAUTHORIZED"
 			}
@@ -649,6 +699,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 
 		"binds" {
 			if {$from_id == $tg_owner_id} {
+				putquick "PRIVMSG EelCapone binds=[binds]"
 				tg_sendReplyToMessage $from_id $msgid "markdown" "[binds]"
 			} else {
 				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNAUTHORIZED"
