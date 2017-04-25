@@ -22,7 +22,12 @@ proc psn_getPSNInfo {chat_id msgid channel message parameter_start} {
 	tg_sendChatAction $chat_id "typing"
 
 	set query [string map {" " "%20"} [string trim [string range $message $parameter_start end]]]
-	set result [exec curl --tlsv1.2 -s -X GET https://my.playstation.com/$query]
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X GET https://my.playstation.com/$query]
+	} ] } {
+		putlog "PSN.tcl: cannot connect to my.playstation.com: $result"
+		return 1
+	}
 	
 	set start [string first "<img class=\"avatar\" alt=\"" $result]
 	if {$start != -1} {
