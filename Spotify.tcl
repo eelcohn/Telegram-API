@@ -20,7 +20,12 @@ proc spotify_getTrack {chat_id msgid channel message parameter_start} {
 	tg_sendChatAction $chat_id "typing"
 
 	set spotifyquery [string map {" " "%20"} [string trim [string range $message $parameter_start end]]]
-	set result [exec curl --tlsv1.2 -s -X GET https://api.spotify.com/v1/search?q=$spotifyquery&type=track&limit=1]
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X GET https://api.spotify.com/v1/search?q=$spotifyquery&type=track&limit=1]
+	} ] } {
+		putlog "Spotify.tcl: cannot connect to api.spotify.com using search method: $result"
+		return -1
+	}
 
 	set result [string map {" : " ":"} $result]
 	if {[jsonGetValue $result "" "total"] eq "0"} {
