@@ -673,7 +673,8 @@ array set utftable {
 	{\\ud83d\\ude4b}	{" :girl_raising_hand:"}
 	{\\ud83d\\ude59}	{" :sw_vine:"}
 	{\\ud83d\\ude95}	{" :car:"}
-	{\\ud83d\\udea9}	{" ::triangular_flag_on_post:"}
+	{\\ud83d\\udea0}	{" :mountain_cableway:"}
+	{\\ud83d\\udea9}	{" :triangular_flag_on_post:"}
 	{\\ud83d\\udeab}	{" :no_entry_sign:"}
 	{\\ud83d\\udeb2}	{" :bicycle:"}
 	{\\ud83d\\udeb5}	{" :cyclist:"}
