@@ -527,6 +527,7 @@ array set utftable {
 	{\\ud83d\\udc4b}	{" :hand_wave:"}
 	{\\ud83d\\udc4c}	{" :hand_ok:"}
 	{\\ud83d\\udc4d}	{" (Y)"}
+	{\\ud83d\\udc4d\\ud83c\\udffc}	{" (Y)"}
 	{\\ud83d\\udc4e}	{" (N)"}
 	{\\ud83d\\udc4f}	{" :hand_clap:"}
 	{\\ud83d\\udc7d}	{" :alien:"}
