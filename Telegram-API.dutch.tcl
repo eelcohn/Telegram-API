@@ -22,7 +22,7 @@ set MSG_TG_STICKERSENT		"\026%1\$s@Telegram heeft een sticker verstuurd (%2\$s).
 set MSG_TG_VIDEOSENT		"\026%1\$s@Telegram heeft een video verstuurd%2\$s (%3\$s s). Gebruik \026/ctcp %4\$s tgfile %5\$s \026om het bestand te downloaden."
 set MSG_TG_VOICESENT		"\026%1\$s@Telegram heeft een voicebestand verstuurd: %2\$s (%3\$s bytes). Gebruik \026/ctcp %4\$s tgfile %5\$s \026om het bestand te downloaden."
 set MSG_TG_CONTACTSENT		"\026%1\$s@Telegram heeft een contact verstuurd: %2\$s (%3\$s %4\$s).\026"
-set MSG_TG_LOCATIONSENT		"\026%1\$s@Telegram heeft een locatie verstuurd (longitude=%2\$s latitude=%2\$s).\026"
+set MSG_TG_LOCATIONSENT		"\026%1\$s@Telegram heeft een locatie verstuurd (longitude=%2\$s latitude=%3\$s).\026"
 set MSG_TG_VENUESENT		"\026%1\$s@Telegram heeft een venue verstuurd: location=%2\$s title=%3\$s address=%4\$s foursquare_id=%5\$s.\026"
 set MSG_TG_USERADD		"\026%1\$s@Telegram heeft %2\$s aan de Telegram groep toegevoegd.\026"
 set MSG_TG_USERLEFT		"\026%1\$s@Telegram heeft %2\$s uit de Telegram groep verwijderd.\026"
