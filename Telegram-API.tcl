@@ -327,7 +327,8 @@ proc tg2irc_pollTelegram {} {
 				}
 			}
 
-			# Check if this record is a group chat record...
+			# Check if this record is a group or supergroup chat record...
+			"supergroup" -
 			"group" {
 				set chatid [jsonGetValue $record "chat" "id"]
 				set name [concat [jsonGetValue $record "from" "first_name"] [jsonGetValue $record "from" "last_name"]]
@@ -539,20 +540,20 @@ proc tg2irc_pollTelegram {} {
 				}
 			}
 
-			# Check if this record is a supergroup record
-			"supergroup" {
-				foreach {tg_chat_id irc_channel} [array get tg_channels] {
-					if {$chatid eq $tg_chat_id} {
-						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Supergroup message received ($record)"
-					}
-				}
-			}
-
 			# Check if this record is a channel record
 			"channel" {
 				foreach {tg_chat_id irc_channel} [array get tg_channels] {
 					if {$chatid eq $tg_chat_id} {
 						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Channel message received ($record)"
+					}
+				}
+			}
+
+			# Handle any unknown messages
+			default {
+				foreach {tg_chat_id irc_channel} [array get tg_channels] {
+					if {$chatid eq $tg_chat_id} {
+						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Unknown message received ($record)"
 					}
 				}
 			}
