@@ -677,6 +677,7 @@ array set utftable {
 	{\\ud83d\\udea0}	{" :mountain_cableway:"}
 	{\\ud83d\\udea9}	{" :triangular_flag_on_post:"}
 	{\\ud83d\\udeab}	{" :no_entry_sign:"}
+	{\\ud83d\\udeac}	{" :cigarette:"}
 	{\\ud83d\\udeb2}	{" :bicycle:"}
 	{\\ud83d\\udeb5}	{" :cyclist:"}
 	{\\ud83d\\udebf}	{" :shower:"}
