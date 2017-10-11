@@ -127,6 +127,11 @@ proc tg_setChatPhoto {chat_id photo} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using setChatPhoto method: $result"
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from setChatPhoto method: [jsonGetValue $result "" "description"]"
+	}
+
 	return result
 }
 
@@ -142,6 +147,11 @@ proc tg_setChatTitle {chat_id title} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using setChatTitle method: $result"
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from setChatTitle method: [jsonGetValue $result "" "description"]"
+	}
+
 	return result
 }
 
