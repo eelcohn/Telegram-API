@@ -586,6 +586,7 @@ array set utftable {
 	{\\ud83d\\udd24}	{" :telephone_receiver:"}
 	{\\ud83d\\udd25}	{" :fire:"}
 	{\\ud83d\\udd26}	{" :flashlight:"}
+	{\\ud83d\\udd2a}	{":knife: "}
 	{\\ud83d\\udd32}	{" :black_square_button:"}
 	{\\ud83d\\udd33}	{" :white_square_button:"}
 	{\\ud83d\\udd34}	{" :red_circle:"}
