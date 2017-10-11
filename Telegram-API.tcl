@@ -116,6 +116,36 @@ proc tg_kickChatMember {chat_id user_id} {
 }
 
 # ---------------------------------------------------------------------------- #
+# Sets the channel's profile photo of a chat group in Telegram                 #
+# ---------------------------------------------------------------------------- #
+proc tg_setChatPhoto {chat_id photo} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/setChatPhoto -d chat_id=$chat_id -d photo=$photo]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using setChatPhoto method: $result"
+		return -1
+	}
+	return result
+}
+
+# ---------------------------------------------------------------------------- #
+# Sets the channel's profile title of a chat group in Telegram                 #
+# ---------------------------------------------------------------------------- #
+proc tg_setChatTitle {chat_id title} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/setChatTitle -d chat_id=$chat_id -d title=$title]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using setChatTitle method: $result"
+		return -1
+	}
+	return result
+}
+
+# ---------------------------------------------------------------------------- #
 # Get up to date information about the chat group in Telegram                  #
 # ---------------------------------------------------------------------------- #
 proc tg_getChat {chat_id} {
