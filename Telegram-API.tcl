@@ -292,6 +292,7 @@ proc irc2tg_topicChange {nick uhost handle channel topic} {
 		if {$channel eq $tg_channel} {
 			if {$nick ne "*"} {
 				tg_sendMessage $chat_id "html" [format $MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"]
+				tg_setChatTitle $chat_id $topic
 			}
 		}
 	}
