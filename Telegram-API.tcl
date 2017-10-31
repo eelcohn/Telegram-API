@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20170419 for Eggdrop                                    #
+# Telegram-API module v20171031 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -242,8 +242,8 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-			if {$nick ne "$irc_botname"} {
-#				tg_sendMessage $chat_id "html" [format $MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
+			if {![validuser $nick]} {
+				tg_sendMessage $chat_id "html" [format $MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
 			}
 		}
 	}
@@ -258,7 +258,9 @@ proc irc2tg_nickLeft {nick uhost handle channel message} {
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-#			tg_sendMessage $chat_id "html" [format $MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
+			if {![validuser $nick]} {
+				tg_sendMessage $chat_id "html" [format $MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
+			}
 		}
 	}
 	return 0
