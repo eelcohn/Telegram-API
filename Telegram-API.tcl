@@ -825,6 +825,16 @@ proc escape_out_bracket {txt} {
 	return $txt
 }
 
+# ---------------------------------------------------------------------------- # 
+# Encode all except "unreserved" characters; use UTF-8 for extended chars.     #
+# ---------------------------------------------------------------------------- #
+proc url_encode {str} {
+	set uStr [encoding convertto utf-8 $str]
+	set chRE {[^-A-Za-z0-9._~\n]};		# Newline is special case!
+	set replacement {%[format "%02X" [scan "\\\0" "%c"]]}
+	return [string map {"\n" "%0A"} [subst [regsub -all $chRE $uStr $replacement]]]
+}
+
 # ---------------------------------------------------------------------------- #
 # Check if a JSON key is present                                               #
 # ---------------------------------------------------------------------------- #
