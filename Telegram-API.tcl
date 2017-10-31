@@ -62,7 +62,7 @@ proc tg_sendMessage {chat_id parse_mode message} {
 	global tg_bot_id tg_bot_token tg_web_page_preview
 
 	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendMessage -d disable_web_page_preview=$tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d text=[url_encode $message]]
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendMessage -d disable_web_page_preview=$tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d text=$message]
 	} ] } {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendMessage method: $result"
 		return -1
@@ -227,7 +227,7 @@ proc irc2tg_sendMessage {nick uhost hand channel msg} {
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-			tg_sendMessage $chat_id "html" [format $MSG_IRC_MSGSENT "$nick" "$msg"]
+			tg_sendMessage $chat_id "html" [format $MSG_IRC_MSGSENT "$nick" "[url_encode $msg]"]
 		}
 	}
 	return 0
