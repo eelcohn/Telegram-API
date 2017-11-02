@@ -705,6 +705,10 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 			imagesearch_getImage $chat_id $msgid $channel $message $parameter_start
 		}
 
+		"locate" {
+			openstreetmaps_getLocation $chat_id $msgid $channel $message $parameter_start
+		}
+
 		"spotify" {
 			spotify_getTrack $chat_id $msgid $channel $message $parameter_start
 		}
@@ -927,6 +931,7 @@ source "[file dirname [info script]]/Telegram-API.$language.tcl"
 source "[file dirname [info script]]/utftable.tcl"
 
 source "[file dirname [info script]]/ImageSearch.tcl"
+source "[file dirname [info script]]/Locate.tcl"
 source "[file dirname [info script]]/PSN.tcl"
 source "[file dirname [info script]]/Quotes.tcl"
 source "[file dirname [info script]]/Soundcloud.tcl"
