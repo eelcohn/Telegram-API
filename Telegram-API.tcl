@@ -118,11 +118,11 @@ proc tg_sendLocation {chat_id msg_id latitude longitude} {
 # ---------------------------------------------------------------------------- #
 # Sends a venue to a chat group in Telegram                                    #
 # ---------------------------------------------------------------------------- #
-proc tg_sendLocation {chat_id msg_id latitude longitude title address} {
+proc tg_sendVenue {chat_id msg_id latitude longitude title address} {
 	global tg_bot_id tg_bot_token
 
 	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendLocation -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d latitude=$latitude -d longitude=$longitude -d title=$title -d address=$address]
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendVenue -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d latitude=$latitude -d longitude=$longitude -d title=$title -d address=$address]
 	} ] } {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendVenue method: $result"
 		return -1
