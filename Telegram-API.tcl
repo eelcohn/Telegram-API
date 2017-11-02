@@ -101,6 +101,36 @@ proc tg_sendPhoto {chat_id msg_id photo caption} {
 }
 
 # ---------------------------------------------------------------------------- #
+# Sends a location to a chat group in Telegram                                 #
+# ---------------------------------------------------------------------------- #
+proc tg_sendLocation {chat_id msg_id latitude longitude} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendLocation -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d latitude=$latitude -d longitude=$longitude]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendLocation method: $result"
+		return -1
+	}
+	return result
+}
+
+# ---------------------------------------------------------------------------- #
+# Sends a venue to a chat group in Telegram                                    #
+# ---------------------------------------------------------------------------- #
+proc tg_sendLocation {chat_id msg_id latitude longitude title address} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendLocation -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d latitude=$latitude -d longitude=$longitude -d title=$title -d address=$address]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendVenue method: $result"
+		return -1
+	}
+	return result
+}
+
+# ---------------------------------------------------------------------------- #
 # Kicks an user from a chat group in Telegram                                  #
 # ---------------------------------------------------------------------------- #
 proc tg_kickChatMember {chat_id user_id} {
