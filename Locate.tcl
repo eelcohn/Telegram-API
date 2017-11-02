@@ -16,7 +16,7 @@
 # Search a location on OpenStreetMaps                                          #
 # ---------------------------------------------------------------------------- #
 
-proc openstreermaps_getLocation {chat_id msgid channel message parameter_start} {
+proc openstreetmaps_getLocation {chat_id msgid channel message parameter_start} {
 	tg_sendChatAction $chat_id "typing"
 
 	set locationquery [string map {" " "%20"} [string trim [string range $message $parameter_start end]]]
