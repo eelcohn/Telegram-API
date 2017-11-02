@@ -37,5 +37,5 @@ proc openstreetmaps_getLocation {chat_id msgid channel message parameter_start} 
 	}
 
 	tg_sendReplyToMessage $chat_id $msgid "html" "$lat $lon $display_name"
-	putchan $channel "[strip_html $lat $lon $display_name]"
+	putchan $channel "[strip_html $display_name] is at $lat $lon"
 }
