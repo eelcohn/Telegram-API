@@ -30,7 +30,9 @@ proc openstreetmaps_getLocation {chat_id msgid channel message parameter_start} 
 	set result [string map {" : " ":"} $result]
 	set display_name [jsonGetValue $result "" "display_name"]
 	if {$display_name eq ""} {
-		set url "Nothing found."
+		set display_name "Nothing found."
+		set lat ""
+		set lon ""
 	} else {
 		set lat [jsonGetValue $result "" "lat"]
 		set lon [jsonGetValue $result "" "lon"]
