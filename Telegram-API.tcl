@@ -533,29 +533,31 @@ proc tg2irc_pollTelegram {} {
 
 				# Check if a location has been sent to the Telegram group
 				if {[jsonHasKey $record "location"]} {
-					set tg_longitude [jsonGetValue $record "location" "longitude"]
-					set tg_latitude [jsonGetValue $record "location" "latitude"]
+					# Check if a venue has been sent to the Telegram group
+					if {[jsonHasKey $record "venue"]} {
+						set tg_location [jsonGetValue $record "venue" "location"]
+						set tg_title [jsonGetValue $record "venue" "title"]
+						set tg_address [jsonGetValue $record "venue" "address"]
+						set tg_foursquare_id [jsonGetValue $record "venue" "foursquare_id"]
 
-					foreach {tg_chat_id irc_channel} [array get tg_channels] {
-						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_LOCATIONSENT "[utf2ascii $name]" "$tg_longitude" "$tg_latitude"]
+						foreach {tg_chat_id irc_channel} [array get tg_channels] {
+							if {$chatid eq $tg_chat_id} {
+								putchan $irc_channel [format $MSG_TG_VENUESENT "[utf2ascii $name]" "$tg_location" "$tg_title" "$tg_address" "$tg_foursquare_id"]
+							}
+						}
+					} else {
+					# Not a venue, so it must be a location
+						set tg_longitude [jsonGetValue $record "location" "longitude"]
+						set tg_latitude [jsonGetValue $record "location" "latitude"]
+
+						foreach {tg_chat_id irc_channel} [array get tg_channels] {
+							if {$chatid eq $tg_chat_id} {
+								putchan $irc_channel [format $MSG_TG_LOCATIONSENT "[utf2ascii $name]" "$tg_longitude" "$tg_latitude"]
+							}
 						}
 					}
 				}
 
-				# Check if a venue has been sent to the Telegram group
-				if {[jsonHasKey $record "venue"]} {
-					set tg_location [jsonGetValue $record "venue" "location"]
-					set tg_title [jsonGetValue $record "venue" "title"]
-					set tg_address [jsonGetValue $record "venue" "address"]
-					set tg_foursquare_id [jsonGetValue $record "venue" "foursquare_id"]
-
-					foreach {tg_chat_id irc_channel} [array get tg_channels] {
-						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_VENUESENT "[utf2ascii $name]" "$tg_location" "$tg_title" "$tg_address" "$tg_foursquare_id"]
-						}
-					}
-				}
 
 				# Check if someone has been added to the Telegram group
 				if {[jsonHasKey $record "new_chat_member"]} {
