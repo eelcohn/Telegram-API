@@ -101,6 +101,66 @@ proc tg_sendPhoto {chat_id msg_id photo caption} {
 }
 
 # ---------------------------------------------------------------------------- #
+# Sends a audio file to a chat group in Telegram                               #
+# ---------------------------------------------------------------------------- #
+proc tg_sendAudio {chat_id msg_id audio caption} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendAudio -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d audio=$audio -d caption=$caption]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendAudio method: $result"
+		return -1
+	}
+	return result
+}
+
+# ---------------------------------------------------------------------------- #
+# Sends a document to a chat group in Telegram                                 #
+# ---------------------------------------------------------------------------- #
+proc tg_sendDocument {chat_id msg_id document caption} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendDocument -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d document=$document -d caption=$caption]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendDocument method: $result"
+		return -1
+	}
+	return result
+}
+
+# ---------------------------------------------------------------------------- #
+# Sends a video to a chat group in Telegram                                    #
+# ---------------------------------------------------------------------------- #
+proc tg_sendVideo {chat_id msg_id video caption} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendDocument -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video=$video -d caption=$caption]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendVideo method: $result"
+		return -1
+	}
+	return result
+}
+
+# ---------------------------------------------------------------------------- #
+# Sends a playable voice message to a chat group in Telegram                   #
+# ---------------------------------------------------------------------------- #
+proc tg_sendVoice {chat_id msg_id voice caption} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendVoice -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d voice=$voice -d caption=$caption]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendVoice method: $result"
+		return -1
+	}
+	return result
+}
+
+# ---------------------------------------------------------------------------- #
 # Sends a location to a chat group in Telegram                                 #
 # ---------------------------------------------------------------------------- #
 proc tg_sendLocation {chat_id msg_id latitude longitude} {
