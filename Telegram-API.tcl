@@ -330,6 +330,10 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 	global irc_botname serveraddress
 	global tg_channels MSG_IRC_NICKJOINED
 
+	if {$nick eq $tg_botname} {
+		return 0
+	}
+
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {![validuser $nick]} {
