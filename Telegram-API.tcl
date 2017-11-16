@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20171112 for Eggdrop                                    #
+# Telegram-API module v20171116 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -137,7 +137,7 @@ proc tg_sendVideo {chat_id msg_id video caption} {
 	global tg_bot_id tg_bot_token
 
 	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendDocument -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video=$video -d caption=$caption]
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendVideo -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video=$video -d caption=$caption]
 	} ] } {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendVideo method: $result"
 		return -1
@@ -155,6 +155,21 @@ proc tg_sendVoice {chat_id msg_id voice caption} {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendVoice -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d voice=$voice -d caption=$caption]
 	} ] } {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendVoice method: $result"
+		return -1
+	}
+	return result
+}
+
+# ---------------------------------------------------------------------------- #
+# Sends a video note to a chat group in Telegram                               #
+# ---------------------------------------------------------------------------- #
+proc tg_sendVideoNote {chat_id msg_id video_note} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendVideoNote -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video_note=$video_note]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendVideo method: $result"
 		return -1
 	}
 	return result
