@@ -169,7 +169,7 @@ proc tg_sendVideoNote {chat_id msg_id video_note} {
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendVideoNote -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video_note=$video_note]
 	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendVideo method: $result"
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendVideoNote method: $result"
 		return -1
 	}
 	return result
@@ -200,6 +200,21 @@ proc tg_sendVenue {chat_id msg_id latitude longitude title address} {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendVenue -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d latitude=$latitude -d longitude=$longitude -d title=$title -d address=$address]
 	} ] } {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendVenue method: $result"
+		return -1
+	}
+	return result
+}
+
+# ---------------------------------------------------------------------------- #
+# Sends a contact to a chat group in Telegram                                  #
+# ---------------------------------------------------------------------------- #
+proc tg_sendContact {chat_id msg_id phone_number first_name last_name} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendContact -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d phone_number=$phone_number -d first_name=$first_name -d last_name=$last_name]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendContact method: $result"
 		return -1
 	}
 	return result
