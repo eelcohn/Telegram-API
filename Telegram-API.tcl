@@ -360,7 +360,7 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 	global irc_botname serveraddress
 	global tg_channels MSG_IRC_NICKJOINED
 
-	if {$nick eq $tg_botname} {
+	if {$nick eq $irc_botname} {
 		return 0
 	}
 
