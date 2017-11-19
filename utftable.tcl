@@ -523,6 +523,7 @@ array set utftable {
 	{\\ud83d\\udc2d}	{" :mouse_face:"}
 	{\\ud83d\\udc2e}	{" :cow_face:"}
 	{\\ud83d\\udc2f}	{" :tiger_face:"}
+	{\\ud83d\\udc35}	{" :monkey:"}
 	{\\ud83d\\udc3d}	{" :pig_nose:"}
 	{\\ud83d\\udc4a}	{" :fist:"}
 	{\\ud83d\\udc4b}	{" :hand_wave:"}
