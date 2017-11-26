@@ -111,6 +111,7 @@ array set utftable {
 	{\\u25fd}	{" :white_medium_small_square:"}
 	{\\u2600}	{" :sunny:"}
 	{\\u2601}	{" :cloud:"}
+	{\\u2614}	{" :umbrella:"}
 	{\\u2615}	{" :coffee:"}
 	{\\u2648}	{" :aries:"}
 	{\\u2649}	{" :taurus:"}
@@ -698,6 +699,7 @@ array set utftable {
 	{\\uddba\\udf1a}	{" :hearts:"}
 	{\\uddba\\udf1c}	{" :diamonds:"}
 	{\\udbba\\udf1d}	{" :clubs:"}
+	{\\ufe0f}		{""}
 }
 
 array set stickertable {
