@@ -598,6 +598,7 @@ array set utftable {
 	{\\ud83d\\udd3c}	{" :arrow_up_small:"}
 	{\\ud83d\\udd3d}	{" :arrow_down_small:"}
 	{\\ud83d\\udd43}	{" :left_semicircle:"}
+	{\\ud83d\\udd95}	{" :middle_finger:"}
 	{\\ud83d\\udde5}	{" :ray_below:"}
 	{\\ud83d\\ude00}	{" :D"}
 	{\\ud83d\\ude01}	{" :-||"}
