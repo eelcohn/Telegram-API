@@ -111,7 +111,8 @@ array set utftable {
 	{\\u25fd}	{" :white_medium_small_square:"}
 	{\\u2600}	{" :sunny:"}
 	{\\u2601}	{" :cloud:"}
-	{\\u2614}	{" :umbrella:"}
+	{\\u2602}	{" :umbrella:"}
+	{\\u2614}	{" :umbrella_rain:"}
 	{\\u2615}	{" :coffee:"}
 	{\\u2648}	{" :aries:"}
 	{\\u2649}	{" :taurus:"}
