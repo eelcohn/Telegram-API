@@ -89,6 +89,7 @@ array set utftable {
 	{\\u2019}	{"'"}
 	{\\u203c}	{" !!"}
 	{\\u2049}	{" !?"}
+	{\\u20ac}	{"€"}
 	{\\u2105}	{" c/o"}
 	{\\u2139}	{" :information_source:"}
 	{\\u2194}	{" :left_right:"}
