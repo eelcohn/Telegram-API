@@ -46,6 +46,7 @@ set MSG_BOT_UNKNOWNCMD		"I don't get that. Type /help to see a list of all comma
 set MSG_BOT_USERLOGIN		"You are now logged in as %s. Your Telegram ID is %s and your last login was %s."
 set MSG_BOT_USERLOGOUT		"You are now logged out as %s."
 set MSG_BOT_USERLOGGEDINAS		"You are logged in as %s."
+set MSG_BOT_NOTLOGGEDIN	"You're not logged in."
 set MSG_BOT_UNAUTHORIZED	"You're not authorized to do that."
 
 # Messages for the Quote-module
