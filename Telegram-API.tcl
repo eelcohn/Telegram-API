@@ -846,8 +846,6 @@ proc tg2irc_privateCommands {from_id msgid message} {
 
 	switch $command {
 		"login" {
-			tg_sendChatAction $chat_id "typing"
-
 			set parameter_start [string wordend $message 1]
 			set irchandle [string trim [string range $message 1 $parameter_start-1]]
 			set ircpassword [string trim [string range $message $parameter_start end]]
@@ -868,8 +866,6 @@ proc tg2irc_privateCommands {from_id msgid message} {
 		}
 
 		"logout" {
-			tg_sendChatAction $chat_id "typing"
-
 			set irchandle [getuser $nick XTRA "TELEGRAM_USERID" "$from_id"]
 
 			if {$irchandle != ""} {
@@ -883,8 +879,6 @@ proc tg2irc_privateCommands {from_id msgid message} {
 		}
 
 		"mute" {
-			tg_sendChatAction $chat_id "typing"
-
 			set irchandle [getuser $nick XTRA "TELEGRAM_USERID" "$from_id"]
 
 			if {$irchandle != ""} {
@@ -895,8 +889,6 @@ proc tg2irc_privateCommands {from_id msgid message} {
 		}
 
 		"unmute" {
-			tg_sendChatAction $chat_id "typing"
-
 			set irchandle [getuser $nick XTRA "TELEGRAM_USERID" "$from_id"]
 
 			if {$irchandle != ""} {
