@@ -46,6 +46,7 @@ set MSG_BOT_UNKNOWNCMD		"Dat snap ik niet. Type /help om een overzicht van alle 
 set MSG_BOT_USERLOGIN		"Je bent nu ingelogd als %s. Je Telegram ID is %s en je laatste login was op %s."
 set MSG_BOT_USERLOGOUT		"Je bent nu uitgelogd als %s."
 set MSG_BOT_USERLOGGEDINAS		"Je bent ingelogd als %s."
+set MSG_BOT_NOTLOGGEDIN	"Je bent niet ingelogd."
 set MSG_BOT_UNAUTHORIZED	"Je bent niet geauthoriseerd om dat te doen."
 
 # Messages for the Quote-module
