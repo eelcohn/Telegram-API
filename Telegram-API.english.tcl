@@ -43,8 +43,9 @@ set MSG_BOT_TG_UNKNOWNUSER	"<i>%s@IRC</i> is not known on <a href=\"%s\">%s</a>"
 set MSG_BOT_UNKNOWNCMD		"I don't get that. Type /help to see a list of all commands."
 
 # Messages for admins controlling your bot
-set MSG_BOT_CONNECTED		"Chat group %s (%s) is now connected to %s."
-set MSG_BOT_DISCONNECTED	"Chat group %s (%s) is now disconnected from %s."
+set MSG_BOT_USERLOGIN		"You are now logged in as %s. Your Telegram ID is %s and your last login was %s."
+set MSG_BOT_USERLOGOUT		"You are now logged out as %s."
+set MSG_BOT_USERLOGGEDINAS		"You are logged in as %s."
 set MSG_BOT_UNAUTHORIZED	"You're not authorized to do that."
 
 # Messages for the Quote-module
