@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20171116 for Eggdrop                                    #
+# Telegram-API module v20171214 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -837,7 +837,6 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 # Respond to private commands send by Telegram users                           #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_privateCommands {from_id msgid message} {
-	global tg_owner_id
 	global MSG_BOT_CONNECTED MSG_BOT_DISCONNECTED MSG_BOT_UNAUTHORIZED MSG_BOT_UNKNOWNCMD
 
 	set parameter_start [string wordend $message 1]
@@ -846,6 +845,67 @@ proc tg2irc_privateCommands {from_id msgid message} {
 	tg_sendChatAction $from_id "typing"
 
 	switch $command {
+		"login" {
+			tg_sendChatAction $chat_id "typing"
+
+			set parameter_start [string wordend $message 1]
+			set irchandle [string trim [string range $message 1 $parameter_start-1]]
+			set ircpassword [string trim [string range $message $parameter_start end]]
+
+			if {[passwdok $irchandle $ircpassword]} {
+				setuser $irchandle XTRA "TELEGRAM_USERID" "$from_id"
+				set lastlogin [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"]
+				if {$lastlogin == ""} {
+					set lastlogin "-"
+				} else {
+					set lastlogin [clock format $lastlogin]
+				}
+				setuser $irchandle XTRA "TELEGRAM_LASTLOGIN" "[clock seconds]"
+				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_USERLOGIN "$irchandle" "$from_id" "$lastlogin"]"
+			} else {
+				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNAUTHORIZED"
+			}
+		}
+
+		"logout" {
+			tg_sendChatAction $chat_id "typing"
+
+			set irchandle [getuser $nick XTRA "TELEGRAM_USERID" "$from_id"]
+
+			if {$irchandle != ""} {
+				setuser $irchandle XTRA "TELEGRAM_USERID" ""
+				setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "$from_id"
+				setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "[clock seconds]"
+				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]"
+			} else {
+				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_NOTLOGGEDIN"
+			}
+		}
+
+		"mute" {
+			tg_sendChatAction $chat_id "typing"
+
+			set irchandle [getuser $nick XTRA "TELEGRAM_USERID" "$from_id"]
+
+			if {$irchandle != ""} {
+				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_USERLOGGEDINAS "$irchandle"]"
+			} else {
+				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNAUTHORIZED"
+			}
+		}
+
+		"unmute" {
+			tg_sendChatAction $chat_id "typing"
+
+			set irchandle [getuser $nick XTRA "TELEGRAM_USERID" "$from_id"]
+
+			if {$irchandle != ""} {
+				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_USERLOGGEDINAS "$irchandle"]"
+			} else {
+				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNAUTHORIZED"
+			}
+		}
+
 		"notifications" {
 		}
 
@@ -853,31 +913,6 @@ proc tg2irc_privateCommands {from_id msgid message} {
 		}
 
 		"removeadmin" {
-		}
-
-		"connect" {
-			if {$from_id == $tg_owner_id} {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_CONNECTED "-171580291" "Loungecafé test" "#loungecafe"]"
-			} else {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNAUTHORIZED"
-			}
-		}
-
-		"disconnect" {
-			if {$from_id == $tg_owner_id} {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_DISCONNECTED "-171580291" "Loungecafé test" "#loungecafe"]"
-			} else {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNAUTHORIZED"
-			}
-		}
-
-		"binds" {
-			if {$from_id == $tg_owner_id} {
-				putquick "PRIVMSG EelCapone binds=[binds]"
-				tg_sendReplyToMessage $from_id $msgid "markdown" "[binds]"
-			} else {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNAUTHORIZED"
-			}
 		}
 
 		default {
