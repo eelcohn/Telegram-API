@@ -679,7 +679,7 @@ array set utftable {
 	{\\ud83d\\ude49}	{" :monkey_hear_no_evil:"}
 	{\\ud83d\\ude4a}	{" :monkey_speak_no_evil:"}
 	{\\ud83d\\ude4b}	{" :girl_raising_hand:"}
-	{\\ud83d\\ude4c)	{" :hands_in_the_air:"}
+	{\\ud83d\\ude4c}	{" :hands_in_the_air:"}
 	{\\ud83d\\ude59}	{" :sw_vine:"}
 	{\\ud83d\\ude95}	{" :car:"}
 	{\\ud83d\\udea0}	{" :mountain_cableway:"}
