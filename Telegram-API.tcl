@@ -179,7 +179,10 @@ proc tg2irc_pollTelegram {} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		# Dont go into the parsing process but plan the next polling
 		putlog "Telegram-API: bad result from getUpdates method: [jsonGetValue $result "" "description"]"
+		utimer $tg_poll_freq tg2irc_pollTelegram
+		return -1
 	}
 
 	set recordstart [string first "\{\"update_id\":" $result]
