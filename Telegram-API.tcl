@@ -536,7 +536,8 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 # Respond to private commands send by Telegram users                           #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_privateCommands {from_id msgid message} {
-	global MSG_BOT_PASSWORDSET MSG_BOT_USERLOGIN MSG_BOT_USERLOGOUT MSG_BOT_FIRSTLOGIN MSG_BOT_LASTLOGIN MSG_BOT_USERPASSWRONG MSG_BOT_USERLOGGEDINAS MSG_BOT_USERINFO MSG_BOT_NOTLOGGEDIN MSG_BOT_UNAUTHORIZED MSG_BOT_UNKNOWNCMD tg_botname
+	global MSG_BOT_PASSWORDSET MSG_BOT_USERLOGIN MSG_BOT_USERLOGOUT MSG_BOT_FIRSTLOGIN MSG_BOT_LASTLOGIN MSG_BOT_USERPASSWRONG MSG_BOT_USERLOGGEDINAS MSG_BOT_USERINFO MSG_BOT_NOTLOGGEDIN MSG_BOT_UNAUTHORIZED MSG_BOT_UNKNOWNCMD
+	global timeformat tg_botname
 
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
@@ -569,7 +570,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 					setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "0"
 					setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "0"
 				} else {
-					set lastlogin "[format $MSG_BOT_LASTLOGIN "$tg_botname" "[clock format $lastlogin]"]"
+					set lastlogin "[format $MSG_BOT_LASTLOGIN "$tg_botname" "[clock format $lastlogin -format $timeformat]"]"
 				}
 
 				# ...and set the last login time to the current time
@@ -617,12 +618,12 @@ proc tg2irc_privateCommands {from_id msgid message} {
 			}
 
 			if {$irchandle != ""} {
-				set tg_lastlogin [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"]]
-				set tg_lastlogout [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGOUT"]]
+				set tg_lastlogin [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"] -format $timeformat]
+				set tg_lastlogout [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGOUT"] -format $timeformat]
 				set tg_lastuserid [getuser $irchandle XTRA "TELEGRAM_LASTUSERID"]
-				set tg_created [clock format [getuser $irchandle XTRA "TELEGRAM_CREATED"]]
-				set irc_created [clock format [getuser $irchandle XTRA "created"]]
-				set irc_laston [clock format [lindex [split [getuser $irchandle LASTON] " "] 0]]
+				set tg_created [clock format [getuser $irchandle XTRA "TELEGRAM_CREATED"] -format $timeformat]
+				set irc_created [clock format [getuser $irchandle XTRA "created"] -format $timeformat]
+				set irc_laston [clock format [lindex [split [getuser $irchandle LASTON] " "] 0] -format $timeformat]
 				set irc_hosts [getuser $irchandle HOSTS]
 				set irc_info [getuser $irchandle INFO]
 				putlog "$irc_hosts"
