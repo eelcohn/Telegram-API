@@ -1,0 +1,5 @@
+V20171216:
+* Added ChangeLog (yay!)
+* Added login and logout to the eggdrop user database through a pm to the bot
+* Added myinfo for showing all information in the eggdrop user database
+* Replaced tg_sendReplyToMessage by tg_sendMessage (both use the same API method anyways)
