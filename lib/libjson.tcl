@@ -58,6 +58,40 @@ proc ::libjson::getValue {record object key} {
 
 }
 
+# http://wiki.tcl.tk/11630
+
+# jq-0.4.0.tm
+# To use this module you need jq version 1.5rc1 or later installed.
+namespace eval jq {
+	proc jq {filter data {options {-r}}} {
+		exec jq {*}$options $filter << $data
+	}
+	proc json2dict {data} {
+		jq {
+			def totcl:
+				if type == "array" then
+					# Convert array to object with keys 0, 1, 2... and process
+					# it as object.
+					[range(0;length) as $i
+						| {key: $i | tostring, value: .[$i]}]
+					| from_entries
+					| totcl
+				elif type == "object" then
+					.
+					| to_entries
+					| map("{\(.key)} {\(.value | totcl)}")
+					| join(" ")
+				else
+					tostring
+					| gsub("{"; "\\{")
+					| gsub("}"; "\\}")
+				end;
+			. | totcl
+		} $data
+	}
+}
+
+
 # Default JSON processor is Tcl's json package
 set ::libjson::processor "json_pkg"
 
