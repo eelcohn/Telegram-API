@@ -3,3 +3,6 @@ V20171216:
 * Added login and logout to the eggdrop user database through a pm to the bot
 * Added myinfo for showing all information in the eggdrop user database
 * Replaced tg_sendReplyToMessage by tg_sendMessage (both use the same API method anyways)
+* Added tg_getMe method
+* Moved all Telegram proc's to a seperate namespace called libtelegram
+* Moved all Telegram proc's to a seperate tcl file called libtelegram.tcl
