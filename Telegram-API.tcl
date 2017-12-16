@@ -172,6 +172,12 @@ proc tg2irc_pollTelegram {} {
 
 	set result [libtelegram::getUpdates $tg_update_id]
 
+	if {$result == -1} {
+		# Dont go into the parsing process but plan the next polling
+		utimer $tg_poll_freq tg2irc_pollTelegram
+ 		return -1
+	}
+
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
 		putlog "Telegram-API: bad result from getUpdates method: [jsonGetValue $result "" "description"]"
 	}
