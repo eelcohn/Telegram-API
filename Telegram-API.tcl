@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20171214 for Eggdrop                                    #
+# Telegram-API module v20171216 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -19,14 +19,9 @@ set irc_botname		""
 # Initialize some variables (botnames)                                         #
 # ---------------------------------------------------------------------------- #
 proc initialize {} {
-	global tg_bot_id tg_bot_token tg_botname irc_botname nick
+	global tg_botname irc_botname nick
 
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getMe]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using getMe method: $result"
-		return -1
-	}
+	set result [::libtelegram::getMe]
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
 		die "Telegram-API: bad result from getMe method: [jsonGetValue $result "" "description"]"
@@ -34,305 +29,6 @@ proc initialize {} {
 
 	set tg_botname [jsonGetValue $result "result" "username"]
 	set irc_botname "$nick"
-}
-
-
-
-# ---------------------------------------------------------------------------- #
-# Procedures for sending data to the Telegram servers                          #
-# ---------------------------------------------------------------------------- #
-# Changes the bot's status in Telegram                                         #
-# ---------------------------------------------------------------------------- #
-proc tg_sendChatAction {chat_id action} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendChatAction -d chat_id=$chat_id -d action=$action]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendChatAction method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sends a message to a chat group in Telegram                                  #
-# ---------------------------------------------------------------------------- #
-proc tg_sendMessage {chat_id parse_mode message} {
-	global tg_bot_id tg_bot_token tg_web_page_preview
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendMessage -d disable_web_page_preview=$tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d text=$message]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendMessage method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sends a reply-to message to a chat group in Telegram                         #
-# ---------------------------------------------------------------------------- #
-proc tg_sendReplyToMessage {chat_id msg_id parse_mode message} {
-	global tg_bot_id tg_bot_token tg_web_page_preview
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendMessage -d disable_web_page_preview=$tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d reply_to_message_id=$msg_id -d text=$message]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendMessage reply method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sends a photo to a chat group in Telegram                                    #
-# ---------------------------------------------------------------------------- #
-proc tg_sendPhoto {chat_id msg_id photo caption} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendPhoto -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d photo=$photo -d caption=$caption]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendPhoto method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sends a audio file to a chat group in Telegram                               #
-# ---------------------------------------------------------------------------- #
-proc tg_sendAudio {chat_id msg_id audio caption} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendAudio -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d audio=$audio -d caption=$caption]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendAudio method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sends a document to a chat group in Telegram                                 #
-# ---------------------------------------------------------------------------- #
-proc tg_sendDocument {chat_id msg_id document caption} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendDocument -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d document=$document -d caption=$caption]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendDocument method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sends a video to a chat group in Telegram                                    #
-# ---------------------------------------------------------------------------- #
-proc tg_sendVideo {chat_id msg_id video caption} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendVideo -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video=$video -d caption=$caption]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendVideo method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sends a playable voice message to a chat group in Telegram                   #
-# ---------------------------------------------------------------------------- #
-proc tg_sendVoice {chat_id msg_id voice caption} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendVoice -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d voice=$voice -d caption=$caption]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendVoice method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sends a video note to a chat group in Telegram                               #
-# ---------------------------------------------------------------------------- #
-proc tg_sendVideoNote {chat_id msg_id video_note} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendVideoNote -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video_note=$video_note]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendVideoNote method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sends a location to a chat group in Telegram                                 #
-# ---------------------------------------------------------------------------- #
-proc tg_sendLocation {chat_id msg_id latitude longitude} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendLocation -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d latitude=$latitude -d longitude=$longitude]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendLocation method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sends a venue to a chat group in Telegram                                    #
-# ---------------------------------------------------------------------------- #
-proc tg_sendVenue {chat_id msg_id latitude longitude title address} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendVenue -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d latitude=$latitude -d longitude=$longitude -d title=$title -d address=$address]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendVenue method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sends a contact to a chat group in Telegram                                  #
-# ---------------------------------------------------------------------------- #
-proc tg_sendContact {chat_id msg_id phone_number first_name last_name} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendContact -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d phone_number=$phone_number -d first_name=$first_name -d last_name=$last_name]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendContact method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Kicks an user from a chat group in Telegram                                  #
-# ---------------------------------------------------------------------------- #
-proc tg_kickChatMember {chat_id user_id} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/kickChatMember -d chat_id=$chat_id -d user_id=$user_id]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using kickChatMember method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sets the channel's profile photo of a chat group in Telegram                 #
-# ---------------------------------------------------------------------------- #
-proc tg_setChatPhoto {chat_id photo} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/setChatPhoto -d chat_id=$chat_id -d photo=$photo]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using setChatPhoto method: $result"
-		return -1
-	}
-
-	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from setChatPhoto method: [jsonGetValue $result "" "description"]"
-	}
-
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Sets the channel's profile title of a chat group in Telegram                 #
-# ---------------------------------------------------------------------------- #
-proc tg_setChatTitle {chat_id title} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/setChatTitle -d chat_id=$chat_id -d title=$title]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using setChatTitle method: $result"
-		return -1
-	}
-
-	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from setChatTitle method: [jsonGetValue $result "" "description"]"
-	}
-
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Get up to date information about the chat group in Telegram                  #
-# ---------------------------------------------------------------------------- #
-proc tg_getChat {chat_id} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getChat -d chat_id=$chat_id]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using getChat method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Get a list of administrators in a chat group in Telegram                     #
-# ---------------------------------------------------------------------------- #
-proc tg_getChatAdministrators {chat_id} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getChatAdministrators -d chat_id=$chat_id]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using getChatAdministrators method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Get the number of members in a chat group in Telegram                        #
-# ---------------------------------------------------------------------------- #
-proc tg_getChatMembersCount {chat_id} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getChatMembersCount -d chat_id=$chat_id]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using getChatMembersCount method: $result"
-		return -1
-	}
-	return result
-}
-
-# ---------------------------------------------------------------------------- #
-# Get information about a member of a chat group in Telegram                   #
-# ---------------------------------------------------------------------------- #
-proc tg_getChatMember {chat_id user_id} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getChatMember -d chat_id=$chat_id -d user_id=$user_id]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using getChatMember method: $result"
-		return -1
-	}
-	return result
 }
 
 
@@ -347,7 +43,7 @@ proc irc2tg_sendMessage {nick uhost hand channel msg} {
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-			tg_sendMessage $chat_id "html" [format $MSG_IRC_MSGSENT "$nick" "[url_encode $msg]"]
+			libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_MSGSENT "$nick" "[url_encode $msg]"]
 		}
 	}
 	return 0
@@ -367,7 +63,7 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {![validuser $nick]} {
-				tg_sendMessage $chat_id "html" [format $MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
+				libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
 			}
 		}
 	}
@@ -383,7 +79,7 @@ proc irc2tg_nickLeft {nick uhost handle channel message} {
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {![validuser $nick]} {
-				tg_sendMessage $chat_id "html" [format $MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
+				libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
 			}
 		}
 	}
@@ -398,7 +94,7 @@ proc irc2tg_nickAction {nick uhost handle dest keyword message} {
 	
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$dest eq $tg_channel} {
-			tg_sendMessage $chat_id "html" [format $MSG_IRC_NICKACTION "$nick" "$nick" "$message"]
+			libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKACTION "$nick" "$nick" "$message"]
 		}
 	}
 	return 0
@@ -412,7 +108,7 @@ proc irc2tg_nickChange {nick uhost handle channel newnick} {
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-			tg_sendMessage $chat_id "html" [format $MSG_IRC_NICKCHANGE "$nick" "$newnick"]
+			libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKCHANGE "$nick" "$newnick"]
 		}
 	}
 	return 0
@@ -422,13 +118,13 @@ proc irc2tg_nickChange {nick uhost handle channel newnick} {
 # Inform the Telegram group(s) that the topic of an IRC channel has changed    #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_topicChange {nick uhost handle channel topic} {
-	global  serveraddress tg_channels MSG_IRC_TOPICCHANGE
+	global serveraddress tg_channels MSG_IRC_TOPICCHANGE
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {$nick ne "*"} {
-				tg_sendMessage $chat_id "html" [format $MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"]
-				tg_setChatTitle $chat_id $topic
+				libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"]
+				libtelegram::setChatTitle $chat_id $topic
 			}
 		}
 	}
@@ -443,7 +139,21 @@ proc irc2tg_nickKicked {nick uhost handle channel target reason} {
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-			tg_sendMessage $chat_id "html" [format $MSG_IRC_KICK "$nick" "$target" "$channel" "$reason"]
+			libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_KICK "$nick" "$target" "$channel" "$reason"]
+		}
+	}
+	return 0
+}
+
+# ---------------------------------------------------------------------------- #
+# Inform the Telegram group(s) that a channel's mode has changed               #
+# ---------------------------------------------------------------------------- #
+proc irc2tg_modeChange {nick uhost hand channel mode target} {
+	global tg_channels MSG_IRC_MODECHANGE
+
+	foreach {chat_id tg_channel} [array get tg_channels] {
+		if {$channel eq $tg_channel} {
+			libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
 		}
 	}
 	return 0
@@ -460,12 +170,7 @@ proc tg2irc_pollTelegram {} {
 	global tg_bot_id tg_bot_token tg_update_id tg_poll_freq tg_channels utftable irc_botname
 	global MSG_TG_MSGSENT MSG_TG_AUDIOSENT MSG_TG_PHOTOSENT MSG_TG_DOCSENT MSG_TG_STICKERSENT MSG_TG_VIDEOSENT MSG_TG_VOICESENT MSG_TG_CONTACTSENT MSG_TG_LOCATIONSENT MSG_TG_VENUESENT MSG_TG_USERADD MSG_TG_USERLEFT MSG_TG_CHATTITLE MSG_TG_PICCHANGE MSG_TG_PICDELETE MSG_TG_UNIMPL
 
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getUpdates -d offset=$tg_update_id]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using getUpdates method: $result"
-		return -1
-	}
+	set result [libtelegram::getUpdates $tg_update_id]
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
 		putlog "Telegram-API: bad result from getUpdates method: [jsonGetValue $result "" "description"]"
@@ -551,7 +256,7 @@ proc tg2irc_pollTelegram {} {
 					set tg_file_id [jsonGetValue $record "" "file_id"]
 					if {[jsonHasKey $record "caption"]} {
 						# Bug: the object should really be "photo" and not ""
-						set caption " ([utf2ascii [remove_slashes [jsonGetValue $record "" "caption"]]])"
+						set caption " ([remove_slashes [utf2ascii [jsonGetValue $record "" "caption"]]])"
 					} else {
 						set caption ""
 					}
@@ -754,25 +459,22 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
 
+	libtelegram::sendChatAction $chat_id "typing"
+
 	switch $command {
 		"help" {
-			tg_sendChatAction $chat_id "typing"
-
 			set response "[format $MSG_BOT_HELP "$irc_botname"]"
-			tg_sendReplyToMessage $chat_id $msgid "html" "$response"
+			sbtelegram::endMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
 
 		"irctopic" {
-			tg_sendChatAction $chat_id "typing"
-
 			set response "[format $MSG_BOT_TG_TOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
-			tg_sendReplyToMessage $chat_id $msgid "html" "$response"
+			libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
 
 		"ircuser" {
-			tg_sendChatAction $chat_id "typing"
 			set handle [string trim [string range $message $parameter_start end]]
 
 			if {$handle != ""} {
@@ -785,15 +487,13 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 			} else {
 				set response $MSG_BOT_HELP_IRCUSER
 			}
-			tg_sendReplyToMessage $chat_id $msgid "html" "$response"
+			libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
 
 		"ircusers" {
-			tg_sendChatAction $chat_id "typing"
-
 			set response "[format $MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[chanlist $channel]"]"
-			tg_sendReplyToMessage $chat_id $msgid "html" "$response"
+			libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
 
@@ -826,8 +526,7 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 		}
 
 		default {
-			tg_sendChatAction $chat_id "typing"
-			tg_sendReplyToMessage $chat_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
+			libtelegram::sendMessage $chat_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
 			putchan $channel "$MSG_BOT_UNKNOWNCMD"
 		}
 	}
@@ -837,78 +536,108 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 # Respond to private commands send by Telegram users                           #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_privateCommands {from_id msgid message} {
-	global MSG_BOT_CONNECTED MSG_BOT_DISCONNECTED MSG_BOT_UNAUTHORIZED MSG_BOT_UNKNOWNCMD
+	global MSG_BOT_PASSWORDSET MSG_BOT_USERLOGIN MSG_BOT_USERLOGOUT MSG_BOT_FIRSTLOGIN MSG_BOT_LASTLOGIN MSG_BOT_USERPASSWRONG MSG_BOT_USERLOGGEDINAS MSG_BOT_USERINFO MSG_BOT_NOTLOGGEDIN MSG_BOT_UNAUTHORIZED MSG_BOT_UNKNOWNCMD tg_botname
 
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
 
-	tg_sendChatAction $from_id "typing"
+	libtelegram::sendChatAction $from_id "typing"
 
 	switch $command {
 		"login" {
-			set parameter_start [string wordend $message 1]
-			set irchandle [string trim [string range $message 1 $parameter_start-1]]
-			set ircpassword [string trim [string range $message $parameter_start end]]
+			set login_start [string wordend $message 1]
+			set login_end [string wordend $message $login_start+1]
 
+			set irchandle [string trim [string range $message $login_start $login_end]]
+			set ircpassword [string trim [string range $message $login_end end]]
+
+			# Set the password if this is the first time this user logs in
+#			if {[getuser $irchandle PASS] == ""} {
+#				setuser $irchandle PASS "$ircpassword"
+#				libtelegram::sendMessage $from_id $msgid "markdown" "[format $MSG_BOT_PASSWORDSET "$tg_botname"]"
+#			}
+
+			# Check if the password matches
 			if {[passwdok $irchandle $ircpassword]} {
-				setuser $irchandle XTRA "TELEGRAM_USERID" "$from_id"
+				setuser $irchandle XTRA "TELEGRAM_USERID" "[string range $from_id 0 12]"
+#				setuser $irchandle XTRA "IRL" "[string range $first_name 0 159] [string range $last_name 0 159]"
+
+				# Lookop the last login time
 				set lastlogin [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"]
 				if {$lastlogin == ""} {
-					set lastlogin "-"
+					set lastlogin "[format $MSG_BOT_FIRSTLOGIN "$tg_botname"]"
+					setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "0"
+					setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "0"
 				} else {
-					set lastlogin [clock format $lastlogin]
+					set lastlogin "[format $MSG_BOT_LASTLOGIN "$tg_botname" "[clock format $lastlogin]"]"
 				}
+
+				# ...and set the last login time to the current time
 				setuser $irchandle XTRA "TELEGRAM_LASTLOGIN" "[clock seconds]"
-				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_USERLOGIN "$irchandle" "$from_id" "$lastlogin"]"
+
+				# Set the Telegram account creation date if this is the first time the user logs in
+				if {[getuser $irchandle XTRA "TELEGRAM_CREATED"] == ""} {
+					setuser $irchandle XTRA "TELEGRAM_CREATED" "[clock seconds]"
+				}
+				libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERLOGIN "$tg_botname" "$irchandle"]\n\n $lastlogin"
 			} else {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNAUTHORIZED"
+				libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_USERPASSWRONG"
 			}
 		}
 
 		"logout" {
-			set irchandle [getuser $nick XTRA "TELEGRAM_USERID" "$from_id"]
+			set irchandle ""
+
+			# Look up the IRC handle for the Telegram user
+			foreach user [userlist] {
+				if {[getuser $user XTRA "TELEGRAM_USERID"] == "$from_id"} {
+					set irchandle $user
+				}
+			}
 
 			if {$irchandle != ""} {
 				setuser $irchandle XTRA "TELEGRAM_USERID" ""
 				setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "$from_id"
 				setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "[clock seconds]"
-				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]"
+				libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]"
 			} else {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_NOTLOGGEDIN"
+				libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_NOTLOGGEDIN"
 			}
 		}
 
-		"mute" {
-			set irchandle [getuser $nick XTRA "TELEGRAM_USERID" "$from_id"]
+		# Show user information
+		"myinfo" {
+			set irchandle ""
+
+			# Look up the IRC handle for the Telegram user
+			foreach user [userlist] {
+				if {[getuser $user XTRA "TELEGRAM_USERID"] == "$from_id"} {
+					set irchandle $user
+				}
+			}
 
 			if {$irchandle != ""} {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_USERLOGGEDINAS "$irchandle"]"
+				set tg_lastlogin [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"]]
+				set tg_lastlogout [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGOUT"]]
+				set tg_lastuserid [getuser $irchandle XTRA "TELEGRAM_LASTUSERID"]
+				set tg_created [clock format [getuser $irchandle XTRA "TELEGRAM_CREATED"]]
+				set irc_created [clock format [getuser $irchandle XTRA "created"]]
+				set irc_laston [clock format [lindex [split [getuser $irchandle LASTON] " "] 0]]
+				set irc_hosts [getuser $irchandle HOSTS]
+				set irc_info [getuser $irchandle INFO]
+				putlog "$irc_hosts"
+				libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERINFO "$irchandle" "$from_id" "$tg_lastlogin" "$tg_lastlogout" "$tg_lastuserid" "$tg_created" "$irc_created" "$irc_laston" "irc_hosts" "$irc_info"]"
 			} else {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNAUTHORIZED"
+				libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_NOTLOGGEDIN"
 			}
 		}
 
-		"unmute" {
-			set irchandle [getuser $nick XTRA "TELEGRAM_USERID" "$from_id"]
-
-			if {$irchandle != ""} {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "[format $MSG_BOT_USERLOGGEDINAS "$irchandle"]"
-			} else {
-				tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNAUTHORIZED"
-			}
-		}
-
-		"notifications" {
-		}
-
-		"addadmin" {
-		}
-
-		"removeadmin" {
+		"help" {
+			libtelegram::sendMessage $from_id $msgid "html" "Available commands are:\n login <username> <password>\n logout\n myinfo\n help\n"
 		}
 
 		default {
-			tg_sendReplyToMessage $from_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
+			libtelegram::sendMessage $from_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
 		}
 	}
 }
@@ -1049,16 +778,19 @@ proc jsonGetValue {record object key} {
 # Start bot by loading Telegram modules, bind actions and do a Telegram poll   #
 # ---------------------------------------------------------------------------- #
 
-source "[file dirname [info script]]/Telegram-API-config.tcl"
-source "[file dirname [info script]]/Telegram-API.$language.tcl"
-source "[file dirname [info script]]/utftable.tcl"
+set scriptdir [file dirname [info script]]
 
-source "[file dirname [info script]]/ImageSearch.tcl"
-source "[file dirname [info script]]/Locate.tcl"
-source "[file dirname [info script]]/PSN.tcl"
-source "[file dirname [info script]]/Quotes.tcl"
-source "[file dirname [info script]]/Soundcloud.tcl"
-source "[file dirname [info script]]/Spotify.tcl"
+source "$scriptdir/Telegram-API-config.tcl"
+source "$scriptdir/utftable.tcl"
+source "$scriptdir/lang/Telegram-API.$language.tcl"
+source "$scriptdir/lib/libtelegram.tcl"
+
+source "$scriptdir/modules/ImageSearch.tcl"
+source "$scriptdir/modules/Locate.tcl"
+source "$scriptdir/modules/PSN.tcl"
+source "$scriptdir/modules/Quotes.tcl"
+source "$scriptdir/modules/Soundcloud.tcl"
+source "$scriptdir/modules/Spotify.tcl"
 
 bind pubm - * irc2tg_sendMessage
 bind join - * irc2tg_nickJoined
@@ -1068,9 +800,11 @@ bind ctcp - "ACTION" irc2tg_nickAction
 bind nick - * irc2tg_nickChange
 bind topc - * irc2tg_topicChange
 bind kick - * irc2tg_nickKicked
+bind mode - * irc2tg_modeChange
 
 initialize
 
 tg2irc_pollTelegram
 
 putlog "Script loaded: Telegram-API.tcl ($tg_botname)"
+

@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - Dutch language file                        #
+# Telegram-API module for Eggdrop - Dutch language file v20171216              #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -12,6 +12,7 @@ set MSG_IRC_NICKACTION		"<i>%1\$s@IRC:</i> %2\$s %3\$s"
 set MSG_IRC_NICKCHANGE		"<i>%1\$s@IRC</i> heet nu <i>%2\$s</i>"
 set MSG_IRC_TOPICCHANGE		"<i>%1\$s@IRC</i> heeft het onderwerp op <a href=\"%2\$s\">%3\$s</a> veranderd naar <i>%4\$s</i>"
 set MSG_IRC_KICK		"<i>%1\$s@IRC</i> heeft <i>%2\$s</i> weggeschopt van <i>%3\$s</i>: <b>%4\$s</b>"
+set MSG_IRC_MODECHANGE		"<i>%1\$s@IRC</i> zet de modus %3\$s op %2\$s"
 
 # Messages from Telegram to IRC
 set MSG_TG_MSGSENT		"\026%1\$s@Telegram:\026 %2\$s"
@@ -43,9 +44,14 @@ set MSG_BOT_TG_UNKNOWNUSER	"<i>%s@IRC</i> is niet bekend op <a href=\"%s\">%s</a
 set MSG_BOT_UNKNOWNCMD		"Dat snap ik niet. Type /help om een overzicht van alle commando's te bekijken."
 
 # Messages for admins controlling your bot
-set MSG_BOT_USERLOGIN		"Je bent nu ingelogd als %s. Je Telegram ID is %s en je laatste login was op %s."
+set MSG_BOT_PASSWORDSET	"Welkom op %s! Je wachtwoord is nu ingesteld."
+set MSG_BOT_USERLOGIN		"Welkom op %s! Je bent nu ingelogd als %s."
 set MSG_BOT_USERLOGOUT		"Je bent nu uitgelogd als %s."
+set MSG_BOT_FIRSTLOGIN	"Dit is de eerste keer dat je via Telegram inlogt op %s."
+set MSG_BOT_LASTLOGIN	"De laatste keer dat je via Telegram hebt ingelogd op %s was op %s."
+set MSG_BOT_USERPASSWRONG	"De combinatie van die gebruikersnaam en wachtwoord is onbekend."
 set MSG_BOT_USERLOGGEDINAS		"Je bent ingelogd als %s."
+set MSG_BOT_USERINFO	"Je gebruikersnaam is %s\nJe Telegram-ID is %s\nJe laatste login was om %s\nJe laatste logout was om %s\nJe vorige login was met Telegram-ID %s\nJe Telegram-account is op %s aangemaakt\nJe IRC-account is op %s aangemaakt\nJe laatste login op IRC was om %s\nJe hostnamen op IRC zijn %s\nJe IRC info is %s"
 set MSG_BOT_NOTLOGGEDIN	"Je bent niet ingelogd."
 set MSG_BOT_UNAUTHORIZED	"Je bent niet geauthoriseerd om dat te doen."
 

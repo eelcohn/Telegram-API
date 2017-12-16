@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Image Search module v0.1 for Eggdrop with the Telegram-API module            #
+# Image Search module v0.1 for Eggdrop with the Telegram-API module v20171216  #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -21,24 +21,27 @@ proc imagesearch_getImage {chat_id msgid channel message parameter_start} {
 	set s_language nl_NL
 	set s_safesearch -2
 
-	tg_sendChatAction $chat_id "upload_photo"
-
 	set imagequery [string range $message $parameter_start end]
 	if { [ catch {
-		set imgresult [exec curl --tlsv1.2 -s -X GET https://api.duckduckgo.com/?kah=nl-nl&kl=$s_region&kad=$s_language&kp=$s_safesearch&q=$imagequery]
+#		set imgresult [exec curl --tlsv1.2 -s -X POST https://api.duckduckgo.com/ -d kah=nl-nl -d kl=$s_region -d kad=$s_language -d kp=$s_safesearch -d q=$imagequery]
+#		set imgresult [exec curl --tlsv1.2 -s -X GET https://api.duckduckgo.com/?kah=nl-nl&kl=$s_region&kad=$s_language&kp=$s_safesearch&q=$imagequery]
+		set imgresult [exec curl --tlsv1.2 -s --header "User-Agent: Mozilla/5.0" -X POST https://api.qwant.com/api/search/images -d count=1 -d offset=1 -d safesearch=0 -d locale=nl_NL -d q=$imagequery]
 	} ] } {
-		putlog "Telegram-API: cannot connect to api.duckduckgo.com using imagesearch_getImage method: $imgresult"
+		putlog "Telegram-API: cannot connect to api.qwant.com using imagesearch_getImage method: $imgresult"
+		return -1
 	}
 
 	# Bug: the object should really be "message" and not ""
-	set url [jsonGetValue $imgresult "" "Image"]
-	set title [jsonGetValue $imgresult "" "Abstract"]
+	set url [remove_slashes [jsonGetValue $imgresult "" "media"]]
+	set title [remove_slashes [jsonGetValue $imgresult "" "url"]]
+#	regsub -all {\\} $url {} url
+#	regsub -all {\\} $title {} title
 
 	if {$url == ""} {
-		tg_sendMessage $chat_id "html" "Nothing found :-("
+		libtelegram::sendMessage $chat_id "html" "Nothing found :-("
 		putchan $channel "Nothing found :-("
 	} else {
-		tg_sendPhoto $chat_id "$msgid" "$url" "$title"
+		libtelegram::sendPhoto $chat_id "$msgid" "$url" "$title"
 		putchan $channel "[strip_html $url]"
 	}
 }
