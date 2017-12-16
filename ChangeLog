@@ -8,3 +8,4 @@ V20171216:
 * Moved all Telegram proc's to a seperate tcl file called libtelegram.tcl
 * Added irc2tc_modeChange: support for mode changes on IRC channels
 * Added a PHP script called tg.php for downloading attachments from Telegram groups
+* Fixed an issue where emoticons in caption of a photo weren't correctly displayed
