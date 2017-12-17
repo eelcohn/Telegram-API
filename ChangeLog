@@ -1,4 +1,8 @@
-V20171216:
+v20171217:
+* Added colorized nicknames on IRC (nailyk-fr)
+* Removed bold control characters from language files (mailyk-fr)
+
+v20171216:
 * Added ChangeLog (yay!)
 * Added login and logout to the eggdrop user database through a pm to the bot
 * Added myinfo for showing all information in the eggdrop user database
