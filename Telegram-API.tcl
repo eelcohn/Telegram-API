@@ -739,6 +739,7 @@ proc url_encode {str} {
 # Calculate an IRC color code for a nickname                                   #
 # ---------------------------------------------------------------------------- #
 proc getColorFromString {string} {
+	# Set the seed for the calculation to 0x00
 	set color 0x00
 
 	# Exclusive-OR each character of the string with the seed
@@ -746,8 +747,8 @@ proc getColorFromString {string} {
 		set color [expr $color ^ [scan $char %c]]
 	}
 
-	# Return only values from 0 to 15
-	return [expr $color & 0x0f]
+	# Return only values from 1 to 15
+	return [expr [expr $color % 15] + 1]
 }
 
 # ---------------------------------------------------------------------------- #
