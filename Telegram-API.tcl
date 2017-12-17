@@ -743,11 +743,11 @@ proc getColorFromString {string} {
 
 	# Exclusive-OR each character of the string with the seed
 	foreach char [split $string ""] {
-		set color [expr color ^ char]
+		set color [expr $color ^ $char]
 	}
 
 	# Return only values from 0 to 15
-	return [expr color & 0x0f]
+	return [expr $color & 0x0f]
 }
 
 # ---------------------------------------------------------------------------- #
