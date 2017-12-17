@@ -212,16 +212,19 @@ proc tg2irc_pollTelegram {} {
 			"supergroup" -
 			"group" {
 				set chatid [jsonGetValue $record "chat" "id"]
-				set name [concat [jsonGetValue $record "from" "first_name"] [jsonGetValue $record "from" "last_name"]]
-				
-				#
+				set name [jsonGetValue $record "from" "username"]
+				if {$name == "null" } {
+					set name [concat [jsonGetValue $record "from" "first_name"] [jsonGetValue $record "from" "last_name"]]
+				}
+
+				# 
 				if {[jsonHasKey $record "text"]} {
 					# Bug: the object should really be "message" and not ""
 					set txt [remove_slashes [utf2ascii [jsonGetValue $record "" "text"]]]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_MSGSENT "[utf2ascii $name]" "$txt"]
+							putchan $irc_channel [format $MSG_TG_MSGSENT "\003[getColorFromString $name][utf2ascii $name]\003" "$txt"]
 							if {[string index $txt 0] eq "/"} {
 								set msgid [jsonGetValue $record "message" "message_id"]
 								tg2irc_botCommands "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
