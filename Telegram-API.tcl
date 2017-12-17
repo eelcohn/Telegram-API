@@ -213,11 +213,11 @@ proc tg2irc_pollTelegram {} {
 			"group" {
 				set chatid [jsonGetValue $record "chat" "id"]
 				set name [jsonGetValue $record "from" "username"]
-				if {$name == "null" } {
+				if {$name == "" } {
 					set name [concat [jsonGetValue $record "from" "first_name"] [jsonGetValue $record "from" "last_name"]]
 				}
 
-				# 
+				# Check if a text message has been sent to the Telegram group
 				if {[jsonHasKey $record "text"]} {
 					# Bug: the object should really be "message" and not ""
 					set txt [remove_slashes [utf2ascii [jsonGetValue $record "" "text"]]]
@@ -743,7 +743,7 @@ proc getColorFromString {string} {
 
 	# Exclusive-OR each character of the string with the seed
 	foreach char [split $string ""] {
-		set color [expr $color ^ $char]
+		set color [expr $color ^ [scan $char %c]]
 	}
 
 	# Return only values from 0 to 15
