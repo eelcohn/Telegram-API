@@ -732,6 +732,21 @@ proc url_encode {str} {
 	return [string map {"\n" "%0A"} [subst [regsub -all $chRE $uStr $replacement]]]
 }
 
+# ---------------------------------------------------------------------------- # 
+# Calculate an IRC color code for a nickname                                   #
+# ---------------------------------------------------------------------------- #
+proc getColorFromString {string} {
+	set color 0x00
+
+	# Exclusive-OR each character of the string with the seed
+	foreach char [split $string ""] {
+		set color [expr color ^ char]
+	}
+
+	# Return only values from 0 to 15
+	return [expr color & 0x0f]
+}
+
 # ---------------------------------------------------------------------------- #
 # Check if a JSON key is present                                               #
 # ---------------------------------------------------------------------------- #
