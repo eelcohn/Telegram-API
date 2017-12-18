@@ -116,6 +116,24 @@ proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::forwardMessage                                                #
+# ---------------------------------------------------------------------------- #
+# Forwards a message to a user or a chat group in Telegram                     #
+# https://core.telegram.org/bots/api#forwardmessage                            #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::forwardMessage {chat_id from_chat_id disable_notification message_id} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/forwardMessage -d chat_id=$chat_id -d from_chat_id=$from_chat_id -d disable_notification=$disable_notification -d message_id=$message_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using forwardMessage reply method: $result"
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
 # ::libtelegram::sendPhoto                                                     #
 # ---------------------------------------------------------------------------- #
 # sendPhoto: Sends a photo to a chat group in Telegram                         #
