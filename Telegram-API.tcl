@@ -225,7 +225,7 @@ proc tg2irc_pollTelegram {} {
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							foreach line [split $txt "\\n"] {
-								putchan $irc_channel [format $MSG_TG_MSGSENT "\003[getColorFromString $name][utf2ascii $name]\003" "[remove_slashes $txt]"]
+								putchan $irc_channel [format $MSG_TG_MSGSENT "\003[getColorFromString $name][utf2ascii $name]\003" "[remove_slashes $line]"]
 							}
 							if {[string index $txt 0] eq "/"} {
 								set msgid [jsonGetValue $record "message" "message_id"]
