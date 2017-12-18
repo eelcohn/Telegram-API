@@ -26,6 +26,60 @@ proc ::libtelegram::getUpdates {offset} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::setWebHook                                                    #
+# ---------------------------------------------------------------------------- #
+# Specify a url and receive incoming updates via an outgoing webhook           #
+# https://core.telegram.org/bots/api#setwebhook                                #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::setWebHook {url certificate max_connections allowed_updates} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/setWebHook -d url=$url -d certificate=$certificate -d max_connections=$max_connections -d allowed_updates=$allowed_updates]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using setWebHook method: $result"
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::deleteWebHook                                                 #
+# ---------------------------------------------------------------------------- #
+# Removes a webhook                                                            #
+# https://core.telegram.org/bots/api#deletewebhook                             #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::deleteWebHook {} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/deleteWebHook]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using deleteWebHook method: $result"
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::getWebHookInfo                                                #
+# ---------------------------------------------------------------------------- #
+# Returns info on the current webhook                                          #
+# https://core.telegram.org/bots/api#getwebhookinfo                            #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::getWebHookInfo {} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getWebHookInfo]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using getWebHookInfo method: $result"
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
 # ::libtelegram::getMe                                                         #
 # ---------------------------------------------------------------------------- #
 # Get some basic information about the bot                                     #
@@ -38,24 +92,6 @@ proc ::libtelegram::getMe {} {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getMe]
 	} ] } {
 		putlog "Telegram-API: cannot connect to api.telegram.com using getMe method: $result"
-		return -1
-	}
-	return $result
-}
-
-# ---------------------------------------------------------------------------- #
-# ::libtelegram::sendChatAction                                                #
-# ---------------------------------------------------------------------------- #
-# Changes the bot's status in Telegram                                         #
-# https://core.telegram.org/bots/api#sendChatAction                            #
-# ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendChatAction {chat_id action} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendChatAction -d chat_id=$chat_id -d action=$action]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendChatAction method: $result"
 		return -1
 	}
 	return $result
@@ -236,6 +272,24 @@ proc ::libtelegram::sendContact {chat_id msg_id phone_number first_name last_nam
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendContact -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d phone_number=$phone_number -d first_name=$first_name -d last_name=$last_name]
 	} ] } {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendContact method: $result"
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::sendChatAction                                                #
+# ---------------------------------------------------------------------------- #
+# Changes the bot's status in Telegram                                         #
+# https://core.telegram.org/bots/api#sendChatAction                            #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::sendChatAction {chat_id action} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendChatAction -d chat_id=$chat_id -d action=$action]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendChatAction method: $result"
 		return -1
 	}
 	return $result
