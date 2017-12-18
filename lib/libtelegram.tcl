@@ -242,6 +242,24 @@ proc ::libtelegram::sendVideoNote {chat_id msg_id video_note} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::sendMediaGroup                                                #
+# ---------------------------------------------------------------------------- #
+# sendMediaGroup: Sends a group of photos or videos as an album                #
+# https://core.telegram.org/bots/api#sendmediagroup                            #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::sendMediaGroup {chat_id media disable_notification reply_to_msg_id} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendMediaGroup -d chat_id=$chat_id -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_msg_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using sendMediaGroup method: $result"
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
 # ::libtelegram::sendLocation                                                  #
 # ---------------------------------------------------------------------------- #
 # sendLocation: Sends a location to a chat group in Telegram                   #
@@ -308,6 +326,42 @@ proc ::libtelegram::sendChatAction {chat_id action} {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/sendChatAction -d chat_id=$chat_id -d action=$action]
 	} ] } {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendChatAction method: $result"
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::getUserProfilePhotos                                          #
+# ---------------------------------------------------------------------------- #
+# Changes the bot's status in Telegram                                         #
+# https://core.telegram.org/bots/api#getuserprofilephotos                      #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::getUserProfilePhotos {user_id offset limit} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getUserProfilePhotos -d user_id=$user_id -d offset=$offset -d limit=$limit]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using getUserProfilePhotos method: $result"
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::getFile                                                       #
+# ---------------------------------------------------------------------------- #
+# Changes the bot's status in Telegram                                         #
+# https://core.telegram.org/bots/api#getfile                                   #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::getFile {file_id} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getFile -d file_id=$file_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using getFile method: $result"
 		return -1
 	}
 	return $result
