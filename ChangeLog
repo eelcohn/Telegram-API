@@ -1,3 +1,7 @@
+v20171218:
+* Updated comments in the libtelegram.tcl library
+* Added setWebHook, deleteWebHook and getWebHookInfo methods to the libtelegram.tcl library
+
 v20171217:
 * Added colorized nicknames on IRC (nailyk-fr)
 * Removed bold control characters from language files (mailyk-fr)
