@@ -220,11 +220,13 @@ proc tg2irc_pollTelegram {} {
 				# Check if a text message has been sent to the Telegram group
 				if {[jsonHasKey $record "text"]} {
 					# Bug: the object should really be "message" and not ""
-					set txt [remove_slashes [utf2ascii [jsonGetValue $record "" "text"]]]
+					set txt [utf2ascii [jsonGetValue $record "" "text"]]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_MSGSENT "\003[getColorFromString $name][utf2ascii $name]\003" "$txt"]
+							foreach line [split $txt "\\n"] {
+								putchan $irc_channel [format $MSG_TG_MSGSENT "\003[getColorFromString $name][utf2ascii $name]\003" "[remove_slashes $txt]"]
+							}
 							if {[string index $txt 0] eq "/"} {
 								set msgid [jsonGetValue $record "message" "message_id"]
 								tg2irc_botCommands "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
