@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API library v20171216                                               #
+# Telegram TCL library v20171218                                               #
 # This library has functions for interacting with the Telegram servers         #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
@@ -8,28 +8,10 @@
 namespace eval libtelegram {
 
 # ---------------------------------------------------------------------------- #
-# ::libtelegram::getMe                                                         #
-# ---------------------------------------------------------------------------- #
-# Get some basic information about the bot                                     #
-# See also https://core.telegram.org/bots/api#getMe                            #
-# ---------------------------------------------------------------------------- #
-proc ::libtelegram::getMe {} {
-	global tg_bot_id tg_bot_token
-
-	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getMe]
-	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using getMe method: $result"
-		return -1
-	}
-	return $result
-}
-
-# ---------------------------------------------------------------------------- #
 # ::libtelegram::getUpdates                                                    #
 # ---------------------------------------------------------------------------- #
 # Receive incoming updates from the Telegram servers                           #
-# See also https://core.telegram.org/bots/api#getUpdates                       #
+# https://core.telegram.org/bots/api#getUpdates                                #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getUpdates {offset} {
 	global tg_bot_id tg_bot_token
@@ -44,10 +26,28 @@ proc ::libtelegram::getUpdates {offset} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::getMe                                                         #
+# ---------------------------------------------------------------------------- #
+# Get some basic information about the bot                                     #
+# https://core.telegram.org/bots/api#getMe                                     #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::getMe {} {
+	global tg_bot_id tg_bot_token
+
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$tg_bot_id:$tg_bot_token/getMe]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using getMe method: $result"
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
 # ::libtelegram::sendChatAction                                                #
 # ---------------------------------------------------------------------------- #
 # Changes the bot's status in Telegram                                         #
-# See also https://core.telegram.org/bots/api#sendChatAction                   #
+# https://core.telegram.org/bots/api#sendChatAction                            #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendChatAction {chat_id action} {
 	global tg_bot_id tg_bot_token
@@ -62,7 +62,10 @@ proc ::libtelegram::sendChatAction {chat_id action} {
 }
 
 # ---------------------------------------------------------------------------- #
-# sendMessage: Sends a message to a chat group in Telegram                     #
+# ::libtelegram::sendMessage                                                   #
+# ---------------------------------------------------------------------------- #
+# Sends a message to a chat group in Telegram                                  #
+# https://core.telegram.org/bots/api#sendmessage                               #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
 	global tg_bot_id tg_bot_token tg_web_page_preview
@@ -77,7 +80,10 @@ proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::sendPhoto                                                     #
+# ---------------------------------------------------------------------------- #
 # sendPhoto: Sends a photo to a chat group in Telegram                         #
+# https://core.telegram.org/bots/api#sendphoto                                 #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendPhoto {chat_id msg_id photo caption} {
 	global tg_bot_id tg_bot_token
@@ -92,7 +98,10 @@ proc ::libtelegram::sendPhoto {chat_id msg_id photo caption} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::sendAudio                                                     #
+# ---------------------------------------------------------------------------- #
 # sendAudio: Sends a audio file to a chat group in Telegram                    #
+# https://core.telegram.org/bots/api#sendaudio                                 #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendAudio {chat_id msg_id audio caption} {
 	global tg_bot_id tg_bot_token
@@ -107,7 +116,10 @@ proc ::libtelegram::sendAudio {chat_id msg_id audio caption} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::sendDocument                                                  #
+# ---------------------------------------------------------------------------- #
 # sendDocument: Sends a document to a chat group in Telegram                   #
+# https://core.telegram.org/bots/api#senddocument                              #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendDocument {chat_id msg_id document caption} {
 	global tg_bot_id tg_bot_token
@@ -122,7 +134,10 @@ proc ::libtelegram::sendDocument {chat_id msg_id document caption} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::sendVideo                                                     #
+# ---------------------------------------------------------------------------- #
 # sendVideo: Sends a video to a chat group in Telegram                         #
+# https://core.telegram.org/bots/api#sendvideo                                 #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendVideo {chat_id msg_id video caption} {
 	global tg_bot_id tg_bot_token
@@ -137,7 +152,10 @@ proc ::libtelegram::sendVideo {chat_id msg_id video caption} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::sendVoice                                                     #
+# ---------------------------------------------------------------------------- #
 # sendVoice: Sends a playable voice message to a chat group in Telegram        #
+# https://core.telegram.org/bots/api#sendvoice                                 #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendVoice {chat_id msg_id voice caption} {
 	global tg_bot_id tg_bot_token
@@ -152,7 +170,10 @@ proc ::libtelegram::sendVoice {chat_id msg_id voice caption} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::sendVideoNote                                                 #
+# ---------------------------------------------------------------------------- #
 # sendVideoNote: Sends a video note to a chat group in Telegram                #
+# https://core.telegram.org/bots/api#sendvideonote                             #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendVideoNote {chat_id msg_id video_note} {
 	global tg_bot_id tg_bot_token
@@ -167,7 +188,10 @@ proc ::libtelegram::sendVideoNote {chat_id msg_id video_note} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::sendLocation                                                  #
+# ---------------------------------------------------------------------------- #
 # sendLocation: Sends a location to a chat group in Telegram                   #
+# https://core.telegram.org/bots/api#sendlocation                              #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendLocation {chat_id msg_id latitude longitude} {
 	global tg_bot_id tg_bot_token
@@ -182,7 +206,10 @@ proc ::libtelegram::sendLocation {chat_id msg_id latitude longitude} {
 }
 
 # ---------------------------------------------------------------------------- #
-# sendVenue: Sends a venue to a chat group in Telegram                         #
+# ::libtelegram::sendVenue                                                     #
+# ---------------------------------------------------------------------------- #
+# Sends a venue to a chat group in Telegram                                    #
+# https://core.telegram.org/bots/api#sendvenue                                 #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendVenue {chat_id msg_id latitude longitude title address} {
 	global tg_bot_id tg_bot_token
@@ -197,7 +224,10 @@ proc ::libtelegram::sendVenue {chat_id msg_id latitude longitude title address} 
 }
 
 # ---------------------------------------------------------------------------- #
-# sendContact: Sends a contact to a chat group in Telegram                     #
+# ::libtelegram::sendContact                                                   #
+# ---------------------------------------------------------------------------- #
+# Sends a contact to a chat group in Telegram                                  #
+# https://core.telegram.org/bots/api#sendcontact                               #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendContact {chat_id msg_id phone_number first_name last_name} {
 	global tg_bot_id tg_bot_token
@@ -212,7 +242,10 @@ proc ::libtelegram::sendContact {chat_id msg_id phone_number first_name last_nam
 }
 
 # ---------------------------------------------------------------------------- #
-# kickChatMember: Kicks an user from a chat group in Telegram                  #
+# ::libtelegram::kickChatMember                                                #
+# ---------------------------------------------------------------------------- #
+# Kicks an user from a chat group in Telegram                                  #
+# https://core.telegram.org/bots/api#kickchatmember                            #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::kickChatMember {chat_id user_id} {
 	global tg_bot_id tg_bot_token
@@ -227,7 +260,10 @@ proc ::libtelegram::kickChatMember {chat_id user_id} {
 }
 
 # ---------------------------------------------------------------------------- #
-# setChatPhoto: Sets the channel's profile photo of a chat group in Telegram   #
+# ::libtelegram::setChatPhoto                                                  #
+# ---------------------------------------------------------------------------- #
+# Sets the channel's profile photo of a chat group in Telegram                 #
+# https://core.telegram.org/bots/api#setchatphoto                              #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::setChatPhoto {chat_id photo} {
 	global tg_bot_id tg_bot_token
@@ -247,7 +283,10 @@ proc ::libtelegram::setChatPhoto {chat_id photo} {
 }
 
 # ---------------------------------------------------------------------------- #
-# setChatTitle: Sets the channel's profile title of a chat group in Telegram   #
+# ::libtelegram::setChatTitle                                                  #
+# ---------------------------------------------------------------------------- #
+# Sets the channel's profile title of a chat group in Telegram                 #
+# https://core.telegram.org/bots/api#setchattitle                              #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::setChatTitle {chat_id title} {
 	global tg_bot_id tg_bot_token
@@ -267,7 +306,10 @@ proc ::libtelegram::setChatTitle {chat_id title} {
 }
 
 # ---------------------------------------------------------------------------- #
-# tg_getChat: Get up to date information about the chat group in Telegram      #
+# ::libtelegram::getChat                                                       #
+# ---------------------------------------------------------------------------- #
+# Get up to date information about the chat group in Telegram                  #
+# https://core.telegram.org/bots/api#getchat                                   #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getChat {chat_id} {
 	global tg_bot_id tg_bot_token
@@ -282,7 +324,10 @@ proc ::libtelegram::getChat {chat_id} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::getChatAdministrators                                         #
+# ---------------------------------------------------------------------------- #
 # Get a list of administrators in a chat group in Telegram                     #
+# https://core.telegram.org/bots/api#getchatadministrators                     #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getChatAdministrators {chat_id} {
 	global tg_bot_id tg_bot_token
@@ -297,7 +342,10 @@ proc ::libtelegram::getChatAdministrators {chat_id} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::getChatMemberCount                                            #
+# ---------------------------------------------------------------------------- #
 # Get the number of members in a chat group in Telegram                        #
+# https://core.telegram.org/bots/api#getchatmemberscount                       #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getChatMembersCount {chat_id} {
 	global tg_bot_id tg_bot_token
@@ -312,7 +360,10 @@ proc ::libtelegram::getChatMembersCount {chat_id} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::getChatMember                                                 #
+# ---------------------------------------------------------------------------- #
 # Get information about a member of a chat group in Telegram                   #
+# https://core.telegram.org/bots/api#getchatmember                             #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getChatMember {chat_id user_id} {
 	global tg_bot_id tg_bot_token
@@ -327,4 +378,3 @@ proc ::libtelegram::getChatMember {chat_id user_id} {
 }
 
 }
-
