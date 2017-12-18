@@ -2,6 +2,7 @@ v20171218:
 * Updated comments in the libtelegram.tcl library
 * Added setWebHook, deleteWebHook and getWebHookInfo methods to the libtelegram.tcl library
 * Added forwardMessage method to the libtelegram.tcl library
+* Added sendMediaGroup, getUserProfilePhotos and getFile methods to the libtelegram.tcl library
 
 v20171217:
 * Added colorized nicknames on IRC (nailyk-fr)
