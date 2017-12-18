@@ -38,7 +38,7 @@ proc imagesearch_getImage {chat_id msgid channel message parameter_start} {
 #	regsub -all {\\} $title {} title
 
 	if {$url == ""} {
-		libtelegram::sendMessage $chat_id "html" "Nothing found :-("
+		libtelegram::sendMessage $chat_id "$msgid" "html" "Nothing found :-("
 		putchan $channel "Nothing found :-("
 	} else {
 		libtelegram::sendPhoto $chat_id "$msgid" "$url" "$title"
