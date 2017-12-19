@@ -769,9 +769,9 @@ proc getWebsiteTitle {url} {
 		return "No preview available"
 	}
 
-	set titlestart [string first $result "<title>"]
-	set titleend [string first $result "</title>"]
-	return [string range $result $titlestart+7 $titleend]
+	set titlestart [string first "<title>" $result]
+	set titleend [string first "</title>" $result]
+	return [string range $result $titlestart+7 $titleend-1]
 }
 
 # ---------------------------------------------------------------------------- #
