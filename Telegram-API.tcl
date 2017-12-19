@@ -236,7 +236,7 @@ proc tg2irc_pollTelegram {} {
 						if {$chatid eq $tg_chat_id} {
 							foreach line [split [string map {\\n \n} $txt] "\n"] {
 								putchan $irc_channel [format $MSG_TG_MSGSENT "$name" "[remove_slashes $line]"]
-								if {[string first "http://" $line] || [string first "https://" $line]} {
+								if {[string match -nocase "*http://?*" $line] || [string match -nocase "*https://?*" $line] || [string match -nocase "*www.?*" $line]} {
 									putchan $irc_channel [getWebsiteTitle $line]
 								}
 							}
