@@ -774,7 +774,7 @@ proc getColorFromString {string} {
 # ---------------------------------------------------------------------------- #
 proc getWebsiteTitle {url} {
 	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X GET $url]
+		set result [exec curl --tlsv1.2 --location -s -X GET $url]
 	} ] } {
 		return "No preview available"
 	}
