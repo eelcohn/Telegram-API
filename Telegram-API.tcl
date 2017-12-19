@@ -577,13 +577,15 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				setuser $irchandle XTRA "TELEGRAM_USERID" "[string range $from_id 0 12]"
 #				setuser $irchandle XTRA "IRL" "[string range $first_name 0 159] [string range $last_name 0 159]"
 
-				# Lookop the last login time
+				# Lookup the last login time
 				set lastlogin [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"]
 				if {$lastlogin == ""} {
+					# First login of this user, so set LASTLOGOUT and LASTUSERID to defaults
 					set lastlogin "[format $MSG_BOT_FIRSTLOGIN "$tg_botname"]"
 					setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "0"
 					setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "0"
 				} else {
+					# Prepare string with last login time
 					set lastlogin "[format $MSG_BOT_LASTLOGIN "$tg_botname" "[clock format $lastlogin -format $timeformat]"]"
 				}
 
@@ -596,6 +598,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				}
 				libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERLOGIN "$tg_botname" "$irchandle"]\n\n $lastlogin"
 			} else {
+				# Username/password combo doesn't match
 				libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_USERPASSWRONG"
 			}
 		}
