@@ -226,6 +226,9 @@ proc tg2irc_pollTelegram {} {
 						if {$chatid eq $tg_chat_id} {
 							foreach line [split [string map {\\n \n} $txt] "\n"] {
 								putchan $irc_channel [format $MSG_TG_MSGSENT "\003[getColorFromString $name][utf2ascii $name]\003" "[remove_slashes $line]"]
+								if {[string first $line "http://"] || [string first $line "https://"]} {
+									putchan $irc_channel [getWebsiteTitle $line]
+								}
 							}
 							if {[string index $txt 0] eq "/"} {
 								set msgid [jsonGetValue $record "message" "message_id"]
