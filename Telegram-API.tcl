@@ -151,6 +151,13 @@ proc irc2tg_nickKicked {nick uhost handle channel target reason} {
 proc irc2tg_modeChange {nick uhost hand channel mode target} {
 	global tg_channels MSG_IRC_MODECHANGE
 
+	# Don't send mode changes to the Telegram if the bot just joined the IRC channel
+	if {$nick eq $irc_botname} {
+		if {$::server-online+30 < [clock seconds]} {
+			return 0
+		}
+	}
+
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
