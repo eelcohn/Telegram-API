@@ -225,6 +225,7 @@ proc tg2irc_pollTelegram {} {
 				}
 				if {$colorize_nicknames == "true"} {
 					set name "\003[getColorFromString $name]$name\003"
+				}
 
 				# Check if a text message has been sent to the Telegram group
 				if {[jsonHasKey $record "text"]} {
