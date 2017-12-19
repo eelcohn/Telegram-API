@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API configuration v20171214 for Eggdrop                             #
+# Telegram-API configuration v20171219 for Eggdrop                             #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -13,6 +13,7 @@ set tg_poll_freq		5
 set tg_web_page_preview	false
 set language			"english"
 set timeformat			"%Y-%m-%d %H:%M:%S"
+set colorize_nicknames		"true"
 
 array set tg_channels {
 	"-21436587"		"#lamer"
