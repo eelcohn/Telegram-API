@@ -219,10 +219,12 @@ proc tg2irc_pollTelegram {} {
 			"supergroup" -
 			"group" {
 				set chatid [jsonGetValue $record "chat" "id"]
-				set name [jsonGetValue $record "from" "username"]
+				set name [utf2ascii [jsonGetValue $record "from" "username"]]
 				if {$name == "" } {
-					set name [concat [jsonGetValue $record "from" "first_name"] [jsonGetValue $record "from" "last_name"]]
+					set name [utf2ascii [concat [jsonGetValue $record "from" "first_name"] [jsonGetValue $record "from" "last_name"]]]
 				}
+				if {$colorize_nicknames == "true"} {
+					set name "\003[getColorFromString $name]$name\003"
 
 				# Check if a text message has been sent to the Telegram group
 				if {[jsonHasKey $record "text"]} {
@@ -232,7 +234,7 @@ proc tg2irc_pollTelegram {} {
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							foreach line [split [string map {\\n \n} $txt] "\n"] {
-								putchan $irc_channel [format $MSG_TG_MSGSENT "\003[getColorFromString $name][utf2ascii $name]\003" "[remove_slashes $line]"]
+								putchan $irc_channel [format $MSG_TG_MSGSENT "$name" "[remove_slashes $line]"]
 								if {[string first "http://" $line] || [string first "https://" $line]} {
 									putchan $irc_channel [getWebsiteTitle $line]
 								}
@@ -257,7 +259,7 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_AUDIOSENT "[utf2ascii $name]" "$tg_performer" "$tg_title" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$irc_botname" "$tg_file_id"]
+							putchan $irc_channel [format $MSG_TG_AUDIOSENT "$name" "$tg_performer" "$tg_title" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$irc_botname" "$tg_file_id"]
 						}
 					}
 				}
@@ -270,7 +272,7 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_DOCSENT "[utf2ascii $name]" "$tg_file_name" "$tg_file_size" "$irc_botname" "$tg_file_id"]
+							putchan $irc_channel [format $MSG_TG_DOCSENT " $name" "$tg_file_name" "$tg_file_size" "$irc_botname" "$tg_file_id"]
 						}
 					}
 				}
@@ -287,7 +289,7 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_PHOTOSENT "[utf2ascii $name]" "$caption" "$irc_botname" "$tg_file_id"]
+							putchan $irc_channel [format $MSG_TG_PHOTOSENT "$name" "$caption" "$irc_botname" "$tg_file_id"]
 						}
 					}
 				}
@@ -298,7 +300,7 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_STICKERSENT "[utf2ascii $name]" "[sticker2ascii $emoji]"]
+							putchan $irc_channel [format $MSG_TG_STICKERSENT "$name" "[sticker2ascii $emoji]"]
 						}
 					}
 				}
@@ -320,7 +322,7 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_VIDEOSENT "[utf2ascii $name]" "$caption" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$irc_botname" "$tg_file_id"]
+							putchan $irc_channel [format $MSG_TG_VIDEOSENT "$name" "$caption" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$irc_botname" "$tg_file_id"]
 						}
 					}
 				}
@@ -336,7 +338,7 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_VOICESENT "[utf2ascii $name]" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$tg_file_size" "$irc_botname" "$tg_file_id"]
+							putchan $irc_channel [format $MSG_TG_VOICESENT "$name" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$tg_file_size" "$irc_botname" "$tg_file_id"]
 						}
 					}
 				}
@@ -349,7 +351,7 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_CONTACTSENT "[utf2ascii $name]" "$tg_phone_number" "$tg_first_name" "$tg_last_name"]
+							putchan $irc_channel [format $MSG_TG_CONTACTSENT "$name" "$tg_phone_number" "$tg_first_name" "$tg_last_name"]
 						}
 					}
 				}
@@ -365,7 +367,7 @@ proc tg2irc_pollTelegram {} {
 
 						foreach {tg_chat_id irc_channel} [array get tg_channels] {
 							if {$chatid eq $tg_chat_id} {
-								putchan $irc_channel [format $MSG_TG_VENUESENT "[utf2ascii $name]" "$tg_location" "$tg_title" "$tg_address" "$tg_foursquare_id"]
+								putchan $irc_channel [format $MSG_TG_VENUESENT "$name" "$tg_location" "$tg_title" "$tg_address" "$tg_foursquare_id"]
 							}
 						}
 					} else {
@@ -375,7 +377,7 @@ proc tg2irc_pollTelegram {} {
 
 						foreach {tg_chat_id irc_channel} [array get tg_channels] {
 							if {$chatid eq $tg_chat_id} {
-								putchan $irc_channel [format $MSG_TG_LOCATIONSENT "[utf2ascii $name]" "$tg_longitude" "$tg_latitude"]
+								putchan $irc_channel [format $MSG_TG_LOCATIONSENT "$name" "$tg_longitude" "$tg_latitude"]
 							}
 						}
 					}
