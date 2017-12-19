@@ -149,7 +149,7 @@ proc irc2tg_nickKicked {nick uhost handle channel target reason} {
 # Inform the Telegram group(s) that a channel's mode has changed               #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_modeChange {nick uhost hand channel mode target} {
-	global tg_channels MSG_IRC_MODECHANGE
+	global irc_botname tg_channels MSG_IRC_MODECHANGE
 
 	# Don't send mode changes to the Telegram if the bot just joined the IRC channel
 	if {$nick eq $irc_botname} {
