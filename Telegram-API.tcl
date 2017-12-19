@@ -729,7 +729,7 @@ proc escape_out_bracket {txt} {
 	return $txt
 }
 
-# ---------------------------------------------------------------------------- # 
+# ---------------------------------------------------------------------------- #
 # Encode all except "unreserved" characters; use UTF-8 for extended chars.     #
 # ---------------------------------------------------------------------------- #
 proc url_encode {str} {
@@ -740,7 +740,7 @@ proc url_encode {str} {
 	return [string map {"\n" "%0A"} [subst [regsub -all $chRE $uStr $replacement]]]
 }
 
-# ---------------------------------------------------------------------------- # 
+# ---------------------------------------------------------------------------- #
 # Calculate an IRC color code for a nickname                                   #
 # ---------------------------------------------------------------------------- #
 proc getColorFromString {string} {
@@ -754,6 +754,21 @@ proc getColorFromString {string} {
 
 	# Return only values from 1 to 15
 	return [expr [expr $color % 15] + 1]
+}
+
+# ---------------------------------------------------------------------------- #
+# Get the title of a website for website previews on IRC                       #
+# ---------------------------------------------------------------------------- #
+proc getWebsiteTitle {url} {
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X GET $url]
+	} ] } {
+		return "No preview available"
+	}
+
+	set titlestart [string first $result "<title>"]
+	set titleend [string first $result "</title>"]
+	return [string range $result $titlestart+7 $titleend]
 }
 
 # ---------------------------------------------------------------------------- #
