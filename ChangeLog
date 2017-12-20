@@ -1,3 +1,6 @@
+v20171220:
+* Fixed modules/Quotes.tcl: sending quotes to Telegram with cpecial characters [ and ]
+
 v20171219:
 * Added website previews for links sent from Telegram to IRC
 
