@@ -695,6 +695,7 @@ array set utftable {
 	{\\ud83e\\udd18}	{" :hands_hornsign:"}
 	{\\ud83e\\udd21}	{" :clown:"}
 	{\\ud83e\\udd23}	{" :rofl:"}
+	{\\ud83e\\udd43}	{" :whiskey:"}
 	{\\udbb8\\uddc4}	{" :monkey_face:"}
 	{\\uddba\\udf1a}	{" :hearts:"}
 	{\\uddba\\udf1c}	{" :diamonds:"}
