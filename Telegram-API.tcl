@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20171219 for Eggdrop                                    #
+# Telegram-API module v20171220 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -23,11 +23,11 @@ proc initialize {} {
 
 	set result [::libtelegram::getMe]
 
-	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		die "Telegram-API: bad result from getMe method: [jsonGetValue $result "" "description"]"
+	if {[::libjson::getValue $result "" "ok"] eq "false"} {
+		die "Telegram-API: bad result from getMe method: [::libjson::getValue $result "" "description"]"
 	}
 
-	set tg_botname [jsonGetValue $result "result" "username"]
+	set tg_botname [::libjson::getValue $result "result" "username"]
 	set irc_botname "$nick"
 }
 
@@ -186,9 +186,9 @@ proc tg2irc_pollTelegram {} {
  		return -1
 	}
 
-	if {[jsonGetValue $result "" "ok"] eq "false"} {
+	if {[::libjson::getValue $result "" "ok"] eq "false"} {
 		# Dont go into the parsing process but plan the next polling
-		putlog "Telegram-API: bad result from getUpdates method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from getUpdates method: [::libjson::getValue $result "" "description"]"
 		utimer $tg_poll_freq tg2irc_pollTelegram
 		return -1
 	}
@@ -203,14 +203,14 @@ proc tg2irc_pollTelegram {} {
 			set record [string range $result $recordstart $recordend]
 		}
 
-		switch [jsonGetValue $record "chat" "type"] {
+		switch [::libjson::getValue $record "chat" "type"] {
 			# Check if this record is a private chat record...
 			"private" {
-				if {[jsonHasKey $record "text"]} {
+				if {[::libjson::hasKey $record "text"]} {
 					# Bug: the object should really be "message" and not ""
-					set txt [remove_slashes [utf2ascii [jsonGetValue $record "" "text"]]]
-					set msgid [jsonGetValue $record "message" "message_id"]
-					set fromid [jsonGetValue $record "from" "id"]
+					set txt [remove_slashes [utf2ascii [::libjson::getValue $record "" "text"]]]
+					set msgid [::libjson::getValue $record "message" "message_id"]
+					set fromid [::libjson::getValue $record "from" "id"]
 
 					tg2irc_privateCommands "$fromid" "$msgid" "$txt"
 				}
@@ -219,19 +219,19 @@ proc tg2irc_pollTelegram {} {
 			# Check if this record is a group or supergroup chat record...
 			"supergroup" -
 			"group" {
-				set chatid [jsonGetValue $record "chat" "id"]
-				set name [utf2ascii [jsonGetValue $record "from" "username"]]
+				set chatid [::libjson::getValue $record "chat" "id"]
+				set name [utf2ascii [::libjson::getValue $record "from" "username"]]
 				if {$name == "" } {
-					set name [utf2ascii [concat [jsonGetValue $record "from" "first_name"] [jsonGetValue $record "from" "last_name"]]]
+					set name [utf2ascii [concat [::libjson::getValue $record "from" "first_name"] [::libjson::getValue $record "from" "last_name"]]]
 				}
 				if {$colorize_nicknames == "true"} {
 					set name "\003[getColorFromString $name]$name\003"
 				}
 
 				# Check if a text message has been sent to the Telegram group
-				if {[jsonHasKey $record "text"]} {
+				if {[::libjson::hasKey $record "text"]} {
 					# Bug: the object should really be "message" and not ""
-					set txt [utf2ascii [jsonGetValue $record "" "text"]]
+					set txt [utf2ascii [::libjson::getValue $record "" "text"]]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -242,7 +242,7 @@ proc tg2irc_pollTelegram {} {
 								}
 							}
 							if {[string index $txt 0] eq "/"} {
-								set msgid [jsonGetValue $record "message" "message_id"]
+								set msgid [::libjson::getValue $record "message" "message_id"]
 								tg2irc_botCommands "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
 							}
 						}
@@ -250,11 +250,11 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if audio has been sent to the Telegram group
-				if {[jsonHasKey $record "audio"]} {
-					set tg_file_id [jsonGetValue $record "audio" "file_id"]
-					set tg_performer [jsonGetValue $record "audio" "performer"]
-					set tg_title [jsonGetValue $record "audio" "title"]
-					set tg_duration [jsonGetValue $record "audio" "duration"]
+				if {[::libjson::hasKey $record "audio"]} {
+					set tg_file_id [::libjson::getValue $record "audio" "file_id"]
+					set tg_performer [::libjson::getValue $record "audio" "performer"]
+					set tg_title [::libjson::getValue $record "audio" "title"]
+					set tg_duration [::libjson::getValue $record "audio" "duration"]
 					if {$tg_duration eq ""} {
 						set tg_duration "0"
 					}
@@ -267,10 +267,10 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a document has been sent to the Telegram group
-				if {[jsonHasKey $record "document"]} {
-					set tg_file_id [jsonGetValue $record "document" "file_id"]
-					set tg_file_name [jsonGetValue $record "document" "file_name"]
-					set tg_file_size [jsonGetValue $record "document" "file_size"]
+				if {[::libjson::hasKey $record "document"]} {
+					set tg_file_id [::libjson::getValue $record "document" "file_id"]
+					set tg_file_name [::libjson::getValue $record "document" "file_name"]
+					set tg_file_size [::libjson::getValue $record "document" "file_size"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -280,11 +280,11 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a photo has been sent to the Telegram group
-				if {[jsonHasKey $record "photo"]} {
-					set tg_file_id [jsonGetValue $record "" "file_id"]
-					if {[jsonHasKey $record "caption"]} {
+				if {[::libjson::hasKey $record "photo"]} {
+					set tg_file_id [::libjson::getValue $record "" "file_id"]
+					if {[::libjson::hasKey $record "caption"]} {
 						# Bug: the object should really be "photo" and not ""
-						set caption " ([remove_slashes [utf2ascii [jsonGetValue $record "" "caption"]]])"
+						set caption " ([remove_slashes [utf2ascii [::libjson::getValue $record "" "caption"]]])"
 					} else {
 						set caption ""
 					}
@@ -297,8 +297,8 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a sticker has been sent to the Telegram group
-				if {[jsonHasKey $record "sticker"]} {
-					set emoji [jsonGetValue $record "sticker" "emoji"]
+				if {[::libjson::hasKey $record "sticker"]} {
+					set emoji [::libjson::getValue $record "sticker" "emoji"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -308,16 +308,16 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a video has been sent to the Telegram group
-				if {[jsonHasKey $record "video"]} {
-					set tg_file_id [jsonGetValue $record "video" "file_id"]
-					set tg_duration [jsonGetValue $record "video" "duration"]
+				if {[::libjson::hasKey $record "video"]} {
+					set tg_file_id [::libjson::getValue $record "video" "file_id"]
+					set tg_duration [::libjson::getValue $record "video" "duration"]
 					if {$tg_duration eq ""} {
 						set tg_duration "0"
 					}
 
-					if {[jsonHasKey $record "caption"]} {
+					if {[::libjson::hasKey $record "caption"]} {
 						# Bug: the object should really be "video" and not ""
-						set caption " ([utf2ascii [remove_slashes [jsonGetValue $record "" "caption"]]])"
+						set caption " ([utf2ascii [remove_slashes [::libjson::getValue $record "" "caption"]]])"
 					} else {
 						set caption ""
 					}
@@ -330,10 +330,10 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a voice object has been sent to the Telegram group
-				if {[jsonHasKey $record "voice"]} {
-					set tg_file_id [jsonGetValue $record "voice" "file_id"]
-					set tg_duration [jsonGetValue $record "voice" "duration"]
-					set tg_file_size [jsonGetValue $record "document" "file_size"]
+				if {[::libjson::hasKey $record "voice"]} {
+					set tg_file_id [::libjson::getValue $record "voice" "file_id"]
+					set tg_duration [::libjson::getValue $record "voice" "duration"]
+					set tg_file_size [::libjson::getValue $record "document" "file_size"]
 					if {$tg_duration eq ""} {
 						set tg_duration "0"
 					}
@@ -346,10 +346,10 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a contact has been sent to the Telegram group
-				if {[jsonHasKey $record "contact"]} {
-					set tg_phone_number [jsonGetValue $record "contact" "phone_number"]
-					set tg_first_name [jsonGetValue $record "contact" "first_name"]
-					set tg_last_name [jsonGetValue $record "contact" "last_name"]
+				if {[::libjson::hasKey $record "contact"]} {
+					set tg_phone_number [::libjson::getValue $record "contact" "phone_number"]
+					set tg_first_name [::libjson::getValue $record "contact" "first_name"]
+					set tg_last_name [::libjson::getValue $record "contact" "last_name"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -359,13 +359,13 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a location has been sent to the Telegram group
-				if {[jsonHasKey $record "location"]} {
+				if {[::libjson::hasKey $record "location"]} {
 					# Check if a venue has been sent to the Telegram group
-					if {[jsonHasKey $record "venue"]} {
-						set tg_location [jsonGetValue $record "venue" "location"]
-						set tg_title [jsonGetValue $record "venue" "title"]
-						set tg_address [jsonGetValue $record "venue" "address"]
-						set tg_foursquare_id [jsonGetValue $record "venue" "foursquare_id"]
+					if {[::libjson::hasKey $record "venue"]} {
+						set tg_location [::libjson::getValue $record "venue" "location"]
+						set tg_title [::libjson::getValue $record "venue" "title"]
+						set tg_address [::libjson::getValue $record "venue" "address"]
+						set tg_foursquare_id [::libjson::getValue $record "venue" "foursquare_id"]
 
 						foreach {tg_chat_id irc_channel} [array get tg_channels] {
 							if {$chatid eq $tg_chat_id} {
@@ -374,8 +374,8 @@ proc tg2irc_pollTelegram {} {
 						}
 					} else {
 					# Not a venue, so it must be a location
-						set tg_longitude [jsonGetValue $record "location" "longitude"]
-						set tg_latitude [jsonGetValue $record "location" "latitude"]
+						set tg_longitude [::libjson::getValue $record "location" "longitude"]
+						set tg_latitude [::libjson::getValue $record "location" "latitude"]
 
 						foreach {tg_chat_id irc_channel} [array get tg_channels] {
 							if {$chatid eq $tg_chat_id} {
@@ -387,8 +387,8 @@ proc tg2irc_pollTelegram {} {
 
 
 				# Check if someone has been added to the Telegram group
-				if {[jsonHasKey $record "new_chat_member"]} {
-					set new_chat_member [concat [jsonGetValue $record "new_chat_member" "first_name"] [jsonGetValue $record "new_chat_member" "last_name"]]
+				if {[::libjson::hasKey $record "new_chat_member"]} {
+					set new_chat_member [concat [::libjson::getValue $record "new_chat_member" "first_name"] [::libjson::getValue $record "new_chat_member" "last_name"]]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -402,8 +402,8 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if someone has been removed from the Telegram group
-				if {[jsonHasKey $record "left_chat_member"]} {
-					set left_chat_member [concat [jsonGetValue $record "left_chat_member" "first_name"] [jsonGetValue $record "left_chat_member" "last_name"]]
+				if {[::libjson::hasKey $record "left_chat_member"]} {
+					set left_chat_member [concat [::libjson::getValue $record "left_chat_member" "first_name"] [::libjson::getValue $record "left_chat_member" "last_name"]]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -417,9 +417,9 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if the title of the Telegram group chat has changed
-				if {[jsonHasKey $record "new_chat_title"]} {
+				if {[::libjson::hasKey $record "new_chat_title"]} {
 					# Bug: the object should really be "message" and not ""
-					set chat_title [jsonGetValue $record "" "new_chat_title"]
+					set chat_title [::libjson::getValue $record "" "new_chat_title"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -429,9 +429,9 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if the photo of the Telegram group chat has changed
-				if {[jsonHasKey $record "new_chat_photo"]} {
+				if {[::libjson::hasKey $record "new_chat_photo"]} {
 					# Bug: the object should really be "message" and not ""
-					set tg_file_id [jsonGetValue $record "" "file_id"]
+					set tg_file_id [::libjson::getValue $record "" "file_id"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -441,7 +441,7 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if the photo of the Telegram group chat has been deleted
-				if {[jsonHasKey $record "delete_chat_photo"]} {
+				if {[::libjson::hasKey $record "delete_chat_photo"]} {
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							putchan $irc_channel [format $MSG_TG_PICDELETE "[utf2ascii $name]"
@@ -796,50 +796,50 @@ proc getWebsiteTitle {url} {
 # ---------------------------------------------------------------------------- #
 # Check if a JSON key is present                                               #
 # ---------------------------------------------------------------------------- #
-proc jsonHasKey {record key} {
-	if {[string first $key $record] != -1} {
-		return 1
-	} else {
-		return 0
-	}
-}
+#proc ::libjson::hasKey {record key} {
+#	if {[string first $key $record] != -1} {
+#		return 1
+#	} else {
+#		return 0
+#	}
+#}
 
 # ---------------------------------------------------------------------------- #
 # Return the value of a JSON key                                               #
 # ---------------------------------------------------------------------------- #
-proc jsonGetValue {record object key} {
-	set length [string length $key]
-	set objectstart [string first "\"$object\":\{" $record]
-	# Bug: this is a quick fix because this procedure doesn't iterate through all the objects correctly yet
-	if {$object eq ""} {
-		set objectend [string length $record]
-	} else {
-		set objectend [string first "\}" $record $objectstart]
-	}
-
-	set keystart [string first "\"$key\":" $record $objectstart]
-	if {$keystart != -1} {
-		if {$keystart < $objectend} {
-			if {[string index $record [expr $keystart+$length+3]] eq "\""} {
-				set end [string first "\"" $record [expr $keystart+$length+5]]
-				return [string range $record [expr $keystart+$length+4] $end-1]
-			} else {
-				set end [string first "," $record [expr $keystart+$length+3]]
-				if {$end != -1} {
-					return [string range $record [expr $keystart+$length+3] $end-1]
-				} else {
-					set end [string first "\}" $record [expr $keystart+$length+3]]
-					if {$end != -1} {
-						return [string trim [string range $record [expr $keystart+$length+3] $end-1]]
-					} else {
-						return "UNKNOWN"
-					}
-				}
-			}
-		}
-	}
-	return ""
-}
+#proc ::libjson::getValue {record object key} {
+#	set length [string length $key]
+#	set objectstart [string first "\"$object\":\{" $record]
+#	# Bug: this is a quick fix because this procedure doesn't iterate through all the objects correctly yet
+#	if {$object eq ""} {
+#		set objectend [string length $record]
+#	} else {
+#		set objectend [string first "\}" $record $objectstart]
+#	}
+#
+#	set keystart [string first "\"$key\":" $record $objectstart]
+#	if {$keystart != -1} {
+#		if {$keystart < $objectend} {
+#			if {[string index $record [expr $keystart+$length+3]] eq "\""} {
+#				set end [string first "\"" $record [expr $keystart+$length+5]]
+#				return [string range $record [expr $keystart+$length+4] $end-1]
+#			} else {
+#				set end [string first "," $record [expr $keystart+$length+3]]
+#				if {$end != -1} {
+#					return [string range $record [expr $keystart+$length+3] $end-1]
+#				} else {
+#					set end [string first "\}" $record [expr $keystart+$length+3]]
+#					if {$end != -1} {
+#						return [string trim [string range $record [expr $keystart+$length+3] $end-1]]
+#					} else {
+#						return "UNKNOWN"
+#					}
+#				}
+#			}
+#		}
+#	}
+#	return ""
+#}
 
 
 
@@ -854,6 +854,7 @@ set scriptdir [file dirname [info script]]
 source "$scriptdir/Telegram-API-config.tcl"
 source "$scriptdir/utftable.tcl"
 source "$scriptdir/lang/Telegram-API.$language.tcl"
+source "$scriptdir/lib/libjson.tcl"
 source "$scriptdir/lib/libtelegram.tcl"
 
 source "$scriptdir/modules/ImageSearch.tcl"
@@ -878,4 +879,3 @@ initialize
 tg2irc_pollTelegram
 
 putlog "Script loaded: Telegram-API.tcl ($tg_botname)"
-
