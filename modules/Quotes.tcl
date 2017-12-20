@@ -62,7 +62,7 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 		}
 	}
 
-	libtelegram::sendMessage $chat_id $msgid "markdown" "[escape_out_bracket $qot_sel]"
+	libtelegram::sendMessage $chat_id $msgid "html" "[escape_out_bracket $qot_sel]"
 	putchan $channel "$qot_sel"
 }
 
@@ -82,7 +82,7 @@ proc quotes_addQuote {chat_id msgid channel message parameter_start} {
 		puts $quote_fd $quote
 		close $quote_fd
 
-		libtelegram::sendMessage $chat_id $msgid "markdown" $MSG_QUOTE_QUOTEADDED
+		libtelegram::sendMessage $chat_id $msgid "html" $MSG_QUOTE_QUOTEADDED
 		putchan $channel $MSG_QUOTE_QUOTEADDED
 	} else {
 		libtelegram::sendMessage $chat_id $msgid "html" $MSG_QUOTE_ADDHELP
