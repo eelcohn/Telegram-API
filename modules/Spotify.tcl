@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Spotify module v0.1 for Eggdrop with the Telegram-API module v20171216       #
+# Spotify module v0.1 for Eggdrop with the Telegram-API module v20171221       #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
