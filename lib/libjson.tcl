@@ -12,7 +12,7 @@ namespace eval libjson {
 # Check if a JSON key is present                                               #
 # ---------------------------------------------------------------------------- #
 proc ::libjson::hasKey {record key} {
-	switch [::libjson::processor] {
+	switch [$::libjson::processor] {
 		"json_pkg" {
 			putlog "Tcllib::json json processor not supported"
 		}
