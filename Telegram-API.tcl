@@ -206,7 +206,7 @@ proc tg2irc_pollTelegram {} {
 		switch [::libjson::getValue $record "chat" "type"] {
 			# Check if this record is a private chat record...
 			"private" {
-				if {[::libjson::hasKey $record "text"]} {
+				if {[::libjson::hasKey $record ".result.message.text"]} {
 					# Bug: the object should really be "message" and not ""
 					set txt [remove_slashes [utf2ascii [::libjson::getValue $record "" "text"]]]
 					set msgid [::libjson::getValue $record "message" "message_id"]
@@ -229,7 +229,7 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a text message has been sent to the Telegram group
-				if {[::libjson::hasKey $record "text"]} {
+				if {[::libjson::hasKey $record ".result.message.text"]} {
 					# Bug: the object should really be "message" and not ""
 					set txt [utf2ascii [::libjson::getValue $record "" "text"]]
 
@@ -250,7 +250,7 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if audio has been sent to the Telegram group
-				if {[::libjson::hasKey $record "audio"]} {
+				if {[::libjson::hasKey $record ".result.message.audio"]} {
 					set tg_file_id [::libjson::getValue $record "audio" "file_id"]
 					set tg_performer [::libjson::getValue $record "audio" "performer"]
 					set tg_title [::libjson::getValue $record "audio" "title"]
@@ -267,7 +267,7 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a document has been sent to the Telegram group
-				if {[::libjson::hasKey $record "document"]} {
+				if {[::libjson::hasKey $record ".result.message.document"]} {
 					set tg_file_id [::libjson::getValue $record "document" "file_id"]
 					set tg_file_name [::libjson::getValue $record "document" "file_name"]
 					set tg_file_size [::libjson::getValue $record "document" "file_size"]
@@ -280,9 +280,9 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a photo has been sent to the Telegram group
-				if {[::libjson::hasKey $record "photo"]} {
+				if {[::libjson::hasKey $record ".result.message.photo"]} {
 					set tg_file_id [::libjson::getValue $record "" "file_id"]
-					if {[::libjson::hasKey $record "caption"]} {
+					if {[::libjson::hasKey $record ".result.message.caption"]} {
 						# Bug: the object should really be "photo" and not ""
 						set caption " ([remove_slashes [utf2ascii [::libjson::getValue $record "" "caption"]]])"
 					} else {
@@ -297,7 +297,7 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a sticker has been sent to the Telegram group
-				if {[::libjson::hasKey $record "sticker"]} {
+				if {[::libjson::hasKey $record ".result.message.sticker"]} {
 					set emoji [::libjson::getValue $record "sticker" "emoji"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
@@ -308,14 +308,14 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a video has been sent to the Telegram group
-				if {[::libjson::hasKey $record "video"]} {
+				if {[::libjson::hasKey $record ".result.message.video"]} {
 					set tg_file_id [::libjson::getValue $record "video" "file_id"]
 					set tg_duration [::libjson::getValue $record "video" "duration"]
 					if {$tg_duration eq ""} {
 						set tg_duration "0"
 					}
 
-					if {[::libjson::hasKey $record "caption"]} {
+					if {[::libjson::hasKey $record ".result.message.caption"]} {
 						# Bug: the object should really be "video" and not ""
 						set caption " ([utf2ascii [remove_slashes [::libjson::getValue $record "" "caption"]]])"
 					} else {
@@ -330,7 +330,7 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a voice object has been sent to the Telegram group
-				if {[::libjson::hasKey $record "voice"]} {
+				if {[::libjson::hasKey $record ".result.message.voice"]} {
 					set tg_file_id [::libjson::getValue $record "voice" "file_id"]
 					set tg_duration [::libjson::getValue $record "voice" "duration"]
 					set tg_file_size [::libjson::getValue $record "document" "file_size"]
@@ -346,7 +346,7 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a contact has been sent to the Telegram group
-				if {[::libjson::hasKey $record "contact"]} {
+				if {[::libjson::hasKey $record ".result.message.contact"]} {
 					set tg_phone_number [::libjson::getValue $record "contact" "phone_number"]
 					set tg_first_name [::libjson::getValue $record "contact" "first_name"]
 					set tg_last_name [::libjson::getValue $record "contact" "last_name"]
@@ -359,9 +359,9 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a location has been sent to the Telegram group
-				if {[::libjson::hasKey $record "location"]} {
+				if {[::libjson::hasKey $record ".result.message.location"]} {
 					# Check if a venue has been sent to the Telegram group
-					if {[::libjson::hasKey $record "venue"]} {
+					if {[::libjson::hasKey $record ".result.message.venue"]} {
 						set tg_location [::libjson::getValue $record "venue" "location"]
 						set tg_title [::libjson::getValue $record "venue" "title"]
 						set tg_address [::libjson::getValue $record "venue" "address"]
@@ -387,7 +387,7 @@ proc tg2irc_pollTelegram {} {
 
 
 				# Check if someone has been added to the Telegram group
-				if {[::libjson::hasKey $record "new_chat_member"]} {
+				if {[::libjson::hasKey $record ".result.message.new_chat_member"]} {
 					set new_chat_member [concat [::libjson::getValue $record "new_chat_member" "first_name"] [::libjson::getValue $record "new_chat_member" "last_name"]]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
@@ -402,7 +402,7 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if someone has been removed from the Telegram group
-				if {[::libjson::hasKey $record "left_chat_member"]} {
+				if {[::libjson::hasKey $record ".result.message.left_chat_member"]} {
 					set left_chat_member [concat [::libjson::getValue $record "left_chat_member" "first_name"] [::libjson::getValue $record "left_chat_member" "last_name"]]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
@@ -417,7 +417,7 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if the title of the Telegram group chat has changed
-				if {[::libjson::hasKey $record "new_chat_title"]} {
+				if {[::libjson::hasKey $record ".result.message.new_chat_title"]} {
 					# Bug: the object should really be "message" and not ""
 					set chat_title [::libjson::getValue $record "" "new_chat_title"]
 
@@ -429,7 +429,7 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if the photo of the Telegram group chat has changed
-				if {[::libjson::hasKey $record "new_chat_photo"]} {
+				if {[::libjson::hasKey $record ".result.message.new_chat_photo"]} {
 					# Bug: the object should really be "message" and not ""
 					set tg_file_id [::libjson::getValue $record "" "file_id"]
 
@@ -441,7 +441,7 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if the photo of the Telegram group chat has been deleted
-				if {[::libjson::hasKey $record "delete_chat_photo"]} {
+				if {[::libjson::hasKey $record ".result.message.delete_chat_photo"]} {
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							putchan $irc_channel [format $MSG_TG_PICDELETE "[utf2ascii $name]"
