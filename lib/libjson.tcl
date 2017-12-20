@@ -19,7 +19,7 @@ proc ::libjson::hasKey {record key} {
 # Return the value of a JSON key                                               #
 # ---------------------------------------------------------------------------- #
 proc ::libjson::getValue {record object key} {
-	return [jsoninternal::getValue[$record $object $key]
+	return [jsoninternal::getValue $record $object $key]
 }
 }
 
