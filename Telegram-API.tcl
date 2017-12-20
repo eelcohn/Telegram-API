@@ -176,7 +176,7 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 # ---------------------------------------------------------------------------- #
 proc tg2irc_pollTelegram {} {
 	global tg_bot_id tg_bot_token tg_update_id tg_poll_freq tg_channels utftable irc_botname colorize_nicknames
-	global MSG_TG_MSGSENT MSG_TG_AUDIOSENT MSG_TG_PHOTOSENT MSG_TG_DOCSENT MSG_TG_STICKERSENT MSG_TG_VIDEOSENT MSG_TG_VOICESENT MSG_TG_CONTACTSENT MSG_TG_LOCATIONSENT MSG_TG_VENUESENT MSG_TG_USERADD MSG_TG_USERLEFT MSG_TG_CHATTITLE MSG_TG_PICCHANGE MSG_TG_PICDELETE MSG_TG_UNIMPL
+	global MSG_TG_MSGSENT MSG_TG_AUDIOSENT MSG_TG_PHOTOSENT MSG_TG_DOCSENT MSG_TG_STICKERSENT MSG_TG_VIDEOSENT MSG_TG_VOICESENT MSG_TG_CONTACTSENT MSG_TG_LOCATIONSENT MSG_TG_VENUESENT MSG_TG_USERJOINED MSG_TG_USERADD MSG_TG_USERLEFT MSG_TG_USERREMOVED MSG_TG_CHATTITLE MSG_TG_PICCHANGE MSG_TG_PICDELETE MSG_TG_UNIMPL
 
 	set result [libtelegram::getUpdates $tg_update_id]
 
@@ -392,7 +392,11 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_USERADD "[utf2ascii $name]" "[utf2ascii $new_chat_member]"]
+							if {$name eq $left_chat_member} {
+								putchan $irc_channel [format $MSG_TG_USERJOINED "[utf2ascii $name]"]
+							} else {
+								putchan $irc_channel [format $MSG_TG_USERADD "[utf2ascii $name]" "[utf2ascii $new_chat_member]"]
+							}
 						}
 					}
 				}
@@ -403,7 +407,11 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_USERLEFT "[utf2ascii $name]" "[utf2ascii $left_chat_member]"]
+							if {$name eq $left_chat_member} {
+								putchan $irc_channel [format $MSG_TG_USERLEFT "[utf2ascii $name]"]
+							} else {
+								putchan $irc_channel [format $MSG_TG_USERREMOVED "[utf2ascii $name]" "[utf2ascii $left_chat_member]"]
+							}
 						}
 					}
 				}
