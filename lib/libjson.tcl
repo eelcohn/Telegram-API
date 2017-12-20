@@ -12,7 +12,7 @@ namespace eval libjson {
 # Check if a JSON key is present                                               #
 # ---------------------------------------------------------------------------- #
 proc ::libjson::hasKey {record key} {
-	return [jsoninternal::hasKey $record $key]
+	return [jsoninternal::hasKey $record [string range $key [string last "." $key]+1 end]]
 }
 
 # ---------------------------------------------------------------------------- #
