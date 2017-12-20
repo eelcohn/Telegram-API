@@ -32,6 +32,6 @@ proc spotify_getTrack {chat_id msgid channel message parameter_start} {
 		set url [jsonGetValue $result "" "spotify"]
 	}
 
-	libtelegram::sendReplyToMessage $chat_id $msgid "html" "$url"
+	libtelegram::sendMessage $chat_id $msgid "html" "$url"
 	putchan $channel "[strip_html $url]"
 }
