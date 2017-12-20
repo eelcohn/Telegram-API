@@ -153,9 +153,10 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 
 	# Don't send mode changes to the Telegram if the bot just joined the IRC channel
 	if {$nick eq $irc_botname} {
-		if {$::server-online+30 < [clock seconds]} {
+#		if {$::server-online+30 < [clock seconds]} {
+			putlog "$irc_botname changes mode $mode at [clock seconds] (serveronline=$::server-online)"
 			return 0
-		}
+#		}
 	}
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
