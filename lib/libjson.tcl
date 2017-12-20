@@ -12,7 +12,23 @@ namespace eval libjson {
 # Check if a JSON key is present                                               #
 # ---------------------------------------------------------------------------- #
 proc ::libjson::hasKey {record key} {
-	return [jsoninternal::hasKey $record [string range $key [string last "." $key]+1 end]]
+	switch [::libjson::processor] {
+		"json_pkg" {
+			putlog "Tcllib::json json processor not supported"
+		}
+
+		"jq" {
+			putlog "jq json processor not supported"
+		}
+
+		"internal" {
+			return [jsoninternal::hasKey $record $key]
+		}
+
+		default {
+			putlog "::libjson::hasKey unknown json processor $::libjson::processor"
+		}
+	}
 }
 
 # ---------------------------------------------------------------------------- #
@@ -29,7 +45,7 @@ namespace eval jsoninternal {
 # Check if a JSON key is present                                               #
 # ---------------------------------------------------------------------------- #
 proc ::jsoninternal::hasKey {record key} {
-	if {[string first $key $record] != -1} {
+	if {[string first [string range $key [string last "." $key]+1 end] $record] != -1} {
 		return 1
 	} else {
 		return 0
