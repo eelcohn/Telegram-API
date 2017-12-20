@@ -32,8 +32,8 @@ proc imagesearch_getImage {chat_id msgid channel message parameter_start} {
 	}
 
 	# Bug: the object should really be "message" and not ""
-	set url [remove_slashes [jsonGetValue $imgresult "" "media"]]
-	set title [remove_slashes [jsonGetValue $imgresult "" "url"]]
+	set url [remove_slashes [::libjson::getValue $imgresult "" "media"]]
+	set title [remove_slashes [::libjson::getValue $imgresult "" "url"]]
 #	regsub -all {\\} $url {} url
 #	regsub -all {\\} $title {} title
 
