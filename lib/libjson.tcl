@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20171216 for Eggdrop                                    #
+# Telegram-API module v20171220 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -12,6 +12,23 @@ namespace eval libjson {
 # Check if a JSON key is present                                               #
 # ---------------------------------------------------------------------------- #
 proc ::libjson::hasKey {record key} {
+	return [jsoninternal::hasKey $record $key]
+}
+
+# ---------------------------------------------------------------------------- #
+# Return the value of a JSON key                                               #
+# ---------------------------------------------------------------------------- #
+proc ::libjson::getValue {record object key} {
+	return [jsoninternal::getValue[$record $object $key]
+}
+}
+
+namespace eval jsoninternal {
+
+# ---------------------------------------------------------------------------- #
+# Check if a JSON key is present                                               #
+# ---------------------------------------------------------------------------- #
+proc ::jsoninternal::hasKey {record key} {
 	if {[string first $key $record] != -1} {
 		return 1
 	} else {
@@ -22,7 +39,7 @@ proc ::libjson::hasKey {record key} {
 # ---------------------------------------------------------------------------- #
 # Return the value of a JSON key                                               #
 # ---------------------------------------------------------------------------- #
-proc ::libjson::getValue {record object key} {
+proc ::jsoninternal::getValue {record object key} {
 	set length [string length $key]
 	set objectstart [string first "\"$object\":\{" $record]
 	# Bug: this is a quick fix because this procedure doesn't iterate through all the objects correctly yet
