@@ -26,10 +26,10 @@ proc spotify_getTrack {chat_id msgid channel message parameter_start} {
 	}
 
 	set result [string map {" : " ":"} $result]
-	if {[jsonGetValue $result "" "total"] eq "0"} {
+	if {[::libjson::getValue $result "" "total"] eq "0"} {
 		set url "Nothing found."
 	} else {
-		set url [jsonGetValue $result "" "spotify"]
+		set url [::libjson::getValue $result "" "spotify"]
 	}
 
 	libtelegram::sendMessage $chat_id $msgid "html" "$url"
