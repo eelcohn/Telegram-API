@@ -392,7 +392,7 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							if {$name eq $left_chat_member} {
+							if {$name eq $new_chat_member} {
 								putchan $irc_channel [format $MSG_TG_USERJOINED "[utf2ascii $name]"]
 							} else {
 								putchan $irc_channel [format $MSG_TG_USERADD "[utf2ascii $name]" "[utf2ascii $new_chat_member]"]
