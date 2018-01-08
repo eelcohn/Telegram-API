@@ -38,9 +38,8 @@ source /path/to/your/scripts/Telegram-API.tcl
 
 ## File descriptions
 
-{table-plus:columnStyles=width:370px,width:370px}
 | File | Description |
-| --- | --- |
+|--------------------------------|---------|
 | `Telegram-API-config.tcl.sample` | All user configurable settings are set in this file. Rename to Telegram-API-config.tcl and edit according to your preferences before use. |
 | `Telegram-API.tcl` | Main code. Include this file in your `eggdrop.conf` file. |
 | `utftable.tcl` | Translation from UTF characters and emoticons to ASCII characters and emoticons. |
