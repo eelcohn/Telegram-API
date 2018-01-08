@@ -38,6 +38,7 @@ source /path/to/your/scripts/Telegram-API.tcl
 
 ## File descriptions
 
+{table-plus:columnStyles=width:370px,width:370px}
 | File | Description |
 | --- | --- |
 | `Telegram-API-config.tcl.sample` | All user configurable settings are set in this file. Rename to Telegram-API-config.tcl and edit according to your preferences before use. |
