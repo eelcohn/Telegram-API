@@ -3,6 +3,8 @@ A gateway between IRC chat channels and Telegram groups
 
 This script requires `curl` and `jq`.
 
+## Quick start guide
+
 How do I setup this IRC-Telegram gateway?<br>
 1. First get an eggdrop bot up and running<br>
 2. On your Telegram client, send `/start` to @BotFather<br>
@@ -41,4 +43,4 @@ For a description of the Bot API, see this page: https://core.telegram.org/bots/
 | `lib/libjson.tcl` | JSON library for Tcl. All generic JSON functions are defined here. |
 | `lib/libtelegram.tcl` | Telegram library for Tcl. All functions which call the Telegram API methods are defined here. See https://core.telegram.org/bots/api#available-methods for a list of all available Telegram API methods. |
 | `modules/*.tcl` | All publically available Telegram bot commands are defined here. Optional, not needed for basic operation. |
-| `web.tg.php` | PHP script which allow IRC users to download images, video's and other attachments posted in the Telegram group. |
+| `web/tg.php` | PHP script which allow IRC users to download images, video's and other attachments posted in the Telegram group. |
