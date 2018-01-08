@@ -1,3 +1,7 @@
+v20180105:
+* Fixed Telegram-API.tcl: Fixed IRC notification when a Telegram user has been added to the Telegram group
+* Added \ud83d\udd90 :hand_raised: to utftable.tcl
+
 v20171220:
 * Fixed modules/Quotes.tcl: sending quotes to Telegram with cpecial characters [ and ]
 * Fixed modules/Spotify.tcl
