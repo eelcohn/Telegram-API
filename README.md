@@ -29,3 +29,16 @@ For a description of the Bot API, see this page: https://core.telegram.org/bots/
 12. Look up the chat_id of your chat group, and add it to the tg_channels array in Telegram-API-config.tcl script, along with the name of your IRC chat group<br>
 13. Add the Telegram-API.tcl script to your Eggdrop: `source /path/to/your/scripts/Telegram-API.tcl`<br>
 14. You're done! Enjoy!<br>
+
+## File descriptions
+
+| File | Description |
+| --- | --- |
+| `Telegram-API-config.tcl.sample` | All user configurable settings are set in this file. Rename to Telegram-API-config.tcl and edit according to your preferences before use. |
+| `Telegram-API.tcl` | Main code. Include this file in your `eggdrop.conf` file. |
+| `utftable.tcl` | Translation from UTF characters and emoticons to ASCII characters and emoticons. |
+| `lang/Telegram-API.xxxx.tcl` | All language dependant strings are defined here. For example, if you want to change the way Telegram messages are sent towards the IRC channel, you can define it here. |
+| `lib/libjson.tcl` | JSON library for Tcl. All generic JSON functions are defined here. |
+| `lib/libtelegram.tcl` | Telegram library for Tcl. All functions which call the Telegram API methods are defined here. See https://core.telegram.org/bots/api#available-methods for a list of all available Telegram API methods. |
+| `modules/*.tcl` | All publically available Telegram bot commands are defined here. Optional, not needed for basic operation. |
+| `web.tg.php` | PHP script which allow IRC users to download images, video's and other attachments posted in the Telegram group. |
