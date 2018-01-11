@@ -500,7 +500,7 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 	switch $command {
 		"help" {
 			set response "[format $MSG_BOT_HELP "$irc_botname"]"
-			sbtelegram::endMessage $chat_id $msgid "html" "$response"
+			libtelegram::endMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
 
