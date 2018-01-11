@@ -179,138 +179,265 @@ array set utftable {
 	{\\u3030}	{" :wavy_dash:"}
 	{\\ud83c\\udd8e}	{" :bloodtype_ab:"}
 	{\\ud83c\\udd93}	{" :free:"}
-	{\\ud83c\\udde6\\ud83c\\udde6}	{" :flag_:"}
-	{\\ud83c\\udde6\\ud83c\\udde7}	{" :flag_:"}
-	{\\ud83c\\udde6\\ud83c\\udde8}	{" :flag_:"}
+	{\\ud83c\\udde6\\ud83c\\udde6}	{" :flag_aa:"}
+	{\\ud83c\\udde6\\ud83c\\udde7}	{" :flag_ab:"}
+	{\\ud83c\\udde6\\ud83c\\udde8}	{" :flag_ac:"}
 	{\\ud83c\\udde6\\ud83c\\udde9}	{" :flag_andorra:"}
 	{\\ud83c\\udde6\\ud83c\\uddea}	{" :flag_united_arab_emirates:"}
 	{\\ud83c\\udde6\\ud83c\\uddeb}	{" :flag_afghanistan:"}
 	{\\ud83c\\udde6\\ud83c\\uddec}	{" :flag_antigua_and_barbuda:"}
-	{\\ud83c\\udde6\\ud83c\\udded}	{" :flag_:"}
+	{\\ud83c\\udde6\\ud83c\\udded}	{" :flag_ah:"}
 	{\\ud83c\\udde6\\ud83c\\uddee}	{" :flag_anguilla:"}
-	{\\ud83c\\udde6\\ud83c\\uddef}	{" :flag_:"}
-	{\\ud83c\\udde6\\ud83c\\uddf0}	{" :flag_:"}
+	{\\ud83c\\udde6\\ud83c\\uddef}	{" :flag_aj:"}
+	{\\ud83c\\udde6\\ud83c\\uddf0}	{" :flag_ak:"}
 	{\\ud83c\\udde6\\ud83c\\uddf1}	{" :flag_albania:"}
 	{\\ud83c\\udde6\\ud83c\\uddf2}	{" :flag_armenia:"}
-	{\\ud83c\\udde6\\ud83c\\uddf3}	{" :flag_:"}
+	{\\ud83c\\udde6\\ud83c\\uddf3}	{" :flag_an:"}
 	{\\ud83c\\udde6\\ud83c\\uddf4}	{" :flag_angola:"}
-	{\\ud83c\\udde6\\ud83c\\uddf5}	{" :flag_:"}
+	{\\ud83c\\udde6\\ud83c\\uddf5}	{" :flag_ap:"}
 	{\\ud83c\\udde6\\ud83c\\uddf6}	{" :flag_antartica:"}
-	{\\ud83c\\udde6\\ud83c\\uddf7}	{" :flag_:"}
+	{\\ud83c\\udde6\\ud83c\\uddf7}	{" :flag_argentina:"}
 	{\\ud83c\\udde6\\ud83c\\uddf8}	{" :flag_american_samoa:"}
 	{\\ud83c\\udde6\\ud83c\\uddf9}	{" :flag_austria:"}
 	{\\ud83c\\udde6\\ud83c\\uddfa}	{" :flag_australia:"}
-	{\\ud83c\\udde6\\ud83c\\uddfb}	{" :flag_:"}
+	{\\ud83c\\udde6\\ud83c\\uddfb}	{" :flag_av:"}
 	{\\ud83c\\udde6\\ud83c\\uddfc}	{" :flag_aruba:"}
 	{\\ud83c\\udde6\\ud83c\\uddfd}	{" :flag_aland_islands:"}
-	{\\ud83c\\udde6\\ud83c\\uddfe}	{" :flag_:"}
+	{\\ud83c\\udde6\\ud83c\\uddfe}	{" :flag_ay:"}
 	{\\ud83c\\udde6\\ud83c\\uddff}	{" :flag_azerbaijan:"}
-	{\\ud83c\\udde7\\ud83c\\udde6}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\udde7}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\udde8}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\udde9}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddea}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddeb}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddec}	{" :flag_:"}
+	{\\ud83c\\udde7\\ud83c\\udde6}	{" :flag_bosnia_herzegovina:"}
+	{\\ud83c\\udde7\\ud83c\\udde7}	{" :flag_barbados:"}
+	{\\ud83c\\udde7\\ud83c\\udde8}	{" :flag_bc:"}
+	{\\ud83c\\udde7\\ud83c\\udde9}	{" :flag_bangladesh:"}
+	{\\ud83c\\udde7\\ud83c\\uddea}	{" :flag_belgium:"}
+	{\\ud83c\\udde7\\ud83c\\uddeb}	{" :flag_burkinha_faso:"}
+	{\\ud83c\\udde7\\ud83c\\uddec}	{" :flag_bulgaria:"}
 	{\\ud83c\\udde7\\ud83c\\udded}	{" :flag_bahrain:"}
-	{\\ud83c\\udde7\\ud83c\\uddee}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddef}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddf0}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddf1}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddf2}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddf3}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddf4}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddf5}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddf6}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddf7}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddf8}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddf9}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddfa}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddfb}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddfc}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddfd}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddfe}	{" :flag_:"}
-	{\\ud83c\\udde7\\ud83c\\uddff}	{" :flag_:"}
+	{\\ud83c\\udde7\\ud83c\\uddee}	{" :flag_burundi:"}
+	{\\ud83c\\udde7\\ud83c\\uddef}	{" :flag_benin:"}
+	{\\ud83c\\udde7\\ud83c\\uddf0}	{" :flag_bk:"}
+	{\\ud83c\\udde7\\ud83c\\uddf1}	{" :flag_saint_barthelemy:"}
+	{\\ud83c\\udde7\\ud83c\\uddf2}	{" :flag_bermuda:"}
+	{\\ud83c\\udde7\\ud83c\\uddf3}	{" :flag_brunei_darussalam:"}
+	{\\ud83c\\udde7\\ud83c\\uddf4}	{" :flag_bolivia:"}
+	{\\ud83c\\udde7\\ud83c\\uddf5}	{" :flag_bp:"}
+	{\\ud83c\\udde7\\ud83c\\uddf6}	{" :flag_bonaire_saint_ustatius_saba:"}
+	{\\ud83c\\udde7\\ud83c\\uddf7}	{" :flag_brazil:"}
+	{\\ud83c\\udde7\\ud83c\\uddf8}	{" :flag_bahamas:"}
+	{\\ud83c\\udde7\\ud83c\\uddf9}	{" :flag_bhutan:"}
+	{\\ud83c\\udde7\\ud83c\\uddfa}	{" :flag_bu:"}
+	{\\ud83c\\udde7\\ud83c\\uddfb}	{" :flag_bouvet_island:"}
+	{\\ud83c\\udde7\\ud83c\\uddfc}	{" :flag_botswana:"}
+	{\\ud83c\\udde7\\ud83c\\uddfd}	{" :flag_bx:"}
+	{\\ud83c\\udde7\\ud83c\\uddfe}	{" :flag_belarus:"}
+	{\\ud83c\\udde7\\ud83c\\uddff}	{" :flag_belize:"}
 	{\\ud83c\\udde8\\ud83c\\udde6}	{" :flag_canada:"}
-	{\\ud83c\\udde8\\ud83c\\udde7}	{" :flag_:"}
+	{\\ud83c\\udde8\\ud83c\\udde7}	{" :flag_cb:"}
 	{\\ud83c\\udde8\\ud83c\\udde8}	{" :flag_cocos_islands:"}
-	{\\ud83c\\udde8\\ud83c\\udde9}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddea}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddeb}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddec}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\udded}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddee}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddef}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddf0}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddf1}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddf2}	{" :flag_:"}
+	{\\ud83c\\udde8\\ud83c\\udde9}	{" :flag_congo:"}
+	{\\ud83c\\udde8\\ud83c\\uddea}	{" :flag_ce:"}
+	{\\ud83c\\udde8\\ud83c\\uddeb}	{" :flag_central_african_republic:"}
+	{\\ud83c\\udde8\\ud83c\\uddec}	{" :flag_congo:"}
+	{\\ud83c\\udde8\\ud83c\\udded}	{" :flag_switzerland:"}
+	{\\ud83c\\udde8\\ud83c\\uddee}	{" :flag_ivory_coast:"}
+	{\\ud83c\\udde8\\ud83c\\uddef}	{" :flag_cj:"}
+	{\\ud83c\\udde8\\ud83c\\uddf0}	{" :flag_cook_islands:"}
+	{\\ud83c\\udde8\\ud83c\\uddf1}	{" :flag_chile:"}
+	{\\ud83c\\udde8\\ud83c\\uddf2}	{" :flag_cameroon:"}
 	{\\ud83c\\udde8\\ud83c\\uddf3}	{" :flag_china:"}
-	{\\ud83c\\udde8\\ud83c\\uddf4}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddf5}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddf6}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddf7}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddf8}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddf9}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddfa}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddfb}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddfc}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddfd}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddfe}	{" :flag_:"}
-	{\\ud83c\\udde8\\ud83c\\uddff}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\udde6}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\udde7}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\udde8}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\udde9}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddea}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddeb}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddec}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\udded}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddee}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddef}	{" :flag_:"}
+	{\\ud83c\\udde8\\ud83c\\uddf4}	{" :flag_colombia:"}
+	{\\ud83c\\udde8\\ud83c\\uddf5}	{" :flag_cp:"}
+	{\\ud83c\\udde8\\ud83c\\uddf6}	{" :flag_cq:"}
+	{\\ud83c\\udde8\\ud83c\\uddf7}	{" :flag_costa_rica:"}
+	{\\ud83c\\udde8\\ud83c\\uddf8}	{" :flag_cs:"}
+	{\\ud83c\\udde8\\ud83c\\uddf9}	{" :flag_ct:"}
+	{\\ud83c\\udde8\\ud83c\\uddfa}	{" :flag_cuba:"}
+	{\\ud83c\\udde8\\ud83c\\uddfb}	{" :flag_cape_verde:"}
+	{\\ud83c\\udde8\\ud83c\\uddfc}	{" :flag_curacao:"}
+	{\\ud83c\\udde8\\ud83c\\uddfd}	{" :flag_christmas_island:"}
+	{\\ud83c\\udde8\\ud83c\\uddfe}	{" :flag_cyprus:"}
+	{\\ud83c\\udde8\\ud83c\\uddff}	{" :flag_czech_republic:"}
+	{\\ud83c\\udde9\\ud83c\\udde6}	{" :flag_da:"}
+	{\\ud83c\\udde9\\ud83c\\udde7}	{" :flag_db:"}
+	{\\ud83c\\udde9\\ud83c\\udde8}	{" :flag_dc:"}
+	{\\ud83c\\udde9\\ud83c\\udde9}	{" :flag_dd:"}
+	{\\ud83c\\udde9\\ud83c\\uddea}	{" :flag_germany:"}
+	{\\ud83c\\udde9\\ud83c\\uddeb}	{" :flag_df:"}
+	{\\ud83c\\udde9\\ud83c\\uddec}	{" :flag_dg:"}
+	{\\ud83c\\udde9\\ud83c\\udded}	{" :flag_dh:"}
+	{\\ud83c\\udde9\\ud83c\\uddee}	{" :flag_di:"}
+	{\\ud83c\\udde9\\ud83c\\uddef}	{" :flag_djibouti:"}
 	{\\ud83c\\udde9\\ud83c\\uddf0}	{" :flag_denmark:"}
-	{\\ud83c\\udde9\\ud83c\\uddf1}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddf2}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddf3}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddf4}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddf5}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddf6}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddf8}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddf9}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddfa}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddfb}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddfc}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddfd}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddfe}	{" :flag_:"}
-	{\\ud83c\\udde9\\ud83c\\uddff}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\udde6}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\udde7}	{" :flag_:"}
+	{\\ud83c\\udde9\\ud83c\\uddf1}	{" :flag_dl:"}
+	{\\ud83c\\udde9\\ud83c\\uddf2}	{" :flag_dominica:"}
+	{\\ud83c\\udde9\\ud83c\\uddf3}	{" :flag_dn:"}
+	{\\ud83c\\udde9\\ud83c\\uddf4}	{" :flag_dominican_republic:"}
+	{\\ud83c\\udde9\\ud83c\\uddf5}	{" :flag_dp:"}
+	{\\ud83c\\udde9\\ud83c\\uddf6}	{" :flag_dq:"}
+	{\\ud83c\\udde9\\ud83c\\uddf8}	{" :flag_dr:"}
+	{\\ud83c\\udde9\\ud83c\\uddf9}	{" :flag_ds:"}
+	{\\ud83c\\udde9\\ud83c\\uddfa}	{" :flag_dt:"}
+	{\\ud83c\\udde9\\ud83c\\uddfb}	{" :flag_du:"}
+	{\\ud83c\\udde9\\ud83c\\uddfc}	{" :flag_dv:"}
+	{\\ud83c\\udde9\\ud83c\\uddfd}	{" :flag_dx:"}
+	{\\ud83c\\udde9\\ud83c\\uddfe}	{" :flag_dy:"}
+	{\\ud83c\\udde9\\ud83c\\uddff}	{" :flag_algeria:"}
+	{\\ud83c\\uddea\\ud83c\\udde6}	{" :flag_ea:"}
+	{\\ud83c\\uddea\\ud83c\\udde7}	{" :flag_eb:"}
 	{\\ud83c\\uddea\\ud83c\\udde8}	{" :flag_ecuador:"}
-	{\\ud83c\\uddea\\ud83c\\udde9}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddea}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddeb}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddec}	{" :flag_:"}
+	{\\ud83c\\uddea\\ud83c\\udde9}	{" :flag_ed:"}
+	{\\ud83c\\uddea\\ud83c\\uddea}	{" :flag_estonia:"}
+	{\\ud83c\\uddea\\ud83c\\uddeb}	{" :flag_ef:"}
+	{\\ud83c\\uddea\\ud83c\\uddec}	{" :flag_egypt:"}
 	{\\ud83c\\uddea\\ud83c\\udded}	{" :flag_western_sahara:"}
-	{\\ud83c\\uddea\\ud83c\\uddee}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddef}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddf0}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddf1}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddf2}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddf3}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddf4}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddf5}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddf6}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddf7}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddf8}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddf9}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddfa}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddfb}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddfc}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddfd}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddfe}	{" :flag_:"}
-	{\\ud83c\\uddea\\ud83c\\uddff}	{" :flag_:"}
+	{\\ud83c\\uddea\\ud83c\\uddee}	{" :flag_ei:"}
+	{\\ud83c\\uddea\\ud83c\\uddef}	{" :flag_ej:"}
+	{\\ud83c\\uddea\\ud83c\\uddf0}	{" :flag_ek:"}
+	{\\ud83c\\uddea\\ud83c\\uddf1}	{" :flag_el:"}
+	{\\ud83c\\uddea\\ud83c\\uddf2}	{" :flag_em:"}
+	{\\ud83c\\uddea\\ud83c\\uddf3}	{" :flag_en:"}
+	{\\ud83c\\uddea\\ud83c\\uddf4}	{" :flag_eo:"}
+	{\\ud83c\\uddea\\ud83c\\uddf5}	{" :flag_ep:"}
+	{\\ud83c\\uddea\\ud83c\\uddf6}	{" :flag_eq:"}
+	{\\ud83c\\uddea\\ud83c\\uddf7}	{" :flag_eritrea:"}
+	{\\ud83c\\uddea\\ud83c\\uddf8}	{" :flag_spain:"}
+	{\\ud83c\\uddea\\ud83c\\uddf9}	{" :flag_ethiopia:"}
+	{\\ud83c\\uddea\\ud83c\\uddfa}	{" :flag_european_union:"}
+	{\\ud83c\\uddea\\ud83c\\uddfb}	{" :flag_ev:"}
+	{\\ud83c\\uddea\\ud83c\\uddfc}	{" :flag_ew:"}
+	{\\ud83c\\uddea\\ud83c\\uddfd}	{" :flag_ex:"}
+	{\\ud83c\\uddea\\ud83c\\uddfe}	{" :flag_ey:"}
+	{\\ud83c\\uddea\\ud83c\\uddff}	{" :flag_ez:"}
+	{\\ud83c\\uddeb\\ud83c\\udde6}	{" :flag_fa:"}
+	{\\ud83c\\uddeb\\ud83c\\udde7}	{" :flag_fb:"}
+	{\\ud83c\\uddeb\\ud83c\\udde8}	{" :flag_fc:"}
+	{\\ud83c\\uddeb\\ud83c\\udde9}	{" :flag_fd:"}
+	{\\ud83c\\uddeb\\ud83c\\uddea}	{" :flag_fe:"}
+	{\\ud83c\\uddeb\\ud83c\\uddeb}	{" :flag_ff:"}
+	{\\ud83c\\uddeb\\ud83c\\uddec}	{" :flag_fg:"}
+	{\\ud83c\\uddeb\\ud83c\\udded}	{" :flag_fh:"}
+	{\\ud83c\\uddeb\\ud83c\\uddee}	{" :flag_fi:"}
+	{\\ud83c\\uddeb\\ud83c\\uddef}	{" :flag_fj:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf0}	{" :flag_fk:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf1}	{" :flag_fl:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf2}	{" :flag_fm:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf3}	{" :flag_fn:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf4}	{" :flag_fo:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf5}	{" :flag_fp:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf6}	{" :flag_fq:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf7}	{" :flag_fr:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf8}	{" :flag_fs:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf9}	{" :flag_ft:"}
+	{\\ud83c\\uddeb\\ud83c\\uddfa}	{" :flag_fu:"}
+	{\\ud83c\\uddeb\\ud83c\\uddfb}	{" :flag_fv:"}
+	{\\ud83c\\uddeb\\ud83c\\uddfc}	{" :flag_fw:"}
+	{\\ud83c\\uddeb\\ud83c\\uddfd}	{" :flag_fx:"}
+	{\\ud83c\\uddeb\\ud83c\\uddfe}	{" :flag_fy:"}
+	{\\ud83c\\uddeb\\ud83c\\uddff}	{" :flag_fz:"}
+	{\\ud83c\\uddec\\ud83c\\udde6}	{" :flag_ga:"}
+	{\\ud83c\\uddec\\ud83c\\udde7}	{" :flag_gb:"}
+	{\\ud83c\\uddec\\ud83c\\udde8}	{" :flag_gc:"}
+	{\\ud83c\\uddec\\ud83c\\udde9}	{" :flag_gd:"}
+	{\\ud83c\\uddec\\ud83c\\uddea}	{" :flag_ge:"}
+	{\\ud83c\\uddec\\ud83c\\uddeb}	{" :flag_gf:"}
+	{\\ud83c\\uddec\\ud83c\\uddec}	{" :flag_gg:"}
+	{\\ud83c\\uddec\\ud83c\\udded}	{" :flag_gh:"}
+	{\\ud83c\\uddec\\ud83c\\uddee}	{" :flag_gi:"}
+	{\\ud83c\\uddec\\ud83c\\uddef}	{" :flag_gj:"}
+	{\\ud83c\\uddec\\ud83c\\uddf0}	{" :flag_gk:"}
 	{\\ud83c\\uddec\\ud83c\\uddf1}	{" :flag_greenland:"}
+	{\\ud83c\\uddec\\ud83c\\uddf2}	{" :flag_gm:"}
+	{\\ud83c\\uddec\\ud83c\\uddf3}	{" :flag_gn:"}
+	{\\ud83c\\uddec\\ud83c\\uddf4}	{" :flag_go:"}
+	{\\ud83c\\uddec\\ud83c\\uddf5}	{" :flag_gp:"}
+	{\\ud83c\\uddec\\ud83c\\uddf6}	{" :flag_gq:"}
+	{\\ud83c\\uddec\\ud83c\\uddf7}	{" :flag_gr:"}
+	{\\ud83c\\uddec\\ud83c\\uddf8}	{" :flag_gs:"}
+	{\\ud83c\\uddec\\ud83c\\uddf9}	{" :flag_gt:"}
+	{\\ud83c\\uddec\\ud83c\\uddfa}	{" :flag_gu:"}
+	{\\ud83c\\uddec\\ud83c\\uddfb}	{" :flag_gv:"}
+	{\\ud83c\\uddec\\ud83c\\uddfc}	{" :flag_gw:"}
+	{\\ud83c\\uddec\\ud83c\\uddfd}	{" :flag_gx:"}
+	{\\ud83c\\uddec\\ud83c\\uddfe}	{" :flag_gy:"}
+	{\\ud83c\\uddec\\ud83c\\uddff}	{" :flag_gz:"}
+	{\\ud83c\\udded\\ud83c\\udde6}	{" :flag_ha:"}
+	{\\ud83c\\udded\\ud83c\\udde7}	{" :flag_hb:"}
+	{\\ud83c\\udded\\ud83c\\udde8}	{" :flag_hc:"}
+	{\\ud83c\\udded\\ud83c\\udde9}	{" :flag_hd:"}
+	{\\ud83c\\udded\\ud83c\\uddea}	{" :flag_he:"}
+	{\\ud83c\\udded\\ud83c\\uddeb}	{" :flag_hf:"}
+	{\\ud83c\\udded\\ud83c\\uddec}	{" :flag_hg:"}
+	{\\ud83c\\udded\\ud83c\\udded}	{" :flag_hh:"}
+	{\\ud83c\\udded\\ud83c\\uddee}	{" :flag_hi:"}
+	{\\ud83c\\udded\\ud83c\\uddef}	{" :flag_hj:"}
+	{\\ud83c\\udded\\ud83c\\uddf0}	{" :flag_hk:"}
+	{\\ud83c\\udded\\ud83c\\uddf1}	{" :flag_hl:"}
+	{\\ud83c\\udded\\ud83c\\uddf2}	{" :flag_hm:"}
+	{\\ud83c\\udded\\ud83c\\uddf3}	{" :flag_hn:"}
+	{\\ud83c\\udded\\ud83c\\uddf4}	{" :flag_ho:"}
+	{\\ud83c\\udded\\ud83c\\uddf5}	{" :flag_hp:"}
+	{\\ud83c\\udded\\ud83c\\uddf6}	{" :flag_hq:"}
+	{\\ud83c\\udded\\ud83c\\uddf7}	{" :flag_hr:"}
+	{\\ud83c\\udded\\ud83c\\uddf8}	{" :flag_hs:"}
+	{\\ud83c\\udded\\ud83c\\uddf9}	{" :flag_ht:"}
 	{\\ud83c\\udded\\ud83c\\uddfa}	{" :flag_hungary:"}
+	{\\ud83c\\udded\\ud83c\\uddfb}	{" :flag_hv:"}
+	{\\ud83c\\udded\\ud83c\\uddfc}	{" :flag_hw:"}
+	{\\ud83c\\udded\\ud83c\\uddfd}	{" :flag_hx:"}
+	{\\ud83c\\udded\\ud83c\\uddfe}	{" :flag_hy:"}
+	{\\ud83c\\udded\\ud83c\\uddff}	{" :flag_hz:"}
+	{\\ud83c\\uddee\\ud83c\\udde6}	{" :flag_ia:"}
+	{\\ud83c\\uddee\\ud83c\\udde7}	{" :flag_ib:"}
 	{\\ud83c\\uddee\\ud83c\\udde8}	{" :flag_canary_islands:"}
+	{\\ud83c\\uddee\\ud83c\\udde9}	{" :flag_id:"}
+	{\\ud83c\\uddee\\ud83c\\uddea}	{" :flag_ie:"}
+	{\\ud83c\\uddee\\ud83c\\uddeb}	{" :flag_if:"}
+	{\\ud83c\\uddee\\ud83c\\uddec}	{" :flag_ig:"}
+	{\\ud83c\\uddee\\ud83c\\udded}	{" :flag_ih:"}
+	{\\ud83c\\uddee\\ud83c\\uddee}	{" :flag_ii:"}
+	{\\ud83c\\uddee\\ud83c\\uddef}	{" :flag_ij:"}
+	{\\ud83c\\uddee\\ud83c\\uddf0}	{" :flag_ik:"}
+	{\\ud83c\\uddee\\ud83c\\uddf1}	{" :flag_il:"}
+	{\\ud83c\\uddee\\ud83c\\uddf2}	{" :flag_im:"}
+	{\\ud83c\\uddee\\ud83c\\uddf3}	{" :flag_in:"}
+	{\\ud83c\\uddee\\ud83c\\uddf4}	{" :flag_io:"}
+	{\\ud83c\\uddee\\ud83c\\uddf5}	{" :flag_ip:"}
+	{\\ud83c\\uddee\\ud83c\\uddf6}	{" :flag_iq:"}
+	{\\ud83c\\uddee\\ud83c\\uddf7}	{" :flag_ir:"}
+	{\\ud83c\\uddee\\ud83c\\uddf8}	{" :flag_is:"}
+	{\\ud83c\\uddee\\ud83c\\uddf9}	{" :flag_it:"}
+	{\\ud83c\\uddee\\ud83c\\uddfa}	{" :flag_iu:"}
+	{\\ud83c\\uddee\\ud83c\\uddfb}	{" :flag_iv:"}
+	{\\ud83c\\uddee\\ud83c\\uddfc}	{" :flag_iw:"}
+	{\\ud83c\\uddee\\ud83c\\uddfd}	{" :flag_ix:"}
+	{\\ud83c\\uddee\\ud83c\\uddfe}	{" :flag_iy:"}
+	{\\ud83c\\uddee\\ud83c\\uddff}	{" :flag_iz:"}
+	{\\ud83c\\uddef\\ud83c\\udde6}	{" :flag_ja:"}
+	{\\ud83c\\uddef\\ud83c\\udde7}	{" :flag_jb:"}
+	{\\ud83c\\uddef\\ud83c\\udde8}	{" :flag_jc:"}
+	{\\ud83c\\uddef\\ud83c\\udde9}	{" :flag_jd:"}
+	{\\ud83c\\uddef\\ud83c\\uddea}	{" :flag_je:"}
+	{\\ud83c\\uddef\\ud83c\\uddeb}	{" :flag_jf:"}
+	{\\ud83c\\uddef\\ud83c\\uddec}	{" :flag_jg:"}
+	{\\ud83c\\uddef\\ud83c\\udded}	{" :flag_jh:"}
+	{\\ud83c\\uddef\\ud83c\\uddee}	{" :flag_ji:"}
+	{\\ud83c\\uddef\\ud83c\\uddef}	{" :flag_jj:"}
+	{\\ud83c\\uddef\\ud83c\\uddf0}	{" :flag_jk:"}
+	{\\ud83c\\uddef\\ud83c\\uddf1}	{" :flag_jl:"}
+	{\\ud83c\\uddef\\ud83c\\uddf2}	{" :flag_jm:"}
+	{\\ud83c\\uddef\\ud83c\\uddf3}	{" :flag_jn:"}
+	{\\ud83c\\uddef\\ud83c\\uddf4}	{" :flag_jo:"}
+	{\\ud83c\\uddef\\ud83c\\uddf5}	{" :flag_jp:"}
+	{\\ud83c\\uddef\\ud83c\\uddf6}	{" :flag_jq:"}
+	{\\ud83c\\uddef\\ud83c\\uddf7}	{" :flag_jr:"}
+	{\\ud83c\\uddef\\ud83c\\uddf8}	{" :flag_js:"}
+	{\\ud83c\\uddef\\ud83c\\uddf9}	{" :flag_jt:"}
+	{\\ud83c\\uddef\\ud83c\\uddfa}	{" :flag_ju:"}
+	{\\ud83c\\uddef\\ud83c\\uddfb}	{" :flag_jv:"}
+	{\\ud83c\\uddef\\ud83c\\uddfc}	{" :flag_jw:"}
+	{\\ud83c\\uddef\\ud83c\\uddfd}	{" :flag_jx:"}
+	{\\ud83c\\uddef\\ud83c\\uddfe}	{" :flag_jy:"}
+	{\\ud83c\\uddef\\ud83c\\uddff}	{" :flag_jz:"}
 	{\\ud83c\\uddf0\\ud83c\\udded}	{" :flag_cambodia:"}
 	{\\ud83c\\uddf1\\ud83c\\udde8}	{" :flag_saint_lucia:"}
 	{\\ud83c\\uddf1\\ud83c\\uddf0}	{" :flag_sri_lanka:"}
@@ -482,7 +609,8 @@ array set utftable {
 	{\\ud83c\\udfaa}	{" :circus_tent:"}
 	{\\ud83c\\udfae}	{" :video_game:"}
 	{\\ud83c\\udfc6}	{" :trophy:"}
-	{\\ud83c\\udffb}	{" "}
+	{\\ud83c\\udffb}	{""}
+	{\\ud83c\\udffc}	{""}
 	{\\ud83d\\udc00}	{" :rat:"}
 	{\\ud83d\\udc01}	{" :mouse:"}
 	{\\ud83d\\udc02}	{" :ox:"}
@@ -537,7 +665,6 @@ array set utftable {
 	{\\ud83d\\udc4b}	{" :hand_wave:"}
 	{\\ud83d\\udc4c}	{" :hand_ok:"}
 	{\\ud83d\\udc4d}	{" (Y)"}
-	{\\ud83d\\udc4d\\ud83c\\udffc}	{" (Y)"}
 	{\\ud83d\\udc4e}	{" (N)"}
 	{\\ud83d\\udc4f}	{" :hand_clap:"}
 	{\\ud83d\\udc7d}	{" :alien:"}
