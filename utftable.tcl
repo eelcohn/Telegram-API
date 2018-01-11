@@ -1062,14 +1062,56 @@ array set utftable {
 	{\\ud83d\\udc2d}	{" :mouse_face:"}
 	{\\ud83d\\udc2e}	{" :cow_face:"}
 	{\\ud83d\\udc2f}	{" :tiger_face:"}
-	{\\ud83d\\udc35}	{" :monkey:"}
+	{\\ud83d\\udc30}	{" :rabbit_face:"}
+	{\\ud83d\\udc31}	{" :cat_face:"}
+	{\\ud83d\\udc32}	{" :dragon_face:"}
+	{\\ud83d\\udc33}	{" :whale:"}
+	{\\ud83d\\udc34}	{" :horse_face:"}
+	{\\ud83d\\udc35}	{" :monkey_face:"}
+	{\\ud83d\\udc36}	{" :dog_face:"}
+	{\\ud83d\\udc37}	{" :pig_face:"}
+	{\\ud83d\\udc38}	{" :frog_face:"}
+	{\\ud83d\\udc39}	{" :hamster_face:"}
+	{\\ud83d\\udc3a}	{" :wolf_face:"}
+	{\\ud83d\\udc3b}	{" :bear_face:"}
+	{\\ud83d\\udc3c}	{" :panda_face:"}
 	{\\ud83d\\udc3d}	{" :pig_nose:"}
+	{\\ud83d\\udc40}	{" :eyes:"}
+	{\\ud83d\\udc41}	{" :eye:"}
+	{\\ud83d\\udc42}	{" :ear:"}
+	{\\ud83d\\udc43}	{" :nose:"}
+	{\\ud83d\\udc44}	{" :mouth:"}
+	{\\ud83d\\udc45}	{" :tongue:"}
+	{\\ud83d\\udc46}	{" :hand_pointing_up:"}
+	{\\ud83d\\udc47}	{" :hand_pointing_down:"}
+	{\\ud83d\\udc48}	{" :hand_pointing_left:"}
+	{\\ud83d\\udc49}	{" :hand_pointing_right:"}
 	{\\ud83d\\udc4a}	{" :fist:"}
 	{\\ud83d\\udc4b}	{" :hand_wave:"}
 	{\\ud83d\\udc4c}	{" :hand_ok:"}
 	{\\ud83d\\udc4d}	{" (Y)"}
 	{\\ud83d\\udc4e}	{" (N)"}
 	{\\ud83d\\udc4f}	{" :hand_clap:"}
+	{\\ud83d\\udc50}	{" :hands_open:"}
+	{\\ud83d\\udc51}	{" :crown:"}
+	{\\ud83d\\udc52}	{" :womans_hat:"}
+	{\\ud83d\\udc53}	{" :spectacles:"}
+	{\\ud83d\\udc54}	{" :necktie:"}
+	{\\ud83d\\udc55}	{" :t_shirt:"}
+	{\\ud83d\\udc56}	{" :jeans:"}
+	{\\ud83d\\udc57}	{" :dress:"}
+	{\\ud83d\\udc58}	{" :kimono:"}
+	{\\ud83d\\udc59}	{" :bikini:"}
+	{\\ud83d\\udc5a}	{" :womans_clothes:"}
+	{\\ud83d\\udc5b}	{" :purse:"}
+	{\\ud83d\\udc5c}	{" :handbag:"}
+	{\\ud83d\\udc5d}	{" :pouch:"}
+	{\\ud83d\\udc5e}	{" :mans_shoe:"}
+	{\\ud83d\\udc5f}	{" :sport_shoe:"}
+	{\\ud83d\\udc60}	{" :high_heeled_shoe:"}
+	{\\ud83d\\udc61}	{" :womans_sandals:"}
+	{\\ud83d\\udc62}	{" :womans_boots:"}
+	{\\ud83d\\udc63}	{" :footprints:"}
 	{\\ud83d\\udc7d}	{" :alien:"}
 	{\\ud83d\\udc8b}	{" :kissing_lips:"}
 	{\\ud83d\\udc8d}	{" :ring:"}
