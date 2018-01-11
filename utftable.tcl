@@ -93,6 +93,9 @@ array set utftable {
 	{\\u20b1}	{"₱"}
 	{\\u20b9}	{"₹"}
 	{\\u2105}	{" c/o"}
+	{\\u2117}	{"℗"}
+	{\\u2120}	{"℠"}
+	{\\u2122}	{"™"}
 	{\\u2139}	{" :information_source:"}
 	{\\u2194}	{" :left_right:"}
 	{\\u2195}	{" :up_down:"}
