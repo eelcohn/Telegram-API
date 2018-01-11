@@ -317,15 +317,15 @@ array set utftable {
 	{\\ud83c\\uddeb\\ud83c\\uddec}	{" :flag_fg:"}
 	{\\ud83c\\uddeb\\ud83c\\udded}	{" :flag_fh:"}
 	{\\ud83c\\uddeb\\ud83c\\uddee}	{" :flag_finland:"}
-	{\\ud83c\\uddeb\\ud83c\\uddef}	{" :flag_fj:"}
-	{\\ud83c\\uddeb\\ud83c\\uddf0}	{" :flag_fk:"}
+	{\\ud83c\\uddeb\\ud83c\\uddef}	{" :flag_fiji:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf0}	{" :flag_falkland_islands:"}
 	{\\ud83c\\uddeb\\ud83c\\uddf1}	{" :flag_fl:"}
-	{\\ud83c\\uddeb\\ud83c\\uddf2}	{" :flag_fm:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf2}	{" :flag_micronesia:"}
 	{\\ud83c\\uddeb\\ud83c\\uddf3}	{" :flag_fn:"}
-	{\\ud83c\\uddeb\\ud83c\\uddf4}	{" :flag_fo:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf4}	{" :flag_faroe_islands:"}
 	{\\ud83c\\uddeb\\ud83c\\uddf5}	{" :flag_fp:"}
 	{\\ud83c\\uddeb\\ud83c\\uddf6}	{" :flag_fq:"}
-	{\\ud83c\\uddeb\\ud83c\\uddf7}	{" :flag_fr:"}
+	{\\ud83c\\uddeb\\ud83c\\uddf7}	{" :flag_france:"}
 	{\\ud83c\\uddeb\\ud83c\\uddf8}	{" :flag_fs:"}
 	{\\ud83c\\uddeb\\ud83c\\uddf9}	{" :flag_ft:"}
 	{\\ud83c\\uddeb\\ud83c\\uddfa}	{" :flag_fu:"}
@@ -334,31 +334,31 @@ array set utftable {
 	{\\ud83c\\uddeb\\ud83c\\uddfd}	{" :flag_fx:"}
 	{\\ud83c\\uddeb\\ud83c\\uddfe}	{" :flag_fy:"}
 	{\\ud83c\\uddeb\\ud83c\\uddff}	{" :flag_fz:"}
-	{\\ud83c\\uddec\\ud83c\\udde6}	{" :flag_ga:"}
-	{\\ud83c\\uddec\\ud83c\\udde7}	{" :flag_gb:"}
+	{\\ud83c\\uddec\\ud83c\\udde6}	{" :flag_gabon:"}
+	{\\ud83c\\uddec\\ud83c\\udde7}	{" :flag_great_brittain:"}
 	{\\ud83c\\uddec\\ud83c\\udde8}	{" :flag_gc:"}
-	{\\ud83c\\uddec\\ud83c\\udde9}	{" :flag_gd:"}
-	{\\ud83c\\uddec\\ud83c\\uddea}	{" :flag_ge:"}
-	{\\ud83c\\uddec\\ud83c\\uddeb}	{" :flag_gf:"}
-	{\\ud83c\\uddec\\ud83c\\uddec}	{" :flag_gg:"}
-	{\\ud83c\\uddec\\ud83c\\udded}	{" :flag_gh:"}
-	{\\ud83c\\uddec\\ud83c\\uddee}	{" :flag_gi:"}
+	{\\ud83c\\uddec\\ud83c\\udde9}	{" :flag_grenada:"}
+	{\\ud83c\\uddec\\ud83c\\uddea}	{" :flag_georgia:"}
+	{\\ud83c\\uddec\\ud83c\\uddeb}	{" :flag_french_guiana:"}
+	{\\ud83c\\uddec\\ud83c\\uddec}	{" :flag_guernsey:"}
+	{\\ud83c\\uddec\\ud83c\\udded}	{" :flag_ghana:"}
+	{\\ud83c\\uddec\\ud83c\\uddee}	{" :flag_gibraltar:"}
 	{\\ud83c\\uddec\\ud83c\\uddef}	{" :flag_gj:"}
 	{\\ud83c\\uddec\\ud83c\\uddf0}	{" :flag_gk:"}
 	{\\ud83c\\uddec\\ud83c\\uddf1}	{" :flag_greenland:"}
-	{\\ud83c\\uddec\\ud83c\\uddf2}	{" :flag_gm:"}
-	{\\ud83c\\uddec\\ud83c\\uddf3}	{" :flag_gn:"}
+	{\\ud83c\\uddec\\ud83c\\uddf2}	{" :flag_gambia:"}
+	{\\ud83c\\uddec\\ud83c\\uddf3}	{" :flag_guinea:"}
 	{\\ud83c\\uddec\\ud83c\\uddf4}	{" :flag_go:"}
-	{\\ud83c\\uddec\\ud83c\\uddf5}	{" :flag_gp:"}
-	{\\ud83c\\uddec\\ud83c\\uddf6}	{" :flag_gq:"}
-	{\\ud83c\\uddec\\ud83c\\uddf7}	{" :flag_gr:"}
-	{\\ud83c\\uddec\\ud83c\\uddf8}	{" :flag_gs:"}
-	{\\ud83c\\uddec\\ud83c\\uddf9}	{" :flag_gt:"}
-	{\\ud83c\\uddec\\ud83c\\uddfa}	{" :flag_gu:"}
+	{\\ud83c\\uddec\\ud83c\\uddf5}	{" :flag_guadeloupe:"}
+	{\\ud83c\\uddec\\ud83c\\uddf6}	{" :flag_equatorial_guinea:"}
+	{\\ud83c\\uddec\\ud83c\\uddf7}	{" :flag_greece:"}
+	{\\ud83c\\uddec\\ud83c\\uddf8}	{" :flag_south_georgia:"}
+	{\\ud83c\\uddec\\ud83c\\uddf9}	{" :flag_guatemala:"}
+	{\\ud83c\\uddec\\ud83c\\uddfa}	{" :flag_guam:"}
 	{\\ud83c\\uddec\\ud83c\\uddfb}	{" :flag_gv:"}
-	{\\ud83c\\uddec\\ud83c\\uddfc}	{" :flag_gw:"}
+	{\\ud83c\\uddec\\ud83c\\uddfc}	{" :flag_guinea_bissau:"}
 	{\\ud83c\\uddec\\ud83c\\uddfd}	{" :flag_gx:"}
-	{\\ud83c\\uddec\\ud83c\\uddfe}	{" :flag_gy:"}
+	{\\ud83c\\uddec\\ud83c\\uddfe}	{" :flag_guyana:"}
 	{\\ud83c\\uddec\\ud83c\\uddff}	{" :flag_gz:"}
 	{\\ud83c\\udded\\ud83c\\udde6}	{" :flag_ha:"}
 	{\\ud83c\\udded\\ud83c\\udde7}	{" :flag_hb:"}
@@ -370,16 +370,16 @@ array set utftable {
 	{\\ud83c\\udded\\ud83c\\udded}	{" :flag_hh:"}
 	{\\ud83c\\udded\\ud83c\\uddee}	{" :flag_hi:"}
 	{\\ud83c\\udded\\ud83c\\uddef}	{" :flag_hj:"}
-	{\\ud83c\\udded\\ud83c\\uddf0}	{" :flag_hk:"}
+	{\\ud83c\\udded\\ud83c\\uddf0}	{" :flag_hong_kong:"}
 	{\\ud83c\\udded\\ud83c\\uddf1}	{" :flag_hl:"}
-	{\\ud83c\\udded\\ud83c\\uddf2}	{" :flag_hm:"}
-	{\\ud83c\\udded\\ud83c\\uddf3}	{" :flag_hn:"}
+	{\\ud83c\\udded\\ud83c\\uddf2}	{" :flag_heard_islands:"}
+	{\\ud83c\\udded\\ud83c\\uddf3}	{" :flag_honduras:"}
 	{\\ud83c\\udded\\ud83c\\uddf4}	{" :flag_ho:"}
 	{\\ud83c\\udded\\ud83c\\uddf5}	{" :flag_hp:"}
 	{\\ud83c\\udded\\ud83c\\uddf6}	{" :flag_hq:"}
-	{\\ud83c\\udded\\ud83c\\uddf7}	{" :flag_hr:"}
+	{\\ud83c\\udded\\ud83c\\uddf7}	{" :flag_croatia:"}
 	{\\ud83c\\udded\\ud83c\\uddf8}	{" :flag_hs:"}
-	{\\ud83c\\udded\\ud83c\\uddf9}	{" :flag_ht:"}
+	{\\ud83c\\udded\\ud83c\\uddf9}	{" :flag_haiti:"}
 	{\\ud83c\\udded\\ud83c\\uddfa}	{" :flag_hungary:"}
 	{\\ud83c\\udded\\ud83c\\uddfb}	{" :flag_hv:"}
 	{\\ud83c\\udded\\ud83c\\uddfc}	{" :flag_hw:"}
@@ -389,23 +389,23 @@ array set utftable {
 	{\\ud83c\\uddee\\ud83c\\udde6}	{" :flag_ia:"}
 	{\\ud83c\\uddee\\ud83c\\udde7}	{" :flag_ib:"}
 	{\\ud83c\\uddee\\ud83c\\udde8}	{" :flag_canary_islands:"}
-	{\\ud83c\\uddee\\ud83c\\udde9}	{" :flag_id:"}
-	{\\ud83c\\uddee\\ud83c\\uddea}	{" :flag_ie:"}
+	{\\ud83c\\uddee\\ud83c\\udde9}	{" :flag_indonesia:"}
+	{\\ud83c\\uddee\\ud83c\\uddea}	{" :flag_ireland:"}
 	{\\ud83c\\uddee\\ud83c\\uddeb}	{" :flag_if:"}
 	{\\ud83c\\uddee\\ud83c\\uddec}	{" :flag_ig:"}
 	{\\ud83c\\uddee\\ud83c\\udded}	{" :flag_ih:"}
 	{\\ud83c\\uddee\\ud83c\\uddee}	{" :flag_ii:"}
 	{\\ud83c\\uddee\\ud83c\\uddef}	{" :flag_ij:"}
 	{\\ud83c\\uddee\\ud83c\\uddf0}	{" :flag_ik:"}
-	{\\ud83c\\uddee\\ud83c\\uddf1}	{" :flag_il:"}
-	{\\ud83c\\uddee\\ud83c\\uddf2}	{" :flag_im:"}
-	{\\ud83c\\uddee\\ud83c\\uddf3}	{" :flag_in:"}
+	{\\ud83c\\uddee\\ud83c\\uddf1}	{" :flag_israel:"}
+	{\\ud83c\\uddee\\ud83c\\uddf2}	{" :flag_isle_of_man:"}
+	{\\ud83c\\uddee\\ud83c\\uddf3}	{" :flag_india:"}
 	{\\ud83c\\uddee\\ud83c\\uddf4}	{" :flag_io:"}
 	{\\ud83c\\uddee\\ud83c\\uddf5}	{" :flag_ip:"}
-	{\\ud83c\\uddee\\ud83c\\uddf6}	{" :flag_iq:"}
-	{\\ud83c\\uddee\\ud83c\\uddf7}	{" :flag_ir:"}
-	{\\ud83c\\uddee\\ud83c\\uddf8}	{" :flag_is:"}
-	{\\ud83c\\uddee\\ud83c\\uddf9}	{" :flag_it:"}
+	{\\ud83c\\uddee\\ud83c\\uddf6}	{" :flag_iraq:"}
+	{\\ud83c\\uddee\\ud83c\\uddf7}	{" :flag_iran:"}
+	{\\ud83c\\uddee\\ud83c\\uddf8}	{" :flag_iceland:"}
+	{\\ud83c\\uddee\\ud83c\\uddf9}	{" :flag_italy:"}
 	{\\ud83c\\uddee\\ud83c\\uddfa}	{" :flag_iu:"}
 	{\\ud83c\\uddee\\ud83c\\uddfb}	{" :flag_iv:"}
 	{\\ud83c\\uddee\\ud83c\\uddfc}	{" :flag_iw:"}
@@ -416,7 +416,7 @@ array set utftable {
 	{\\ud83c\\uddef\\ud83c\\udde7}	{" :flag_jb:"}
 	{\\ud83c\\uddef\\ud83c\\udde8}	{" :flag_jc:"}
 	{\\ud83c\\uddef\\ud83c\\udde9}	{" :flag_jd:"}
-	{\\ud83c\\uddef\\ud83c\\uddea}	{" :flag_je:"}
+	{\\ud83c\\uddef\\ud83c\\uddea}	{" :flag_jersey:"}
 	{\\ud83c\\uddef\\ud83c\\uddeb}	{" :flag_jf:"}
 	{\\ud83c\\uddef\\ud83c\\uddec}	{" :flag_jg:"}
 	{\\ud83c\\uddef\\ud83c\\udded}	{" :flag_jh:"}
@@ -424,10 +424,10 @@ array set utftable {
 	{\\ud83c\\uddef\\ud83c\\uddef}	{" :flag_jj:"}
 	{\\ud83c\\uddef\\ud83c\\uddf0}	{" :flag_jk:"}
 	{\\ud83c\\uddef\\ud83c\\uddf1}	{" :flag_jl:"}
-	{\\ud83c\\uddef\\ud83c\\uddf2}	{" :flag_jm:"}
+	{\\ud83c\\uddef\\ud83c\\uddf2}	{" :flag_jamaica:"}
 	{\\ud83c\\uddef\\ud83c\\uddf3}	{" :flag_jn:"}
-	{\\ud83c\\uddef\\ud83c\\uddf4}	{" :flag_jo:"}
-	{\\ud83c\\uddef\\ud83c\\uddf5}	{" :flag_jp:"}
+	{\\ud83c\\uddef\\ud83c\\uddf4}	{" :flag_jordan:"}
+	{\\ud83c\\uddef\\ud83c\\uddf5}	{" :flag_japan:"}
 	{\\ud83c\\uddef\\ud83c\\uddf6}	{" :flag_jq:"}
 	{\\ud83c\\uddef\\ud83c\\uddf7}	{" :flag_jr:"}
 	{\\ud83c\\uddef\\ud83c\\uddf8}	{" :flag_js:"}
@@ -442,37 +442,37 @@ array set utftable {
 	{\\ud83c\\uddf0\\ud83c\\udde7}	{" :flag_kb:"}
 	{\\ud83c\\uddf0\\ud83c\\udde8}	{" :flag_kc:"}
 	{\\ud83c\\uddf0\\ud83c\\udde9}	{" :flag_kd:"}
-	{\\ud83c\\uddf0\\ud83c\\uddea}	{" :flag_ke:"}
+	{\\ud83c\\uddf0\\ud83c\\uddea}	{" :flag_kenya:"}
 	{\\ud83c\\uddf0\\ud83c\\uddeb}	{" :flag_kf:"}
-	{\\ud83c\\uddf0\\ud83c\\uddec}	{" :flag_kg:"}
+	{\\ud83c\\uddf0\\ud83c\\uddec}	{" :flag_kyrgyzstan:"}
 	{\\ud83c\\uddf0\\ud83c\\udded}	{" :flag_cambodia:"}
-	{\\ud83c\\uddf0\\ud83c\\uddee}	{" :flag_ki:"}
+	{\\ud83c\\uddf0\\ud83c\\uddee}	{" :flag_kiribati:"}
 	{\\ud83c\\uddf0\\ud83c\\uddef}	{" :flag_kj:"}
 	{\\ud83c\\uddf0\\ud83c\\uddf0}	{" :flag_kk:"}
 	{\\ud83c\\uddf0\\ud83c\\uddf1}	{" :flag_kl:"}
-	{\\ud83c\\uddf0\\ud83c\\uddf2}	{" :flag_km:"}
-	{\\ud83c\\uddf0\\ud83c\\uddf3}	{" :flag_kn:"}
+	{\\ud83c\\uddf0\\ud83c\\uddf2}	{" :flag_comoros:"}
+	{\\ud83c\\uddf0\\ud83c\\uddf3}	{" :flag_saint_kitts_and_nevis:"}
 	{\\ud83c\\uddf0\\ud83c\\uddf4}	{" :flag_ko:"}
-	{\\ud83c\\uddf0\\ud83c\\uddf5}	{" :flag_kp:"}
+	{\\ud83c\\uddf0\\ud83c\\uddf5}	{" :flag_north_korea:"}
 	{\\ud83c\\uddf0\\ud83c\\uddf6}	{" :flag_kq:"}
-	{\\ud83c\\uddf0\\ud83c\\uddf7}	{" :flag_kr:"}
+	{\\ud83c\\uddf0\\ud83c\\uddf7}	{" :flag_south_korea:"}
 	{\\ud83c\\uddf0\\ud83c\\uddf8}	{" :flag_ks:"}
 	{\\ud83c\\uddf0\\ud83c\\uddf9}	{" :flag_kt:"}
 	{\\ud83c\\uddf0\\ud83c\\uddfa}	{" :flag_ku:"}
 	{\\ud83c\\uddf0\\ud83c\\uddfb}	{" :flag_kv:"}
-	{\\ud83c\\uddf0\\ud83c\\uddfc}	{" :flag_kw:"}
+	{\\ud83c\\uddf0\\ud83c\\uddfc}	{" :flag_kuwait:"}
 	{\\ud83c\\uddf0\\ud83c\\uddfd}	{" :flag_kx:"}
-	{\\ud83c\\uddf0\\ud83c\\uddfe}	{" :flag_ky:"}
-	{\\ud83c\\uddf0\\ud83c\\uddff}	{" :flag_kz:"}
-	{\\ud83c\\uddf1\\ud83c\\udde6}	{" :flag_la:"}
-	{\\ud83c\\uddf1\\ud83c\\udde7}	{" :flag_lb:"}
+	{\\ud83c\\uddf0\\ud83c\\uddfe}	{" :flag_cayman_islands:"}
+	{\\ud83c\\uddf0\\ud83c\\uddff}	{" :flag_kazakhstan:"}
+	{\\ud83c\\uddf1\\ud83c\\udde6}	{" :flag_laos:"}
+	{\\ud83c\\uddf1\\ud83c\\udde7}	{" :flag_lebanon:"}
 	{\\ud83c\\uddf1\\ud83c\\udde8}	{" :flag_saint_lucia:"}
 	{\\ud83c\\uddf1\\ud83c\\udde9}	{" :flag_ld:"}
 	{\\ud83c\\uddf1\\ud83c\\uddea}	{" :flag_le:"}
 	{\\ud83c\\uddf1\\ud83c\\uddeb}	{" :flag_lf:"}
 	{\\ud83c\\uddf1\\ud83c\\uddec}	{" :flag_lg:"}
 	{\\ud83c\\uddf1\\ud83c\\udded}	{" :flag_lh:"}
-	{\\ud83c\\uddf1\\ud83c\\uddee}	{" :flag_li:"}
+	{\\ud83c\\uddf1\\ud83c\\uddee}	{" :flag_liechtenstein:"}
 	{\\ud83c\\uddf1\\ud83c\\uddef}	{" :flag_lj:"}
 	{\\ud83c\\uddf1\\ud83c\\uddf0}	{" :flag_sri_lanka:"}
 	{\\ud83c\\uddf1\\ud83c\\uddf1}	{" :flag_ll:"}
@@ -482,66 +482,66 @@ array set utftable {
 	{\\ud83c\\uddf1\\ud83c\\uddf5}	{" :flag_lp:"}
 	{\\ud83c\\uddf1\\ud83c\\uddf6}	{" :flag_lq:"}
 	{\\ud83c\\uddf1\\ud83c\\uddf7}	{" :flag_liberia:"}
-	{\\ud83c\\uddf1\\ud83c\\uddf8}	{" :flag_ls:"}
-	{\\ud83c\\uddf1\\ud83c\\uddf9}	{" :flag_lt:"}
+	{\\ud83c\\uddf1\\ud83c\\uddf8}	{" :flag_lesotho:"}
+	{\\ud83c\\uddf1\\ud83c\\uddf9}	{" :flag_lithuania:"}
 	{\\ud83c\\uddf1\\ud83c\\uddfa}	{" :flag_luxembourg:"}
-	{\\ud83c\\uddf1\\ud83c\\uddfb}	{" :flag_lv:"}
+	{\\ud83c\\uddf1\\ud83c\\uddfb}	{" :flag_latvia:"}
 	{\\ud83c\\uddf1\\ud83c\\uddfc}	{" :flag_lw:"}
 	{\\ud83c\\uddf1\\ud83c\\uddfd}	{" :flag_lx:"}
-	{\\ud83c\\uddf1\\ud83c\\uddfe}	{" :flag_ly:"}
+	{\\ud83c\\uddf1\\ud83c\\uddfe}	{" :flag_libya:"}
 	{\\ud83c\\uddf1\\ud83c\\uddff}	{" :flag_lz:"}
-	{\\ud83c\\uddf2\\ud83c\\udde6}	{" :flag_ma:"}
+	{\\ud83c\\uddf2\\ud83c\\udde6}	{" :flag_marocco:"}
 	{\\ud83c\\uddf2\\ud83c\\udde7}	{" :flag_mb:"}
-	{\\ud83c\\uddf2\\ud83c\\udde8}	{" :flag_mc:"}
-	{\\ud83c\\uddf2\\ud83c\\udde9}	{" :flag_md:"}
-	{\\ud83c\\uddf2\\ud83c\\uddea}	{" :flag_me:"}
-	{\\ud83c\\uddf2\\ud83c\\uddeb}	{" :flag_mf:"}
-	{\\ud83c\\uddf2\\ud83c\\uddec}	{" :flag_mg:"}
-	{\\ud83c\\uddf2\\ud83c\\udded}	{" :flag_mh:"}
+	{\\ud83c\\uddf2\\ud83c\\udde8}	{" :flag_monaco:"}
+	{\\ud83c\\uddf2\\ud83c\\udde9}	{" :flag_moldova:"}
+	{\\ud83c\\uddf2\\ud83c\\uddea}	{" :flag_montenegro:"}
+	{\\ud83c\\uddf2\\ud83c\\uddeb}	{" :flag_saint_martin:"}
+	{\\ud83c\\uddf2\\ud83c\\uddec}	{" :flag_madagascar:"}
+	{\\ud83c\\uddf2\\ud83c\\udded}	{" :flag_marshall_islands:"}
 	{\\ud83c\\uddf2\\ud83c\\uddee}	{" :flag_mi:"}
 	{\\ud83c\\uddf2\\ud83c\\uddef}	{" :flag_mj:"}
-	{\\ud83c\\uddf2\\ud83c\\uddf0}	{" :flag_mk:"}
-	{\\ud83c\\uddf2\\ud83c\\uddf1}	{" :flag_ml:"}
-	{\\ud83c\\uddf2\\ud83c\\uddf2}	{" :flag_mm:"}
-	{\\ud83c\\uddf2\\ud83c\\uddf3}	{" :flag_mn:"}
-	{\\ud83c\\uddf2\\ud83c\\uddf4}	{" :flag_mo:"}
-	{\\ud83c\\uddf2\\ud83c\\uddf5}	{" :flag_mp:"}
-	{\\ud83c\\uddf2\\ud83c\\uddf6}	{" :flag_mq:"}
-	{\\ud83c\\uddf2\\ud83c\\uddf7}	{" :flag_mr:"}
-	{\\ud83c\\uddf2\\ud83c\\uddf8}	{" :flag_ms:"}
-	{\\ud83c\\uddf2\\ud83c\\uddf9}	{" :flag_mt:"}
-	{\\ud83c\\uddf2\\ud83c\\uddfa}	{" :flag_mu:"}
-	{\\ud83c\\uddf2\\ud83c\\uddfb}	{" :flag_mv:"}
-	{\\ud83c\\uddf2\\ud83c\\uddfc}	{" :flag_mw:"}
-	{\\ud83c\\uddf2\\ud83c\\uddfd}	{" :flag_mx:"}
-	{\\ud83c\\uddf2\\ud83c\\uddfe}	{" :flag_my:"}
-	{\\ud83c\\uddf2\\ud83c\\uddff}	{" :flag_mz:"}
+	{\\ud83c\\uddf2\\ud83c\\uddf0}	{" :flag_macedonia:"}
+	{\\ud83c\\uddf2\\ud83c\\uddf1}	{" :flag_mali:"}
+	{\\ud83c\\uddf2\\ud83c\\uddf2}	{" :flag_myanmar:"}
+	{\\ud83c\\uddf2\\ud83c\\uddf3}	{" :flag_mongolia:"}
+	{\\ud83c\\uddf2\\ud83c\\uddf4}	{" :flag_macao:"}
+	{\\ud83c\\uddf2\\ud83c\\uddf5}	{" :flag_northern_mariana_islands:"}
+	{\\ud83c\\uddf2\\ud83c\\uddf6}	{" :flag_martinique:"}
+	{\\ud83c\\uddf2\\ud83c\\uddf7}	{" :flag_mauritania:"}
+	{\\ud83c\\uddf2\\ud83c\\uddf8}	{" :flag_montserrat:"}
+	{\\ud83c\\uddf2\\ud83c\\uddf9}	{" :flag_malta:"}
+	{\\ud83c\\uddf2\\ud83c\\uddfa}	{" :flag_mauritius:"}
+	{\\ud83c\\uddf2\\ud83c\\uddfb}	{" :flag_maldives:"}
+	{\\ud83c\\uddf2\\ud83c\\uddfc}	{" :flag_malawi:"}
+	{\\ud83c\\uddf2\\ud83c\\uddfd}	{" :flag_mexico:"}
+	{\\ud83c\\uddf2\\ud83c\\uddfe}	{" :flag_malaysia:"}
+	{\\ud83c\\uddf2\\ud83c\\uddff}	{" :flag_mozambique:"}
 	{\\ud83c\\uddf3\\ud83c\\udde6}	{" :flag_namibia:"}
 	{\\ud83c\\uddf3\\ud83c\\udde7}	{" :flag_nb:"}
 	{\\ud83c\\uddf3\\ud83c\\udde8}	{" :flag_new_caledonia:"}
 	{\\ud83c\\uddf3\\ud83c\\udde9}	{" :flag_nd:"}
-	{\\ud83c\\uddf3\\ud83c\\uddea}	{" :flag_ne:"}
-	{\\ud83c\\uddf3\\ud83c\\uddeb}	{" :flag_nf:"}
-	{\\ud83c\\uddf3\\ud83c\\uddec}	{" :flag_ng:"}
+	{\\ud83c\\uddf3\\ud83c\\uddea}	{" :flag_niger:"}
+	{\\ud83c\\uddf3\\ud83c\\uddeb}	{" :flag_norfolk_island:"}
+	{\\ud83c\\uddf3\\ud83c\\uddec}	{" :flag_nigeria:"}
 	{\\ud83c\\uddf3\\ud83c\\udded}	{" :flag_nh:"}
-	{\\ud83c\\uddf3\\ud83c\\uddee}	{" :flag_ni:"}
+	{\\ud83c\\uddf3\\ud83c\\uddee}	{" :flag_nicaragua:"}
 	{\\ud83c\\uddf3\\ud83c\\uddef}	{" :flag_nj:"}
 	{\\ud83c\\uddf3\\ud83c\\uddf0}	{" :flag_nk:"}
 	{\\ud83c\\uddf3\\ud83c\\uddf1}	{" :flag_netherlands:"}
 	{\\ud83c\\uddf3\\ud83c\\uddf2}	{" :flag_nm:"}
 	{\\ud83c\\uddf3\\ud83c\\uddf3}	{" :flag_nn:"}
-	{\\ud83c\\uddf3\\ud83c\\uddf4}	{" :flag_no:"}
-	{\\ud83c\\uddf3\\ud83c\\uddf5}	{" :flag_np:"}
+	{\\ud83c\\uddf3\\ud83c\\uddf4}	{" :flag_norway:"}
+	{\\ud83c\\uddf3\\ud83c\\uddf5}	{" :flag_nepal:"}
 	{\\ud83c\\uddf3\\ud83c\\uddf6}	{" :flag_nq:"}
-	{\\ud83c\\uddf3\\ud83c\\uddf7}	{" :flag_nr:"}
+	{\\ud83c\\uddf3\\ud83c\\uddf7}	{" :flag_nauru:"}
 	{\\ud83c\\uddf3\\ud83c\\uddf8}	{" :flag_ns:"}
 	{\\ud83c\\uddf3\\ud83c\\uddf9}	{" :flag_nt:"}
-	{\\ud83c\\uddf3\\ud83c\\uddfa}	{" :flag_nu:"}
+	{\\ud83c\\uddf3\\ud83c\\uddfa}	{" :flag_niue:"}
 	{\\ud83c\\uddf3\\ud83c\\uddfb}	{" :flag_nv:"}
 	{\\ud83c\\uddf3\\ud83c\\uddfc}	{" :flag_nw:"}
 	{\\ud83c\\uddf3\\ud83c\\uddfd}	{" :flag_nx:"}
 	{\\ud83c\\uddf3\\ud83c\\uddfe}	{" :flag_ny:"}
-	{\\ud83c\\uddf3\\ud83c\\uddff}	{" :flag_nz:"}
+	{\\ud83c\\uddf3\\ud83c\\uddff}	{" :flag_new_zealand:"}
 	{\\ud83c\\uddf4\\ud83c\\udde6}	{" :flag_oa:"}
 	{\\ud83c\\uddf4\\ud83c\\udde7}	{" :flag_ob:"}
 	{\\ud83c\\uddf4\\ud83c\\udde8}	{" :flag_oc:"}
@@ -554,7 +554,7 @@ array set utftable {
 	{\\ud83c\\uddf4\\ud83c\\uddef}	{" :flag_oj:"}
 	{\\ud83c\\uddf4\\ud83c\\uddf0}	{" :flag_ok:"}
 	{\\ud83c\\uddf4\\ud83c\\uddf1}	{" :flag_ol:"}
-	{\\ud83c\\uddf4\\ud83c\\uddf2}	{" :flag_om:"}
+	{\\ud83c\\uddf4\\ud83c\\uddf2}	{" :flag_oman:"}
 	{\\ud83c\\uddf4\\ud83c\\uddf3}	{" :flag_on:"}
 	{\\ud83c\\uddf4\\ud83c\\uddf4}	{" :flag_oo:"}
 	{\\ud83c\\uddf4\\ud83c\\uddf5}	{" :flag_op:"}
@@ -568,33 +568,33 @@ array set utftable {
 	{\\ud83c\\uddf4\\ud83c\\uddfd}	{" :flag_ox:"}
 	{\\ud83c\\uddf4\\ud83c\\uddfe}	{" :flag_oy:"}
 	{\\ud83c\\uddf4\\ud83c\\uddff}	{" :flag_oz:"}
-	{\\ud83c\\uddf5\\ud83c\\udde6}	{" :flag_pa:"}
+	{\\ud83c\\uddf5\\ud83c\\udde6}	{" :flag_panama:"}
 	{\\ud83c\\uddf5\\ud83c\\udde7}	{" :flag_pb:"}
 	{\\ud83c\\uddf5\\ud83c\\udde8}	{" :flag_pc:"}
 	{\\ud83c\\uddf5\\ud83c\\udde9}	{" :flag_pd:"}
-	{\\ud83c\\uddf5\\ud83c\\uddea}	{" :flag_pe:"}
-	{\\ud83c\\uddf5\\ud83c\\uddeb}	{" :flag_pf:"}
-	{\\ud83c\\uddf5\\ud83c\\uddec}	{" :flag_pg:"}
+	{\\ud83c\\uddf5\\ud83c\\uddea}	{" :flag_peru:"}
+	{\\ud83c\\uddf5\\ud83c\\uddeb}	{" :flag_french_polynesia:"}
+	{\\ud83c\\uddf5\\ud83c\\uddec}	{" :flag_papua_new_guinea:"}
 	{\\ud83c\\uddf5\\ud83c\\udded}	{" :flag_philipines:"}
 	{\\ud83c\\uddf5\\ud83c\\uddee}	{" :flag_pi:"}
 	{\\ud83c\\uddf5\\ud83c\\uddef}	{" :flag_pj:"}
-	{\\ud83c\\uddf5\\ud83c\\uddf0}	{" :flag_pk:"}
+	{\\ud83c\\uddf5\\ud83c\\uddf0}	{" :flag_pakistan:"}
 	{\\ud83c\\uddf5\\ud83c\\uddf1}	{" :flag_poland:"}
-	{\\ud83c\\uddf5\\ud83c\\uddf2}	{" :flag_pm:"}
-	{\\ud83c\\uddf5\\ud83c\\uddf3}	{" :flag_pn:"}
+	{\\ud83c\\uddf5\\ud83c\\uddf2}	{" :flag_saint_pierre_and_iquelon:"}
+	{\\ud83c\\uddf5\\ud83c\\uddf3}	{" :flag_pitcairn:"}
 	{\\ud83c\\uddf5\\ud83c\\uddf4}	{" :flag_po:"}
 	{\\ud83c\\uddf5\\ud83c\\uddf5}	{" :flag_pp:"}
 	{\\ud83c\\uddf5\\ud83c\\uddf6}	{" :flag_pq:"}
-	{\\ud83c\\uddf5\\ud83c\\uddf7}	{" :flag_pr:"}
-	{\\ud83c\\uddf5\\ud83c\\uddf8}	{" :flag_ps:"}
+	{\\ud83c\\uddf5\\ud83c\\uddf7}	{" :flag_puerto_rico:"}
+	{\\ud83c\\uddf5\\ud83c\\uddf8}	{" :flag_palestine:"}
 	{\\ud83c\\uddf5\\ud83c\\uddf9}	{" :flag_portugal:"}
 	{\\ud83c\\uddf5\\ud83c\\uddfa}	{" :flag_pu:"}
 	{\\ud83c\\uddf5\\ud83c\\uddfb}	{" :flag_pv:"}
-	{\\ud83c\\uddf5\\ud83c\\uddfc}	{" :flag_pw:"}
+	{\\ud83c\\uddf5\\ud83c\\uddfc}	{" :flag_palau:"}
 	{\\ud83c\\uddf5\\ud83c\\uddfd}	{" :flag_px:"}
-	{\\ud83c\\uddf5\\ud83c\\uddfe}	{" :flag_py:"}
+	{\\ud83c\\uddf5\\ud83c\\uddfe}	{" :flag_paraguay:"}
 	{\\ud83c\\uddf5\\ud83c\\uddff}	{" :flag_pz:"}
-	{\\ud83c\\uddf6\\ud83c\\udde6}	{" :flag_qa:"}
+	{\\ud83c\\uddf6\\ud83c\\udde6}	{" :flag_qatar:"}
 	{\\ud83c\\uddf6\\ud83c\\udde7}	{" :flag_qb:"}
 	{\\ud83c\\uddf6\\ud83c\\udde8}	{" :flag_qc:"}
 	{\\ud83c\\uddf6\\ud83c\\udde9}	{" :flag_qd:"}
@@ -624,7 +624,7 @@ array set utftable {
 	{\\ud83c\\uddf7\\ud83c\\udde7}	{" :flag_rb:"}
 	{\\ud83c\\uddf7\\ud83c\\udde8}	{" :flag_rc:"}
 	{\\ud83c\\uddf7\\ud83c\\udde9}	{" :flag_rd:"}
-	{\\ud83c\\uddf7\\ud83c\\uddea}	{" :flag_re:"}
+	{\\ud83c\\uddf7\\ud83c\\uddea}	{" :flag_reunion:"}
 	{\\ud83c\\uddf7\\ud83c\\uddeb}	{" :flag_rf:"}
 	{\\ud83c\\uddf7\\ud83c\\uddec}	{" :flag_rg:"}
 	{\\ud83c\\uddf7\\ud83c\\udded}	{" :flag_rh:"}
@@ -638,113 +638,113 @@ array set utftable {
 	{\\ud83c\\uddf7\\ud83c\\uddf5}	{" :flag_rp:"}
 	{\\ud83c\\uddf7\\ud83c\\uddf6}	{" :flag_rq:"}
 	{\\ud83c\\uddf7\\ud83c\\uddf7}	{" :flag_rr:"}
-	{\\ud83c\\uddf7\\ud83c\\uddf8}	{" :flag_rs:"}
+	{\\ud83c\\uddf7\\ud83c\\uddf8}	{" :flag_serbia:"}
 	{\\ud83c\\uddf7\\ud83c\\uddf9}	{" :flag_rt:"}
 	{\\ud83c\\uddf7\\ud83c\\uddfa}	{" :flag_russia:"}
 	{\\ud83c\\uddf7\\ud83c\\uddfb}	{" :flag_rv:"}
-	{\\ud83c\\uddf7\\ud83c\\uddfc}	{" :flag_rw:"}
+	{\\ud83c\\uddf7\\ud83c\\uddfc}	{" :flag_rwanda:"}
 	{\\ud83c\\uddf7\\ud83c\\uddfd}	{" :flag_rx:"}
 	{\\ud83c\\uddf7\\ud83c\\uddfe}	{" :flag_ry:"}
 	{\\ud83c\\uddf7\\ud83c\\uddff}	{" :flag_rz:"}
 	{\\ud83c\\uddf8\\ud83c\\udde6}	{" :flag_saudi_arabia:"}
-	{\\ud83c\\uddf8\\ud83c\\udde7}	{" :flag_sb:"}
-	{\\ud83c\\uddf8\\ud83c\\udde8}	{" :flag_sc:"}
-	{\\ud83c\\uddf8\\ud83c\\udde9}	{" :flag_sd:"}
-	{\\ud83c\\uddf8\\ud83c\\uddea}	{" :flag_se:"}
+	{\\ud83c\\uddf8\\ud83c\\udde7}	{" :flag_solomon_islands:"}
+	{\\ud83c\\uddf8\\ud83c\\udde8}	{" :flag_seychelles:"}
+	{\\ud83c\\uddf8\\ud83c\\udde9}	{" :flag_sudan:"}
+	{\\ud83c\\uddf8\\ud83c\\uddea}	{" :flag_sweden:"}
 	{\\ud83c\\uddf8\\ud83c\\uddeb}	{" :flag_sf:"}
-	{\\ud83c\\uddf8\\ud83c\\uddec}	{" :flag_sg:"}
+	{\\ud83c\\uddf8\\ud83c\\uddec}	{" :flag_singapore:"}
 	{\\ud83c\\uddf8\\ud83c\\udded}	{" :flag_saint_helena:"}
-	{\\ud83c\\uddf8\\ud83c\\uddee}	{" :flag_si:"}
-	{\\ud83c\\uddf8\\ud83c\\uddef}	{" :flag_sj:"}
-	{\\ud83c\\uddf8\\ud83c\\uddf0}	{" :flag_sk:"}
-	{\\ud83c\\uddf8\\ud83c\\uddf1}	{" :flag_sl:"}
-	{\\ud83c\\uddf8\\ud83c\\uddf2}	{" :flag_sm:"}
-	{\\ud83c\\uddf8\\ud83c\\uddf3}	{" :flag_sn:"}
-	{\\ud83c\\uddf8\\ud83c\\uddf4}	{" :flag_so:"}
+	{\\ud83c\\uddf8\\ud83c\\uddee}	{" :flag_slovenia:"}
+	{\\ud83c\\uddf8\\ud83c\\uddef}	{" :flag_svalbard_and_jan_mayen:"}
+	{\\ud83c\\uddf8\\ud83c\\uddf0}	{" :flag_slovakia:"}
+	{\\ud83c\\uddf8\\ud83c\\uddf1}	{" :flag_sierra_leone:"}
+	{\\ud83c\\uddf8\\ud83c\\uddf2}	{" :flag_san_marino:"}
+	{\\ud83c\\uddf8\\ud83c\\uddf3}	{" :flag_senegal:"}
+	{\\ud83c\\uddf8\\ud83c\\uddf4}	{" :flag_somalia:"}
 	{\\ud83c\\uddf8\\ud83c\\uddf5}	{" :flag_sp:"}
 	{\\ud83c\\uddf8\\ud83c\\uddf6}	{" :flag_sq:"}
-	{\\ud83c\\uddf8\\ud83c\\uddf7}	{" :flag_sr:"}
-	{\\ud83c\\uddf8\\ud83c\\uddf8}	{" :flag_ss:"}
-	{\\ud83c\\uddf8\\ud83c\\uddf9}	{" :flag_st:"}
+	{\\ud83c\\uddf8\\ud83c\\uddf7}	{" :flag_suriname:"}
+	{\\ud83c\\uddf8\\ud83c\\uddf8}	{" :flag_south_sudan:"}
+	{\\ud83c\\uddf8\\ud83c\\uddf9}	{" :flag_sao_tome_and_principe:"}
 	{\\ud83c\\uddf8\\ud83c\\uddfa}	{" :flag_su:"}
-	{\\ud83c\\uddf8\\ud83c\\uddfb}	{" :flag_sv:"}
+	{\\ud83c\\uddf8\\ud83c\\uddfb}	{" :flag_el_salvador:"}
 	{\\ud83c\\uddf8\\ud83c\\uddfc}	{" :flag_sw:"}
-	{\\ud83c\\uddf8\\ud83c\\uddfd}	{" :flag_sx:"}
-	{\\ud83c\\uddf8\\ud83c\\uddfe}	{" :flag_sy:"}
-	{\\ud83c\\uddf8\\ud83c\\uddff}	{" :flag_sz:"}
+	{\\ud83c\\uddf8\\ud83c\\uddfd}	{" :flag_sint_maarten:"}
+	{\\ud83c\\uddf8\\ud83c\\uddfe}	{" :flag_syria:"}
+	{\\ud83c\\uddf8\\ud83c\\uddff}	{" :flag_swaziland:"}
 	{\\ud83c\\uddf9\\ud83c\\udde6}	{" :flag_ta:"}
 	{\\ud83c\\uddf9\\ud83c\\udde7}	{" :flag_tb:"}
-	{\\ud83c\\uddf9\\ud83c\\udde8}	{" :flag_tc:"}
-	{\\ud83c\\uddf9\\ud83c\\udde9}	{" :flag_td:"}
+	{\\ud83c\\uddf9\\ud83c\\udde8}	{" :flag_turks_and_caicos_islands:"}
+	{\\ud83c\\uddf9\\ud83c\\udde9}	{" :flag_chad:"}
 	{\\ud83c\\uddf9\\ud83c\\uddea}	{" :flag_te:"}
-	{\\ud83c\\uddf9\\ud83c\\uddeb}	{" :flag_tf:"}
-	{\\ud83c\\uddf9\\ud83c\\uddec}	{" :flag_tg:"}
-	{\\ud83c\\uddf9\\ud83c\\udded}	{" :flag_th:"}
+	{\\ud83c\\uddf9\\ud83c\\uddeb}	{" :flag_french_southern_territories:"}
+	{\\ud83c\\uddf9\\ud83c\\uddec}	{" :flag_togo:"}
+	{\\ud83c\\uddf9\\ud83c\\udded}	{" :flag_thailand:"}
 	{\\ud83c\\uddf9\\ud83c\\uddee}	{" :flag_ti:"}
-	{\\ud83c\\uddf9\\ud83c\\uddef}	{" :flag_tj:"}
-	{\\ud83c\\uddf9\\ud83c\\uddf0}	{" :flag_tk:"}
-	{\\ud83c\\uddf9\\ud83c\\uddf1}	{" :flag_tl:"}
-	{\\ud83c\\uddf9\\ud83c\\uddf2}	{" :flag_tm:"}
-	{\\ud83c\\uddf9\\ud83c\\uddf3}	{" :flag_tn:"}
-	{\\ud83c\\uddf9\\ud83c\\uddf4}	{" :flag_to:"}
+	{\\ud83c\\uddf9\\ud83c\\uddef}	{" :flag_tajikistan:"}
+	{\\ud83c\\uddf9\\ud83c\\uddf0}	{" :flag_tokelau:"}
+	{\\ud83c\\uddf9\\ud83c\\uddf1}	{" :flag_timor_leste:"}
+	{\\ud83c\\uddf9\\ud83c\\uddf2}	{" :flag_turkmenistan:"}
+	{\\ud83c\\uddf9\\ud83c\\uddf3}	{" :flag_tunisia:"}
+	{\\ud83c\\uddf9\\ud83c\\uddf4}	{" :flag_tonga:"}
 	{\\ud83c\\uddf9\\ud83c\\uddf5}	{" :flag_tp:"}
 	{\\ud83c\\uddf9\\ud83c\\uddf6}	{" :flag_tq:"}
-	{\\ud83c\\uddf9\\ud83c\\uddf7}	{" :flag_tr:"}
+	{\\ud83c\\uddf9\\ud83c\\uddf7}	{" :flag_turkey:"}
 	{\\ud83c\\uddf9\\ud83c\\uddf8}	{" :flag_ts:"}
-	{\\ud83c\\uddf9\\ud83c\\uddf9}	{" :flag_tt:"}
+	{\\ud83c\\uddf9\\ud83c\\uddf9}	{" :flag_trinidad_and_tobago:"}
 	{\\ud83c\\uddf9\\ud83c\\uddfa}	{" :flag_tu:"}
-	{\\ud83c\\uddf9\\ud83c\\uddfb}	{" :flag_tv:"}
-	{\\ud83c\\uddf9\\ud83c\\uddfc}	{" :flag_tw:"}
+	{\\ud83c\\uddf9\\ud83c\\uddfb}	{" :flag_tuvalu:"}
+	{\\ud83c\\uddf9\\ud83c\\uddfc}	{" :flag_taiwan:"}
 	{\\ud83c\\uddf9\\ud83c\\uddfd}	{" :flag_tx:"}
 	{\\ud83c\\uddf9\\ud83c\\uddfe}	{" :flag_ty:"}
-	{\\ud83c\\uddf9\\ud83c\\uddff}	{" :flag_tz:"}
-	{\\ud83c\\uddfa\\ud83c\\udde6}	{" :flag_ua:"}
+	{\\ud83c\\uddf9\\ud83c\\uddff}	{" :flag_tanzania:"}
+	{\\ud83c\\uddfa\\ud83c\\udde6}	{" :flag_ukraine:"}
 	{\\ud83c\\uddfa\\ud83c\\udde7}	{" :flag_ub:"}
 	{\\ud83c\\uddfa\\ud83c\\udde8}	{" :flag_uc:"}
 	{\\ud83c\\uddfa\\ud83c\\udde9}	{" :flag_ud:"}
 	{\\ud83c\\uddfa\\ud83c\\uddea}	{" :flag_ue:"}
 	{\\ud83c\\uddfa\\ud83c\\uddeb}	{" :flag_uf:"}
-	{\\ud83c\\uddfa\\ud83c\\uddec}	{" :flag_ug:"}
+	{\\ud83c\\uddfa\\ud83c\\uddec}	{" :flag_uganda:"}
 	{\\ud83c\\uddfa\\ud83c\\udded}	{" :flag_uh:"}
 	{\\ud83c\\uddfa\\ud83c\\uddee}	{" :flag_ui:"}
 	{\\ud83c\\uddfa\\ud83c\\uddef}	{" :flag_uj:"}
 	{\\ud83c\\uddfa\\ud83c\\uddf0}	{" :flag_united_kingdom:"}
 	{\\ud83c\\uddfa\\ud83c\\uddf1}	{" :flag_ul:"}
-	{\\ud83c\\uddfa\\ud83c\\uddf2}	{" :flag_um:"}
+	{\\ud83c\\uddfa\\ud83c\\uddf2}	{" :flag_us_minor_outlying_islands:"}
 	{\\ud83c\\uddfa\\ud83c\\uddf3}	{" :flag_un:"}
 	{\\ud83c\\uddfa\\ud83c\\uddf4}	{" :flag_uo:"}
 	{\\ud83c\\uddfa\\ud83c\\uddf5}	{" :flag_up:"}
 	{\\ud83c\\uddfa\\ud83c\\uddf6}	{" :flag_uq:"}
 	{\\ud83c\\uddfa\\ud83c\\uddf7}	{" :flag_ur:"}
-	{\\ud83c\\uddfa\\ud83c\\uddf8}	{" :flag_us:"}
+	{\\ud83c\\uddfa\\ud83c\\uddf8}	{" :flag_usa:"}
 	{\\ud83c\\uddfa\\ud83c\\uddf9}	{" :flag_ut:"}
 	{\\ud83c\\uddfa\\ud83c\\uddfa}	{" :flag_uu:"}
 	{\\ud83c\\uddfa\\ud83c\\uddfb}	{" :flag_uv:"}
 	{\\ud83c\\uddfa\\ud83c\\uddfc}	{" :flag_uw:"}
 	{\\ud83c\\uddfa\\ud83c\\uddfd}	{" :flag_ux:"}
-	{\\ud83c\\uddfa\\ud83c\\uddfe}	{" :flag_uy:"}
-	{\\ud83c\\uddfa\\ud83c\\uddff}	{" :flag_uz:"}
+	{\\ud83c\\uddfa\\ud83c\\uddfe}	{" :flag_uruguay:"}
+	{\\ud83c\\uddfa\\ud83c\\uddff}	{" :flag_uzbekistan:"}
 	{\\ud83c\\uddfb\\ud83c\\udde6}	{" :flag_vatican:"}
 	{\\ud83c\\uddfb\\ud83c\\udde7}	{" :flag_vb:"}
 	{\\ud83c\\uddfb\\ud83c\\udde8}	{" :flag_saint_vincent:"}
 	{\\ud83c\\uddfb\\ud83c\\udde9}	{" :flag_vd:"}
-	{\\ud83c\\uddfb\\ud83c\\uddea}	{" :flag_ve:"}
+	{\\ud83c\\uddfb\\ud83c\\uddea}	{" :flag_venezuela:"}
 	{\\ud83c\\uddfb\\ud83c\\uddeb}	{" :flag_vf:"}
-	{\\ud83c\\uddfb\\ud83c\\uddec}	{" :flag_vg:"}
+	{\\ud83c\\uddfb\\ud83c\\uddec}	{" :flag_virgin_islands_uk:"}
 	{\\ud83c\\uddfb\\ud83c\\udded}	{" :flag_vh:"}
-	{\\ud83c\\uddfb\\ud83c\\uddee}	{" :flag_vi:"}
+	{\\ud83c\\uddfb\\ud83c\\uddee}	{" :flag_virgin_islands_usa:"}
 	{\\ud83c\\uddfb\\ud83c\\uddef}	{" :flag_vj:"}
 	{\\ud83c\\uddfb\\ud83c\\uddf0}	{" :flag_vk:"}
 	{\\ud83c\\uddfb\\ud83c\\uddf1}	{" :flag_vl:"}
 	{\\ud83c\\uddfb\\ud83c\\uddf2}	{" :flag_vm:"}
-	{\\ud83c\\uddfb\\ud83c\\uddf3}	{" :flag_vn:"}
+	{\\ud83c\\uddfb\\ud83c\\uddf3}	{" :flag_vietnam:"}
 	{\\ud83c\\uddfb\\ud83c\\uddf4}	{" :flag_vo:"}
 	{\\ud83c\\uddfb\\ud83c\\uddf5}	{" :flag_vp:"}
 	{\\ud83c\\uddfb\\ud83c\\uddf6}	{" :flag_vq:"}
 	{\\ud83c\\uddfb\\ud83c\\uddf7}	{" :flag_vr:"}
 	{\\ud83c\\uddfb\\ud83c\\uddf8}	{" :flag_vs:"}
 	{\\ud83c\\uddfb\\ud83c\\uddf9}	{" :flag_vt:"}
-	{\\ud83c\\uddfb\\ud83c\\uddfa}	{" :flag_vu:"}
+	{\\ud83c\\uddfb\\ud83c\\uddfa}	{" :flag_vanuatu:"}
 	{\\ud83c\\uddfb\\ud83c\\uddfb}	{" :flag_vv:"}
 	{\\ud83c\\uddfb\\ud83c\\uddfc}	{" :flag_vw:"}
 	{\\ud83c\\uddfb\\ud83c\\uddfd}	{" :flag_vx:"}
@@ -755,7 +755,7 @@ array set utftable {
 	{\\ud83c\\uddfc\\ud83c\\udde8}	{" :flag_wc:"}
 	{\\ud83c\\uddfc\\ud83c\\udde9}	{" :flag_wd:"}
 	{\\ud83c\\uddfc\\ud83c\\uddea}	{" :flag_we:"}
-	{\\ud83c\\uddfc\\ud83c\\uddeb}	{" :flag_wf:"}
+	{\\ud83c\\uddfc\\ud83c\\uddeb}	{" :flag_wallis_and_futuna:"}
 	{\\ud83c\\uddfc\\ud83c\\uddec}	{" :flag_wg:"}
 	{\\ud83c\\uddfc\\ud83c\\udded}	{" :flag_wh:"}
 	{\\ud83c\\uddfc\\ud83c\\uddee}	{" :flag_wi:"}
@@ -768,7 +768,7 @@ array set utftable {
 	{\\ud83c\\uddfc\\ud83c\\uddf5}	{" :flag_wp:"}
 	{\\ud83c\\uddfc\\ud83c\\uddf6}	{" :flag_wq:"}
 	{\\ud83c\\uddfc\\ud83c\\uddf7}	{" :flag_wr:"}
-	{\\ud83c\\uddfc\\ud83c\\uddf8}	{" :flag_ws:"}
+	{\\ud83c\\uddfc\\ud83c\\uddf8}	{" :flag_samoa:"}
 	{\\ud83c\\uddfc\\ud83c\\uddf9}	{" :flag_wt:"}
 	{\\ud83c\\uddfc\\ud83c\\uddfa}	{" :flag_wu:"}
 	{\\ud83c\\uddfc\\ud83c\\uddfb}	{" :flag_wv:"}
@@ -806,7 +806,7 @@ array set utftable {
 	{\\ud83c\\uddfe\\ud83c\\udde7}	{" :flag_yb:"}
 	{\\ud83c\\uddfe\\ud83c\\udde8}	{" :flag_yc:"}
 	{\\ud83c\\uddfe\\ud83c\\udde9}	{" :flag_yd:"}
-	{\\ud83c\\uddfe\\ud83c\\uddea}	{" :flag_ye:"}
+	{\\ud83c\\uddfe\\ud83c\\uddea}	{" :flag_yemen:"}
 	{\\ud83c\\uddfe\\ud83c\\uddeb}	{" :flag_yf:"}
 	{\\ud83c\\uddfe\\ud83c\\uddec}	{" :flag_yg:"}
 	{\\ud83c\\uddfe\\ud83c\\udded}	{" :flag_yh:"}
@@ -821,14 +821,14 @@ array set utftable {
 	{\\ud83c\\uddfe\\ud83c\\uddf6}	{" :flag_yq:"}
 	{\\ud83c\\uddfe\\ud83c\\uddf7}	{" :flag_yr:"}
 	{\\ud83c\\uddfe\\ud83c\\uddf8}	{" :flag_ys:"}
-	{\\ud83c\\uddfe\\ud83c\\uddf9}	{" :flag_yt:"}
+	{\\ud83c\\uddfe\\ud83c\\uddf9}	{" :flag_mayotte:"}
 	{\\ud83c\\uddfe\\ud83c\\uddfa}	{" :flag_yu:"}
 	{\\ud83c\\uddfe\\ud83c\\uddfb}	{" :flag_yv:"}
 	{\\ud83c\\uddfe\\ud83c\\uddfc}	{" :flag_yw:"}
 	{\\ud83c\\uddfe\\ud83c\\uddfd}	{" :flag_yx:"}
 	{\\ud83c\\uddfe\\ud83c\\uddfe}	{" :flag_yy:"}
 	{\\ud83c\\uddfe\\ud83c\\uddff}	{" :flag_yz:"}
-	{\\ud83c\\uddff\\ud83c\\udde6}	{" :flag_za:"}
+	{\\ud83c\\uddff\\ud83c\\udde6}	{" :flag_south_africa:"}
 	{\\ud83c\\uddff\\ud83c\\udde7}	{" :flag_zb:"}
 	{\\ud83c\\uddff\\ud83c\\udde8}	{" :flag_zc:"}
 	{\\ud83c\\uddff\\ud83c\\udde9}	{" :flag_zd:"}
@@ -840,7 +840,7 @@ array set utftable {
 	{\\ud83c\\uddff\\ud83c\\uddef}	{" :flag_zj:"}
 	{\\ud83c\\uddff\\ud83c\\uddf0}	{" :flag_zk:"}
 	{\\ud83c\\uddff\\ud83c\\uddf1}	{" :flag_zl:"}
-	{\\ud83c\\uddff\\ud83c\\uddf2}	{" :flag_zm:"}
+	{\\ud83c\\uddff\\ud83c\\uddf2}	{" :flag_zambia:"}
 	{\\ud83c\\uddff\\ud83c\\uddf3}	{" :flag_zn:"}
 	{\\ud83c\\uddff\\ud83c\\uddf4}	{" :flag_zo:"}
 	{\\ud83c\\uddff\\ud83c\\uddf5}	{" :flag_zp:"}
@@ -850,7 +850,7 @@ array set utftable {
 	{\\ud83c\\uddff\\ud83c\\uddf9}	{" :flag_zt:"}
 	{\\ud83c\\uddff\\ud83c\\uddfa}	{" :flag_zu:"}
 	{\\ud83c\\uddff\\ud83c\\uddfb}	{" :flag_zv:"}
-	{\\ud83c\\uddff\\ud83c\\uddfc}	{" :flag_zw:"}
+	{\\ud83c\\uddff\\ud83c\\uddfc}	{" :flag_zimbabwe:"}
 	{\\ud83c\\uddff\\ud83c\\uddfd}	{" :flag_zx:"}
 	{\\ud83c\\uddff\\ud83c\\uddfe}	{" :flag_zy:"}
 	{\\ud83c\\uddff\\ud83c\\uddff}	{" :flag_zz:"}
