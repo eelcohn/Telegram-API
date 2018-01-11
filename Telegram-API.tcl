@@ -9,6 +9,7 @@
 # ---------------------------------------------------------------------------- #
 set tg_update_id	0
 set tg_botname		""
+set tg_bot_username	""
 set irc_botname		""
 
 
@@ -19,7 +20,7 @@ set irc_botname		""
 # Initialize some variables (botnames)                                         #
 # ---------------------------------------------------------------------------- #
 proc initialize {} {
-	global tg_botname irc_botname nick
+	global tg_botname tg_bot_username irc_botname nick
 
 	set result [::libtelegram::getMe]
 
@@ -28,6 +29,7 @@ proc initialize {} {
 	}
 
 	set tg_botname [::libjson::getValue $result "result" "username"]
+	set tg_bot_username [::libjson::getValue $result "result" "first_name"]
 	set irc_botname "$nick"
 }
 
@@ -488,85 +490,87 @@ proc tg2irc_pollTelegram {} {
 # Respond to group commands send by Telegram users                             #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_botCommands {chat_id msgid channel message} {
-	global serveraddress tg_botname irc_botname
+	global serveraddress tg_botname tg_bot_username irc_botname
 	global MSG_BOT_HELP MSG_BOT_TG_TOPIC MSG_BOT_IRC_TOPIC MSG_BOT_HELP_IRCUSER MSG_BOT_IRCUSER MSG_BOT_TG_UNKNOWNUSER MSG_BOT_IRCUSERS MSG_BOT_UNKNOWNCMD
 
-#	set message [string trim [string map -nocase {"@$tg_botname" ""} $message]]
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
 
-	if {[string match -nocase "*@*" $command] && [string match -nocase "*@$tg_botname*" $command]} {
+	if {[string match -nocase "@*" [string range $message $parameter_start end]]} {
+		if {![string match -nocase "@$tg_bot_username*" [string range $message $parameter_start end]]} {
+			return
+		}
+	}
 
-		libtelegram::sendChatAction $chat_id "typing"
+	libtelegram::sendChatAction $chat_id "typing"
 
-		switch $command {
-			"help" {
-				set response "[format $MSG_BOT_HELP "$irc_botname"]"
-				libtelegram::sendMessage $chat_id $msgid "html" "$response"
-				putchan $channel "[strip_html $response]"
-			}
+	switch $command {
+		"help" {
+			set response "[format $MSG_BOT_HELP "$irc_botname"]"
+			libtelegram::sendMessage $chat_id $msgid "html" "$response"
+			putchan $channel "[strip_html $response]"
+		}
 
-			"irctopic" {
-				set response "[format $MSG_BOT_TG_TOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
-				libtelegram::sendMessage $chat_id $msgid "html" "$response"
-				putchan $channel "[strip_html $response]"
-			}
+		"irctopic" {
+			set response "[format $MSG_BOT_TG_TOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
+			libtelegram::sendMessage $chat_id $msgid "html" "$response"
+			putchan $channel "[strip_html $response]"
+		}
 
-			"ircuser" {
-				set handle [string trim [string range $message $parameter_start end]]
+		"ircuser" {
+			set handle [string trim [string range $message $parameter_start end]]
 
-				if {$handle != ""} {
-					if {[onchan $handle $channel]} {
-						set online_since [getchanjoin $handle $channel]
-						set response "[format $MSG_BOT_IRCUSER "$handle" "$online_since" "$serveraddress/$channel" "$channel" "[getchanhost $handle $channel]"]"
-					} else {
-						set response "[format $MSG_BOT_TG_UNKNOWNUSER "$handle" "$serveraddress/$channel" "channel"]"
-					}
+			if {$handle != ""} {
+				if {[onchan $handle $channel]} {
+					set online_since [getchanjoin $handle $channel]
+					set response "[format $MSG_BOT_IRCUSER "$handle" "$online_since" "$serveraddress/$channel" "$channel" "[getchanhost $handle $channel]"]"
 				} else {
-					set response $MSG_BOT_HELP_IRCUSER
+					set response "[format $MSG_BOT_TG_UNKNOWNUSER "$handle" "$serveraddress/$channel" "channel"]"
 				}
-				libtelegram::sendMessage $chat_id $msgid "html" "$response"
-				putchan $channel "[strip_html $response]"
+			} else {
+				set response $MSG_BOT_HELP_IRCUSER
 			}
+			libtelegram::sendMessage $chat_id $msgid "html" "$response"
+			putchan $channel "[strip_html $response]"
+		}
 
-			"ircusers" {
-				set response "[format $MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[chanlist $channel]"]"
-				libtelegram::sendMessage $chat_id $msgid "html" "$response"
-				putchan $channel "[strip_html $response]"
-			}
+		"ircusers" {
+			set response "[format $MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[chanlist $channel]"]"
+			libtelegram::sendMessage $chat_id $msgid "html" "$response"
+			putchan $channel "[strip_html $response]"
+		}
 
-			"get" {
-				imagesearch_getImage $chat_id $msgid $channel $message $parameter_start
-			}
+		"get" {
+			imagesearch_getImage $chat_id $msgid $channel $message $parameter_start
+		}
 
-			"locate" {
-				openstreetmaps_getLocation $chat_id $msgid $channel $message $parameter_start
-			}
+		"locate" {
+			openstreetmaps_getLocation $chat_id $msgid $channel $message $parameter_start
+		}
 
-			"spotify" {
-				spotify_getTrack $chat_id $msgid $channel $message $parameter_start
-			}
+		"spotify" {
+			spotify_getTrack $chat_id $msgid $channel $message $parameter_start
+		}
 
-			"soundcloud" {
-				soundcloud_getTrack $chat_id $msgid $channel $message $parameter_start
-			}
+		"soundcloud" {
+			soundcloud_getTrack $chat_id $msgid $channel $message $parameter_start
+		}
 
-			"psn" {
-				psn_getPSNInfo $chat_id $msgid $channel $message $parameter_start
-			}
+		"psn" {
+			psn_getPSNInfo $chat_id $msgid $channel $message $parameter_start
+		}
 
-			"quote" {
-				quotes_getQuote $chat_id $msgid $channel $message $parameter_start
-			}
+		"quote" {
+			quotes_getQuote $chat_id $msgid $channel $message $parameter_start
+		}
 
-			"addquote" {
-				quotes_addQuote $chat_id $msgid $channel $message $parameter_start
-			}
+		"addquote" {
+			quotes_addQuote $chat_id $msgid $channel $message $parameter_start
+		}
 
-			default {
-				libtelegram::sendMessage $chat_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
-				putchan $channel "$MSG_BOT_UNKNOWNCMD"
-			}
+		default {
+			libtelegram::sendMessage $chat_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
+			putchan $channel "$MSG_BOT_UNKNOWNCMD"
 		}
 	}
 }
