@@ -7,12 +7,12 @@
 # ---------------------------------------------------------------------------- #
 # Global internal variables                                                    #
 # ---------------------------------------------------------------------------- #
-set tg_update_id	0
-set tg_botname		""
-set tg_bot_username	""
-set irc_botname		""
-array set	public_commands
-array set	private_commands
+set		tg_update_id		0
+set		tg_botname		""
+set		tg_bot_username		""
+set 		irc_botname		""
+array set	public_commands		{}
+array set	private_commands	{}
 
 
 
@@ -582,7 +582,12 @@ proc add_public_command {keyword procedure} {
 }
 
 proc del_public_command {keyword} {
-	unset -nocomplain public_commands($keyword)
+	if {[info exists $public_commands($keyword)]} {
+		unset -nocomplain public_commands($keyword)
+		return true
+	} else {
+		return false
+	}
 }
 
 # ---------------------------------------------------------------------------- #
