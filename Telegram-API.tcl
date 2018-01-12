@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180111 for Eggdrop                                    #
+# Telegram-API module v20180112 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -11,6 +11,8 @@ set tg_update_id	0
 set tg_botname		""
 set tg_bot_username	""
 set irc_botname		""
+array set	public_commands
+array set	private_commands
 
 
 
@@ -573,6 +575,14 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 			putchan $channel "$MSG_BOT_UNKNOWNCMD"
 		}
 	}
+}
+
+proc add_public_command {keyword procedure} {
+	set public_commands($keyword) $procedure
+}
+
+proc del_public_command {keyword} {
+	unset -nocomplain public_commands($keyword)
 }
 
 # ---------------------------------------------------------------------------- #
