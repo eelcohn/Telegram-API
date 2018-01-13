@@ -22,7 +22,7 @@ proc ::libjson::hasKey {record key} {
 		}
 
 		"internal" {
-			return [jsoninternal::hasKey $record $key]
+			return [::libjson::internal::hasKey $record $key]
 		}
 
 		default {
@@ -45,7 +45,7 @@ proc ::libjson::getValue {record object key} {
 		}
 
 		"internal" {
-			return [jsoninternal::getValue $record $object $key]
+			return [::libjson::internal::getValue $record $object $key]
 		}
 
 		default {
@@ -61,7 +61,7 @@ namespace eval jsoninternal {
 # ---------------------------------------------------------------------------- #
 # Check if a JSON key is present                                               #
 # ---------------------------------------------------------------------------- #
-proc ::jsoninternal::hasKey {record key} {
+proc ::libjson::internal::hasKey {record key} {
 	if {[string first [string range $key [string last "." $key]+1 end] $record] != -1} {
 		return 1
 	} else {
@@ -72,7 +72,7 @@ proc ::jsoninternal::hasKey {record key} {
 # ---------------------------------------------------------------------------- #
 # Return the value of a JSON key                                               #
 # ---------------------------------------------------------------------------- #
-proc ::jsoninternal::getValue {record object key} {
+proc ::libjson::internal::getValue {record object key} {
 	set length [string length $key]
 	set objectstart [string first "\"$object\":\{" $record]
 	# Bug: this is a quick fix because this procedure doesn't iterate through all the objects correctly yet
