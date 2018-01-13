@@ -56,7 +56,7 @@ proc ::libjson::getValue {record object key} {
 
 }
 
-namespace eval jsoninternal {
+namespace eval ::libjson::jsoninternal {
 
 # ---------------------------------------------------------------------------- #
 # Check if a JSON key is present                                               #
@@ -112,7 +112,7 @@ proc ::libjson::internal::getValue {record object key} {
 
 # jq-0.4.0.tm
 # To use this module you need jq version 1.5rc1 or later installed.
-namespace eval jq {
+namespace eval ::libjson::jq {
 	proc jq {filter data {options {-r}}} {
 		exec jq {*}$options $filter << $data
 	}
