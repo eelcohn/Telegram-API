@@ -6,6 +6,8 @@
 # ---------------------------------------------------------------------------- #
 
 namespace eval libtelegram {
+	variable ::libtelegram::bot_id
+	variable ::libtelegram::bot_token
 
 # ---------------------------------------------------------------------------- #
 # ::libtelegram::getUpdates                                                    #
