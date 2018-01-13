@@ -1,7 +1,9 @@
 # Telegram-API
 A gateway between IRC chat channels and Telegram groups
 
-This script requires `curl` and `jq`.
+## Pre-requisites
+
+This script requires `tcl`, `eggdrop`, `curl` and `jq`.
 
 ## Quick start guide
 
