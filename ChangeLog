@@ -1,3 +1,7 @@
+v20180113:
+* Updated libtelegram.tcl: Moved bot_id and bot_token variables to libtelegram
+* Fixed libtelegram.tcl: Fixed crashes if libtelegram can't connect to the API servers
+
 v20180111:
 * Fixed Telegram-API.tcl: Fixed bug in /help command in public Telegram Group
 * Fixed Telegram-API.tcl: Fixed correct responding to /help message
