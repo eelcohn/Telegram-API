@@ -31,7 +31,7 @@ For a description of the Bot API, see this page: https://core.telegram.org/bots/
 10. Send a message to the group<br>
 11. Open the `https://api.telegram.org/bot123456789:AABCD-EfGhIj_KlMn_OpQrStUvWxYz12345/getUpdates` link in your webbrowser, where 123456789 is your bot id, and the AABCD-...12345 is your bottoken<br>
 12. Look up the chat_id of your chat group, and add it to the tg_channels array in Telegram-API-config.tcl script, along with the name of your IRC chat group<br>
-13. Add the Telegram-API-config.tcl script to your Eggdrop:
+13. Add the Telegram-API.tcl script to your Eggdrop:
 ```tcl
 source /path/to/your/scripts/Telegram-API.tcl
 ```
@@ -42,7 +42,7 @@ source /path/to/your/scripts/Telegram-API.tcl
 
 | File | Description |
 |------------------------------------------------------------------|---------|
-| `Telegram-API-config.tcl.sample` | All user configurable settings are set in this file. Rename to Telegram-API-config.tcl and edit according to your preferences before use. |
+| `Telegram-API-config.tcl` | All user configurable settings are set in this file. Rename to Telegram-API-config.tcl and edit according to your preferences before use. |
 | `Telegram-API.tcl` | Main code. Include this file in your `eggdrop.conf` file. |
 | `utftable.tcl` | Translation from UTF characters and emoticons to ASCII characters and emoticons. |
 | `lang/Telegram-API.*.tcl` | All language dependant strings are defined here. For example, if you want to change the way Telegram messages are sent towards the IRC channel, you can define it here. |
