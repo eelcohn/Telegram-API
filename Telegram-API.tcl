@@ -11,7 +11,14 @@ set		tg_update_id		0
 set		tg_botname		""
 set		tg_bot_username		""
 set 		irc_botname		""
-array set	public_commands		{}
+array set	public_commands		{	{get}		{imagesearch_getImage}
+						{locate}	{openstreetmaps_getLocation}
+						{spotify}	{spotify_getTrack}
+						{soundcloud}	{soundcloud_getTrack}
+						{psn}		{psn_getPSNInfo}
+						{quote}		{quotes_getQuote}
+						{addquote}	{quotes_addQuote}
+					}
 array set	private_commands	{}
 
 
