@@ -30,8 +30,8 @@ v20171218:
 * Added sendMediaGroup, getUserProfilePhotos and getFile methods to the libtelegram.tcl library
 
 v20171217:
-* Added colorized nicknames on IRC (nailyk-fr)
-* Removed bold control characters from language files (mailyk-fr)
+* Added colorized nicknames on IRC (thanks go out to nailyk-fr)
+* Removed bold control characters from language files (thanks go out to nailyk-fr)
 
 v20171216:
 * Added ChangeLog (yay!)
