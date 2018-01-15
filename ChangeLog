@@ -1,5 +1,12 @@
+v20180115:
+* ImageSearch.tcl: Fixed crash when server or internet connection is unavailable (9c709dd / a8fe693)
+* Locate.tcl: Fixed crash when server or internet connection is unavailable (e8e57e9)
+* PSN.tcl: Fixed crash when server or internet connection is unavailable (8a6eef2)
+* Soundcloud.tcl: Fixed crash when server or internet connection is unavailable (98a374b)
+* Spotify.tcl: Fixed crash when server or internet connection is unavailable (01a1c14)
+
 v20180114:
-* Renamed Telegram-API-config.tcl.sample to Telegram-API-config.tcl
+* Renamed Telegram-API-config.tcl.sample to Telegram-API-config.tcl (63653e9 / 1fa200f)
 
 v20180113:
 * libtelegram.tcl: Moved bot_id and bot_token variables from Telegram-API.tcl to libtelegram.tcl
