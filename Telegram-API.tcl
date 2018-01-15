@@ -33,12 +33,13 @@ proc initialize {} {
 
 	set result [::libtelegram::getMe]
 
-	if {[::libjson::getValue $result "" "ok"] eq "false"} {
-		die "Telegram-API: bad result from getMe method: [::libjson::getValue $result "" "description"]"
+	if {[::libjson::jq::jq ".ok" $result] ne "true"} {
+		putlog "Telegram-API: bad result from getMe method: [::libjson::jq::jq ".description" $result]"
+		utimer $tg_poll_freq tg2irc_pollTelegram
 	}
 
-	set tg_botname [::libjson::getValue $result "result" "username"]
-	set tg_bot_username [::libjson::getValue $result "result" "first_name"]
+	set tg_botname [::libjson::jq::jq ".result.username" $result]
+	set tg_bot_username [::libjson::jq::jq ".result.first_name" $result]
 	set irc_botname "$nick"
 }
 
@@ -54,7 +55,7 @@ proc irc2tg_sendMessage {nick uhost hand channel msg} {
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-			libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_MSGSENT "$nick" "[url_encode $msg]"]
+			::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_MSGSENT "$nick" "[url_encode $msg]"]
 		}
 	}
 	return 0
@@ -74,7 +75,7 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {![validuser $nick]} {
-				libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
+				::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
 			}
 		}
 	}
@@ -90,7 +91,7 @@ proc irc2tg_nickLeft {nick uhost handle channel message} {
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {![validuser $nick]} {
-				libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
+				::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
 			}
 		}
 	}
@@ -105,7 +106,7 @@ proc irc2tg_nickAction {nick uhost handle dest keyword message} {
 	
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$dest eq $tg_channel} {
-			libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKACTION "$nick" "$nick" "$message"]
+			::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKACTION "$nick" "$nick" "$message"]
 		}
 	}
 	return 0
@@ -119,7 +120,7 @@ proc irc2tg_nickChange {nick uhost handle channel newnick} {
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-			libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKCHANGE "$nick" "$newnick"]
+			::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKCHANGE "$nick" "$newnick"]
 		}
 	}
 	return 0
@@ -134,8 +135,8 @@ proc irc2tg_topicChange {nick uhost handle channel topic} {
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {$nick ne "*"} {
-				libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"]
-				libtelegram::setChatTitle $chat_id $topic
+				::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"]
+				::libtelegram::setChatTitle $chat_id $topic
 			}
 		}
 	}
@@ -150,7 +151,7 @@ proc irc2tg_nickKicked {nick uhost handle channel target reason} {
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-			libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_KICK "$nick" "$target" "$channel" "$reason"]
+			::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_KICK "$nick" "$target" "$channel" "$reason"]
 		}
 	}
 	return 0
@@ -172,7 +173,7 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-#			libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
+#			::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
 		}
 	}
 	return 0
@@ -189,7 +190,7 @@ proc tg2irc_pollTelegram {} {
 	global tg_bot_id tg_bot_token tg_update_id tg_poll_freq tg_channels utftable irc_botname colorize_nicknames
 	global MSG_TG_MSGSENT MSG_TG_AUDIOSENT MSG_TG_PHOTOSENT MSG_TG_DOCSENT MSG_TG_STICKERSENT MSG_TG_VIDEOSENT MSG_TG_VOICESENT MSG_TG_CONTACTSENT MSG_TG_LOCATIONSENT MSG_TG_VENUESENT MSG_TG_USERJOINED MSG_TG_USERADD MSG_TG_USERLEFT MSG_TG_USERREMOVED MSG_TG_CHATTITLE MSG_TG_PICCHANGE MSG_TG_PICDELETE MSG_TG_UNIMPL
 
-	set result [libtelegram::getUpdates $tg_update_id]
+	set result [::libtelegram::getUpdates $tg_update_id]
 
 	if {$result == -1} {
 		# Dont go into the parsing process but plan the next polling
@@ -197,9 +198,9 @@ proc tg2irc_pollTelegram {} {
  		return -1
 	}
 
-	if {[::libjson::getValue $result "" "ok"] eq "false"} {
+	if {[::libjson::jq::jq ".ok" $result] ne "true"} {
 		# Dont go into the parsing process but plan the next polling
-		putlog "Telegram-API: bad result from getUpdates method: [::libjson::getValue $result "" "description"]"
+		putlog "Telegram-API: bad result from getUpdates method: [::libjson::jq::jq ".description" $result]"
 		utimer $tg_poll_freq tg2irc_pollTelegram
 		return -1
 	}
@@ -511,18 +512,18 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 		}
 	}
 
-	libtelegram::sendChatAction $chat_id "typing"
+	::libtelegram::sendChatAction $chat_id "typing"
 
 	switch $command {
 		"help" {
 			set response "[format $MSG_BOT_HELP "$irc_botname"]"
-			libtelegram::sendMessage $chat_id $msgid "html" "$response"
+			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
 
 		"irctopic" {
 			set response "[format $MSG_BOT_TG_TOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
-			libtelegram::sendMessage $chat_id $msgid "html" "$response"
+			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
 
@@ -539,13 +540,13 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 			} else {
 				set response $MSG_BOT_HELP_IRCUSER
 			}
-			libtelegram::sendMessage $chat_id $msgid "html" "$response"
+			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
 
 		"ircusers" {
 			set response "[format $MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[chanlist $channel]"]"
-			libtelegram::sendMessage $chat_id $msgid "html" "$response"
+			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
 
@@ -578,7 +579,7 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 		}
 
 		default {
-			libtelegram::sendMessage $chat_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
+			::libtelegram::sendMessage $chat_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
 			putchan $channel "$MSG_BOT_UNKNOWNCMD"
 		}
 	}
@@ -620,7 +621,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 			# Set the password if this is the first time this user logs in
 #			if {[getuser $irchandle PASS] == ""} {
 #				setuser $irchandle PASS "$ircpassword"
-#				libtelegram::sendMessage $from_id $msgid "markdown" "[format $MSG_BOT_PASSWORDSET "$tg_botname"]"
+#				::libtelegram::sendMessage $from_id $msgid "markdown" "[format $MSG_BOT_PASSWORDSET "$tg_botname"]"
 #			}
 
 			# Check if the password matches
@@ -647,10 +648,10 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				if {[getuser $irchandle XTRA "TELEGRAM_CREATED"] == ""} {
 					setuser $irchandle XTRA "TELEGRAM_CREATED" "[clock seconds]"
 				}
-				libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERLOGIN "$tg_botname" "$irchandle"]\n\n $lastlogin"
+				::libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERLOGIN "$tg_botname" "$irchandle"]\n\n $lastlogin"
 			} else {
 				# Username/password combo doesn't match
-				libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_USERPASSWRONG"
+				::libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_USERPASSWRONG"
 			}
 		}
 
@@ -668,9 +669,9 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				setuser $irchandle XTRA "TELEGRAM_USERID" ""
 				setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "$from_id"
 				setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "[clock seconds]"
-				libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]"
+				::libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]"
 			} else {
-				libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_NOTLOGGEDIN"
+				::libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_NOTLOGGEDIN"
 			}
 		}
 
@@ -695,18 +696,18 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				set irc_hosts [getuser $irchandle HOSTS]
 				set irc_info [getuser $irchandle INFO]
 				putlog "$irc_hosts"
-				libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERINFO "$irchandle" "$from_id" "$tg_lastlogin" "$tg_lastlogout" "$tg_lastuserid" "$tg_created" "$irc_created" "$irc_laston" "irc_hosts" "$irc_info"]"
+				::libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERINFO "$irchandle" "$from_id" "$tg_lastlogin" "$tg_lastlogout" "$tg_lastuserid" "$tg_created" "$irc_created" "$irc_laston" "irc_hosts" "$irc_info"]"
 			} else {
-				libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_NOTLOGGEDIN"
+				::libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_NOTLOGGEDIN"
 			}
 		}
 
 		"help" {
-			libtelegram::sendMessage $from_id $msgid "html" "Available commands are:\n login <username> <password>\n logout\n myinfo\n help\n"
+			::libtelegram::sendMessage $from_id $msgid "html" "Available commands are:\n login <username> <password>\n logout\n myinfo\n help\n"
 		}
 
 		default {
-			libtelegram::sendMessage $from_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
+			::libtelegram::sendMessage $from_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
 		}
 	}
 }
