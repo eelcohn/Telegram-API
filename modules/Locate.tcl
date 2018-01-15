@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Locate module v0.1 for Eggdrop with the Telegram-API module v20171216        #
+# Locate module v0.1 for Eggdrop with the Telegram-API module v20180115        #
 #                                                                              #
-# written by Eelco Huininga 2017                                               #
+# written by Eelco Huininga 2017-2018                                          #
 # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
@@ -21,7 +21,7 @@ proc openstreetmaps_getLocation {chat_id msgid channel message parameter_start} 
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X GET "https://nominatim.openstreetmap.org/search?q=$locationquery&format=json&polygon=0&addressdetails=0"]
 	} ] } {
-		putlog "Locate.tcl: cannot connect to api.openstreetmaps.com using search method: $result"
+		putlog "Locate.tcl: cannot connect to api.openstreetmaps.com using search method."
 		return -1
 	}
 
