@@ -6,6 +6,8 @@ v20180115:
 * Spotify.tcl: Fixed crash when server or internet connection is unavailable (01a1c14)
 * Telegram-API.tcl: Fixed loading libraries before config file (84e8070)
 * libjson.tcl: Fixed namespace typo in ::libjson::internal (2f0930e)
+* Telegram-API.tcl: Merged first part (b879eb4)
+* ImageSearch.tcl: Replaced json parser with jq (a79182a)
 
 v20180114:
 * Renamed Telegram-API-config.tcl.sample to Telegram-API-config.tcl (63653e9 / 1fa200f)
