@@ -4,6 +4,7 @@ v20180115:
 * PSN.tcl: Fixed crash when server or internet connection is unavailable (8a6eef2)
 * Soundcloud.tcl: Fixed crash when server or internet connection is unavailable (98a374b)
 * Spotify.tcl: Fixed crash when server or internet connection is unavailable (01a1c14)
+* Telegram-API.tcl: Fixed loading libraries before config file (84e8070)
 
 v20180114:
 * Renamed Telegram-API-config.tcl.sample to Telegram-API-config.tcl (63653e9 / 1fa200f)
