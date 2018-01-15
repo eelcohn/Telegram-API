@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20171220 for Eggdrop                                    #
+# Telegram-API module v20180115 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -56,7 +56,7 @@ proc ::libjson::getValue {record object key} {
 
 }
 
-namespace eval ::libjson::jsoninternal {
+namespace eval ::libjson::internal {
 
 # ---------------------------------------------------------------------------- #
 # Check if a JSON key is present                                               #
