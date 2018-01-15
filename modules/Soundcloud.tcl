@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Soundcloud module v0.1 for Eggdrop with the Telegram-API module v20171216    #
+# Soundcloud module v0.1 for Eggdrop with the Telegram-API module v20180115    #
 #                                                                              #
-# written by Eelco Huininga 2016-2017                                          #
+# written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
@@ -21,7 +21,7 @@ proc soundcloud_getTrack {chat_id msgid channel message parameter_start} {
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X GET https://api.soundcloud.com/tracks.json?client_id=4346c8125f4f5c40ad666bacd8e96498&q=$query&limit=1]
 	} ] } {
-		putlog "Soundcloud.tcl: cannot connect to api.soundcloud.com using tracks.json method: $result"
+		putlog "Soundcloud.tcl: cannot connect to api.soundcloud.com using tracks.json method."
 		return -1
 	}
 
