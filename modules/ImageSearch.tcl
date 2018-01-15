@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Image Search module v0.1 for Eggdrop with the Telegram-API module v20171216  #
+# Image Search module v0.1 for Eggdrop with the Telegram-API module v20180115  #
 #                                                                              #
-# written by Eelco Huininga 2016-2017                                          #
+# written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
