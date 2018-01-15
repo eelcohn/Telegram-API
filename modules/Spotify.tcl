@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Spotify module v0.1 for Eggdrop with the Telegram-API module v20171221       #
+# Spotify module v0.1 for Eggdrop with the Telegram-API module v20180115       #
 #                                                                              #
-# written by Eelco Huininga 2016-2017                                          #
+# written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
@@ -21,7 +21,7 @@ proc spotify_getTrack {chat_id msgid channel message parameter_start} {
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X GET https://api.spotify.com/v1/search?q=$spotifyquery&type=track&limit=1]
 	} ] } {
-		putlog "Spotify.tcl: cannot connect to api.spotify.com using search method: $result"
+		putlog "Spotify.tcl: cannot connect to api.spotify.com using search method."
 		return -1
 	}
 
