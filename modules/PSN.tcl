@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Playstation Network module v0.1 for Eggdrop v20171216           #
+# Telegram-API Playstation Network module v0.1 for Eggdrop v20180115           #
 #                                                                              #
-# written by Eelco Huininga 2016-2017                                          #
+# written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
@@ -23,7 +23,7 @@ proc psn_getPSNInfo {chat_id msgid channel message parameter_start} {
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X GET https://my.playstation.com/$query]
 	} ] } {
-		putlog "PSN.tcl: cannot connect to my.playstation.com: $result"
+		putlog "PSN.tcl: cannot connect to my.playstation.com."
 		return 1
 	}
 
