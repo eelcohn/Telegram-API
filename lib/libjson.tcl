@@ -45,7 +45,7 @@ proc ::libjson::getValue {record object key} {
 		}
 
 		"jq" {
-			putlog "jq json processor not supported"
+			return [::libjson::jq::jq "$key" $record]
 		}
 
 		"internal" {
