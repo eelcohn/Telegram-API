@@ -18,7 +18,7 @@ proc ::libjson::hasKey {record key} {
 		}
 
 		"jq" {
-			if {::libjson::jq::jq "$key" $record] != "null"} {
+			if {[::libjson::jq::jq "$key" $record] != "null"} {
 				return true
 			} else {
 				return false
