@@ -38,7 +38,7 @@ proc ::libjson::hasKey {record key} {
 # ---------------------------------------------------------------------------- #
 # Return the value of a JSON key                                               #
 # ---------------------------------------------------------------------------- #
-proc ::libjson::getValue {record object key} {
+proc ::libjson::getValue {record key} {
 	switch $::libjson::processor {
 		"json_pkg" {
 			putlog "Tcllib::json json processor not supported"
@@ -49,6 +49,7 @@ proc ::libjson::getValue {record object key} {
 		}
 
 		"internal" {
+			set object "tmp"
 			return [::libjson::internal::getValue $record $object $key]
 		}
 
