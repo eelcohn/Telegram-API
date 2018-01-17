@@ -350,7 +350,7 @@ proc tg2irc_pollTelegram {} {
 						set tg_duration "0"
 					}
 
-					if {[::libjson::hasKey $record "..message.video.caption"]} {
+					if {[::libjson::hasKey $msg "..message.video.caption"]} {
 						set caption " ([utf2ascii [remove_slashes [::libjson::getValue $msg ".message.video.caption"]]])"
 					} else {
 						set caption ""
@@ -395,7 +395,7 @@ proc tg2irc_pollTelegram {} {
 				# Check if a location has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".message.location"]} {
 					# Check if a venue has been sent to the Telegram group
-					if {[::libjson::hasKey $record ".message.venue"]} {
+					if {[::libjson::hasKey $msg ".message.venue"]} {
 						set tg_location [::libjson::getValue $msg ".message.venue.location"]
 						set tg_title [::libjson::getValue $msg ".message.venue.title"]
 						set tg_address [::libjson::getValue $msg ".message.venue.address"]
@@ -485,7 +485,7 @@ proc tg2irc_pollTelegram {} {
 			"channel" {
 				foreach {tg_chat_id irc_channel} [array get tg_channels] {
 					if {$chatid eq $tg_chat_id} {
-						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Channel message received ($record)"
+						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Channel message received ($msg)"
 					}
 				}
 			}
@@ -494,7 +494,7 @@ proc tg2irc_pollTelegram {} {
 			default {
 				foreach {tg_chat_id irc_channel} [array get tg_channels] {
 					if {$chatid eq $tg_chat_id} {
-						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Unknown message received ($record)"
+						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Unknown message received ($msg)"
 					}
 				}
 			}
@@ -836,54 +836,6 @@ proc getWebsiteTitle {url} {
 	set titleend [string first "</title>" $result]
 	return [string range $result $titlestart+7 $titleend-1]
 }
-
-# ---------------------------------------------------------------------------- #
-# Check if a JSON key is present                                               #
-# ---------------------------------------------------------------------------- #
-#proc ::libjson::hasKey {record key} {
-#	if {[string first $key $record] != -1} {
-#		return 1
-#	} else {
-#		return 0
-#	}
-#}
-
-# ---------------------------------------------------------------------------- #
-# Return the value of a JSON key                                               #
-# ---------------------------------------------------------------------------- #
-#proc ::libjson::getValue {record object key} {
-#	set length [string length $key]
-#	set objectstart [string first "\"$object\":\{" $record]
-#	# Bug: this is a quick fix because this procedure doesn't iterate through all the objects correctly yet
-#	if {$object eq ""} {
-#		set objectend [string length $record]
-#	} else {
-#		set objectend [string first "\}" $record $objectstart]
-#	}
-#
-#	set keystart [string first "\"$key\":" $record $objectstart]
-#	if {$keystart != -1} {
-#		if {$keystart < $objectend} {
-#			if {[string index $record [expr $keystart+$length+3]] eq "\""} {
-#				set end [string first "\"" $record [expr $keystart+$length+5]]
-#				return [string range $record [expr $keystart+$length+4] $end-1]
-#			} else {
-#				set end [string first "," $record [expr $keystart+$length+3]]
-#				if {$end != -1} {
-#					return [string range $record [expr $keystart+$length+3] $end-1]
-#				} else {
-#					set end [string first "\}" $record [expr $keystart+$length+3]]
-#					if {$end != -1} {
-#						return [string trim [string range $record [expr $keystart+$length+3] $end-1]]
-#					} else {
-#						return "UNKNOWN"
-#					}
-#				}
-#			}
-#		}
-#	}
-#	return ""
-#}
 
 
 
