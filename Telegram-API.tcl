@@ -350,7 +350,7 @@ proc tg2irc_pollTelegram {} {
 						set tg_duration "0"
 					}
 
-					if {[::libjson::hasKey $msg "..message.video.caption"]} {
+					if {[::libjson::hasKey $msg ".message.video.caption"]} {
 						set caption " ([utf2ascii [remove_slashes [::libjson::getValue $msg ".message.video.caption"]]])"
 					} else {
 						set caption ""
@@ -462,7 +462,7 @@ proc tg2irc_pollTelegram {} {
 
 				# Check if the photo of the Telegram group chat has changed
 				if {[::libjson::hasKey $msg ".message.new_chat_photo"]} {
-					set tg_file_id [::libjson::getValue $msg ".message.new_chat_photo.file_id"]
+					set tg_file_id [::libjson::getValue $msg ".message.new_chat_photo\[0\].file_id"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -475,7 +475,7 @@ proc tg2irc_pollTelegram {} {
 				if {[::libjson::hasKey $msg ".message.delete_chat_photo"]} {
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_PICDELETE "[utf2ascii $name]"
+							putchan $irc_channel [format $MSG_TG_PICDELETE "[utf2ascii $name]"]
 						}
 					}
 				}
