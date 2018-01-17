@@ -1,3 +1,7 @@
+v20180117:
+* Telegram-API.tcl: Merged nailyk's work on using the jq JSON parser (46443c9 067078e)
+* libjson.tcl: Moved to jq as a json processor (66bb346)
+
 v20180115:
 * ImageSearch.tcl: Fixed crash when server or internet connection is unavailable (9c709dd / a8fe693)
 * Locate.tcl: Fixed crash when server or internet connection is unavailable (e8e57e9)
