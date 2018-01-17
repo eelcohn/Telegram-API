@@ -39,7 +39,8 @@ proc initialize {} {
 	}
 
 	set tg_botname [::libjson::getValue $result ".result.username"]
-	set tg_bot_username [::libjson::getValue $result ".result.first_name"]
+#	set tg_bot_username [::libjson::getValue $result ".result.first_name"]
+	set tg_bot_username [concat [::libjson::getValue $msg ".result.first_name\\empty"] [::libjson::getValue $msg ".result.last_name\\empty"]]
 	set irc_botname "$nick"
 }
 
@@ -237,7 +238,7 @@ proc tg2irc_pollTelegram {} {
 				set chatid [::libjson::getValue $msg ".message.chat.id"]
 				set name [utf2ascii [::libjson::getValue $msg ".message.from.username"]]
 				if {$name == "null" } {
-					set name [utf2ascii [concat [::libjson::getValue $msg ".message.from.first_name"] [::libjson::getValue $msg ".message.from.last_name"]]]
+					set name [utf2ascii [concat [::libjson::getValue $msg ".message.from.first_name\\empty"] [::libjson::getValue $msg ".message.from.last_name\\empty"]]]
 				}
 
 				if {$colorize_nicknames == "true"} {
@@ -247,8 +248,8 @@ proc tg2irc_pollTelegram {} {
 				# Check if this message is a reply to a previous message
 				if {[::libjson::hasKey $msg ".message.reply_to_message"]} {
 					set replyname [::libjson::getValue $msg ".message.reply_to_message.from.username"]
-					if {$replyname == "" } {
-						set replyname [utf2ascii [concat [::libjson::getValue $msg ".message.reply_to_message.from.first_name"] [::libjson::getValue $msg ".message.reply_to_message.from.last_name"]]]
+					if {$replyname == "null" } {
+						set replyname [utf2ascii [concat [::libjson::getValue $msg ".message.reply_to_message.from.first_name\\empty"] [::libjson::getValue $msg ".message.reply_to_message.from.last_name\\empty"]]]
 					}
 					if {$colorize_nicknames == "true"} {
 						set replyname "\003[getColorFromString $replyname]$replyname\003"
