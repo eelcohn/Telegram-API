@@ -314,7 +314,6 @@ proc tg2irc_pollTelegram {} {
 				if {[::libjson::hasKey $msg ".message.photo"]} {
 					set tg_file_id [::libjson::getValue $msg ".message.photo\[0\].file_id"]
 					if {[::libjson::hasKey $msg ".result.message.caption"]} {
-						# Bug: the object should really be "photo" and not ""
 						set caption " ([remove_slashes [utf2ascii [::libjson::getValue $msg ".message.photo\[0\].caption"]]])"
 					} else {
 						set caption ""
