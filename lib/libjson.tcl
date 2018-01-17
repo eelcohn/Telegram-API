@@ -118,8 +118,15 @@ proc ::libjson::internal::getValue {record object key} {
 # jq-0.4.0.tm
 # To use this module you need jq version 1.5rc1 or later installed.
 namespace eval ::libjson::jq {
-	proc jq {filter data {options {-r}}} {
-		exec jq {*}$options $filter << $data
+	proc jq {filter data} {
+		# We need --ascii-output so we can find and replace Unicode emoji's with ASCII emoticons, but jq cannot
+		# handle both the --raw-output and --ascii-output switches. Therefore we need to find out the type first
+		# so the leading and trailing quotes can be removed manually.
+		if {[exec jq --raw-output $filter|type << $data] eq "string"} {
+			return [string trim [exec jq --ascii-output $filter << $data] "\""]
+		} else {
+			return [exec jq --raw-output $filter << $data]
+		}
 	}
 	proc json2dict {data} {
 		jq {
