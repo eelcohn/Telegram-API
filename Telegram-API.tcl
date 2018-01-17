@@ -216,11 +216,8 @@ proc tg2irc_pollTelegram {} {
 		return -1
 	}
 
-	# Result was valid, clear the tg_update_id variable for now
-	set tg_update_id 0
- 
-	foreach u_id [::libjson::getValue $result ".result\[\].update_id"] {
-		set msg [::libjson::getValue $result ".result\[\] \| select(.update_id == $u_id)"]
+	foreach tg_update_id [::libjson::getValue $result ".result\[\].update_id"] {
+		set msg [::libjson::getValue $result ".result\[\] \| select(.update_id == $tg_update_id)"]
 
  		switch [::libjson::getValue $msg ".message.chat.type"] {
 			# Check if this record is a private chat record...
@@ -498,12 +495,8 @@ proc tg2irc_pollTelegram {} {
 				}
 			}
 		}
-
-		#If we are here everything goes fine
-		# increment tg offset
-		set tg_update_id $u_id
-		incr tg_update_id
 	}
+	incr tg_update_id
 
 	# ...and set a timer so it triggers the next poll
 	utimer $tg_poll_freq tg2irc_pollTelegram
