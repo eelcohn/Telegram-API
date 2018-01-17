@@ -254,15 +254,18 @@ proc tg2irc_pollTelegram {} {
 					if {$replyname == "" } {
 						set replyname [utf2ascii [concat [::libjson::getValue $msg ".message.reply_to_message.from.first_name"] [::libjson::getValue $msg ".message.reply_to_message.from.last_name"]]]
 					}
+					if {$colorize_nicknames == "true"} {
+						set replyname "\003[getColorFromString $replyname]$replyname\003"
+					} 
 				}
 
 				# Check if a text message has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".message.text"]} {
 					set txt [utf2ascii [::libjson::getValue $msg ".message.text"]]
-					if {$colorize_nicknames == "true"} {
-						set txt "reply to \003[getColorFromString $replyname]$replyname\003: $txt"
-					} else {
-						set txt "reply to $replyname: $txt"
+
+					# Modify text if it is a reply-to
+					if {[::libjson::hasKey $msg ".message.reply_to_message"]} {
+						set txt "$txt (in reply to $replyname)"
 					}
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
