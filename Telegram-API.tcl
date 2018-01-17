@@ -33,13 +33,13 @@ proc initialize {} {
 
 	set result [::libtelegram::getMe]
 
-	if {[::libjson::jq::jq ".ok" $result] ne "true"} {
-		putlog "Telegram-API: bad result from getMe method: [::libjson::jq::jq ".description" $result]"
+	if {[::libjson::getValue $result ".ok"] ne "true"} {
+		putlog "Telegram-API: bad result from getMe method: [::libjson::getValue $result ".description"]"
 		utimer $tg_poll_freq tg2irc_pollTelegram
 	}
 
-	set tg_botname [::libjson::jq::jq ".result.username" $result]
-	set tg_bot_username [::libjson::jq::jq ".result.first_name" $result]
+	set tg_botname [::libjson::getValue $result ".result.username"]
+	set tg_bot_username [::libjson::getValue $result ".result.first_name"]
 	set irc_botname "$nick"
 }
 
@@ -209,9 +209,9 @@ proc tg2irc_pollTelegram {} {
 	}
 
 	# Check if the result was valid
-	if {[::libjson::jq::jq ".ok" $result] ne "true"} {
+	if {[::libjson::getValue $result ".ok"] ne "true"} {
 		# Dont go into the parsing process but plan the next polling
-		putlog "Telegram-API: bad result from getUpdates method: [::libjson::jq::jq ".description" $result]"
+		putlog "Telegram-API: bad result from getUpdates method: [::libjson::getValue $result ".description"]"
 		utimer $tg_poll_freq tg2irc_pollTelegram
 		return -1
 	}
@@ -254,16 +254,16 @@ proc tg2irc_pollTelegram {} {
 					if {$replyname == "" } {
 						set replyname [utf2ascii [concat [::libjson::getValue $msg ".message.reply_to_message.from.first_name"] [::libjson::getValue $msg ".message.reply_to_message.from.last_name"]]]
 					}
-					if {$colorize_nicknames == "true"} {
-						set txt "reply to \003[getColorFromString $replyname]$replyname\003: $txt"
-					} else {
-						set txt "reply to $replyname: $txt"
-					}
 				}
 
 				# Check if a text message has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".message.text"]} {
 					set txt [utf2ascii [::libjson::getValue $msg ".message.text"]]
+					if {$colorize_nicknames == "true"} {
+						set txt "reply to \003[getColorFromString $replyname]$replyname\003: $txt"
+					} else {
+						set txt "reply to $replyname: $txt"
+					}
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
