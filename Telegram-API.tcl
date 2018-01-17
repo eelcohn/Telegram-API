@@ -40,7 +40,7 @@ proc initialize {} {
 
 	set tg_bot_nickname [::libjson::getValue $result ".result.username"]
 #	set tg_bot_realname [::libjson::getValue $result ".result.first_name"]
-	set tg_bot_realname [concat [::libjson::getValue $msg ".result.first_name\\empty"] [::libjson::getValue $msg ".result.last_name\\empty"]]
+	set tg_bot_realname [concat [::libjson::getValue $result ".result.first_name\\empty"] [::libjson::getValue $result ".result.last_name\\empty"]]
 	set irc_bot_nickname "$nick"
 }
 
