@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Image Search module v0.1 for Eggdrop with the Telegram-API module v20180115  #
+# Image Search module for Eggdrop with the Telegram-API module v20180115       #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -25,7 +25,7 @@ proc imagesearch_getImage {chat_id msgid channel message parameter_start} {
 	if { [ catch {
 #		set imgresult [exec curl --tlsv1.2 -s -X POST https://api.duckduckgo.com/ -d kah=nl-nl -d kl=$s_region -d kad=$s_language -d kp=$s_safesearch -d q=$imagequery]
 #		set imgresult [exec curl --tlsv1.2 -s -X GET https://api.duckduckgo.com/?kah=nl-nl&kl=$s_region&kad=$s_language&kp=$s_safesearch&q=$imagequery]
-		set imgresult [exec curl --tlsv1.2 -s --header "User-Agent: Mozilla/5.0" -X POST https://api.qwant.com/api/search/images -d count=1 -d offset=1 -d safesearch=0 -d locale=nl_NL -d q=$imagequery]
+		set imgresult [exec curl --tlsv1.2 -s --header "User-Agent: Mozilla/5.0" -X GET https://api.qwant.com/api/search/images -d count=1 -d offset=1 -d safesearch=0 -d locale=nl_NL -d q=$imagequery]
 	} ] } {
 		putlog "Telegram-API: cannot connect to api.qwant.com using imagesearch_getImage method."
 		return -1
