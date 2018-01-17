@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Image Search module v0.1 for Eggdrop with the Telegram-API module v20180115  #
+# Image Search module v0.1 for Eggdrop with the Telegram-API module v20180118  #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -32,10 +32,8 @@ proc imagesearch_getImage {chat_id msgid channel message parameter_start} {
 	}
 
 	# Bug: the object should really be "message" and not ""
-#	set url [remove_slashes [::libjson::getValue $imgresult "" "media"]]
-#	set title [remove_slashes [::libjson::getValue $imgresult "" "url"]]
-	set url [remove_slashes [::libjson::jq::jq ".data.result.items\[0\].media" $imgresult]]
-	set title [remove_slashes [::libjson::jq::jq ".data.result.items\[0\].url" $imgresult]]
+	set url [remove_slashes [::libjson::getValue $imgresult "" "media"]]
+	set title [remove_slashes [::libjson::getValue $imgresult "" "url"]]
 #	regsub -all {\\} $url {} url
 #	regsub -all {\\} $title {} title
 
