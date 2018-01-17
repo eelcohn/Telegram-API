@@ -225,8 +225,7 @@ proc tg2irc_pollTelegram {} {
  		switch [::libjson::getValue $msg ".message.chat.type"] {
 			# Check if this record is a private chat record...
 			"private" {
-				# Should be ::libjson::hasKey
-				if {[::libjson::getValue $msg ".message.text"] != "null"} {
+				if {[::libjson::hasKey $msg ".message.text"]} {
 					set txt [remove_slashes [utf2ascii [::libjson::getValue $msg ".message.text"]]]
 					set msgid [::libjson::getValue $msg ".message.message_id"]
 					set fromid [::libjson::getValue $msg ".message.from.id"]
