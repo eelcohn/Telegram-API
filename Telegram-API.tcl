@@ -39,7 +39,7 @@ proc initialize {} {
 	}
 
 	set tg_bot_nickname [::libjson::getValue $result ".result.username"]
-#	set tg_bot_username [::libjson::getValue $result ".result.first_name"]
+#	set tg_bot_realname [::libjson::getValue $result ".result.first_name"]
 	set tg_bot_realname [concat [::libjson::getValue $msg ".result.first_name\\empty"] [::libjson::getValue $msg ".result.last_name\\empty"]]
 	set irc_botname "$nick"
 }
@@ -627,7 +627,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 			# Set the password if this is the first time this user logs in
 #			if {[getuser $irchandle PASS] == ""} {
 #				setuser $irchandle PASS "$ircpassword"
-#				::libtelegram::sendMessage $from_id $msgid "markdown" "[format $MSG_BOT_PASSWORDSET "$tg_botname"]"
+#				::libtelegram::sendMessage $from_id $msgid "markdown" "[format $MSG_BOT_PASSWORDSET "$tg_bot_nickname"]"
 #			}
 
 			# Check if the password matches
