@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180115 for Eggdrop                                    #
+# Telegram-API module v20180118 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -18,7 +18,11 @@ proc ::libjson::hasKey {record key} {
 		}
 
 		"jq" {
-			putlog "jq json processor not supported"
+			if {::libjson::jq::jq "$key" $record] != "null"} {
+				return true
+			} else {
+				return false
+			}
 		}
 
 		"internal" {
@@ -141,21 +145,21 @@ namespace eval ::libjson::jq {
 	}
 }
 
+set ::libjson::processor "jq"
 
 # Default JSON processor is Tcl's json package
-set ::libjson::processor "json_pkg"
+#set ::libjson::processor "json_pkg"
 
 # Fall back to jq if the json package isn't available
-if { [ catch {
-	package require json
-} ] } {
-	set ::libjson::processor "jq"
-}
+#if { [ catch {
+#	package require json
+#} ] } {
+#	set ::libjson::processor "jq"
+#}
 
 # Fall back to internal code in this library if both the json package and jq aren't available
-if { [catch {
-	[exec jq --help]
-} ] } {
-	set ::libjson::processor "internal"
-}
-
+#if { [catch {
+#	[exec jq --help]
+#} ] } {
+#	set ::libjson::processor "internal"
+#}
