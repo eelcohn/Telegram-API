@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - English language file v20171220            #
+# Telegram-API module for Eggdrop - English language file v20180118            #
 #                                                                              #
-# written by Eelco Huininga 2016-2017                                          #
+# written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
 # Messages from IRC to Telegram
@@ -16,6 +16,7 @@ set MSG_IRC_MODECHANGE		"<i>%1\$s@IRC</i> zet de modus %3\$s op %2\$s"
 
 # Messages from Telegram to IRC
 set MSG_TG_MSGSENT			"%s@Telegram: %s"
+set MSG_TG_MSGREPLYTOSENT "%1\$s (in reply to %2\$s@Telegram: %3\$s)"
 set MSG_TG_AUDIOSENT		"%s@Telegram has sent an audiofile: %s - %s (%s s). Use /ctcp %s tgfile %s to download the file."
 set MSG_TG_DOCSENT			"%s@Telegram has sent a document: %s (%s bytes).  Use /ctcp %s tgfile %s to download the file."
 set MSG_TG_PHOTOSENT		"%s@Telegram has sent a photo%s. Use /ctcp %s tgfile %s to download the file."
@@ -32,6 +33,7 @@ set MSG_TG_USERREMOVED		"%s@Telegram has removed %s from the Telegram group."
 set MSG_TG_CHATTITLE		"%s@Telegram has changed the topic of the Telegram group to %s."
 set MSG_TG_PICCHANGE		"%s@Telegram has changed the Telegram group picture. Use /ctcp %s tgfile %s to download the file."
 set MSG_TG_PICDELETE		"%s@Telegram has removed the Telegram group picture."
+set MSG_TG_GROUPMIGRATED  "%1$\s@Telegram has migrated the Telegram group to a supergroup."
 set MSG_TG_UNKNOWNSTICKER	"Unknown sticker."
 set MSG_TG_UNIMPL			"Unknown Telegram message received."
 
