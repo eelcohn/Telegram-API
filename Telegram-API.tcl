@@ -39,7 +39,6 @@ proc initialize {} {
 	}
 
 	set tg_bot_nickname [::libjson::getValue $result ".result.username"]
-#	set tg_bot_realname [::libjson::getValue $result ".result.first_name"]
 	set tg_bot_realname [concat [::libjson::getValue $result ".result.first_name//empty"] [::libjson::getValue $result ".result.last_name//empty"]]
 	set irc_bot_nickname "$nick"
 }
@@ -63,7 +62,7 @@ proc irc2tg_sendMessage {nick uhost hand channel msg} {
 }
 
 # ---------------------------------------------------------------------------- #
-# Let the Telegram group(s) know that someone joined an IRC channel            #
+# Inform the Telegram group(s) that someone joined an IRC channel              #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_nickJoined {nick uhost handle channel} {
 	global irc_bot_nickname serveraddress
@@ -84,7 +83,7 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 }
 
 # ---------------------------------------------------------------------------- #
-# Let the Telegram group(s) know that someone has left an IRC channel          #
+# Inform the Telegram group(s) that someone has left an IRC channel            #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_nickLeft {nick uhost handle channel message} {
 	global  serveraddress tg_channels MSG_IRC_NICKLEFT
@@ -217,6 +216,7 @@ proc tg2irc_pollTelegram {} {
 		return -1
 	}
 
+	# Iterate through each status update
 	foreach tg_update_id [::libjson::getValue $result ".result\[\].update_id"] {
 		set msg [::libjson::getValue $result ".result\[\] \| select(.update_id == $tg_update_id)"]
 
