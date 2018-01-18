@@ -3,7 +3,7 @@ v20180117:
 * Telegram-API.tcl: Merged nailyk's work on using the jq JSON parser (46443c9 067078e)
 * Telegram-API.tcl: Updated support for reply-to messages: nicks can now be colorized
 * Telegram-API.tcl: Updated support for reply-to messages: reply-to is now available for all message types
-* Telegram-API.tcl: Updated support for reply-to messages: formatting moved to language files
+* Telegram-API.tcl: Updated support for reply-to messages: formatting moved to language files (d5d5180)
 * libjson.tcl: Moved to jq as a json processor (66bb346)
 
 v20180115:
