@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - Dutch language file v20171220              #
+# Telegram-API module for Eggdrop - Dutch language file v20180118              #
 #                                                                              #
-# written by Eelco Huininga 2016-2017                                          #
+# written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
 # Messages from IRC to Telegram
@@ -16,6 +16,7 @@ set MSG_IRC_MODECHANGE		"<i>%1\$s@IRC</i> zet de modus %3\$s op %2\$s"
 
 # Messages from Telegram to IRC
 set MSG_TG_MSGSENT		"%1\$s@Telegram: %2\$s"
+set MSG_TG_MSGREPLYTOSENT "%1\$s (als antwoord op %2\$s@Telegram: %3\$s)"
 set MSG_TG_AUDIOSENT		"%1\$s@Telegram heeft een audiobestand verstuurd: %2\$s - %3\$s (%4\$s s). Gebruik /ctcp %5\$s tgfile %6\$s om het bestand te downloaden."
 set MSG_TG_DOCSENT		"%1\$s@Telegram heeft een document verstuurd: %2\$s (%3\$s bytes). Gebruik /ctcp %4\$s tgfile %5\$s om het bestand te downloaden."
 set MSG_TG_PHOTOSENT		"%1\$s@Telegram heeft een foto verstuurd%2\$s. Gebruik /ctcp %3\$s tgfile %4\$s om het bestand te downloaden."
@@ -32,6 +33,7 @@ set MSG_TG_USERREMOVED		"%1\$s@Telegram heeft %2\$s uit de Telegram groep verwij
 set MSG_TG_CHATTITLE		"%1\$s@Telegram heeft het onderwerp van de Telegram groep gewijzigd naar %2\$s."
 set MSG_TG_PICCHANGE		"%1\$s@Telegram heeft de afbeelding van de Telegram groep gewijzigd. Gebruik /ctcp %2\$s tgfile %3\$s om het bestand te downloaden."
 set MSG_TG_PICDELETE		"%1\$s@Telegram heeft de afbeelding van de Telegram groep verwijderd."
+set MSG_TG_GROUPMIGRATED  "%1$\s@Telegram heeft de Telegram groep gemigreerd naar een supergroep."
 set MSG_TG_UNKNOWNSTICKER	"Onbekende sticker."
 set MSG_TG_UNIMPL		"Onbekend Telegram bericht ontvangen."
 
