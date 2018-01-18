@@ -1,9 +1,13 @@
-v20180117:
+v20180118:
 * Telegram-API.tcl: Added support for migrating groups to supergroups (5e2d59e)
+* Telegram-API.tcl: Updated support for reply-to messages: formatting moved to language files (d5d5180)
+* Telegram-API.english.tcl: Added MSG_TG_MSGREPLYTOSENT and MSG_TG_GROUPMIGRATED (f566a37)
+* Telegram-API.dutch.tcl: Added MSG_TG_MSGREPLYTOSENT and MSG_TG_GROUPMIGRATED (08d6801)
+
+v20180117:
 * Telegram-API.tcl: Merged nailyk's work on using the jq JSON parser (46443c9 067078e)
 * Telegram-API.tcl: Updated support for reply-to messages: nicks can now be colorized
 * Telegram-API.tcl: Updated support for reply-to messages: reply-to is now available for all message types
-* Telegram-API.tcl: Updated support for reply-to messages: formatting moved to language files (d5d5180)
 * libjson.tcl: Moved to jq as a json processor (66bb346)
 
 v20180115:
