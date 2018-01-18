@@ -189,7 +189,7 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 # ---------------------------------------------------------------------------- #
 proc tg2irc_pollTelegram {} {
 	global tg_bot_id tg_bot_token tg_update_id tg_poll_freq tg_channels utftable irc_bot_nickname colorize_nicknames
-	global MSG_TG_MSGSENT MSG_TG_AUDIOSENT MSG_TG_PHOTOSENT MSG_TG_DOCSENT MSG_TG_STICKERSENT MSG_TG_VIDEOSENT MSG_TG_VOICESENT MSG_TG_CONTACTSENT MSG_TG_LOCATIONSENT MSG_TG_VENUESENT MSG_TG_USERJOINED MSG_TG_USERADD MSG_TG_USERLEFT MSG_TG_USERREMOVED MSG_TG_CHATTITLE MSG_TG_PICCHANGE MSG_TG_PICDELETE MSG_TG_UNIMPL
+	global MSG_TG_MSGSENT MSG_TG_AUDIOSENT MSG_TG_PHOTOSENT MSG_TG_DOCSENT MSG_TG_STICKERSENT MSG_TG_VIDEOSENT MSG_TG_VOICESENT MSG_TG_CONTACTSENT MSG_TG_LOCATIONSENT MSG_TG_VENUESENT MSG_TG_USERJOINED MSG_TG_USERADD MSG_TG_USERLEFT MSG_TG_USERREMOVED MSG_TG_CHATTITLE MSG_TG_PICCHANGE MSG_TG_PICDELETE MSG_TG_GROUPMIGRATED MSG_TG_UNIMPL
 
 	# Check if the bot has already joined a channel
 	if { [botonchan] != 1 } {
@@ -472,6 +472,15 @@ proc tg2irc_pollTelegram {} {
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							putchan $irc_channel [format $MSG_TG_PICDELETE "[utf2ascii $name]"]
+						}
+					}
+				}
+
+				# Check if the group is migrated to a supergroup
+				if {[::libjson::hasKey $msg ".message.migrate_to_chat_id"]} {
+					foreach {tg_chat_id irc_channel} [array get tg_channels] {
+						if {$chatid eq $tg_chat_id} {
+							putchan $irc_channel [format $MSG_TG_GROUPMIGRATED "[utf2ascii $name]"]
 						}
 					}
 				}
