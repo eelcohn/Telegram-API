@@ -17,6 +17,7 @@ set MSG_IRC_MODECHANGE		"<i>%1\$s@IRC</i> zet de modus %3\$s op %2\$s"
 # Messages from Telegram to IRC
 set MSG_TG_MSGSENT			"%s@Telegram: %s"
 set MSG_TG_MSGREPLYTOSENT "%1\$s (in reply to %2\$s@Telegram: %3\$s)"
+set MSG_TG_MSGFORWARDED "%1\$s (forwarded from %2\$s)"
 set MSG_TG_AUDIOSENT		"%s@Telegram has sent an audiofile: %s - %s (%s s). Use /ctcp %s tgfile %s to download the file."
 set MSG_TG_DOCSENT			"%s@Telegram has sent a document: %s (%s bytes).  Use /ctcp %s tgfile %s to download the file."
 set MSG_TG_PHOTOSENT		"%s@Telegram has sent a photo%s. Use /ctcp %s tgfile %s to download the file."
