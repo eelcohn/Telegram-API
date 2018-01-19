@@ -188,7 +188,7 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 # ---------------------------------------------------------------------------- #
 proc tg2irc_pollTelegram {} {
 	global tg_bot_id tg_bot_token tg_update_id tg_poll_freq tg_channels utftable irc_bot_nickname colorize_nicknames
-	global MSG_TG_MSGSENT MSG_TG_MSGREPLYTOSENT MSG_TG_AUDIOSENT MSG_TG_PHOTOSENT MSG_TG_DOCSENT MSG_TG_STICKERSENT MSG_TG_VIDEOSENT MSG_TG_VOICESENT MSG_TG_CONTACTSENT MSG_TG_LOCATIONSENT MSG_TG_VENUESENT MSG_TG_USERJOINED MSG_TG_USERADD MSG_TG_USERLEFT MSG_TG_USERREMOVED MSG_TG_CHATTITLE MSG_TG_PICCHANGE MSG_TG_PICDELETE MSG_TG_GROUPMIGRATED MSG_TG_UNIMPL
+	global MSG_TG_MSGSENT MSG_TG_MSGREPLYTOSENT MSG_TG_MSGFORWARDED MSG_TG_AUDIOSENT MSG_TG_PHOTOSENT MSG_TG_DOCSENT MSG_TG_STICKERSENT MSG_TG_VIDEOSENT MSG_TG_VOICESENT MSG_TG_CONTACTSENT MSG_TG_LOCATIONSENT MSG_TG_VENUESENT MSG_TG_USERJOINED MSG_TG_USERADD MSG_TG_USERLEFT MSG_TG_USERREMOVED MSG_TG_CHATTITLE MSG_TG_PICCHANGE MSG_TG_PICDELETE MSG_TG_GROUPMIGRATED MSG_TG_UNIMPL
 
 	# Check if the bot has already joined a channel
 	if { [botonchan] != 1 } {
@@ -256,16 +256,28 @@ proc tg2irc_pollTelegram {} {
 					} 
 				}
 
+				# Check if this message is a forwarded message
+				if {[::libjson::hasKey $msg ".message.forward_from"]} {
+					set forwardname [::libjson::getValue $msg ".message.forward_from.username"]
+					if {$forwardname == "null" } {
+						set forwardname [utf2ascii [concat [::libjson::getValue $msg ".message.forward_from.first_name//empty"] [::libjson::getValue $msg ".message.forward_from.last_name//empty"]]]
+					}
+					if {$colorize_nicknames == "true"} {
+						set forwardname "\003[getColorFromString $forwardname]$forwardname\003"
+					} 
+				}
+
 				# Check if a text message has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".message.text"]} {
 					set txt [utf2ascii [::libjson::getValue $msg ".message.text"]]
 
-					# Modify text if it is a reply-to
+					# Modify text if it is a reply-to or forwarded from
 					if {[::libjson::hasKey $msg ".message.reply_to_message"]} {
 						set replytomsg [utf2ascii [::libjson::getValue $msg ".message.reply_to_message.text"]]
 						set txt "[format $MSG_TG_MSGREPLYTOSENT "$txt" "$replyname" "$replytomsg"]"
-#						set txt "$txt (in reply to $replyname)"
-					}
+					} else if {[::libjson::hasKey $msg ".message.forward_from"]} {
+						set txt "[format $MSG_TG_MSGFORWARDED "$txt" "$forwardname"]"
+					} 
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
