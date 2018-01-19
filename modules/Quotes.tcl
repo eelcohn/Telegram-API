@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Quote module v0.1 for Eggdrop v20171219                         #
+# Telegram-API Quote module for Eggdrop v20180119                              #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -62,7 +62,7 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 		}
 	}
 
-	libtelegram::sendMessage $chat_id $msgid "html" "$qot_sel"
+	::libtelegram::sendMessage $chat_id $msgid "html" "[url_encode $qot_sel]"
 	putchan $channel "$qot_sel"
 }
 
@@ -82,9 +82,9 @@ proc quotes_addQuote {chat_id msgid channel message parameter_start} {
 		puts $quote_fd $quote
 		close $quote_fd
 
-		libtelegram::sendMessage $chat_id $msgid "html" $MSG_QUOTE_QUOTEADDED
+		::libtelegram::sendMessage $chat_id $msgid "html" $MSG_QUOTE_QUOTEADDED
 		putchan $channel $MSG_QUOTE_QUOTEADDED
 	} else {
-		libtelegram::sendMessage $chat_id $msgid "html" $MSG_QUOTE_ADDHELP
+		::libtelegram::sendMessage $chat_id $msgid "html" $MSG_QUOTE_ADDHELP
 	}
 }
