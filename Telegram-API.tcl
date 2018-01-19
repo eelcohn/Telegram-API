@@ -275,7 +275,7 @@ proc tg2irc_pollTelegram {} {
 					if {[::libjson::hasKey $msg ".message.reply_to_message"]} {
 						set replytomsg [utf2ascii [::libjson::getValue $msg ".message.reply_to_message.text"]]
 						set txt "[format $MSG_TG_MSGREPLYTOSENT "$txt" "$replyname" "$replytomsg"]"
-					} else if {[::libjson::hasKey $msg ".message.forward_from"]} {
+					} elseif {[::libjson::hasKey $msg ".message.forward_from"]} {
 						set txt "[format $MSG_TG_MSGFORWARDED "$txt" "$forwardname"]"
 					} 
 
