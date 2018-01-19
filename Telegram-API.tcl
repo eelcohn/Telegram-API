@@ -504,7 +504,7 @@ proc tg2irc_pollTelegram {} {
 			"channel" {
 				foreach {tg_chat_id irc_channel} [array get tg_channels] {
 					if {$chatid eq $tg_chat_id} {
-						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Channel message received ($msg)"
+						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Channel message received ($msg)]"
 					}
 				}
 			}
@@ -513,7 +513,7 @@ proc tg2irc_pollTelegram {} {
 			default {
 				foreach {tg_chat_id irc_channel} [array get tg_channels] {
 					if {$chatid eq $tg_chat_id} {
-						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Unknown message received ($msg)"
+						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Unknown message received ($msg)]"
 					}
 				}
 			}
