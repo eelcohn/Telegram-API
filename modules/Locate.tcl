@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Locate module v0.1 for Eggdrop with the Telegram-API module v20180115        #
+# Locate module for Eggdrop with the Telegram-API module v20180119             #
 #                                                                              #
 # written by Eelco Huininga 2017-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -26,13 +26,13 @@ proc openstreetmaps_getLocation {chat_id msgid channel message parameter_start} 
 	}
 
 	set result [string map {" : " ":"} $result]
-	set display_name [::libjson::getValue $result "" "display_name"]
+	set display_name [::libjson::getValue $result ".\[0\].display_name"]
 	if {$display_name eq ""} {
 		libtelegram::sendReplyToMessage $chat_id $msgid "html" "Nothing found."
 		putchan $channel "Nothing found."
 	} else {
-		set lat [::libjson::getValue $result "" "lat"]
-		set lon [::libjson::getValue $result "" "lon"]
+		set lat [::libjson::getValue $result ".\[0\].lat"]
+		set lon [::libjson::getValue $result ".\[0\].lon"]
 		libtelegram::sendVenue $chat_id $msgid $lat $lon $locationquery $display_name
 		putchan $channel "[strip_html $display_name] is at $lat $lon"
 	}
