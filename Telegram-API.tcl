@@ -848,8 +848,13 @@ proc getWebsiteTitle {url} {
 	}
 
 	set titlestart [string first "<title>" $result]
-	set titleend [string first "</title>" $result]
-	return [string range $result $titlestart+7 $titleend-1]
+	if {$titlestart eq -1} {
+		return "No title available"
+	} else {
+		set titlestart [string first ">" $result $titlestart]
+		set titleend [string first "</title>" $result $titlestart]
+		return [string range $result $titlestart+1 $titleend-1]
+	}
 }
 
 
