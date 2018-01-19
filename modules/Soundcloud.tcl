@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Soundcloud module v0.1 for Eggdrop with the Telegram-API module v20180115    #
+# Soundcloud module for Eggdrop with the Telegram-API module v20180119         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
