@@ -36,7 +36,7 @@ set MSG_TG_PICCHANGE		"%1\$s@Telegram heeft de afbeelding van de Telegram groep 
 set MSG_TG_PICDELETE		"%1\$s@Telegram heeft de afbeelding van de Telegram groep verwijderd."
 set MSG_TG_GROUPMIGRATED  "%1$\s@Telegram heeft de Telegram groep gemigreerd naar een supergroep."
 set MSG_TG_UNKNOWNSTICKER	"Onbekende sticker."
-set MSG_TG_UNIMPL		"Onbekend Telegram bericht ontvangen."
+set MSG_TG_UNIMPL		"Onbekend Telegram bericht ontvangen: %1\$s"
 
 # Messages for user commands for your bot
 set MSG_BOT_HELP		"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. Begin een commando met <b>/</b> en je krijgt een lijst van mogelijkheden te zien."
