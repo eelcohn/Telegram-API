@@ -2,6 +2,8 @@ v20180119:
 * Telegram-API.tcl: Added support for forwarded messages (02f8af9)
 * Telegram-API.dutch.tcl: Added support for forwarded messages (3a14ffa)
 * Telegram-API.english.tcl: Added support for forwarded messages (c0bdae)
+* Telegram-API.tcl: Fixed issue #29 (dda5d88)
+* Telegram-API.tcl: Fixed issue #30 (691cc21)
 
 v20180118:
 * Telegram-API.tcl: Added support for migrating groups to supergroups (5e2d59e)
