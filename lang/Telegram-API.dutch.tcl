@@ -16,7 +16,7 @@ set MSG_IRC_MODECHANGE		"<i>%1\$s@IRC</i> zet de modus %3\$s op %2\$s"
 
 # Messages from Telegram to IRC
 set MSG_TG_MSGSENT		"%1\$s@Telegram: %2\$s"
-set MSG_TG_MSGREPLYTOSENT "%1\$s (als antwoord op %2\$s@Telegram: %3\$s)"
+set MSG_TG_MSGREPLYTOSENT "%1\$s (antwoord op %2\$s@Telegram: %3\$s)"
 set MSG_TG_MSGFORWARDED "%1\$s (doorgestuurd van %2\$s)"
 set MSG_TG_AUDIOSENT		"%1\$s@Telegram heeft een audiobestand verstuurd: %2\$s - %3\$s (%4\$s s). Gebruik /ctcp %5\$s tgfile %6\$s om het bestand te downloaden."
 set MSG_TG_DOCSENT		"%1\$s@Telegram heeft een document verstuurd: %2\$s (%3\$s bytes). Gebruik /ctcp %4\$s tgfile %5\$s om het bestand te downloaden."
