@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Spotify module v0.1 for Eggdrop with the Telegram-API module v20180115       #
+# Spotify module for Eggdrop with the Telegram-API module v20180119            #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -25,13 +25,16 @@ proc spotify_getTrack {chat_id msgid channel message parameter_start} {
 		return -1
 	}
 
-	set result [string map {" : " ":"} $result]
-	if {[::libjson::getValue $result "" "total"] eq "0"} {
-		set url "Nothing found."
+	if {[::libjson::hasKey $result ".error"]} {
+		set url "Error [::libjson::getValue $result ".error.status"] [::libjson::getValue $result ".error.message"]"
 	} else {
-		set url [::libjson::getValue $result "" "spotify"]
+		if {[::libjson::getValue $result "total"] eq "0"} {
+			set url "Nothing found."
+		} else {
+			set url [::libjson::getValue $result "spotify"]
+		}
 	}
 
-	libtelegram::sendMessage $chat_id $msgid "html" "$url"
+	::libtelegram::sendMessage $chat_id $msgid "html" "$url"
 	putchan $channel "[strip_html $url]"
 }
