@@ -802,15 +802,6 @@ proc remove_slashes {txt} {
 }
 
 # ---------------------------------------------------------------------------- #
-# Add backslashes to [ and ] characters                                        #
-# ---------------------------------------------------------------------------- #
-proc escape_out_bracket {txt} {
-	regsub -all {\[} $txt {\[} txt
-#	regsub -all {\]} $txt {\]} txt
-	return $txt
-}
-
-# ---------------------------------------------------------------------------- #
 # Encode all except "unreserved" characters; use UTF-8 for extended chars.     #
 # ---------------------------------------------------------------------------- #
 proc url_encode {str} {
