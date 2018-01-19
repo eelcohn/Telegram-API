@@ -195,7 +195,7 @@ proc tg2irc_pollTelegram {} {
 		putlog "Telegram-API: Not connected to IRC, skipping"
 		# Dont go into the function but plan the next one
 		utimer $tg_poll_freq tg2irc_pollTelegram
-		return 1
+		return -1
 	}
 
 	# Poll the Telegram API for updates
@@ -205,7 +205,7 @@ proc tg2irc_pollTelegram {} {
 	if {$result == -1} {
 		# Dont go into the parsing process but plan the next polling
 		utimer $tg_poll_freq tg2irc_pollTelegram
- 		return -1
+ 		return -2
 	}
 
 	# Check if the result was valid
@@ -213,7 +213,7 @@ proc tg2irc_pollTelegram {} {
 		# Dont go into the parsing process but plan the next polling
 		putlog "Telegram-API: bad result from getUpdates method: [::libjson::getValue $result ".description"]"
 		utimer $tg_poll_freq tg2irc_pollTelegram
-		return -1
+		return -3
 	}
 
 	# Iterate through each status update
