@@ -1,4 +1,5 @@
 v20180120:
+* Telegram-API.tcl: Auto-load all modules in the /modules/ folder (fa68594)
 * Telegram-API.tcl: Added dynamic command bindings for public bot commands (370c0fc)
 * Telegram-API.tcl: Fixed #2 (3240d40 0c06efb 3dcce4d c004dbf 5355fbc 6d2a918 663c7df 98bebc9 47bed99 9716ecd b1e13d7 0cf7e85 01f71ed)
 * en.msg: Added as a replacement for Telegram-API.english.tcl
