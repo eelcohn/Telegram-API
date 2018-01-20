@@ -521,7 +521,7 @@ proc tg2irc_pollTelegram {} {
 # Respond to group commands send by Telegram users                             #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_botCommands {chat_id msgid channel message} {
-	global serveraddress tg_bot_nickname tg_bot_realname irc_bot_nickname
+	global serveraddress tg_bot_nickname tg_bot_realname irc_bot_nickname public_commands
 
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
@@ -570,35 +570,14 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 			putchan $channel "[strip_html $response]"
 		}
 
-		"get" {
-			imagesearch_getImage $chat_id $msgid $channel $message $parameter_start
-		}
-
-		"locate" {
-			openstreetmaps_getLocation $chat_id $msgid $channel $message $parameter_start
-		}
-
-		"spotify" {
-			spotify_getTrack $chat_id $msgid $channel $message $parameter_start
-		}
-
-		"soundcloud" {
-			soundcloud_getTrack $chat_id $msgid $channel $message $parameter_start
-		}
-
-		"psn" {
-			psn_getPSNInfo $chat_id $msgid $channel $message $parameter_start
-		}
-
-		"quote" {
-			quotes_getQuote $chat_id $msgid $channel $message $parameter_start
-		}
-
-		"addquote" {
-			quotes_addQuote $chat_id $msgid $channel $message $parameter_start
-		}
-
 		default {
+			foreach {cmd prc} [array get public_commands] {
+				if {$command == $cmd} {
+					$prc $chat_id $msgid $channel $message $parameter_start
+					return
+				}
+			}
+
 			::libtelegram::sendMessage $chat_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 			putchan $channel "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 		}
