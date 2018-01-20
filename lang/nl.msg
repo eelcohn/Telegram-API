@@ -4,10 +4,6 @@
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
-package require msgcat
-
-::msgcat::mclocale nl
-
 # Messages from IRC to Telegram
 ::msgcat::mcset nl MSG_IRC_MSGSENT		"<i>%1\$s@IRC:</i> %2\$s"
 ::msgcat::mcset nl MSG_IRC_NICKJOINED		"<i>%1\$s@IRC</i> is <a href=\"%2\$s\">%3\$s</a> binnengekomen."
