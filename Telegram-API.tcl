@@ -855,13 +855,14 @@ proc getWebsiteTitle {url} {
 set scriptdir [file dirname [info script]]
 
 package require msgcat
-::msgcat::mclocale $locale
-::msgcat::mcload "$scriptdir/lang"
 
 source "$scriptdir/lib/libjson.tcl"
 source "$scriptdir/lib/libtelegram.tcl"
 source "$scriptdir/Telegram-API-config.tcl"
 source "$scriptdir/utftable.tcl"
+
+::msgcat::mclocale $locale
+::msgcat::mcload "$scriptdir/lang"
 
 source "$scriptdir/modules/ImageSearch.tcl"
 source "$scriptdir/modules/Locate.tcl"
