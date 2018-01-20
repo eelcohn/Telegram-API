@@ -26,10 +26,9 @@ proc soundcloud_getTrack {chat_id msgid channel message parameter_start} {
 	}
 
 	if {[::libjson::getValue $result "total"] eq "0"} {
-			set url "Nothing found."
-		} else {
-			set url [::libjson::getValue $result "permalink_url"]
-		}
+		set url "Nothing found."
+	} else {
+		set url [::libjson::getValue $result "permalink_url"]
 	}
 
 	::libtelegram::sendMessage $chat_id $msgid "html" "$url"
