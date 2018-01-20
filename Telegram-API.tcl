@@ -11,14 +11,7 @@ set		tg_update_id		0
 set		tg_bot_nickname		""
 set		tg_bot_realname		""
 set 		irc_bot_nickname	""
-array set	public_commands		{	{get}		{imagesearch_getImage}
-						{locate}	{openstreetmaps_getLocation}
-						{spotify}	{spotify_getTrack}
-						{soundcloud}	{soundcloud_getTrack}
-						{psn}		{psn_getPSNInfo}
-						{quote}		{quotes_getQuote}
-						{addquote}	{quotes_addQuote}
-					}
+array set	public_commands		{}
 array set	private_commands	{}
 
 
