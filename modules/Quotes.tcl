@@ -4,7 +4,7 @@
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
-source "[file dirname [info script]]/Quotes.conf"
+source "[file join [file dirname [info script]] Quotes.conf]"
 
 # ---------------------------------------------------------------------------- #
 # Quote procedures                                                             #
