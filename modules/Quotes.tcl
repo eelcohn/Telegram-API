@@ -19,7 +19,6 @@ set quote_database		"/var/packages/eggdrop/etc/scripts/Quotes/quote.txt"
 
 proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 	global quote_database
-	global MSG_QUOTE_NOTEXIST MSG_QUOTE_NOTFOUND
 
 	set quote_id [string trim [string range $message $parameter_start end]]
 
@@ -38,7 +37,7 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 		if {[string is integer $quote_id]} {
 			unset quote_list([expr $quote_count + 1])
 			if {![info exists quote_list([expr {$quote_id} - 1])]} {
-				set qot_sel [format $MSG_QUOTE_NOTEXIST $quote_id]
+				set qot_sel [::msgcat::mc MSG_QUOTE_NOTEXIST $quote_id]
 			} else {
 				set qot_sel $quote_list([expr {$quote_id} - 1])
 #						putquick "PRIVMSG $channel :Quote \002$quote_id\002 of \002[expr $quote_count + 1]:\002 $qot_sel"
@@ -55,7 +54,7 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 			}
 
 			if {$quote_sel_num == 0} {
-				set qot_sel [format $MSG_QUOTE_NOTFOUND $quote_id]
+				set qot_sel [::msgcat::mc MSG_QUOTE_NOTFOUND $quote_id]
 			} else {
 				set qot_sel $quote_selection([set qot_cur [rand $quote_sel_num]])
 			}
@@ -72,7 +71,6 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 
 proc quotes_addQuote {chat_id msgid channel message parameter_start} {
 	global quote_database
-	global MSG_QUOTE_QUOTEADDED MSG_QUOTE_ADDHELP
 
 	set quote [remove_slashes [utf2ascii [string trim [string range $message $parameter_start end]]]]
 
@@ -82,10 +80,10 @@ proc quotes_addQuote {chat_id msgid channel message parameter_start} {
 		puts $quote_fd $quote
 		close $quote_fd
 
-		::libtelegram::sendMessage $chat_id $msgid "html" $MSG_QUOTE_QUOTEADDED
-		putchan $channel $MSG_QUOTE_QUOTEADDED
+		::libtelegram::sendMessage $chat_id $msgid "html" "[::msgcat::mc MSG_QUOTE_QUOTEADDED]"
+		putchan $channel "[::msgcat::mc MSG_QUOTE_QUOTEADDED]"
 	} else {
-		::libtelegram::sendMessage $chat_id $msgid "html" $MSG_QUOTE_ADDHELP
+		::libtelegram::sendMessage $chat_id $msgid "html" "[::msgcat::mc MSG_QUOTE_ADDHELP]"
 	}
 }
 
