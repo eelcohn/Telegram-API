@@ -188,7 +188,6 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 # ---------------------------------------------------------------------------- #
 proc tg2irc_pollTelegram {} {
 	global tg_bot_id tg_bot_token tg_update_id tg_poll_freq tg_channels utftable irc_bot_nickname colorize_nicknames
-#	global MSG_TG_MSGSENT MSG_TG_MSGREPLYTOSENT MSG_TG_MSGFORWARDED MSG_TG_AUDIOSENT MSG_TG_PHOTOSENT MSG_TG_DOCSENT MSG_TG_STICKERSENT MSG_TG_VIDEOSENT MSG_TG_VOICESENT MSG_TG_CONTACTSENT MSG_TG_LOCATIONSENT MSG_TG_VENUESENT MSG_TG_USERJOINED MSG_TG_USERADD MSG_TG_USERLEFT MSG_TG_USERREMOVED MSG_TG_CHATTITLE MSG_TG_PICCHANGE MSG_TG_PICDELETE MSG_TG_GROUPMIGRATED MSG_TG_UNIMPL
 
 	# Check if the bot has already joined a channel
 	if { [botonchan] != 1 } {
@@ -530,7 +529,6 @@ proc tg2irc_pollTelegram {} {
 # ---------------------------------------------------------------------------- #
 proc tg2irc_botCommands {chat_id msgid channel message} {
 	global serveraddress tg_bot_nickname tg_bot_realname irc_bot_nickname
-#	global MSG_BOT_HELP MSG_BOT_TG_TOPIC MSG_BOT_IRC_TOPIC MSG_BOT_HELP_IRCUSER MSG_BOT_IRCUSER MSG_BOT_TG_UNKNOWNUSER MSG_BOT_IRCUSERS MSG_BOT_UNKNOWNCMD
 
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
@@ -631,7 +629,6 @@ proc del_public_command {keyword} {
 # Respond to private commands send by Telegram users                           #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_privateCommands {from_id msgid message} {
-#	global MSG_BOT_PASSWORDSET MSG_BOT_USERLOGIN MSG_BOT_USERLOGOUT MSG_BOT_FIRSTLOGIN MSG_BOT_LASTLOGIN MSG_BOT_USERPASSWRONG MSG_BOT_USERLOGGEDINAS MSG_BOT_USERINFO MSG_BOT_NOTLOGGEDIN MSG_BOT_UNAUTHORIZED MSG_BOT_UNKNOWNCMD
 	global timeformat tg_bot_nickname
 
 	set parameter_start [string wordend $message 1]
@@ -650,7 +647,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 			# Set the password if this is the first time this user logs in
 #			if {[getuser $irchandle PASS] == ""} {
 #				setuser $irchandle PASS "$ircpassword"
-#				::libtelegram::sendMessage $from_id $msgid "markdown" "[format $MSG_BOT_PASSWORDSET "$tg_bot_nickname"]"
+#				::libtelegram::sendMessage $from_id $msgid "markdown" "[::msgcat::mc MSG_BOT_PASSWORDSET "$tg_bot_nickname"]"
 #			}
 
 			# Check if the password matches
@@ -774,7 +771,6 @@ proc ascii2utf {txt} {
 # ---------------------------------------------------------------------------- #
 proc sticker2ascii {txt} {
 	global stickertable
-#	global MSG_TG_UNKNOWNSTICKER
 
 	foreach {utfstring stickerdesc} [array get stickertable] {
 		set txt [string map -nocase [concat $utfstring $stickerdesc] $txt]
@@ -862,8 +858,7 @@ source "$scriptdir/lib/libjson.tcl"
 source "$scriptdir/lib/libtelegram.tcl"
 source "$scriptdir/Telegram-API-config.tcl"
 source "$scriptdir/utftable.tcl"
-source "$scriptdir/lang/Telegram-API.$language.tcl"
-source "$scriptdir/lang/nl.msg"
+source "$scriptdir/lang/$locale.msg"
 
 source "$scriptdir/modules/ImageSearch.tcl"
 source "$scriptdir/modules/Locate.tcl"
