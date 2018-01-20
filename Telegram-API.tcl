@@ -606,10 +606,14 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 }
 
 proc add_public_command {keyword procedure} {
+	global public_commands
+
 	set public_commands($keyword) $procedure
 }
 
 proc del_public_command {keyword} {
+	global public_commands
+
 	if {[info exists $public_commands($keyword)]} {
 		unset -nocomplain public_commands($keyword)
 		return true
