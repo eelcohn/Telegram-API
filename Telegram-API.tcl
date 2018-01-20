@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180118 for Eggdrop                                    #
+# Telegram-API module v20180120 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -854,11 +854,14 @@ proc getWebsiteTitle {url} {
 
 set scriptdir [file dirname [info script]]
 
+package require msgcat
+::msgcat::mclocale $locale
+::msgcat::mcload "$scriptdir/lang"
+
 source "$scriptdir/lib/libjson.tcl"
 source "$scriptdir/lib/libtelegram.tcl"
 source "$scriptdir/Telegram-API-config.tcl"
 source "$scriptdir/utftable.tcl"
-source "$scriptdir/lang/$locale.msg"
 
 source "$scriptdir/modules/ImageSearch.tcl"
 source "$scriptdir/modules/Locate.tcl"
