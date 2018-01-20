@@ -863,6 +863,7 @@ source "$scriptdir/lib/libtelegram.tcl"
 source "$scriptdir/Telegram-API-config.tcl"
 source "$scriptdir/utftable.tcl"
 source "$scriptdir/lang/Telegram-API.$language.tcl"
+source "$scriptdir/lang/nl.msg"
 
 source "$scriptdir/modules/ImageSearch.tcl"
 source "$scriptdir/modules/Locate.tcl"
