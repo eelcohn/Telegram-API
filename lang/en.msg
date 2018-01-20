@@ -4,10 +4,6 @@
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
-package require msgcat
-
-::msgcat::mclocale en
-
 # Messages from IRC to Telegram
 ::msgcat::mcset en MSG_IRC_MSGSENT		"<i>%s@IRC:</i> %s"
 ::msgcat::mcset en MSG_IRC_NICKJOINED		"<i>%s@IRC</i> has entered <a href=\"%s\">%s</a>."
