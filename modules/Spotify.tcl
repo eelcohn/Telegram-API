@@ -38,3 +38,6 @@ proc spotify_getTrack {chat_id msgid channel message parameter_start} {
 	::libtelegram::sendMessage $chat_id $msgid "html" "$url"
 	putchan $channel "[strip_html $url]"
 }
+
+add_public_command spotify spotify_getTrack
+

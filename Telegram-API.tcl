@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180117 for Eggdrop                                    #
+# Telegram-API module v20180120 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -8,9 +8,10 @@
 # Global internal variables                                                    #
 # ---------------------------------------------------------------------------- #
 set		tg_update_id		0
-set		tg_botname		""
-set		tg_bot_username		""
-set 		irc_botname		""
+set		tg_bot_nickname		""
+set		tg_bot_realname		""
+set 		irc_bot_nickname	""
+array set	public_commands		{}
 array set	private_commands	{}
 
 
@@ -21,18 +22,18 @@ array set	private_commands	{}
 # Initialize some variables (botnames)                                         #
 # ---------------------------------------------------------------------------- #
 proc initialize {} {
-	global tg_botname tg_bot_username irc_botname nick
+	global tg_bot_nickname tg_bot_realname irc_bot_nickname nick
 
 	set result [::libtelegram::getMe]
 
-	if {[::libjson::jq::jq ".ok" $result] ne "true"} {
-		putlog "Telegram-API: bad result from getMe method: [::libjson::jq::jq ".description" $result]"
+	if {[::libjson::getValue $result ".ok"] ne "true"} {
+		putlog "Telegram-API: bad result from getMe method: [::libjson::getValue $result ".description"]"
 		utimer $tg_poll_freq tg2irc_pollTelegram
 	}
 
-	set tg_botname [::libjson::jq::jq ".result.username" $result]
-	set tg_bot_username [::libjson::jq::jq ".result.first_name" $result]
-	set irc_botname "$nick"
+	set tg_bot_nickname [::libjson::getValue $result ".result.username"]
+	set tg_bot_realname [concat [::libjson::getValue $result ".result.first_name//empty"] [::libjson::getValue $result ".result.last_name//empty"]]
+	set irc_bot_nickname "$nick"
 }
 
 
@@ -43,31 +44,31 @@ proc initialize {} {
 # Send a message from IRC to Telegram                                          #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_sendMessage {nick uhost hand channel msg} {
-	global tg_channels MSG_IRC_MSGSENT
+	global tg_channels
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-			::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_MSGSENT "$nick" "[url_encode $msg]"]
+			::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MSGSENT "$nick" "[url_encode $msg]"]
 		}
 	}
 	return 0
 }
 
 # ---------------------------------------------------------------------------- #
-# Let the Telegram group(s) know that someone joined an IRC channel            #
+# Inform the Telegram group(s) that someone joined an IRC channel              #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_nickJoined {nick uhost handle channel} {
-	global irc_botname serveraddress
-	global tg_channels MSG_IRC_NICKJOINED
+	global irc_bot_nickname serveraddress
+	global tg_channels
 
-	if {$nick eq $irc_botname} {
+	if {$nick eq $irc_bot_nickname} {
 		return 0
 	}
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {![validuser $nick]} {
-				::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
+				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
 			}
 		}
 	}
@@ -75,15 +76,15 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 }
 
 # ---------------------------------------------------------------------------- #
-# Let the Telegram group(s) know that someone has left an IRC channel          #
+# Inform the Telegram group(s) that someone has left an IRC channel            #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_nickLeft {nick uhost handle channel message} {
-	global  serveraddress tg_channels MSG_IRC_NICKLEFT
+	global  serveraddress tg_channels
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {![validuser $nick]} {
-				::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
+				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
 			}
 		}
 	}
@@ -94,11 +95,11 @@ proc irc2tg_nickLeft {nick uhost handle channel message} {
 # Send an action from an IRC user to Telegram                                  #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_nickAction {nick uhost handle dest keyword message} {
-	global tg_channels MSG_IRC_NICKACTION
+	global tg_channels
 	
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$dest eq $tg_channel} {
-			::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKACTION "$nick" "$nick" "$message"]
+			::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKACTION "$nick" "$nick" "$message"]
 		}
 	}
 	return 0
@@ -108,11 +109,11 @@ proc irc2tg_nickAction {nick uhost handle dest keyword message} {
 # Inform the Telegram group(s) that an IRC nickname has been changed           #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_nickChange {nick uhost handle channel newnick} {
-	global tg_channels MSG_IRC_NICKCHANGE
+	global tg_channels
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-			::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_NICKCHANGE "$nick" "$newnick"]
+			::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKCHANGE "$nick" "$newnick"]
 		}
 	}
 	return 0
@@ -122,12 +123,12 @@ proc irc2tg_nickChange {nick uhost handle channel newnick} {
 # Inform the Telegram group(s) that the topic of an IRC channel has changed    #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_topicChange {nick uhost handle channel topic} {
-	global serveraddress tg_channels MSG_IRC_TOPICCHANGE
+	global serveraddress tg_channels
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {$nick ne "*"} {
-				::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"]
+				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"]
 				::libtelegram::setChatTitle $chat_id $topic
 			}
 		}
@@ -139,11 +140,11 @@ proc irc2tg_topicChange {nick uhost handle channel topic} {
 # Inform the Telegram group(s) that someone has been kicked from the channel   #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_nickKicked {nick uhost handle channel target reason} {
-	global tg_channels MSG_IRC_KICK
+	global tg_channels
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-			::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_KICK "$nick" "$target" "$channel" "$reason"]
+			::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_KICK "$nick" "$target" "$channel" "$reason"]
 		}
 	}
 	return 0
@@ -153,19 +154,19 @@ proc irc2tg_nickKicked {nick uhost handle channel target reason} {
 # Inform the Telegram group(s) that a channel's mode has changed               #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_modeChange {nick uhost hand channel mode target} {
-	global irc_botname tg_channels MSG_IRC_MODECHANGE
+	global irc_bot_nickname tg_channels
 
 	# Don't send mode changes to the Telegram if the bot just joined the IRC channel
-	if {$nick eq $irc_botname} {
+	if {$nick eq $irc_bot_nickname} {
 #		if {$::server-online+30 < [clock seconds]} {
-			putlog "$irc_botname changes mode $mode at [clock seconds] (serveronline=$::server-online)"
+			putlog "$irc_bot_nickname changes mode $mode at [clock seconds] (serveronline=$::server-online)"
 			return 0
 #		}
 	}
 
 	foreach {chat_id tg_channel} [array get tg_channels] {
 		if {$channel eq $tg_channel} {
-#			::libtelegram::sendMessage $chat_id "" "html" [format $MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
+#			::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
 		}
 	}
 	return 0
@@ -179,42 +180,45 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 # Poll the Telegram server for updates                                         #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_pollTelegram {} {
-	global tg_bot_id tg_bot_token tg_update_id tg_poll_freq tg_channels utftable irc_botname colorize_nicknames
-	global MSG_TG_MSGSENT MSG_TG_AUDIOSENT MSG_TG_PHOTOSENT MSG_TG_DOCSENT MSG_TG_STICKERSENT MSG_TG_VIDEOSENT MSG_TG_VOICESENT MSG_TG_CONTACTSENT MSG_TG_LOCATIONSENT MSG_TG_VENUESENT MSG_TG_USERJOINED MSG_TG_USERADD MSG_TG_USERLEFT MSG_TG_USERREMOVED MSG_TG_CHATTITLE MSG_TG_PICCHANGE MSG_TG_PICDELETE MSG_TG_UNIMPL
+	global tg_bot_id tg_bot_token tg_update_id tg_poll_freq tg_channels utftable irc_bot_nickname colorize_nicknames
 
-	set result [::libtelegram::getUpdates $tg_update_id]
-
-	if {$result == -1} {
-		# Dont go into the parsing process but plan the next polling
-		utimer $tg_poll_freq tg2irc_pollTelegram
- 		return -1
-	}
-
-	if {[::libjson::jq::jq ".ok" $result] ne "true"} {
-		# Dont go into the parsing process but plan the next polling
-		putlog "Telegram-API: bad result from getUpdates method: [::libjson::jq::jq ".description" $result]"
+	# Check if the bot has already joined a channel
+	if { [botonchan] != 1 } {
+		putlog "Telegram-API: Not connected to IRC, skipping"
+		# Dont go into the function but plan the next one
 		utimer $tg_poll_freq tg2irc_pollTelegram
 		return -1
 	}
 
-	set recordstart [string first "\{\"update_id\":" $result]
-	
-	while {$recordstart != -1} {
-		set recordend [string first "\{\"update_id\":" $result $recordstart+13]
-		if {$recordend == -1} {
-			set record [string range $result $recordstart end]
-		} else {
-			set record [string range $result $recordstart $recordend]
-		}
+	# Poll the Telegram API for updates
+	set result [::libtelegram::getUpdates $tg_update_id]
 
-		switch [::libjson::getValue $record "chat" "type"] {
+	# Check if we got a result
+	if {$result == -1} {
+		# Dont go into the parsing process but plan the next polling
+		utimer $tg_poll_freq tg2irc_pollTelegram
+ 		return -2
+	}
+
+	# Check if the result was valid
+	if {[::libjson::getValue $result ".ok"] ne "true"} {
+		# Dont go into the parsing process but plan the next polling
+		putlog "Telegram-API: bad result from getUpdates method: [::libjson::getValue $result ".description"]"
+		utimer $tg_poll_freq tg2irc_pollTelegram
+		return -3
+	}
+
+	# Iterate through each status update
+	foreach tg_update_id [::libjson::getValue $result ".result\[\].update_id"] {
+		set msg [::libjson::getValue $result ".result\[\] \| select(.update_id == $tg_update_id)"]
+
+ 		switch [::libjson::getValue $msg ".message.chat.type"] {
 			# Check if this record is a private chat record...
 			"private" {
-				if {[::libjson::hasKey $record ".result.message.text"]} {
-					# Bug: the object should really be "message" and not ""
-					set txt [remove_slashes [utf2ascii [::libjson::getValue $record "" "text"]]]
-					set msgid [::libjson::getValue $record "message" "message_id"]
-					set fromid [::libjson::getValue $record "from" "id"]
+				if {[::libjson::hasKey $msg ".message.text"]} {
+					set txt [remove_slashes [utf2ascii [::libjson::getValue $msg ".message.text"]]]
+					set msgid [::libjson::getValue $msg ".message.message_id"]
+					set fromid [::libjson::getValue $msg ".message.from.id"]
 
 					tg2irc_privateCommands "$fromid" "$msgid" "$txt"
 				}
@@ -223,30 +227,60 @@ proc tg2irc_pollTelegram {} {
 			# Check if this record is a group or supergroup chat record...
 			"supergroup" -
 			"group" {
-				set chatid [::libjson::getValue $record "chat" "id"]
-				set name [utf2ascii [::libjson::getValue $record "from" "username"]]
-				if {$name == "" } {
-					set name [utf2ascii [concat [::libjson::getValue $record "from" "first_name"] [::libjson::getValue $record "from" "last_name"]]]
+				set chatid [::libjson::getValue $msg ".message.chat.id"]
+				set name [utf2ascii [::libjson::getValue $msg ".message.from.username"]]
+				if {$name == "null" } {
+					set name [utf2ascii [concat [::libjson::getValue $msg ".message.from.first_name//empty"] [::libjson::getValue $msg ".message.from.last_name//empty"]]]
 				}
+
 				if {$colorize_nicknames == "true"} {
 					set name "\003[getColorFromString $name]$name\003"
 				}
 
+				# Check if this message is a reply to a previous message
+				if {[::libjson::hasKey $msg ".message.reply_to_message"]} {
+					set replyname [::libjson::getValue $msg ".message.reply_to_message.from.username"]
+					if {$replyname == "null" } {
+						set replyname [utf2ascii [concat [::libjson::getValue $msg ".message.reply_to_message.from.first_name//empty"] [::libjson::getValue $msg ".message.reply_to_message.from.last_name//empty"]]]
+					}
+					if {$colorize_nicknames == "true"} {
+						set replyname "\003[getColorFromString $replyname]$replyname\003"
+					} 
+				}
+
+				# Check if this message is a forwarded message
+				if {[::libjson::hasKey $msg ".message.forward_from"]} {
+					set forwardname [::libjson::getValue $msg ".message.forward_from.username"]
+					if {$forwardname == "null" } {
+						set forwardname [utf2ascii [concat [::libjson::getValue $msg ".message.forward_from.first_name//empty"] [::libjson::getValue $msg ".message.forward_from.last_name//empty"]]]
+					}
+					if {$colorize_nicknames == "true"} {
+						set forwardname "\003[getColorFromString $forwardname]$forwardname\003"
+					} 
+				}
+
 				# Check if a text message has been sent to the Telegram group
-				if {[::libjson::hasKey $record ".result.message.text"]} {
-					# Bug: the object should really be "message" and not ""
-					set txt [utf2ascii [::libjson::getValue $record "" "text"]]
+				if {[::libjson::hasKey $msg ".message.text"]} {
+					set txt [utf2ascii [::libjson::getValue $msg ".message.text"]]
+
+					# Modify text if it is a reply-to or forwarded from
+					if {[::libjson::hasKey $msg ".message.reply_to_message"]} {
+						set replytomsg [utf2ascii [::libjson::getValue $msg ".message.reply_to_message.text"]]
+						set txt "[::msgcat::mc MSG_TG_MSGREPLYTOSENT "$txt" "$replyname" "$replytomsg"]"
+					} elseif {[::libjson::hasKey $msg ".message.forward_from"]} {
+						set txt "[::msgcat::mc MSG_TG_MSGFORWARDED "$txt" "$forwardname"]"
+					} 
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							foreach line [split [string map {\\n \n} $txt] "\n"] {
-								putchan $irc_channel [format $MSG_TG_MSGSENT "$name" "[remove_slashes $line]"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_MSGSENT "$name" "[remove_slashes $line]"]
 								if {[string match -nocase "*http://?*" $line] || [string match -nocase "*https://?*" $line] || [string match -nocase "*www.?*" $line]} {
 									putchan $irc_channel [getWebsiteTitle $line]
 								}
 							}
 							if {[string index $txt 0] eq "/"} {
-								set msgid [::libjson::getValue $record "message" "message_id"]
+								set msgid [::libjson::getValue $msg ".message.message_id"]
 								tg2irc_botCommands "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
 							}
 						}
@@ -254,201 +288,205 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if audio has been sent to the Telegram group
-				if {[::libjson::hasKey $record ".result.message.audio"]} {
-					set tg_file_id [::libjson::getValue $record "audio" "file_id"]
-					set tg_performer [::libjson::getValue $record "audio" "performer"]
-					set tg_title [::libjson::getValue $record "audio" "title"]
-					set tg_duration [::libjson::getValue $record "audio" "duration"]
+				if {[::libjson::hasKey $msg ".message.audio"]} {
+					set tg_file_id [::libjson::getValue $msg ".message.audio.file_id"]
+					set tg_performer [::libjson::getValue $msg ".message.audio.performer"]
+					set tg_title [::libjson::getValue $msg ".message.audio.title"]
+					set tg_duration [::libjson::getValue $msg ".message.audio.duration"]
 					if {$tg_duration eq ""} {
 						set tg_duration "0"
 					}
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_AUDIOSENT "$name" "$tg_performer" "$tg_title" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$irc_botname" "$tg_file_id"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_AUDIOSENT "$name" "$tg_performer" "$tg_title" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$irc_bot_nickname" "$tg_file_id"]
 						}
 					}
 				}
 
 				# Check if a document has been sent to the Telegram group
-				if {[::libjson::hasKey $record ".result.message.document"]} {
-					set tg_file_id [::libjson::getValue $record "document" "file_id"]
-					set tg_file_name [::libjson::getValue $record "document" "file_name"]
-					set tg_file_size [::libjson::getValue $record "document" "file_size"]
+				if {[::libjson::hasKey $msg ".message.document"]} {
+					set tg_file_id [::libjson::getValue $msg  ".message.document.file_id"]
+					set tg_file_name [::libjson::getValue $msg ".message.document.file_name"]
+					set tg_file_size [::libjson::getValue $msg ".message.document.file_size"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_DOCSENT " $name" "$tg_file_name" "$tg_file_size" "$irc_botname" "$tg_file_id"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_DOCSENT " $name" "$tg_file_name" "$tg_file_size" "$irc_bot_nickname" "$tg_file_id"]
 						}
 					}
 				}
 
 				# Check if a photo has been sent to the Telegram group
-				if {[::libjson::hasKey $record ".result.message.photo"]} {
-					set tg_file_id [::libjson::getValue $record "" "file_id"]
-					if {[::libjson::hasKey $record ".result.message.caption"]} {
-						# Bug: the object should really be "photo" and not ""
-						set caption " ([remove_slashes [utf2ascii [::libjson::getValue $record "" "caption"]]])"
+				if {[::libjson::hasKey $msg ".message.photo"]} {
+					set tg_file_id [::libjson::getValue $msg ".message.photo\[0\].file_id"]
+					if {[::libjson::hasKey $msg ".result.message.caption"]} {
+						set caption " ([remove_slashes [utf2ascii [::libjson::getValue $msg ".message.photo\[0\].caption"]]])"
 					} else {
 						set caption ""
 					}
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_PHOTOSENT "$name" "$caption" "$irc_botname" "$tg_file_id"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_PHOTOSENT "$name" "$caption" "$irc_bot_nickname" "$tg_file_id"]
 						}
 					}
 				}
 
 				# Check if a sticker has been sent to the Telegram group
-				if {[::libjson::hasKey $record ".result.message.sticker"]} {
-					set emoji [::libjson::getValue $record "sticker" "emoji"]
+				if {[::libjson::hasKey $msg ".message.sticker"]} {
+					set emoji [::libjson::getValue $msg ".message.thumb.file_id"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_STICKERSENT "$name" "[sticker2ascii $emoji]"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_STICKERSENT "$name" "[sticker2ascii $emoji]"]
 						}
 					}
 				}
 
 				# Check if a video has been sent to the Telegram group
-				if {[::libjson::hasKey $record ".result.message.video"]} {
-					set tg_file_id [::libjson::getValue $record "video" "file_id"]
-					set tg_duration [::libjson::getValue $record "video" "duration"]
-					if {$tg_duration eq ""} {
+				if {[::libjson::hasKey $msg ".message.video"]} {
+					set tg_file_id [::libjson::getValue $msg ".message.video.file_id"]
+					set tg_duration [::libjson::getValue $msg ".message.video.duration"]
+					if {$tg_duration eq "null"} {
 						set tg_duration "0"
 					}
 
-					if {[::libjson::hasKey $record ".result.message.caption"]} {
-						# Bug: the object should really be "video" and not ""
-						set caption " ([utf2ascii [remove_slashes [::libjson::getValue $record "" "caption"]]])"
+					if {[::libjson::hasKey $msg ".message.video.caption"]} {
+						set caption " ([utf2ascii [remove_slashes [::libjson::getValue $msg ".message.video.caption"]]])"
 					} else {
 						set caption ""
 					}
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_VIDEOSENT "$name" "$caption" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$irc_botname" "$tg_file_id"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_VIDEOSENT "$name" "$caption" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$irc_bot_nickname" "$tg_file_id"]
 						}
 					}
 				}
 
 				# Check if a voice object has been sent to the Telegram group
-				if {[::libjson::hasKey $record ".result.message.voice"]} {
-					set tg_file_id [::libjson::getValue $record "voice" "file_id"]
-					set tg_duration [::libjson::getValue $record "voice" "duration"]
-					set tg_file_size [::libjson::getValue $record "document" "file_size"]
+				if {[::libjson::hasKey $msg ".message.voice"]} {
+					set tg_file_id [::libjson::getValue $msg ".message.voice.file_id"]
+					set tg_duration [::libjson::getValue $msg ".message.voice.duration"]
+					set tg_file_size [::libjson::getValue $msg ".message.voice.file_size"]
 					if {$tg_duration eq ""} {
 						set tg_duration "0"
 					}
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_VOICESENT "$name" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$tg_file_size" "$irc_botname" "$tg_file_id"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_VOICESENT "$name" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$tg_file_size" "$irc_bot_nickname" "$tg_file_id"]
 						}
 					}
 				}
 
 				# Check if a contact has been sent to the Telegram group
-				if {[::libjson::hasKey $record ".result.message.contact"]} {
-					set tg_phone_number [::libjson::getValue $record "contact" "phone_number"]
-					set tg_first_name [::libjson::getValue $record "contact" "first_name"]
-					set tg_last_name [::libjson::getValue $record "contact" "last_name"]
+				if {[::libjson::hasKey $msg ".message.contact"]} {
+					set tg_phone_number [::libjson::getValue $msg ".message.contact.phone_number"]
+					set tg_first_name [::libjson::getValue $msg ".message.contact.first_name"]
+					set tg_last_name [::libjson::getValue $msg ".message.contact.last_name"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_CONTACTSENT "$name" "$tg_phone_number" "$tg_first_name" "$tg_last_name"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_CONTACTSENT "$name" "$tg_phone_number" "$tg_first_name" "$tg_last_name"]
 						}
 					}
 				}
 
 				# Check if a location has been sent to the Telegram group
-				if {[::libjson::hasKey $record ".result.message.location"]} {
+				if {[::libjson::hasKey $msg ".message.location"]} {
 					# Check if a venue has been sent to the Telegram group
-					if {[::libjson::hasKey $record ".result.message.venue"]} {
-						set tg_location [::libjson::getValue $record "venue" "location"]
-						set tg_title [::libjson::getValue $record "venue" "title"]
-						set tg_address [::libjson::getValue $record "venue" "address"]
-						set tg_foursquare_id [::libjson::getValue $record "venue" "foursquare_id"]
+					if {[::libjson::hasKey $msg ".message.venue"]} {
+						set tg_location [::libjson::getValue $msg ".message.venue.location"]
+						set tg_title [::libjson::getValue $msg ".message.venue.title"]
+						set tg_address [::libjson::getValue $msg ".message.venue.address"]
+						set tg_foursquare_id [::libjson::getValue $msg ".message.venue.foursquare_id"]
 
 						foreach {tg_chat_id irc_channel} [array get tg_channels] {
 							if {$chatid eq $tg_chat_id} {
-								putchan $irc_channel [format $MSG_TG_VENUESENT "$name" "$tg_location" "$tg_title" "$tg_address" "$tg_foursquare_id"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_VENUESENT "$name" "$tg_location" "$tg_title" "$tg_address" "$tg_foursquare_id"]
 							}
 						}
 					} else {
 					# Not a venue, so it must be a location
-						set tg_longitude [::libjson::getValue $record "location" "longitude"]
-						set tg_latitude [::libjson::getValue $record "location" "latitude"]
+						set tg_longitude [::libjson::getValue $msg ".message.location.longitude"]
+						set tg_latitude [::libjson::getValue $msg ".message.location.latitude"]
 
 						foreach {tg_chat_id irc_channel} [array get tg_channels] {
 							if {$chatid eq $tg_chat_id} {
-								putchan $irc_channel [format $MSG_TG_LOCATIONSENT "$name" "$tg_longitude" "$tg_latitude"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_LOCATIONSENT "$name" "$tg_longitude" "$tg_latitude"]
 							}
 						}
 					}
 				}
 
-
 				# Check if someone has been added to the Telegram group
-				if {[::libjson::hasKey $record ".result.message.new_chat_member"]} {
-					set new_chat_member [concat [::libjson::getValue $record "new_chat_member" "first_name"] [::libjson::getValue $record "new_chat_member" "last_name"]]
+				if {[::libjson::hasKey $msg ".message.new_chat_member"]} {
+					set new_chat_member [concat [::libjson::getValue $msg ".message.new_chat_member.first_name"] [::libjson::getValue $msg ".message.new_chat_member.last_name"]]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							if {$name eq $new_chat_member} {
-								putchan $irc_channel [format $MSG_TG_USERJOINED "[utf2ascii $name]"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_USERJOINED "[utf2ascii $name]"]
 							} else {
-								putchan $irc_channel [format $MSG_TG_USERADD "[utf2ascii $name]" "[utf2ascii $new_chat_member]"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_USERADD "[utf2ascii $name]" "[utf2ascii $new_chat_member]"]
 							}
 						}
 					}
 				}
 
 				# Check if someone has been removed from the Telegram group
-				if {[::libjson::hasKey $record ".result.message.left_chat_member"]} {
-					set left_chat_member [concat [::libjson::getValue $record "left_chat_member" "first_name"] [::libjson::getValue $record "left_chat_member" "last_name"]]
+				if {[::libjson::hasKey $msg ".message.left_chat_member"]} {
+					set left_chat_member [concat [::libjson::getValue $msg ".message.left_chat_member.first_name"] [::libjson::getValue $msg ".message.left_chat_member.last_name"]]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							if {$name eq $left_chat_member} {
-								putchan $irc_channel [format $MSG_TG_USERLEFT "[utf2ascii $name]"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_USERLEFT "[utf2ascii $name]"]
 							} else {
-								putchan $irc_channel [format $MSG_TG_USERREMOVED "[utf2ascii $name]" "[utf2ascii $left_chat_member]"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_USERREMOVED "[utf2ascii $name]" "[utf2ascii $left_chat_member]"]
 							}
 						}
 					}
 				}
 
 				# Check if the title of the Telegram group chat has changed
-				if {[::libjson::hasKey $record ".result.message.new_chat_title"]} {
-					# Bug: the object should really be "message" and not ""
-					set chat_title [::libjson::getValue $record "" "new_chat_title"]
+				if {[::libjson::hasKey $msg ".message.new_chat_title"]} {
+					set chat_title [::libjson::getValue $msg ".message.new_chat_title"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_CHATTITLE "[utf2ascii $name]" "[utf2ascii $chat_title]"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_CHATTITLE "[utf2ascii $name]" "[utf2ascii $chat_title]"]
 						}
 					}
 				}
 
 				# Check if the photo of the Telegram group chat has changed
-				if {[::libjson::hasKey $record ".result.message.new_chat_photo"]} {
-					# Bug: the object should really be "message" and not ""
-					set tg_file_id [::libjson::getValue $record "" "file_id"]
+				if {[::libjson::hasKey $msg ".message.new_chat_photo"]} {
+					set tg_file_id [::libjson::getValue $msg ".message.new_chat_photo\[0\].file_id"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_PICCHANGE "[utf2ascii $name]" "$irc_botname" "$tg_file_id"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_PICCHANGE "[utf2ascii $name]" "$irc_bot_nickname" "$tg_file_id"]
 						}
 					}
 				}
 
 				# Check if the photo of the Telegram group chat has been deleted
-				if {[::libjson::hasKey $record ".result.message.delete_chat_photo"]} {
+				if {[::libjson::hasKey $msg ".message.delete_chat_photo"]} {
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [format $MSG_TG_PICDELETE "[utf2ascii $name]"
+							putchan $irc_channel [::msgcat::mc MSG_TG_PICDELETE "[utf2ascii $name]"]
+						}
+					}
+				}
+
+				# Check if the group is migrated to a supergroup
+				if {[::libjson::hasKey $msg ".message.migrate_to_chat_id"]} {
+					foreach {tg_chat_id irc_channel} [array get tg_channels] {
+						if {$chatid eq $tg_chat_id} {
+							putchan $irc_channel [::msgcat::mc MSG_TG_GROUPMIGRATED "[utf2ascii $name]"]
 						}
 					}
 				}
@@ -458,7 +496,7 @@ proc tg2irc_pollTelegram {} {
 			"channel" {
 				foreach {tg_chat_id irc_channel} [array get tg_channels] {
 					if {$chatid eq $tg_chat_id} {
-						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Channel message received ($record)"
+						putchan $irc_channel [::msgcat::mc MSG_TG_UNIMPL "Channel message received ($msg)"]
 					}
 				}
 			}
@@ -467,22 +505,13 @@ proc tg2irc_pollTelegram {} {
 			default {
 				foreach {tg_chat_id irc_channel} [array get tg_channels] {
 					if {$chatid eq $tg_chat_id} {
-						putchan $irc_channel [format $MSG_TG_UNIMPLEMENTED "Unknown message received ($record)"
+						putchan $irc_channel [::msgcat::mc MSG_TG_UNIMPL "Unknown message received ($msg)"]
 					}
 				}
 			}
 		}
-
-		set recordstart $recordend
 	}
-
-	# Set the update_id for the next poll
-	set recordend [string last "\{\"update_id\":" $result]
-	if {$recordend != -1} {
-		set idend [string first "," $result $recordend+13]
-		set tg_update_id [string range $result $recordend+13 $idend-1]
-		incr tg_update_id
-	}
+	incr tg_update_id
 
 	# ...and set a timer so it triggers the next poll
 	utimer $tg_poll_freq tg2irc_pollTelegram
@@ -492,14 +521,13 @@ proc tg2irc_pollTelegram {} {
 # Respond to group commands send by Telegram users                             #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_botCommands {chat_id msgid channel message} {
-	global serveraddress tg_botname tg_bot_username irc_botname
-	global MSG_BOT_HELP MSG_BOT_TG_TOPIC MSG_BOT_IRC_TOPIC MSG_BOT_HELP_IRCUSER MSG_BOT_IRCUSER MSG_BOT_TG_UNKNOWNUSER MSG_BOT_IRCUSERS MSG_BOT_UNKNOWNCMD
+	global serveraddress tg_bot_nickname tg_bot_realname irc_bot_nickname
 
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
 
 	if {[string match -nocase "@*" [string range $message $parameter_start end]]} {
-		if {![string match -nocase "@$tg_bot_username*" [string range $message $parameter_start end]]} {
+		if {![string match -nocase "@$tg_bot_realname*" [string range $message $parameter_start end]]} {
 			return
 		}
 	}
@@ -508,13 +536,13 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 
 	switch $command {
 		"help" {
-			set response "[format $MSG_BOT_HELP "$irc_botname"]"
+			set response "[::msgcat::mc MSG_BOT_HELP "$irc_bot_nickname"]"
 			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
 
 		"irctopic" {
-			set response "[format $MSG_BOT_TG_TOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
+			set response "[::msgcat::mc MSG_BOT_TG_TOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
 			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
@@ -525,19 +553,19 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 			if {$handle != ""} {
 				if {[onchan $handle $channel]} {
 					set online_since [getchanjoin $handle $channel]
-					set response "[format $MSG_BOT_IRCUSER "$handle" "$online_since" "$serveraddress/$channel" "$channel" "[getchanhost $handle $channel]"]"
+					set response "[::msgcat::mc MSG_BOT_IRCUSER "$handle" "$online_since" "$serveraddress/$channel" "$channel" "[getchanhost $handle $channel]"]"
 				} else {
-					set response "[format $MSG_BOT_TG_UNKNOWNUSER "$handle" "$serveraddress/$channel" "channel"]"
+					set response "[::msgcat::mc MSG_BOT_TG_UNKNOWNUSER "$handle" "$serveraddress/$channel" "channel"]"
 				}
 			} else {
-				set response $MSG_BOT_HELP_IRCUSER
+				set response [::msgcat::mc MSG_BOT_HELP_IRCUSER]
 			}
 			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
 
 		"ircusers" {
-			set response "[format $MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[chanlist $channel]"]"
+			set response "[::msgcat::mc MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[chanlist $channel]"]"
 			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
@@ -571,8 +599,8 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 		}
 
 		default {
-			::libtelegram::sendMessage $chat_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
-			putchan $channel "$MSG_BOT_UNKNOWNCMD"
+			::libtelegram::sendMessage $chat_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
+			putchan $channel "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 		}
 	}
 }
@@ -594,8 +622,7 @@ proc del_public_command {keyword} {
 # Respond to private commands send by Telegram users                           #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_privateCommands {from_id msgid message} {
-	global MSG_BOT_PASSWORDSET MSG_BOT_USERLOGIN MSG_BOT_USERLOGOUT MSG_BOT_FIRSTLOGIN MSG_BOT_LASTLOGIN MSG_BOT_USERPASSWRONG MSG_BOT_USERLOGGEDINAS MSG_BOT_USERINFO MSG_BOT_NOTLOGGEDIN MSG_BOT_UNAUTHORIZED MSG_BOT_UNKNOWNCMD
-	global timeformat tg_botname
+	global timeformat tg_bot_nickname
 
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
@@ -613,7 +640,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 			# Set the password if this is the first time this user logs in
 #			if {[getuser $irchandle PASS] == ""} {
 #				setuser $irchandle PASS "$ircpassword"
-#				::libtelegram::sendMessage $from_id $msgid "markdown" "[format $MSG_BOT_PASSWORDSET "$tg_botname"]"
+#				::libtelegram::sendMessage $from_id $msgid "markdown" "[::msgcat::mc MSG_BOT_PASSWORDSET "$tg_bot_nickname"]"
 #			}
 
 			# Check if the password matches
@@ -625,12 +652,12 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				set lastlogin [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"]
 				if {$lastlogin == ""} {
 					# First login of this user, so set LASTLOGOUT and LASTUSERID to defaults
-					set lastlogin "[format $MSG_BOT_FIRSTLOGIN "$tg_botname"]"
+					set lastlogin "[::msgcat::mc MSG_BOT_FIRSTLOGIN "$tg_bot_nickname"]"
 					setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "0"
 					setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "0"
 				} else {
 					# Prepare string with last login time
-					set lastlogin "[format $MSG_BOT_LASTLOGIN "$tg_botname" "[clock format $lastlogin -format $timeformat]"]"
+					set lastlogin "[::msgcat::mc MSG_BOT_LASTLOGIN "$tg_bot_nickname" "[clock format $lastlogin -format $timeformat]"]"
 				}
 
 				# ...and set the last login time to the current time
@@ -640,10 +667,10 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				if {[getuser $irchandle XTRA "TELEGRAM_CREATED"] == ""} {
 					setuser $irchandle XTRA "TELEGRAM_CREATED" "[clock seconds]"
 				}
-				::libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERLOGIN "$tg_botname" "$irchandle"]\n\n $lastlogin"
+				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERLOGIN "$tg_bot_nickname" "$irchandle"]\n\n $lastlogin"
 			} else {
 				# Username/password combo doesn't match
-				::libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_USERPASSWRONG"
+				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERPASSWRONG]"
 			}
 		}
 
@@ -661,9 +688,9 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				setuser $irchandle XTRA "TELEGRAM_USERID" ""
 				setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "$from_id"
 				setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "[clock seconds]"
-				::libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]"
+				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]"
 			} else {
-				::libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_NOTLOGGEDIN"
+				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
 			}
 		}
 
@@ -688,9 +715,9 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				set irc_hosts [getuser $irchandle HOSTS]
 				set irc_info [getuser $irchandle INFO]
 				putlog "$irc_hosts"
-				::libtelegram::sendMessage $from_id $msgid "html" "[format $MSG_BOT_USERINFO "$irchandle" "$from_id" "$tg_lastlogin" "$tg_lastlogout" "$tg_lastuserid" "$tg_created" "$irc_created" "$irc_laston" "irc_hosts" "$irc_info"]"
+				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERINFO "$irchandle" "$from_id" "$tg_lastlogin" "$tg_lastlogout" "$tg_lastuserid" "$tg_created" "$irc_created" "$irc_laston" "irc_hosts" "$irc_info"]"
 			} else {
-				::libtelegram::sendMessage $from_id $msgid "html" "$MSG_BOT_NOTLOGGEDIN"
+				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
 			}
 		}
 
@@ -699,7 +726,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 		}
 
 		default {
-			::libtelegram::sendMessage $from_id $msgid "markdown" "$MSG_BOT_UNKNOWNCMD"
+			::libtelegram::sendMessage $from_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 		}
 	}
 }
@@ -737,13 +764,12 @@ proc ascii2utf {txt} {
 # ---------------------------------------------------------------------------- #
 proc sticker2ascii {txt} {
 	global stickertable
-	global MSG_TG_UNKNOWNSTICKER
 
 	foreach {utfstring stickerdesc} [array get stickertable] {
 		set txt [string map -nocase [concat $utfstring $stickerdesc] $txt]
 	}
 	if {$stickerdesc eq ""} {
-		return $MSG_TG_UNKNOWNSTICKER
+		return [::msgcat::mc MSG_TG_UNKNOWNSTICKER]
 	}
 	return $stickerdesc
 }
@@ -802,57 +828,14 @@ proc getWebsiteTitle {url} {
 	}
 
 	set titlestart [string first "<title>" $result]
-	set titleend [string first "</title>" $result]
-	return [string range $result $titlestart+7 $titleend-1]
+	if {$titlestart eq -1} {
+		return "No title available"
+	} else {
+		set titlestart [string first ">" $result $titlestart]
+		set titleend [string first "</title>" $result $titlestart]
+		return [string range $result $titlestart+1 $titleend-1]
+	}
 }
-
-# ---------------------------------------------------------------------------- #
-# Check if a JSON key is present                                               #
-# ---------------------------------------------------------------------------- #
-#proc ::libjson::hasKey {record key} {
-#	if {[string first $key $record] != -1} {
-#		return 1
-#	} else {
-#		return 0
-#	}
-#}
-
-# ---------------------------------------------------------------------------- #
-# Return the value of a JSON key                                               #
-# ---------------------------------------------------------------------------- #
-#proc ::libjson::getValue {record object key} {
-#	set length [string length $key]
-#	set objectstart [string first "\"$object\":\{" $record]
-#	# Bug: this is a quick fix because this procedure doesn't iterate through all the objects correctly yet
-#	if {$object eq ""} {
-#		set objectend [string length $record]
-#	} else {
-#		set objectend [string first "\}" $record $objectstart]
-#	}
-#
-#	set keystart [string first "\"$key\":" $record $objectstart]
-#	if {$keystart != -1} {
-#		if {$keystart < $objectend} {
-#			if {[string index $record [expr $keystart+$length+3]] eq "\""} {
-#				set end [string first "\"" $record [expr $keystart+$length+5]]
-#				return [string range $record [expr $keystart+$length+4] $end-1]
-#			} else {
-#				set end [string first "," $record [expr $keystart+$length+3]]
-#				if {$end != -1} {
-#					return [string range $record [expr $keystart+$length+3] $end-1]
-#				} else {
-#					set end [string first "\}" $record [expr $keystart+$length+3]]
-#					if {$end != -1} {
-#						return [string trim [string range $record [expr $keystart+$length+3] $end-1]]
-#					} else {
-#						return "UNKNOWN"
-#					}
-#				}
-#			}
-#		}
-#	}
-#	return ""
-#}
 
 
 
@@ -864,11 +847,15 @@ proc getWebsiteTitle {url} {
 
 set scriptdir [file dirname [info script]]
 
+package require msgcat
+
 source "$scriptdir/lib/libjson.tcl"
 source "$scriptdir/lib/libtelegram.tcl"
 source "$scriptdir/Telegram-API-config.tcl"
 source "$scriptdir/utftable.tcl"
-source "$scriptdir/lang/Telegram-API.$language.tcl"
+
+::msgcat::mclocale $locale
+::msgcat::mcload "$scriptdir/lang"
 
 source "$scriptdir/modules/ImageSearch.tcl"
 source "$scriptdir/modules/Locate.tcl"
@@ -891,4 +878,4 @@ initialize
 
 tg2irc_pollTelegram
 
-putlog "Script loaded: Telegram-API.tcl ($tg_botname)"
+putlog "Script loaded: Telegram-API.tcl ($tg_bot_nickname)"

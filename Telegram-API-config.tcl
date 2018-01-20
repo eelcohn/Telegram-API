@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API configuration v20180113 for Eggdrop                             #
+# Telegram-API configuration v20180120 for Eggdrop                             #
 #                                                                              #
-# written by Eelco Huininga 2016-2017                                          #
+# written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
@@ -10,8 +10,8 @@
 set ::libtelegram::bot_id	123456789
 set ::libtelegram::bot_token	AABCD-EfGhIj_KlMn_OpQrStUvWxYz12345
 set tg_poll_freq		5
-set tg_web_page_preview	false
-set language			"english"
+set tg_web_page_preview		false
+set locale			"en"
 set timeformat			"%Y-%m-%d %H:%M:%S"
 set colorize_nicknames		"true"
 

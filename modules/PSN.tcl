@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Playstation Network module v0.1 for Eggdrop v20180115           #
+# Telegram-API Playstation Network module for Eggdrop v20180120                #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -69,3 +69,5 @@ proc psn_getPSNInfo {chat_id msgid channel message parameter_start} {
 		putchan $channel "[strip_html $response]"
 	}
 }
+
+add_public_command psn psn_getPSNInfo

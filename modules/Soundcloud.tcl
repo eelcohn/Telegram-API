@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Soundcloud module for Eggdrop with the Telegram-API module v20180119         #
+# Soundcloud module for Eggdrop with the Telegram-API module v20180120         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -25,8 +25,14 @@ proc soundcloud_getTrack {chat_id msgid channel message parameter_start} {
 		return -1
 	}
 
-	set url [::libjson::getValue $result "permalink_url"]
+	if {[::libjson::getValue $result "total"] eq "0"} {
+		set url "Nothing found."
+	} else {
+		set url [::libjson::getValue $result "permalink_url"]
+	}
 
 	::libtelegram::sendMessage $chat_id $msgid "html" "$url"
 	putchan $channel "[strip_html $url]"
 }
+
+add_public_command soundcloud soundcloud_getTrack

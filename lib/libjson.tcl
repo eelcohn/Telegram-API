@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180115 for Eggdrop                                    #
+# Telegram-API module v20180118 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2017                                          #
 # ---------------------------------------------------------------------------- #
@@ -18,7 +18,11 @@ proc ::libjson::hasKey {record key} {
 		}
 
 		"jq" {
-			putlog "jq json processor not supported"
+			if {[::libjson::jq::jq "$key" $record] != "null"} {
+				return true
+			} else {
+				return false
+			}
 		}
 
 		"internal" {
@@ -34,17 +38,18 @@ proc ::libjson::hasKey {record key} {
 # ---------------------------------------------------------------------------- #
 # Return the value of a JSON key                                               #
 # ---------------------------------------------------------------------------- #
-proc ::libjson::getValue {record object key} {
+proc ::libjson::getValue {record key} {
 	switch $::libjson::processor {
 		"json_pkg" {
 			putlog "Tcllib::json json processor not supported"
 		}
 
 		"jq" {
-			putlog "jq json processor not supported"
+			return [::libjson::jq::jq "$key" $record]
 		}
 
 		"internal" {
+			set object "tmp"
 			return [::libjson::internal::getValue $record $object $key]
 		}
 
@@ -113,8 +118,15 @@ proc ::libjson::internal::getValue {record object key} {
 # jq-0.4.0.tm
 # To use this module you need jq version 1.5rc1 or later installed.
 namespace eval ::libjson::jq {
-	proc jq {filter data {options {-r}}} {
-		exec jq {*}$options $filter << $data
+	proc jq {filter data} {
+		# We need --ascii-output so we can find and replace Unicode emoji's with ASCII emoticons, but jq cannot
+		# handle both the --raw-output and --ascii-output switches. Therefore we need to find out the type first
+		# so the leading and trailing quotes can be removed manually.
+		if {[exec jq --raw-output $filter|type << $data] eq "string"} {
+			return [string trim [exec jq --ascii-output $filter << $data] "\""]
+		} else {
+			return [exec jq --raw-output $filter << $data]
+		}
 	}
 	proc json2dict {data} {
 		jq {
@@ -141,21 +153,21 @@ namespace eval ::libjson::jq {
 	}
 }
 
+set ::libjson::processor "jq"
 
 # Default JSON processor is Tcl's json package
-set ::libjson::processor "json_pkg"
+#set ::libjson::processor "json_pkg"
 
 # Fall back to jq if the json package isn't available
-if { [ catch {
-	package require json
-} ] } {
-	set ::libjson::processor "jq"
-}
+#if { [ catch {
+#	package require json
+#} ] } {
+#	set ::libjson::processor "jq"
+#}
 
 # Fall back to internal code in this library if both the json package and jq aren't available
-if { [catch {
-	[exec jq --help]
-} ] } {
-	set ::libjson::processor "internal"
-}
-
+#if { [catch {
+#	[exec jq --help]
+#} ] } {
+#	set ::libjson::processor "internal"
+#}

@@ -1,3 +1,27 @@
+v20180120:
+* Telegram-API.tcl: Fixed #2 (3240d40 0c06efb 3dcce4d c004dbf 5355fbc 6d2a918 663c7df 98bebc9 47bed99 9716ecd b1e13d7 0cf7e85 01f71ed)
+* en.msg: Added as a replacement for Telegram-API.english.tcl
+* nl.msg: Added as a replacement for Telegram-API.dutch.tcl
+
+v20180119:
+* Telegram-API.tcl: Added support for forwarded messages (02f8af9)
+* Telegram-API.dutch.tcl: Added support for forwarded messages (3a14ffa)
+* Telegram-API.english.tcl: Added support for forwarded messages (c0bdae)
+* Telegram-API.tcl: Fixed issue #29 (dda5d88)
+* Telegram-API.tcl: Fixed issue #30 (691cc21)
+
+v20180118:
+* Telegram-API.tcl: Added support for migrating groups to supergroups (5e2d59e)
+* Telegram-API.tcl: Updated support for reply-to messages: formatting moved to language files (d5d5180)
+* Telegram-API.english.tcl: Added MSG_TG_MSGREPLYTOSENT and MSG_TG_GROUPMIGRATED (f566a37)
+* Telegram-API.dutch.tcl: Added MSG_TG_MSGREPLYTOSENT and MSG_TG_GROUPMIGRATED (08d6801)
+
+v20180117:
+* Telegram-API.tcl: Merged nailyk's work on using the jq JSON parser (46443c9 067078e)
+* Telegram-API.tcl: Updated support for reply-to messages: nicks can now be colorized
+* Telegram-API.tcl: Updated support for reply-to messages: reply-to is now available for all message types
+* libjson.tcl: Moved to jq as a json processor (66bb346)
+
 v20180117:
 * Telegram-API.tcl: revert support for dynamic public bot commands (moved to devel-branch) (f22eeba)
 * ImageSearch.tcl: Removed jq json parser code (moved to devel-branch) (fb5a10d)
