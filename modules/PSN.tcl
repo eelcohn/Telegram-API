@@ -17,8 +17,6 @@
 # ---------------------------------------------------------------------------- #
 
 proc psn_getPSNInfo {chat_id msgid channel message parameter_start} {
-	global MSG_PSN_RESULT MSG_PSN_NOTFOUND
-
 	set query [string map {" " "%20"} [string trim [string range $message $parameter_start end]]]
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X GET https://my.playstation.com/$query]
@@ -58,13 +56,13 @@ proc psn_getPSNInfo {chat_id msgid channel message parameter_start} {
 			set end [string first "\"" $result [expr $start+7]]
 			set game3 [string range $result [expr $start+7] $end-1]
 
-			set response [format "$MSG_PSN_RESULT" "$name" "$level" "$game1" "$game2" "$game3"]
+			set response [::msgcat::mc MSG_PSN_RESULT "$name" "$level" "$game1" "$game2" "$game3"]
 #			set response "Player: $name%0ALevel: $level%0ARecently seen playing:%0A1. $game1%0A2. $game2%0A3. $game3"
 		}
 		libtelegram::sendPhoto $chat_id $msgid "https:$userpic" "$response"
 		putchan $channel "Player: $name https:[strip_html $userpic]"
 	} else {
-		set response "$MSG_PSN_NOTFOUND"
+		set response "[::msgcat::mc MSG_PSN_NOTFOUND]"
 		libtelegram::sendMessage $chat_id $msgid "html" "$response"
 		putchan $channel "[strip_html $response]"
 	}
