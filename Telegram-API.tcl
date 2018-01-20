@@ -840,12 +840,9 @@ source "$scriptdir/utftable.tcl"
 ::msgcat::mclocale $locale
 ::msgcat::mcload "$scriptdir/lang"
 
-source "$scriptdir/modules/ImageSearch.tcl"
-source "$scriptdir/modules/Locate.tcl"
-source "$scriptdir/modules/PSN.tcl"
-source "$scriptdir/modules/Quotes.tcl"
-source "$scriptdir/modules/Soundcloud.tcl"
-source "$scriptdir/modules/Spotify.tcl"
+foreach module [glob -nocomplain -dir "$scriptdir/modules/" *.tcl] {
+	source $module
+}
 
 bind pubm - * irc2tg_sendMessage
 bind join - * irc2tg_nickJoined
