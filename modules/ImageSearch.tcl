@@ -31,8 +31,8 @@ proc imagesearch_getImage {chat_id msgid channel message parameter_start} {
 		return -1
 	}
 
-	set url [remove_slashes [::libjson::jq::jq ".data.result.items\[0\].media" $imgresult]]
-	set title [remove_slashes [::libjson::jq::jq ".data.result.items\[0\].url" $imgresult]]
+	set url [remove_slashes [::libjson::getValue $imgresult ".data.result.items\[0\].media"]]
+	set title [remove_slashes [::libjson::getValue $imgresult ".data.result.items\[0\].url"]]
 
 	if {$url == ""} {
 		::libtelegram::sendMessage $chat_id "$msgid" "html" "Nothing found :-("
