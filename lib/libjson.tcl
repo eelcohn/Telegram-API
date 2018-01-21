@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180118 for Eggdrop                                    #
+# Telegram-API module v20180121 for Eggdrop                                    #
 #                                                                              #
-# written by Eelco Huininga 2016-2017                                          #
+# written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
 
@@ -18,7 +18,7 @@ proc ::libjson::hasKey {record key} {
 		}
 
 		"jq" {
-			if {[::libjson::jq::jq "$key" $record] != "null"} {
+			if {[exec jq --raw-output $key << $record] != "null"} {
 				return true
 			} else {
 				return false
