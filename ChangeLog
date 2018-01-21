@@ -1,3 +1,6 @@
+v20180121:
+* libjson.tcl: Optimized ::libjson::hasKey jq procedure (f06952e)
+
 v20180120:
 * Telegram-API.tcl: Auto-load all modules in the /modules/ folder (fa68594)
 * Telegram-API.tcl: Added dynamic command bindings for public bot commands (370c0fc)
