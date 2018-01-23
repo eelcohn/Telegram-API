@@ -6,9 +6,9 @@
 
 
 namespace eval libhttp {
-	variable processor
-	variable errormessage
-	variable errornumber
+	variable processor	""
+	variable errormessage	""
+	variable errornumber	0
 }
 
 # ---------------------------------------------------------------------------- #
@@ -27,6 +27,7 @@ proc ::libhttp::request {url type parameters} {
 			} else {
 				set request [::http::geturl $url]
 			}
+			set result [::http::data $request]
 			http::cleanup $request
 		}
 
@@ -52,12 +53,15 @@ proc ::libhttp::request {url type parameters} {
 			return -1
 		}
 	}
+	return $result
 }
 
-if {[catch {package present http}] && [catch {package present tls}]} {
-	package require http
-	package require tls
-	set ::libhttp::processor "http_pkg"
-} else {
-	set ::libhttp::processor "curl"
+if {$::libhttp::processor eq ""} {
+	if {[catch {package present http}] && [catch {package present tls}]} {
+		package require http
+		package require tls
+		set ::libhttp::processor "http_pkg"
+	} else {
+		set ::libhttp::processor "curl"
+	}
 }
