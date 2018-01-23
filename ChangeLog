@@ -5,6 +5,7 @@ v20180123:
 * Quotes.tcl: Replaced unix-specific code with cross-platform safe code (aec3b30)
 * Quotes.tcl: Store new quotes with utf-8 emoji's instead of ASCII emoticons (beac70f)
 * Telegram-API.tcl: Replaced unix-specific code with cross-platform safe code (4e73ae8 / 2e50085)
+* libhttp.tcl: New library added with support for both PkgHttp and jq (2a1a0c6)
 
 v20180121:
 * libjson.tcl: Optimized ::libjson::hasKey jq procedure (f06952e)
