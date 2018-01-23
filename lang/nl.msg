@@ -59,7 +59,3 @@
 ::msgcat::mcset nl MSG_BOT_USERINFO	"Je gebruikersnaam is %s\nJe Telegram-ID is %s\nJe laatste login was om %s\nJe laatste logout was om %s\nJe vorige login was met Telegram-ID %s\nJe Telegram-account is op %s aangemaakt\nJe IRC-account is op %s aangemaakt\nJe laatste login op IRC was om %s\nJe hostnamen op IRC zijn %s\nJe IRC info is %s"
 ::msgcat::mcset nl MSG_BOT_NOTLOGGEDIN	"Je bent niet ingelogd."
 ::msgcat::mcset nl MSG_BOT_UNAUTHORIZED	"Je bent niet geauthoriseerd om dat te doen."
-
-# Messages for the PSN-module
-::msgcat::mcset nl MSG_PSN_RESULT		"Speler: %s\%0ANiveau: %s\%0ARecent gespeelde spellen:\%0A1. %s\%0A2. %s\%0a3. %s"
-::msgcat::mcset nl MSG_PSN_NOTFOUND "Geen gegevens gevonden. Deze gebruiker heeft mogelijk een privé-profiel."
