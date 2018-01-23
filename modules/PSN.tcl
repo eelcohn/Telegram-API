@@ -8,7 +8,7 @@
 # Configuration settings                                                       #
 # ---------------------------------------------------------------------------- #
 
-
+source "[file join [file dirname [info script]] PSN.conf]"
 
 # ---------------------------------------------------------------------------- #
 # Playstation Network procedures                                               #
