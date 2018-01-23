@@ -3,6 +3,7 @@ v20180123:
 * PSN.tcl: Added localization using msgcat (060d01b / e3898bc / 81641a6)
 * Quotes.tcl: Added localization using msgcat (0632b33 / 0d02955 / 991a8b3)
 * Quotes.tcl: Replaced unix-specific code with cross-platform safe code (aec3b30)
+* Quotes.tcl: Store new quotes with utf-8 emoji's instead of ASCII emoticons (beac70f)
 * Telegram-API.tcl: Replaced unix-specific code with cross-platform safe code (4e73ae8 / 2e50085)
 
 v20180121:
