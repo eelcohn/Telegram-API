@@ -27,7 +27,6 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 	if {$quote_id==""} { 
 		set quote_id [rand [expr $quote_count + 1]]
 		set qot_sel $quote_list($quote_id)
-#				putquick "PRIVMSG $chan :Quote \002[expr $qot_sel + 1]\002 of \002[expr $quote_count + 1]:\002 $qot_sel"
 	} else {
 		if {[string is integer $quote_id]} {
 			unset quote_list([expr $quote_count + 1])
@@ -35,7 +34,6 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 				set qot_sel [::msgcat::mc MSG_QUOTE_NOTEXIST $quote_id]
 			} else {
 				set qot_sel $quote_list([expr {$quote_id} - 1])
-#						putquick "PRIVMSG $channel :Quote \002$quote_id\002 of \002[expr $quote_count + 1]:\002 $qot_sel"
 			}
 		} else {
 			set quote_id [string tolower $quote_id]
@@ -67,7 +65,7 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 proc quotes_addQuote {chat_id msgid channel message parameter_start} {
 	global quote_database
 
-	set quote [remove_slashes [utf2ascii [string trim [string range $message $parameter_start end]]]]
+	set quote [remove_slashes [string trim [string range $message $parameter_start end]]]
 
 	if {$quote ne ""} {
 		[file copy -force "$::Quotes::quote_database" "$::Quotes::quote_database~"]
