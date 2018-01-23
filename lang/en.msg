@@ -59,7 +59,3 @@
 ::msgcat::mcset en MSG_BOT_USERINFO	"Your username is %s\nYour Telegram-ID is %s\nYour last Telegram-login was at %s\nYour last Telegram-logout was at %s\nYour last Telegram-login ID was %s\nYour Telegram-account was created on %s\nYour IRC-account was created at %s\nYour last IRC-login was at %s\nYour IRC-hostnames are %s\nYour IRC info is %s"
 ::msgcat::mcset en MSG_BOT_NOTLOGGEDIN	"You're not logged in."
 ::msgcat::mcset en MSG_BOT_UNAUTHORIZED	"You're not authorized to do that."
-
-# Messages for the PSN-module
-::msgcat::mcset en MSG_PSN_RESULT			"Player: %sLevel: %sRecently seen playing:1. %s2. %s3. %s"
-::msgcat::mcset en MSG_PSN_NOTFOUND "No data found. This user may have their profile set to private."
