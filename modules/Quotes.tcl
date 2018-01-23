@@ -70,7 +70,8 @@ proc quotes_addQuote {chat_id msgid channel message parameter_start} {
 	set quote [remove_slashes [utf2ascii [string trim [string range $message $parameter_start end]]]]
 
 	if {$quote ne ""} {
-		exec cp "$::Quotes::quote_database" "$::Quotes::quote_database~"
+		[file copy -force "$::Quotes::quote_database" "$::Quotes::quote_database~"]
+#		exec cp "$::Quotes::quote_database" "$::Quotes::quote_database~"
 		set quote_fd [open "$::Quotes::quote_database" a+]
 		puts $quote_fd $quote
 		close $quote_fd
