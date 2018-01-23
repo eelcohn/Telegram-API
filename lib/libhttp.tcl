@@ -20,6 +20,12 @@ proc ::libhttp::request {url type parameters} {
 			set errormessage "Tcllib::http processor not supported"
 			set errornumber -1
 			return -1
+			if {$type eq "POST"} {
+				set request [::http::geturl $url -query [::http::formatQuery [list $parameters]]]
+			} else {
+				set request [::http::geturl $url]
+			}
+			http::cleanup $request
 		}
 
 		"curl" {
@@ -47,7 +53,9 @@ proc ::libhttp::request {url type parameters} {
 }
 
 if {[catch {package present http}] && [catch {package present tls}]} {
-	  set ::libhttp::processor "http_pkg"
+	package require http
+	package require tls
+	set ::libhttp::processor "http_pkg"
 } else {
-	  set ::libhttp::processor "curl"
+	set ::libhttp::processor "curl"
 }
