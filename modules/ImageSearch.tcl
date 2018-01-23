@@ -8,7 +8,7 @@
 # Configuration settings                                                       #
 # ---------------------------------------------------------------------------- #
 
-# Safe Search: -2 for 'Off', -1 for 'Average', 0 for 'On'
+source "[file join [file dirname [info script]] Quotes.conf]"
 
 # ---------------------------------------------------------------------------- #
 # Image Search procedures                                                      #
