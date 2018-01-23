@@ -8,7 +8,7 @@
 # Configuration settings                                                       #
 # ---------------------------------------------------------------------------- #
 
-source "[file join [file dirname [info script]] Quotes.conf]"
+source "[file join [file dirname [info script]] ImageSearch.conf]"
 
 # ---------------------------------------------------------------------------- #
 # Image Search procedures                                                      #
