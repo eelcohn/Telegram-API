@@ -7,7 +7,8 @@
 
 namespace eval libhttp {
 	variable processor
-  variable errormessage
+	variable errormessage
+	variable errornumber
 }
 
 # ---------------------------------------------------------------------------- #
@@ -17,32 +18,36 @@ proc ::libhttp::request {url type parameters} {
 	switch $::libjson::processor {
 		"http_pkg" {
 			set errormessage "Tcllib::http processor not supported"
-      return -1
+			set errornumber -1
+			return -1
 		}
 
 		"curl" {
-      set curldata ""
+			set curldata ""
  
-      foreach data value [list $parameters] {
-        lappend " -d $data=$value" $curldata
-      }
-	    if { [ catch {
-        set result [exec curl --tlsv1.2 -s -X $type $url $curldata]
-      } ] } {
-		    set errormessage "::libhttp::request: cannot connect to $url"
-		    return -1
-      }
+			foreach data value [list $parameters] {
+				lappend " -d $data=$value" $curldata
+			}
+
+			if { [ catch {
+				set result [exec curl --tlsv1.2 -s -X $type $url $curldata]
+			} ] } {
+				set errormessage "::libhttp::request: cannot connect to $url"
+				set errornumber -2
+				return -1
+			}
 		}
 
 		default {
-			 set errormessage "::libhttp::request unknown http processor $::libhttp::processor"
-       return -1
+			set errormessage "::libhttp::request unknown http processor $::libhttp::processor"
+			set errornumber -3
+			return -1
 		}
 	}
 }
 
-if {[expr ![catch {package present http}]] && [expr ![catch {package present tls}]]} {
-  set ::libhttp::processor "http_pkg"
+if {![catch {package present http}]] && [expr ![catch {package present tls}]} {
+	  set ::libhttp::processor "http_pkg"
 } else {
-  set ::libhttp::processor "curl"
+	  set ::libhttp::processor "curl"
 }
