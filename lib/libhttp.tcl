@@ -20,6 +20,8 @@ proc ::libhttp::request {url type parameters} {
 			set errormessage "Tcllib::http processor not supported"
 			set errornumber -1
 			return -1
+
+			::http::register https 443 [list ::tls::socket -tls1 1 -ssl2 0 -ssl3 0]
 			if {$type eq "POST"} {
 				set request [::http::geturl $url -query [::http::formatQuery [list $parameters]]]
 			} else {
