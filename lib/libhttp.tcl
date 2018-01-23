@@ -46,7 +46,7 @@ proc ::libhttp::request {url type parameters} {
 	}
 }
 
-if {![catch {package present http}]] && [expr ![catch {package present tls}]} {
+if {[catch {package present http}] && [catch {package present tls}]} {
 	  set ::libhttp::processor "http_pkg"
 } else {
 	  set ::libhttp::processor "curl"
