@@ -832,15 +832,15 @@ set scriptdir [file dirname [info script]]
 
 package require msgcat
 
-source "$scriptdir/lib/libjson.tcl"
-source "$scriptdir/lib/libtelegram.tcl"
-source "$scriptdir/Telegram-API-config.tcl"
-source "$scriptdir/utftable.tcl"
+source "[file join $scriptdir lib libjson.tcl]"
+source "[file join $scriptdir lib libtelegram.tcl]"
+source "[file join $scriptdir Telegram-API-config.tcl]"
+source "[file join $scriptdir utftable.tcl]"
 
 ::msgcat::mclocale $locale
-::msgcat::mcload "$scriptdir/lang"
+::msgcat::mcload "[file join $scriptdir lang]"
 
-foreach module [glob -nocomplain -dir "$scriptdir/modules/" *.tcl] {
+foreach module [glob -nocomplain -dir "[file join $scriptdir modules]" *.tcl] {
 	source $module
 }
 
