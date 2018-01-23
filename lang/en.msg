@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - English language file v20180120            #
+# Telegram-API module for Eggdrop - English language file v20180123            #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -59,13 +59,6 @@
 ::msgcat::mcset en MSG_BOT_USERINFO	"Your username is %s\nYour Telegram-ID is %s\nYour last Telegram-login was at %s\nYour last Telegram-logout was at %s\nYour last Telegram-login ID was %s\nYour Telegram-account was created on %s\nYour IRC-account was created at %s\nYour last IRC-login was at %s\nYour IRC-hostnames are %s\nYour IRC info is %s"
 ::msgcat::mcset en MSG_BOT_NOTLOGGEDIN	"You're not logged in."
 ::msgcat::mcset en MSG_BOT_UNAUTHORIZED	"You're not authorized to do that."
-
-# Messages for the Quote-module
-::msgcat::mcset en MSG_QUOTE_NOTEXIST		"Quote number %s does not exist."
-::msgcat::mcset en MSG_QUOTE_NOTFOUND		"No quotes with %s found."
-::msgcat::mcset en MSG_QUOTE_QUOTEADDED	"Quote has been added to the quote-list."
-::msgcat::mcset en MSG_QUOTE_HELP			"Use <i>/quote</i> to view a quote from the legendary quote database."
-::msgcat::mcset en MSG_QUOTE_ADDHELP		"Use <i>/addquote</i> to add a quote to the quote-list."
 
 # Messages for the PSN-module
 ::msgcat::mcset en MSG_PSN_RESULT			"Player: %sLevel: %sRecently seen playing:1. %s2. %s3. %s"
