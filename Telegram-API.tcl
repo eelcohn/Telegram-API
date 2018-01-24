@@ -15,6 +15,7 @@ set		tg_bot_nickname			""
 set		tg_bot_realname			""
 set 		irc_bot_nickname		""
 set		::telegram::cfg::userflags	"jlvck"
+set		::telegram::cfg::cmdmodifier	"/"
 array set	public_commands		{}
 array set	private_commands	{}
 
@@ -301,7 +302,7 @@ proc tg2irc_pollTelegram {} {
 									putchan $irc_channel [getWebsiteTitle $line]
 								}
 							}
-							if {[string index $txt 0] eq "/"} {
+							if {[string index $txt 0] eq $::telegram::cfg::cmdmodifier} {
 								set msgid [::libjson::getValue $msg ".message.message_id"]
 								tg2irc_botCommands "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
 							}
