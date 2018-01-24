@@ -1,3 +1,6 @@
+v20180124:
+* Telegram-API.tcl: Added conditional updates from IRC to Telegram based on userflags (3fc3f4d)
+
 v20180123:
 * ImageSearch.tcl: Added localization using msgcat (373b549 / 73bc250 / 3c064ef)
 * PSN.tcl: Added localization using msgcat (060d01b / e3898bc / 81641a6)
