@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API configuration v20180120 for Eggdrop                             #
+# Telegram-API configuration v20180124 for Eggdrop                             #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
