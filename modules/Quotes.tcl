@@ -1,9 +1,10 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Quote module for Eggdrop v20180123                              #
+# Telegram-API Quote module for Eggdrop v20180124                              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
+namespace eval Quotes {}
 source "[file join [file dirname [info script]] Quotes.conf]"
 
 # ---------------------------------------------------------------------------- #
