@@ -15,6 +15,7 @@ set locale			"en"
 set timeformat			"%Y-%m-%d %H:%M:%S"
 set colorize_nicknames		"true"
 set ::telegram::cfg::userflags	"jlvck"
+set ::telegram::cfg::cmdmodifier	"/"
 
 array set tg_channels {
 	"-21436587"		"#lamer"
