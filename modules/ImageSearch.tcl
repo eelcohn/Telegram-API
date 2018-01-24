@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Image Search module for Eggdrop with the Telegram-API module v20180123       #
+# Image Search module for Eggdrop with the Telegram-API module v20180124       #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -8,6 +8,7 @@
 # Configuration settings                                                       #
 # ---------------------------------------------------------------------------- #
 
+namespace eval ImageSearch {}
 source "[file join [file dirname [info script]] ImageSearch.conf]"
 
 # ---------------------------------------------------------------------------- #
