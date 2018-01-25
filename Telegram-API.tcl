@@ -530,8 +530,8 @@ proc tg2irc_pollTelegram {} {
 				putlog "Unknown message received: $msg"
 			}
 		}
+		incr tg_update_id
 	}
-	incr tg_update_id
 
 	# ...and set a timer so it triggers the next poll
 	utimer $tg_poll_freq tg2irc_pollTelegram
