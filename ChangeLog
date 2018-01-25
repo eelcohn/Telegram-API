@@ -4,6 +4,7 @@ v20180125:
 * Telegram-API.tcl: Fixed logging unknown messages (154f4af)
 * Telegram-API.tcl: Fixed an issue with tg_update_id where some messages got lost due to an invalid increase of tg_update_id (00bace0)
 * Telegram-API.tcl: Moved all internal variables to the ::telegram namespace (d887c77)
+* Telegram-API.tcl: Fixed sending IRC messages to Telegram using global user flags (493054c)
 
 v20180124:
 * Telegram-API.tcl: Added conditional updates from IRC to Telegram based on userflags (3fc3f4d)
