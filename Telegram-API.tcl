@@ -234,12 +234,13 @@ proc tg2irc_pollTelegram {} {
 	# Iterate through each status update
 	foreach tg_update_id [::libjson::getValue $result ".result\[\].update_id"] {
 		set msg [::libjson::getValue $result ".result\[\] \| select(.update_id == $tg_update_id)"]
-		set msgtype [::libjson::getValue $msg ". | keys\[\] | select(. != \"update_id\")"]
+#		set msgtype [::libjson::getValue $msg ". | keys\[\] | select(. != \"update_id\")"]
+		set msgtype [::libjson::getValue $msg "keys_unsorted[1]"]
 		set chattype [::libjson::getValue $msg ".$msgtype.chat.type"]
 
  		switch $chattype {
 			"private" {
-				# Record is a private chat record...
+				# Record is a private chat record
 				if {[::libjson::hasKey $msg ".message.text"]} {
 					set txt [remove_slashes [utf2ascii [::libjson::getValue $msg ".message.text"]]]
 					set msgid [::libjson::getValue $msg ".message.message_id"]
@@ -252,7 +253,7 @@ proc tg2irc_pollTelegram {} {
 			"group" -
 			"supergroup" -
 			"channel" {
-				# Record is a group, supergroup or channel record...
+				# Record is a group, supergroup or channel record
 				set chatid [::libjson::getValue $msg ".$msgtype.chat.id"]
 
 				if {$chattype eq "channel"} {
