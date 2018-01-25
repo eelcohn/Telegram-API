@@ -255,7 +255,7 @@ proc tg2irc_pollTelegram {} {
 				set chatid [::libjson::getValue $msg ".$msgtype.chat.id"]
 				set name [utf2ascii [::libjson::getValue $msg ".$msgtype.from.username"]]
 				if {$name == "null" } {
-					set name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".message.from.last_name//empty"]]]
+					set name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
 				}
 
 				if {$colorize_nicknames == "true"} {
@@ -346,7 +346,7 @@ proc tg2irc_pollTelegram {} {
 				if {[::libjson::hasKey $msg ".$msgtype.photo"]} {
 					set tg_file_id [::libjson::getValue $msg ".$msgtype.photo\[0\].file_id"]
 					if {[::libjson::hasKey $msg ".$msgtype.caption"]} {
-						set caption " ([remove_slashes [utf2ascii [::libjson::getValue $msg ".message.photo\[0\].caption"]]])"
+						set caption " ([remove_slashes [utf2ascii [::libjson::getValue $msg ".$msgtype.photo\[0\].caption"]]])"
 					} else {
 						set caption ""
 					}
@@ -378,7 +378,7 @@ proc tg2irc_pollTelegram {} {
 					}
 
 					if {[::libjson::hasKey $msg ".$msgtype.video.caption"]} {
-						set caption " ([utf2ascii [remove_slashes [::libjson::getValue $msg ".message.video.caption"]]])"
+						set caption " ([utf2ascii [remove_slashes [::libjson::getValue $msg ".$msgtype.video.caption"]]])"
 					} else {
 						set caption ""
 					}
@@ -422,7 +422,7 @@ proc tg2irc_pollTelegram {} {
 				# Check if a location has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".$msgtype.location"]} {
 					# Check if a venue has been sent to the Telegram group
-					if {[::libjson::hasKey $msg ".message.venue"]} {
+					if {[::libjson::hasKey $msg ".$msgtype.venue"]} {
 						set tg_location [::libjson::getValue $msg ".$msgtype.venue.location"]
 						set tg_title [::libjson::getValue $msg ".$msgtype.venue.title"]
 						set tg_address [::libjson::getValue $msg ".$msgtype.venue.address"]
