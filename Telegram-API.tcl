@@ -517,17 +517,8 @@ proc tg2irc_pollTelegram {} {
 				}
 			}
 
-			# Check if this record is a channel record
-			"channel" {
-				foreach {tg_chat_id irc_channel} [array get tg_channels] {
-					if {$chatid eq $tg_chat_id} {
-						putchan $irc_channel [::msgcat::mc MSG_TG_UNIMPL "Channel message received ($msg)"]
-					}
-				}
-			}
-
-			# Handle any unknown messages
 			default {
+				# Handle any unknown messages
 				foreach {tg_chat_id irc_channel} [array get tg_channels] {
 					if {$chatid eq $tg_chat_id} {
 						putchan $irc_channel [::msgcat::mc MSG_TG_UNIMPL "Unknown message received ($msg)"]
