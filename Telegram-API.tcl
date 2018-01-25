@@ -52,7 +52,7 @@ proc irc2tg_sendMessage {nick uhost hand channel msg} {
 	global tg_channels
 
 	# Only send a message to the Telegram group if the 'voice'-flag is set in the user flags variable
-	if {[string match "v" $::telegram::cfg::userflags]} {
+	if {[string first "v" $::telegram::cfg::userflags]} {
 		foreach {chat_id tg_channel} [array get tg_channels] {
 			if {$channel eq $tg_channel} {
 				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MSGSENT "$nick" "[url_encode $msg]"]
@@ -70,7 +70,7 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 	global tg_channels
 
 	# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
-	if {[string match "j" $::telegram::cfg::userflags]} {
+	if {[string first "j" $::telegram::cfg::userflags]} {
 		if {$nick eq $::telegram::irc_bot_nickname} {
 			return 0
 		}
@@ -93,7 +93,7 @@ proc irc2tg_nickLeft {nick uhost handle channel message} {
 	global  serveraddress tg_channels
 
 	# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
-	if {[string match "l" $::telegram::cfg::userflags]} {
+	if {[string first "l" $::telegram::cfg::userflags]} {
 		foreach {chat_id tg_channel} [array get tg_channels] {
 			if {$channel eq $tg_channel} {
 				if {![validuser $nick]} {
@@ -112,7 +112,7 @@ proc irc2tg_nickAction {nick uhost handle dest keyword message} {
 	global tg_channels
 	
 	# Only send an action message to the Telegram group if the 'voice'-flag is set in the user flags variable
-	if {[string match "v" $::telegram::cfg::userflags]} {
+	if {[string first "v" $::telegram::cfg::userflags]} {
 		foreach {chat_id tg_channel} [array get tg_channels] {
 			if {$dest eq $tg_channel} {
 				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKACTION "$nick" "$nick" "$message"]
@@ -129,7 +129,7 @@ proc irc2tg_nickChange {nick uhost handle channel newnick} {
 	global tg_channels
 
 	# Only send a nick change message to the Telegram group if the 'change'-flag is set in the user flags variable
-	if {[string match "c" $::telegram::cfg::userflags]} {
+	if {[string first "c" $::telegram::cfg::userflags]} {
 		foreach {chat_id tg_channel} [array get tg_channels] {
 			if {$channel eq $tg_channel} {
 				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKCHANGE "$nick" "$newnick"]
@@ -163,7 +163,7 @@ proc irc2tg_nickKicked {nick uhost handle channel target reason} {
 	global tg_channels
 
 	# Only send a kick message to the Telegram group if the 'kick'-flag is set in the user flags variable
-	if {[string match "k" $::telegram::cfg::userflags]} {
+	if {[string first "k" $::telegram::cfg::userflags]} {
 		foreach {chat_id tg_channel} [array get tg_channels] {
 			if {$channel eq $tg_channel} {
 				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_KICK "$nick" "$target" "$channel" "$reason"]
