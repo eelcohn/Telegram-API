@@ -256,8 +256,10 @@ proc tg2irc_pollTelegram {} {
 				set chatid [::libjson::getValue $msg ".$msgtype.chat.id"]
 
 				if {$chattype eq "channel"} {
-					set name [utf2ascii [::libjson::getValue $msg ".$msgtype.chat.title]]
+					# Set sender's name to the title of the channel for channel announcements
+					set name [utf2ascii [::libjson::getValue $msg ".$msgtype.chat.title"]]
 				} else {
+					# Set sender's name for group or supergroup messages
 					set name [utf2ascii [::libjson::getValue $msg ".$msgtype.from.username"]]
 					if {$name == "null" } {
 						set name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
@@ -352,7 +354,7 @@ proc tg2irc_pollTelegram {} {
 				if {[::libjson::hasKey $msg ".$msgtype.photo"]} {
 					set tg_file_id [::libjson::getValue $msg ".$msgtype.photo\[0\].file_id"]
 					if {[::libjson::hasKey $msg ".$msgtype.caption"]} {
-						set caption " ([remove_slashes [utf2ascii [::libjson::getValue $msg ".$msgtype.photo\[0\].caption"]]])"
+						set caption " ([remove_slashes [utf2ascii [::libjson::getValue $msg ".$msgtype.caption"]]])"
 					} else {
 						set caption ""
 					}
