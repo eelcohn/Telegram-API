@@ -1,5 +1,7 @@
 v20180125:
-* Telegram-API.tcl: Added support for channels and edited messages
+* Telegram-API.tcl: Added support for channels and edited messages (63d3aa0 / beb419f / ffe66b2 / 17c440e / 01c1f90 / 8a8cb31 / 154f4af / 3610e33)
+* Telegram-API.tcl: Fixed sending the caption of a photo to IRC (154f4af)
+* Telegram-API.tcl: Fixed logging unknown messages (154f4af)
 
 v20180124:
 * Telegram-API.tcl: Added conditional updates from IRC to Telegram based on userflags (3fc3f4d)
