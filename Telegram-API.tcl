@@ -10,7 +10,7 @@
 namespace eval ::telegram {}
 namespace eval ::telegram::cfg {}
 
-set		tg_update_id			0
+set		::telegram::tg_update_id	0
 set		tg_bot_nickname			""
 set		tg_bot_realname			""
 set 		irc_bot_nickname		""
@@ -203,7 +203,7 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 # Poll the Telegram server for updates                                         #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_pollTelegram {} {
-	global tg_bot_id tg_bot_token tg_update_id tg_poll_freq tg_channels utftable irc_bot_nickname colorize_nicknames
+	global tg_bot_id tg_bot_token tg_poll_freq tg_channels utftable irc_bot_nickname colorize_nicknames
 
 	# Check if the bot has already joined a channel
 	if { [botonchan] != 1 } {
@@ -214,7 +214,7 @@ proc tg2irc_pollTelegram {} {
 	}
 
 	# Poll the Telegram API for updates
-	set result [::libtelegram::getUpdates $tg_update_id]
+	set result [::libtelegram::getUpdates $::telegram::tg_update_id]
 
 	# Check if we got a result
 	if {$result == -1} {
@@ -232,8 +232,8 @@ proc tg2irc_pollTelegram {} {
 	}
 
 	# Iterate through each status update
-	foreach tg_update_id [::libjson::getValue $result ".result\[\].update_id"] {
-		set msg [::libjson::getValue $result ".result\[\] \| select(.update_id == $tg_update_id)"]
+	foreach ::telegram::tg_update_id [::libjson::getValue $result ".result\[\].update_id"] {
+		set msg [::libjson::getValue $result ".result\[\] \| select(.update_id == $::telegram::tg_update_id)"]
 #		set msgtype [::libjson::getValue $msg ". | keys\[\] | select(. != \"update_id\")"]
 		set msgtype [::libjson::getValue $msg "keys_unsorted\[1\]"]
 		set chattype [::libjson::getValue $msg ".$msgtype.chat.type"]
@@ -531,7 +531,7 @@ proc tg2irc_pollTelegram {} {
 				putlog "Unknown message received: $msg"
 			}
 		}
-		incr tg_update_id
+		incr ::telegram::tg_update_id
 	}
 
 	# ...and set a timer so it triggers the next poll
