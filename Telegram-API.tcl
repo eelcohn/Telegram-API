@@ -499,7 +499,7 @@ proc tg2irc_pollTelegram {} {
 
 				# Check if the photo of the Telegram group chat has changed
 				if {[::libjson::hasKey $msg ".$msgtype.new_chat_photo"]} {
-					set tg_file_id [::libjson::getValue $msg ".$msgtype.new_chat_photo\[0\].file_id"]
+					set tg_file_id [::libjson::getValue $msg ".$msgtype.new_chat_photo\[3\].file_id"]
 
 					foreach {tg_chat_id irc_channel} [array get tg_channels] {
 						if {$chatid eq $tg_chat_id} {
