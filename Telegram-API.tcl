@@ -232,7 +232,8 @@ proc tg2irc_pollTelegram {} {
 	}
 
 	# Iterate through each status update
-	foreach ::telegram::tg_update_id [::libjson::getValue $result ".result\[\].update_id"] {
+	foreach msg [split [::libjson::getValue $result ".result\[\]"] "\n"] {
+	set ::telegram::tg_update_id [::libjson::getValue $msg ".update_id"]
 		set msg [::libjson::getValue $result ".result\[\] \| select(.update_id == $::telegram::tg_update_id)"]
 #		set msgtype [::libjson::getValue $msg ". | keys\[\] | select(. != \"update_id\")"]
 		set msgtype [::libjson::getValue $msg "keys_unsorted\[1\]"]
@@ -353,7 +354,7 @@ proc tg2irc_pollTelegram {} {
 
 				# Check if a photo has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".$msgtype.photo"]} {
-					set tg_file_id [::libjson::getValue $msg ".$msgtype.photo\[0\].file_id"]
+					set tg_file_id [::libjson::getValue $msg ".$msgtype.photo\[3\].file_id"]
 					if {[::libjson::hasKey $msg ".$msgtype.caption"]} {
 						set caption " ([remove_slashes [utf2ascii [::libjson::getValue $msg ".$msgtype.caption"]]])"
 					} else {
