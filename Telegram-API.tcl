@@ -235,8 +235,9 @@ proc tg2irc_pollTelegram {} {
 	foreach tg_update_id [::libjson::getValue $result ".result\[\].update_id"] {
 		set msg [::libjson::getValue $result ".result\[\] \| select(.update_id == $tg_update_id)"]
 		set msgtype [::libjson::getValue $msg ". | keys\[\] | select(. != \"update_id\")"]
+		set chattype [::libjson::getValue $msg ".$msgtype.chat.type"]
 
- 		switch [::libjson::getValue $msg ".$msgtype.chat.type"] {
+ 		switch $chattype {
 			"private" {
 				# Record is a private chat record...
 				if {[::libjson::hasKey $msg ".message.text"]} {
@@ -253,13 +254,18 @@ proc tg2irc_pollTelegram {} {
 			"channel" {
 				# Record is a group, supergroup or channel record...
 				set chatid [::libjson::getValue $msg ".$msgtype.chat.id"]
-				set name [utf2ascii [::libjson::getValue $msg ".$msgtype.from.username"]]
-				if {$name == "null" } {
-					set name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
-				}
 
-				if {$colorize_nicknames == "true"} {
-					set name "\003[getColorFromString $name]$name\003"
+				if {$chattype eq "channel"} {
+					set name [utf2ascii [::libjson::getValue $msg ".$msgtype.chat.title]]
+				} else {
+					set name [utf2ascii [::libjson::getValue $msg ".$msgtype.from.username"]]
+					if {$name == "null" } {
+						set name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
+					}
+
+					if {$colorize_nicknames == "true"} {
+						set name "\003[getColorFromString $name]$name\003"
+					}
 				}
 
 				# Check if this message is a reply to a previous message
