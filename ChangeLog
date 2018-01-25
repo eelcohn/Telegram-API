@@ -1,3 +1,6 @@
+v20180125:
+* Telegram-API.tcl: Added support for channels and edited messages
+
 v20180124:
 * Telegram-API.tcl: Added conditional updates from IRC to Telegram based on userflags (3fc3f4d)
 * Telegram-API.tcl: Added feature: user setting for command modifier (default is /) (e7b5837 / af866ac)
