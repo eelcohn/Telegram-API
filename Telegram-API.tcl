@@ -235,7 +235,7 @@ proc tg2irc_pollTelegram {} {
 	foreach tg_update_id [::libjson::getValue $result ".result\[\].update_id"] {
 		set msg [::libjson::getValue $result ".result\[\] \| select(.update_id == $tg_update_id)"]
 #		set msgtype [::libjson::getValue $msg ". | keys\[\] | select(. != \"update_id\")"]
-		set msgtype [::libjson::getValue $msg "keys_unsorted[1]"]
+		set msgtype [::libjson::getValue $msg "keys_unsorted\[1\]"]
 		set chattype [::libjson::getValue $msg ".$msgtype.chat.type"]
 
  		switch $chattype {
