@@ -16,8 +16,8 @@ set		tg_bot_realname			""
 set 		irc_bot_nickname		""
 set		::telegram::cfg::userflags	"jlvck"
 set		::telegram::cfg::cmdmodifier	"/"
-array set	public_commands		{}
-array set	private_commands	{}
+array set	::telegram::public_commands	{}
+array set	::telegram::private_commands	{}
 
 
 
@@ -542,7 +542,7 @@ proc tg2irc_pollTelegram {} {
 # Respond to group commands send by Telegram users                             #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_botCommands {chat_id msgid channel message} {
-	global serveraddress tg_bot_nickname tg_bot_realname irc_bot_nickname public_commands
+	global serveraddress tg_bot_nickname tg_bot_realname irc_bot_nickname
 
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
@@ -592,7 +592,7 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 		}
 
 		default {
-			foreach {cmd prc} [array get public_commands] {
+			foreach {cmd prc} [array get ::telegram::public_commands] {
 				if {$command == $cmd} {
 					$prc $chat_id $msgid $channel $message $parameter_start
 					return
@@ -606,16 +606,12 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 }
 
 proc add_public_command {keyword procedure} {
-	global public_commands
-
-	set public_commands($keyword) $procedure
+	set ::telegram::public_commands($keyword) $procedure
 }
 
 proc del_public_command {keyword} {
-	global public_commands
-
-	if {[info exists $public_commands($keyword)]} {
-		unset -nocomplain public_commands($keyword)
+	if {[info exists $::telegram::public_commands($keyword)]} {
+		unset -nocomplain ::telegram::public_commands($keyword)
 		return true
 	} else {
 		return false
