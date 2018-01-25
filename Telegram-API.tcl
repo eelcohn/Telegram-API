@@ -237,8 +237,8 @@ proc tg2irc_pollTelegram {} {
 		set msgtype [::libjson::getValue $result ". | keys\[\] | select(. != \"update_id\")"]
 
  		switch [::libjson::getValue $msg ".$msgtype.chat.type"] {
-			# Check if this record is a private chat record...
 			"private" {
+				# Record is a private chat record...
 				if {[::libjson::hasKey $msg ".message.text"]} {
 					set txt [remove_slashes [utf2ascii [::libjson::getValue $msg ".message.text"]]]
 					set msgid [::libjson::getValue $msg ".message.message_id"]
@@ -248,13 +248,14 @@ proc tg2irc_pollTelegram {} {
 				}
 			}
 
-			# Check if this record is a group or supergroup chat record...
+			"group" -
 			"supergroup" -
-			"group" {
-				set chatid [::libjson::getValue $msg ".message.chat.id"]
-				set name [utf2ascii [::libjson::getValue $msg ".message.from.username"]]
+			"channel" {
+				# Record is a group, supergroup or channel record...
+				set chatid [::libjson::getValue $msg ".$msgtype.chat.id"]
+				set name [utf2ascii [::libjson::getValue $msg ".$msgtype.from.username"]]
 				if {$name == "null" } {
-					set name [utf2ascii [concat [::libjson::getValue $msg ".message.from.first_name//empty"] [::libjson::getValue $msg ".message.from.last_name//empty"]]]
+					set name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".message.from.last_name//empty"]]]
 				}
 
 				if {$colorize_nicknames == "true"} {
@@ -262,10 +263,10 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if this message is a reply to a previous message
-				if {[::libjson::hasKey $msg ".message.reply_to_message"]} {
-					set replyname [::libjson::getValue $msg ".message.reply_to_message.from.username"]
+				if {[::libjson::hasKey $msg ".$msgtype.reply_to_message"]} {
+					set replyname [::libjson::getValue $msg ".$msgtype.reply_to_message.from.username"]
 					if {$replyname == "null" } {
-						set replyname [utf2ascii [concat [::libjson::getValue $msg ".message.reply_to_message.from.first_name//empty"] [::libjson::getValue $msg ".message.reply_to_message.from.last_name//empty"]]]
+						set replyname [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.reply_to_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.reply_to_message.from.last_name//empty"]]]
 					}
 					if {$colorize_nicknames == "true"} {
 						set replyname "\003[getColorFromString $replyname]$replyname\003"
@@ -273,10 +274,10 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if this message is a forwarded message
-				if {[::libjson::hasKey $msg ".message.forward_from"]} {
-					set forwardname [::libjson::getValue $msg ".message.forward_from.username"]
+				if {[::libjson::hasKey $msg ".$msgtype.forward_from"]} {
+					set forwardname [::libjson::getValue $msg ".$msgtype.forward_from.username"]
 					if {$forwardname == "null" } {
-						set forwardname [utf2ascii [concat [::libjson::getValue $msg ".message.forward_from.first_name//empty"] [::libjson::getValue $msg ".message.forward_from.last_name//empty"]]]
+						set forwardname [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.forward_from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.forward_from.last_name//empty"]]]
 					}
 					if {$colorize_nicknames == "true"} {
 						set forwardname "\003[getColorFromString $forwardname]$forwardname\003"
@@ -284,14 +285,14 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if a text message has been sent to the Telegram group
-				if {[::libjson::hasKey $msg ".message.text"]} {
-					set txt [utf2ascii [::libjson::getValue $msg ".message.text"]]
+				if {[::libjson::hasKey $msg ".$msgtype.text"]} {
+					set txt [utf2ascii [::libjson::getValue $msg ".$msgtype.text"]]
 
 					# Modify text if it is a reply-to or forwarded from
-					if {[::libjson::hasKey $msg ".message.reply_to_message"]} {
-						set replytomsg [utf2ascii [::libjson::getValue $msg ".message.reply_to_message.text"]]
+					if {[::libjson::hasKey $msg ".$msgtype.reply_to_message"]} {
+						set replytomsg [utf2ascii [::libjson::getValue $msg ".$msgtype.reply_to_message.text"]]
 						set txt "[::msgcat::mc MSG_TG_MSGREPLYTOSENT "$txt" "$replyname" "$replytomsg"]"
-					} elseif {[::libjson::hasKey $msg ".message.forward_from"]} {
+					} elseif {[::libjson::hasKey $msg ".$msgtype.forward_from"]} {
 						set txt "[::msgcat::mc MSG_TG_MSGFORWARDED "$txt" "$forwardname"]"
 					} 
 
@@ -304,7 +305,7 @@ proc tg2irc_pollTelegram {} {
 								}
 							}
 							if {[string index $txt 0] eq $::telegram::cfg::cmdmodifier} {
-								set msgid [::libjson::getValue $msg ".message.message_id"]
+								set msgid [::libjson::getValue $msg ".$msgtype.message_id"]
 								tg2irc_botCommands "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
 							}
 						}
