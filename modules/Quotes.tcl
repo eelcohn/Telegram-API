@@ -25,12 +25,13 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 	close $quote_fd
 
 	set quote_count [expr $quote_count - 1]
-	if {$quote_id==""} { 
+	if {$quote_id == ""} { 
 		set quote_id [rand $quote_count]
 		set qot_sel $quote_list($quote_id)
 	} else {
 		if {[string is integer $quote_id]} {
 			unset quote_list($quote_count)
+			unset quote_list([expr $quote_count - 1])
 			if {![info exists quote_list([expr {$quote_id} - 1])]} {
 				set qot_sel [::msgcat::mc MSG_QUOTE_NOTEXIST $quote_id]
 			} else {
