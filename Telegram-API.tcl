@@ -296,6 +296,9 @@ proc tg2irc_pollTelegram {} {
 					# Modify text if it is a reply-to or forwarded from
 					if {[::libjson::hasKey $msg ".$msgtype.reply_to_message"]} {
 						set replytomsg [utf2ascii [::libjson::getValue $msg ".$msgtype.reply_to_message.text"]]
+						if {$replytomsg eq "null"} {
+							set replytomsg [::libjson::getValue $msg ".$msgtype.reply_to_message | keys\[\] | select ((. != \"chat\") and (. != \"from\") and (. != \"date\") and (. != \"message_id\"))"]
+						}
 						set txt "[::msgcat::mc MSG_TG_MSGREPLYTOSENT "$txt" "$replyname" "$replytomsg"]"
 					} elseif {[::libjson::hasKey $msg ".$msgtype.forward_from"]} {
 						set txt "[::msgcat::mc MSG_TG_MSGFORWARDED "$txt" "$forwardname"]"
