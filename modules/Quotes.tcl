@@ -75,10 +75,10 @@ proc quotes_addQuote {chat_id msgid channel message parameter_start} {
 		puts $quote_fd "$quote\n"
 		close $quote_fd
 
-		::libtelegram::sendMessage $chat_id $msgid "html" [::msgcat::mc MSG_QUOTE_QUOTEADDED]
-		putchan $channel [::msgcat::mc MSG_QUOTE_QUOTEADDED]
+		::libtelegram::sendMessage $chat_id $msgid "html" "[::msgcat::mc MSG_QUOTE_QUOTEADDED]"
+		putchan $channel "[::msgcat::mc MSG_QUOTE_QUOTEADDED]"
 	} else {
-		::libtelegram::sendMessage $chat_id $msgid "html" [::msgcat::mc MSG_QUOTE_ADDHELP]
+		::libtelegram::sendMessage $chat_id $msgid "html" "[::msgcat::mc MSG_QUOTE_ADDHELP]"
 	}
 }
 
