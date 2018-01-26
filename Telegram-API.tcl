@@ -13,8 +13,16 @@ set		::telegram::tg_update_id	0
 set		::telegram::tg_bot_nickname	""
 set		::telegram::tg_bot_realname	""
 set 		::telegram::irc_bot_nickname	""
-set		::telegram::userflags	"jlvck"
-set		::telegram::cmdmodifier	"/"
+set		::telegram::userflags		"jlvck"
+set		::telegram::cmdmodifier		"/"
+array set	::telegram::usercolortable {	0	4
+						1	3
+						2	6
+						3	12
+						4	7
+						5	11
+						6	13
+						7	5}
 array set	::telegram::public_commands	{}
 array set	::telegram::private_commands	{}
 
@@ -255,7 +263,7 @@ proc tg2irc_pollTelegram {} {
 					}
 
 					if {$::telegram::colorize_nicknames == "true"} {
-						set name "\003[getColorFromString $name]$name\003"
+						set name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$name\003"
 					}
 				}
 
@@ -266,7 +274,7 @@ proc tg2irc_pollTelegram {} {
 						set replyname [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.reply_to_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.reply_to_message.from.last_name//empty"]]]
 					}
 					if {$::telegram::colorize_nicknames == "true"} {
-						set replyname "\003[getColorFromString $replyname]$replyname\003"
+						set replyname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.reply_to_message.from.id"]]$replyname\003"
 					} 
 				}
 
@@ -277,7 +285,7 @@ proc tg2irc_pollTelegram {} {
 						set forwardname [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.forward_from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.forward_from.last_name//empty"]]]
 					}
 					if {$::telegram::colorize_nicknames == "true"} {
-						set forwardname "\003[getColorFromString $forwardname]$forwardname\003"
+						set forwardname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.forward_from.id"]]$forwardname\003"
 					} 
 				}
 
@@ -850,16 +858,7 @@ proc getColorFromString {string} {
 	return [expr [expr $color % 15] + 1]
 }
 proc getColorFromUserID {user_id} {
-	array set colortable {	0	\004
-				1	\003
-				2	\007
-				3	\012
-				4	\006
-				5	\011
-				6	\013
-				7	\005}
-
-	return colortable([expr $user_id % 7])
+	return ::telegram::usercolors([expr $user_id % 7])
 }
 
 # ---------------------------------------------------------------------------- #
