@@ -8,7 +8,6 @@
 # Global internal variables                                                    #
 # ---------------------------------------------------------------------------- #
 namespace eval ::telegram {}
-namespace eval ::telegram::cfg {}
 
 set		::telegram::tg_update_id	0
 set		::telegram::tg_bot_nickname	""
