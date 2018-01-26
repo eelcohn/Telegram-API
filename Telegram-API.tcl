@@ -846,7 +846,7 @@ source "[file join $scriptdir lib libtelegram.tcl]"
 source "[file join $scriptdir Telegram-API-config.tcl]"
 source "[file join $scriptdir utftable.tcl]"
 
-::msgcat::mclocale ::telegram::$locale
+::msgcat::mclocale $::telegram::locale
 ::msgcat::mcload "[file join $scriptdir lang]"
 
 foreach module [glob -nocomplain -dir "[file join $scriptdir modules]" *.tcl] {
