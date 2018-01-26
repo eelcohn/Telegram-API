@@ -48,11 +48,9 @@ proc initialize {} {
 # Send a message from IRC to Telegram                                          #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_sendMessage {nick uhost hand channel msg} {
-	global tg_channels
-
 	# Only send a message to the Telegram group if the 'voice'-flag is set in the user flags variable
 	if {[string first "v" $::telegram::userflags]} {
-		foreach {chat_id tg_channel} [array get tg_channels] {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
 				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MSGSENT "$nick" "[url_encode $msg]"]
 			}
