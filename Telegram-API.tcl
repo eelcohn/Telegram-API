@@ -224,8 +224,7 @@ proc tg2irc_pollTelegram {} {
 
 	# Iterate through each status update
 	foreach msg [split [::libjson::getValue $result ".result\[\]"] "\n"] {
-	set ::telegram::tg_update_id [::libjson::getValue $msg ".update_id"]
-		set msg [::libjson::getValue $result ".result\[\] \| select(.update_id == $::telegram::tg_update_id)"]
+		set ::telegram::tg_update_id [::libjson::getValue $msg ".update_id"]
 #		set msgtype [::libjson::getValue $msg ". | keys\[\] | select(. != \"update_id\")"]
 		set msgtype [::libjson::getValue $msg "keys_unsorted\[1\]"]
 		set chattype [::libjson::getValue $msg ".$msgtype.chat.type"]
@@ -539,12 +538,16 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
 
+	# Check if this command has a bot identifier in it (/command@BotIdentifier)
 	if {[string match -nocase "@*" [string range $message $parameter_start end]]} {
+		# If so, then check if the identifier matches our bot
 		if {![string match -nocase "@$::telegram::tg_bot_realname*" [string range $message $parameter_start end]]} {
+			# If not, then stop processing the command
 			return
 		}
 	}
 
+	# Let the Telegram users know that we've received the bot command, and we're preparing an answer
 	::libtelegram::sendChatAction $chat_id "typing"
 
 	switch $command {
@@ -584,6 +587,7 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 		}
 
 		default {
+			# Not one of the standard bot commands, so check if the bot command is in our dynamic command list
 			foreach {cmd prc} [array get ::telegram::public_commands] {
 				if {$command == $cmd} {
 					$prc $chat_id $msgid $channel $message $parameter_start
@@ -591,16 +595,23 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 				}
 			}
 
+			# Not in our dynamic command list either, so respond with an unknown command message
 			::libtelegram::sendMessage $chat_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 			putchan $channel "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 		}
 	}
 }
 
+# ---------------------------------------------------------------------------- #
+# Add a bot command to the dynamic bot command list                            #
+# ---------------------------------------------------------------------------- #
 proc add_public_command {keyword procedure} {
 	set ::telegram::public_commands($keyword) $procedure
 }
 
+# ---------------------------------------------------------------------------- #
+# Remove a bot command from the dynamic bot command list                       #
+# ---------------------------------------------------------------------------- #
 proc del_public_command {keyword} {
 	if {[info exists $::telegram::public_commands($keyword)]} {
 		unset -nocomplain ::telegram::public_commands($keyword)
