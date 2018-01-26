@@ -14,8 +14,8 @@ set		::telegram::tg_update_id	0
 set		::telegram::tg_bot_nickname	""
 set		::telegram::tg_bot_realname	""
 set 		::telegram::irc_bot_nickname	""
-set		::telegram::cfg::userflags	"jlvck"
-set		::telegram::cfg::cmdmodifier	"/"
+set		::telegram::userflags	"jlvck"
+set		::telegram::cmdmodifier	"/"
 array set	::telegram::public_commands	{}
 array set	::telegram::private_commands	{}
 
@@ -305,7 +305,7 @@ proc tg2irc_pollTelegram {} {
 									putchan $irc_channel [getWebsiteTitle $line]
 								}
 							}
-							if {[string index $txt 0] eq $::telegram::cfg::cmdmodifier} {
+							if {[string index $txt 0] eq $::telegram::cmdmodifier} {
 								set msgid [::libjson::getValue $msg ".$msgtype.message_id"]
 								tg2irc_botCommands "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
 							}
@@ -846,7 +846,7 @@ source "[file join $scriptdir lib libtelegram.tcl]"
 source "[file join $scriptdir Telegram-API-config.tcl]"
 source "[file join $scriptdir utftable.tcl]"
 
-::msgcat::mclocale $locale
+::msgcat::mclocale ::telegram::$locale
 ::msgcat::mcload "[file join $scriptdir lang]"
 
 foreach module [glob -nocomplain -dir "[file join $scriptdir modules]" *.tcl] {
