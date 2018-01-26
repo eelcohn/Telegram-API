@@ -541,6 +541,8 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 		if {![string match -nocase "@$::telegram::tg_bot_realname*" [string range $message $parameter_start end]]} {
 			# If not, then stop processing the command
 			return
+		} else {
+			set parameter_start [string first " " $message]
 		}
 	}
 
