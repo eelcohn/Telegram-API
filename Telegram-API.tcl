@@ -836,10 +836,11 @@ proc remove_slashes {txt} {
 # ---------------------------------------------------------------------------- #
 proc url_encode {str} {
 	set str [string map {"&" "&amp;" "<" "&lt;" ">" "&gt;"} $str]
-	set uStr [encoding convertto utf-8 $str]
+#	set uStr [encoding convertto utf-8 $str]
 	set chRE {[^-A-Za-z0-9._~\n]};		# Newline is special case!
 	set replacement {%[format "%02X" [scan "\\\0" "%c"]]}
-	return [string map {"\n" "%0A"} [subst [regsub -all $chRE $uStr $replacement]]]
+#	return [string map {"\n" "%0A"} [subst [regsub -all $chRE $uStr $replacement]]]
+	return [string map {"\n" "%0A"} [subst [regsub -all $chRE $str $replacement]]]
 }
 
 # ---------------------------------------------------------------------------- #
