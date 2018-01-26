@@ -15,7 +15,7 @@ set		::telegram::tg_bot_realname	""
 set 		::telegram::irc_bot_nickname	""
 set		::telegram::userflags		"jlvck"
 set		::telegram::cmdmodifier		"/"
-array set	::telegram::usercolortable {	0	4
+array set	::telegram::usercolors	{	0	4
 						1	3
 						2	6
 						3	12
@@ -843,22 +843,10 @@ proc url_encode {str} {
 }
 
 # ---------------------------------------------------------------------------- #
-# Calculate an IRC color code for a nickname                                   #
+# Calculate an IRC color code for a user ID                                    #
 # ---------------------------------------------------------------------------- #
-proc getColorFromString {string} {
-	# Set the seed for the calculation to 0x00
-	set color 0x00
-
-	# Exclusive-OR each character of the string with the seed
-	foreach char [split $string ""] {
-		set color [expr $color + [scan $char %c]]
-	}
-
-	# Return only values from 1 to 15
-	return [expr [expr $color % 15] + 1]
-}
 proc getColorFromUserID {user_id} {
-	return ::telegram::usercolors([expr $user_id % 7])
+	return $::telegram::usercolors([expr $user_id % 7])
 }
 
 # ---------------------------------------------------------------------------- #
