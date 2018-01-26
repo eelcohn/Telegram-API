@@ -24,9 +24,6 @@
 #
 ###############################################################################
 
-bind  pub   -   timebomb  ::timebomb::doTimebomb
-bind  pub   -   cutwire   ::timebomb::doCutWire
-
 ###############################################################################
 # Configuration
 #
@@ -85,7 +82,7 @@ proc ::timebomb::timebomb {chat_id msgid channel message parameter_start} {
 	}
 }
 
-proc ::timebomb::cutwire {chat_id msgid channel message parameter_start} {
+proc ::timebomb::cutWire {chat_id msgid channel message parameter_start} {
 
 	global gTimebombActive gCorrectWire gTimebombTarget  gTimerId gTimebombChannel
 
@@ -172,6 +169,7 @@ proc ::timebomb::doTimebomb {nick uhost hand chan arg} {
 
 ###############################################################################
 
+add_public_command timebomb ::timebomb::doTimebomb
+add_public_command cutwire ::timebomb::cutWire
+
 putlog "timebomb$gTheScriptVersion: loaded";
-putlog " with $gMaxWireCount wire maximum,"
-putlog " and time range of $gTimebombMinimumDuration to $gTimebombMaximumDuration seconds.";
