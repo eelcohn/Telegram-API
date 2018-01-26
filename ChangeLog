@@ -8,6 +8,7 @@ v20180126:
 * Telegram-API.tcl: Use a user_id for calculating the color of a nick on IRC (5b983ec / a3464aa)
 * Telegram-API.tcl: Preliminary fix for #35 (329e50d)
 * Telegram-API.tcl: Fixed reproducing emoji's from quotes to Telegram (dda5fb3 / f88c966)
+* Telegram-API.tcl: Updated url_encode so smileys in quotes get sent correctly to Telegram (dda5fb3 / 13fe219)
 * Telegram-API-config.tcl: Moved all config settings to the ::telegram namespace (f009e31 / e097100)
 * libtelegram.tcl: Removed unused code / Fixed bug when accessing the ::telegram::tg_web_page_preview (50f37dd)
 * Locate.tcl: Added url in IRC response (881774d)
