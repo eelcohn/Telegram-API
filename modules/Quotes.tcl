@@ -71,9 +71,8 @@ proc quotes_addQuote {chat_id msgid channel message parameter_start} {
 
 	if {$quote ne ""} {
 		file copy -force "$::Quotes::quote_database" "$::Quotes::quote_database~"
-#		exec cp "$::Quotes::quote_database" "$::Quotes::quote_database~"
 		set quote_fd [open "$::Quotes::quote_database" a+]
-		puts $quote_fd "$quote\n"
+		puts $quote_fd "$quote"
 		close $quote_fd
 
 		::libtelegram::sendMessage $chat_id $msgid "html" "[::msgcat::mc MSG_QUOTE_QUOTEADDED]"
