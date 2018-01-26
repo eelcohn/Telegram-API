@@ -737,7 +737,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 			}
 
 			# Not in our dynamic command list either, so respond with an unknown command message
-			::libtelegram::sendMessage $chat_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
+			::libtelegram::sendMessage $from_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 			putchan $channel "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 		}
 	}
