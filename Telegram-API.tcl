@@ -406,8 +406,8 @@ proc tg2irc_pollTelegram {} {
 				# Check if a contact has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".$msgtype.contact"]} {
 					set tg_phone_number [::libjson::getValue $msg ".$msgtype.contact.phone_number"]
-					set tg_first_name [::libjson::getValue $msg ".$msgtype.contact.first_name"]
-					set tg_last_name [::libjson::getValue $msg ".$msgtype.contact.last_name"]
+					set tg_first_name [::libjson::getValue $msg ".$msgtype.contact.first_name//empty"]
+					set tg_last_name [::libjson::getValue $msg ".$msgtype.contact.last_name//empty"]
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
