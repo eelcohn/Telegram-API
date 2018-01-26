@@ -542,7 +542,7 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 			# If not, then stop processing the command
 			return
 		} else {
-			set parameter_start [string first " " $message]
+			set parameter_start [string wordend $message $parameter_start+1]
 		}
 	}
 
