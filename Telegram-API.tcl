@@ -633,6 +633,10 @@ proc tg2irc_privateCommands {from_id msgid message} {
 	libtelegram::sendChatAction $from_id "typing"
 
 	switch $command {
+		"help" {
+			::libtelegram::sendMessage $from_id $msgid "html" "Available commands are:\n login <username> <password>\n logout\n myinfo\n help\n"
+		}
+
 		"login" {
 			set login_start [string wordend $message 1]
 			set login_end [string wordend $message $login_start+1]
@@ -724,13 +728,38 @@ proc tg2irc_privateCommands {from_id msgid message} {
 			}
 		}
 
-		"help" {
-			::libtelegram::sendMessage $from_id $msgid "html" "Available commands are:\n login <username> <password>\n logout\n myinfo\n help\n"
-		}
-
 		default {
-			::libtelegram::sendMessage $from_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
+			# Not one of the standard bot commands, so check if the bot command is in our dynamic command list
+			foreach {cmd prc} [array get ::telegram::private_commands] {
+				if {$command == $cmd} {
+					$prc $chat_id $msgid $channel $message $parameter_start
+					return
+				}
+			}
+
+			# Not in our dynamic command list either, so respond with an unknown command message
+			::libtelegram::sendMessage $chat_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
+			putchan $channel "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 		}
+	}
+}
+
+# ---------------------------------------------------------------------------- #
+# Add a bot command to the dynamic bot command list                            #
+# ---------------------------------------------------------------------------- #
+proc add_private_command {keyword procedure} {
+	set ::telegram::private_commands($keyword) $procedure
+}
+
+# ---------------------------------------------------------------------------- #
+# Remove a bot command from the dynamic bot command list                       #
+# ---------------------------------------------------------------------------- #
+proc del_private_command {keyword} {
+	if {[info exists $::telegram::private_commands($keyword)]} {
+		unset -nocomplain ::telegram::private_commands($keyword)
+		return true
+	} else {
+		return false
 	}
 }
 
@@ -857,13 +886,16 @@ source "[file join $scriptdir lib libtelegram.tcl]"
 source "[file join $scriptdir Telegram-API-config.tcl]"
 source "[file join $scriptdir utftable.tcl]"
 
+# Set localization
 ::msgcat::mclocale $::telegram::locale
 ::msgcat::mcload "[file join $scriptdir lang]"
 
+# Dynamically load public bot command modules
 foreach module [glob -nocomplain -dir "[file join $scriptdir modules]" *.tcl] {
 	source $module
 }
 
+# Bind this script to IRC events
 bind pubm - * irc2tg_sendMessage
 bind join - * irc2tg_nickJoined
 bind part - * irc2tg_nickLeft
