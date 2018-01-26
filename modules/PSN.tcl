@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Playstation Network module for Eggdrop v20180120                #
+# Telegram-API Playstation Network module for Eggdrop v20180123                #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -8,7 +8,7 @@
 # Configuration settings                                                       #
 # ---------------------------------------------------------------------------- #
 
-
+source "[file join [file dirname [info script]] PSN.conf]"
 
 # ---------------------------------------------------------------------------- #
 # Playstation Network procedures                                               #

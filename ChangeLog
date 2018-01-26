@@ -1,3 +1,40 @@
+v20180126:
+* Telegram-API.tcl: Moved all config settings to the ::telegram namespace (f009e31 / e097100 / 47fade3 / d5c8dad)
+* Telegram-API.tcl: Added support for dynamic private bot commands (b26e9c2 / e908296)
+* Telegram-API.tcl: Removed ::telegram::cfg namespace (9acf807)
+* Telegram-API.tcl: Added logging for private bot commands (2d54a8c)
+* Telegram-API.tcl: Fixed recognizing public bot commands with @<botname> (7cb9f3f / 8e176d8)
+* Telegram-API.tcl: Added getColorFromUserID (fa441fa)
+* Telegram-API.tcl: Use a user_id for calculating the color of a nick on IRC (5b983ec / a3464aa)
+* Telegram-API.tcl: Preliminary fix for #35 (329e50d)
+* Telegram-API-config.tcl: Moved all config settings to the ::telegram namespace (f009e31 / e097100)
+* libtelegram.tcl: Removed unused code / Fixed bug when accessing the ::telegram::tg_web_page_preview (50f37dd)
+* Locate.tcl: Added url in IRC response (881774d)
+
+v20180125:
+* Telegram-API.tcl: Added support for channels and edited messages (63d3aa0 / beb419f / ffe66b2 / 17c440e / 01c1f90 / 8a8cb31 / 154f4af / 3610e33 / a48e172 / 2c3b246)
+* Telegram-API.tcl: Fixed sending the caption of a photo to IRC (154f4af / 2c3b246)
+* Telegram-API.tcl: Fixed logging unknown messages (154f4af)
+* Telegram-API.tcl: Fixed an issue with tg_update_id where some messages got lost due to an invalid increase of tg_update_id (00bace0)
+* Telegram-API.tcl: Moved all internal variables to the ::telegram namespace (d887c77)
+* Telegram-API.tcl: Fixed sending IRC messages to Telegram using global user flags (493054c)
+
+v20180124:
+* Telegram-API.tcl: Added conditional updates from IRC to Telegram based on userflags (3fc3f4d)
+* Telegram-API.tcl: Added feature: user setting for command modifier (default is /) (e7b5837 / af866ac)
+
+v20180123:
+* ImageSearch.tcl: Added localization using msgcat (373b549 / 73bc250 / 3c064ef)
+* PSN.tcl: Added localization using msgcat (060d01b / e3898bc / 81641a6)
+* Quotes.tcl: Added localization using msgcat (0632b33 / 0d02955 / 991a8b3)
+* Quotes.tcl: Replaced unix-specific code with cross-platform safe code (aec3b30)
+* Quotes.tcl: Store new quotes with utf-8 emoji's instead of ASCII emoticons (beac70f)
+* Telegram-API.tcl: Replaced unix-specific code with cross-platform safe code (4e73ae8 / 2e50085)
+* libhttp.tcl: New library added with support for both PkgHttp and jq (2a1a0c6)
+
+v20180121:
+* libjson.tcl: Optimized ::libjson::hasKey jq procedure (f06952e)
+
 v20180120:
 * Telegram-API.tcl: Auto-load all modules in the /modules/ folder (fa68594)
 * Telegram-API.tcl: Added dynamic command bindings for public bot commands (370c0fc)

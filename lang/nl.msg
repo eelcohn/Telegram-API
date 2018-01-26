@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - Dutch language file v20180120              #
+# Telegram-API module for Eggdrop - Dutch language file v20180123              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -59,14 +59,3 @@
 ::msgcat::mcset nl MSG_BOT_USERINFO	"Je gebruikersnaam is %s\nJe Telegram-ID is %s\nJe laatste login was om %s\nJe laatste logout was om %s\nJe vorige login was met Telegram-ID %s\nJe Telegram-account is op %s aangemaakt\nJe IRC-account is op %s aangemaakt\nJe laatste login op IRC was om %s\nJe hostnamen op IRC zijn %s\nJe IRC info is %s"
 ::msgcat::mcset nl MSG_BOT_NOTLOGGEDIN	"Je bent niet ingelogd."
 ::msgcat::mcset nl MSG_BOT_UNAUTHORIZED	"Je bent niet geauthoriseerd om dat te doen."
-
-# Messages for the Quote-module
-::msgcat::mcset nl MSG_QUOTE_NOTEXIST		"Quote nummer %s bestaat niet."
-::msgcat::mcset nl MSG_QUOTE_NOTFOUND		"Geen quotes met %s gevonden."
-::msgcat::mcset nl MSG_QUOTE_QUOTEADDED	"Quote is toegevoegd aan de quote-lijst."
-::msgcat::mcset nl MSG_QUOTE_HELP		"Gebruik <i>/quote</i> om een quote uit de legendarische quote database te zien."
-::msgcat::mcset nl MSG_QUOTE_ADDHELP		"Gebruik <i>/addquote</i> om een quote toe te voegen."
-
-# Messages for the PSN-module
-::msgcat::mcset nl MSG_PSN_RESULT		"Speler: %s\%0ANiveau: %s\%0ARecent gespeelde spellen:\%0A1. %s\%0A2. %s\%0a3. %s"
-::msgcat::mcset nl MSG_PSN_NOTFOUND "Geen gegevens gevonden. Deze gebruiker heeft mogelijk een privé-profiel."

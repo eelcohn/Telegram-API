@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180118 for Eggdrop                                    #
+# Telegram-API module v20180121 for Eggdrop                                    #
 #                                                                              #
-# written by Eelco Huininga 2016-2017                                          #
+# written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
 
@@ -18,7 +18,7 @@ proc ::libjson::hasKey {record key} {
 		}
 
 		"jq" {
-			if {[::libjson::jq::jq "$key" $record] != "null"} {
+			if {[exec jq --raw-output $key << $record] != "null"} {
 				return true
 			} else {
 				return false
@@ -122,11 +122,11 @@ namespace eval ::libjson::jq {
 		# We need --ascii-output so we can find and replace Unicode emoji's with ASCII emoticons, but jq cannot
 		# handle both the --raw-output and --ascii-output switches. Therefore we need to find out the type first
 		# so the leading and trailing quotes can be removed manually.
-		if {[exec jq --raw-output $filter|type << $data] eq "string"} {
-			return [string trim [exec jq --ascii-output $filter << $data] "\""]
-		} else {
-			return [exec jq --raw-output $filter << $data]
-		}
+#		if {[exec jq --raw-output $filter|type << $data] eq "string"} {
+#			return [string trim [exec jq --ascii-output $filter << $data] "\""]
+#		} else {
+			return [exec jq --raw-output --compact-output $filter << $data]
+#		}
 	}
 	proc json2dict {data} {
 		jq {

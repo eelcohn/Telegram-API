@@ -1,2 +1,3 @@
 .Telegram-API-config.tcl.sample
 .Telegram-API-config.tcl
+/modules/*.conf
