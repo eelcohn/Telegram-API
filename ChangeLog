@@ -4,6 +4,7 @@ v20180126:
 * Telegram-API.tcl: Removed ::telegram::cfg namespace (9acf807)
 * Telegram-API.tcl: Added logging for private bot commands (2d54a8c)
 * Telegram-API.tcl: Fixed recognizing public bot commands with @<botname> (7cb9f3f / 8e176d8)
+* Telegram-API.tcl: Added getColorFromUserID (fa441fa)
 * Telegram-API-config.tcl: Moved all config settings to the ::telegram namespace (f009e31 / e097100)
 * libtelegram.tcl: Removed unused code / Fixed bug when accessing the ::telegram::tg_web_page_preview (50f37dd)
 * Locate.tcl: Added url in IRC response (881774d)
