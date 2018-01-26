@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram TCL library v20180113                                               #
+# Telegram TCL library v20180126                                               #
 # This library has functions for interacting with the Telegram servers         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
@@ -8,6 +8,7 @@
 namespace eval libtelegram {
 	variable ::libtelegram::bot_id
 	variable ::libtelegram::bot_token
+}
 
 # ---------------------------------------------------------------------------- #
 # ::libtelegram::getUpdates                                                    #
@@ -16,11 +17,8 @@ namespace eval libtelegram {
 # https://core.telegram.org/bots/api#getUpdates                                #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getUpdates {offset} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]
-	} ] } {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]	} ] } {
 		putlog "Telegram-API: cannot connect to api.telegram.com using getUpdates method."
 		return -1
 	}
@@ -34,8 +32,6 @@ proc ::libtelegram::getUpdates {offset} {
 # https://core.telegram.org/bots/api#setwebhook                                #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::setWebHook {url certificate max_connections allowed_updates} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/setWebHook -d url=$url -d certificate=$certificate -d max_connections=$max_connections -d allowed_updates=$allowed_updates]
 	} ] } {
@@ -52,8 +48,6 @@ proc ::libtelegram::setWebHook {url certificate max_connections allowed_updates}
 # https://core.telegram.org/bots/api#deletewebhook                             #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::deleteWebHook {} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/deleteWebHook]
 	} ] } {
@@ -70,8 +64,6 @@ proc ::libtelegram::deleteWebHook {} {
 # https://core.telegram.org/bots/api#getwebhookinfo                            #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getWebHookInfo {} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getWebHookInfo]
 	} ] } {
@@ -88,8 +80,6 @@ proc ::libtelegram::getWebHookInfo {} {
 # https://core.telegram.org/bots/api#getMe                                     #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getMe {} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getMe]
 	} ] } {
@@ -106,10 +96,8 @@ proc ::libtelegram::getMe {} {
 # https://core.telegram.org/bots/api#sendmessage                               #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
-	global tg_bot_id tg_bot_token tg_web_page_preview
-
 	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMessage -d disable_web_page_preview=$tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d reply_to_message_id=$msg_id -d text=$message]
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMessage -d disable_web_page_preview=$::telegram::tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d reply_to_message_id=$msg_id -d text=$message]
 	} ] } {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendMessage reply method."
 		return -1
@@ -124,8 +112,6 @@ proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
 # https://core.telegram.org/bots/api#forwardmessage                            #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::forwardMessage {chat_id from_chat_id disable_notification message_id} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/forwardMessage -d chat_id=$chat_id -d from_chat_id=$from_chat_id -d disable_notification=$disable_notification -d message_id=$message_id]
 	} ] } {
@@ -142,8 +128,6 @@ proc ::libtelegram::forwardMessage {chat_id from_chat_id disable_notification me
 # https://core.telegram.org/bots/api#sendphoto                                 #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendPhoto {chat_id msg_id photo caption} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendPhoto -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d photo=$photo -d caption=$caption]
 	} ] } {
@@ -160,8 +144,6 @@ proc ::libtelegram::sendPhoto {chat_id msg_id photo caption} {
 # https://core.telegram.org/bots/api#sendaudio                                 #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendAudio {chat_id msg_id audio caption} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAudio -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d audio=$audio -d caption=$caption]
 	} ] } {
@@ -178,8 +160,6 @@ proc ::libtelegram::sendAudio {chat_id msg_id audio caption} {
 # https://core.telegram.org/bots/api#senddocument                              #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendDocument {chat_id msg_id document caption} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendDocument -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d document=$document -d caption=$caption]
 	} ] } {
@@ -196,8 +176,6 @@ proc ::libtelegram::sendDocument {chat_id msg_id document caption} {
 # https://core.telegram.org/bots/api#sendvideo                                 #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendVideo {chat_id msg_id video caption} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVideo -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video=$video -d caption=$caption]
 	} ] } {
@@ -214,8 +192,6 @@ proc ::libtelegram::sendVideo {chat_id msg_id video caption} {
 # https://core.telegram.org/bots/api#sendvoice                                 #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendVoice {chat_id msg_id voice caption} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVoice -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d voice=$voice -d caption=$caption]
 	} ] } {
@@ -232,8 +208,6 @@ proc ::libtelegram::sendVoice {chat_id msg_id voice caption} {
 # https://core.telegram.org/bots/api#sendvideonote                             #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendVideoNote {chat_id msg_id video_note} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVideoNote -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video_note=$video_note]
 	} ] } {
@@ -250,8 +224,6 @@ proc ::libtelegram::sendVideoNote {chat_id msg_id video_note} {
 # https://core.telegram.org/bots/api#sendmediagroup                            #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendMediaGroup {chat_id media disable_notification reply_to_msg_id} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMediaGroup -d chat_id=$chat_id -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_msg_id]
 	} ] } {
@@ -268,8 +240,6 @@ proc ::libtelegram::sendMediaGroup {chat_id media disable_notification reply_to_
 # https://core.telegram.org/bots/api#sendlocation                              #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendLocation {chat_id msg_id latitude longitude} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendLocation -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d latitude=$latitude -d longitude=$longitude]
 	} ] } {
@@ -286,8 +256,6 @@ proc ::libtelegram::sendLocation {chat_id msg_id latitude longitude} {
 # https://core.telegram.org/bots/api#sendvenue                                 #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendVenue {chat_id msg_id latitude longitude title address} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVenue -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d latitude=$latitude -d longitude=$longitude -d title=$title -d address=$address]
 	} ] } {
@@ -304,8 +272,6 @@ proc ::libtelegram::sendVenue {chat_id msg_id latitude longitude title address} 
 # https://core.telegram.org/bots/api#sendcontact                               #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendContact {chat_id msg_id phone_number first_name last_name} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendContact -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d phone_number=$phone_number -d first_name=$first_name -d last_name=$last_name]
 	} ] } {
@@ -322,8 +288,6 @@ proc ::libtelegram::sendContact {chat_id msg_id phone_number first_name last_nam
 # https://core.telegram.org/bots/api#sendChatAction                            #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendChatAction {chat_id action} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendChatAction -d chat_id=$chat_id -d action=$action]
 	} ] } {
@@ -340,8 +304,6 @@ proc ::libtelegram::sendChatAction {chat_id action} {
 # https://core.telegram.org/bots/api#getuserprofilephotos                      #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getUserProfilePhotos {user_id offset limit} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUserProfilePhotos -d user_id=$user_id -d offset=$offset -d limit=$limit]
 	} ] } {
@@ -358,8 +320,6 @@ proc ::libtelegram::getUserProfilePhotos {user_id offset limit} {
 # https://core.telegram.org/bots/api#getfile                                   #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getFile {file_id} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getFile -d file_id=$file_id]
 	} ] } {
@@ -376,8 +336,6 @@ proc ::libtelegram::getFile {file_id} {
 # https://core.telegram.org/bots/api#kickchatmember                            #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::kickChatMember {chat_id user_id} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/kickChatMember -d chat_id=$chat_id -d user_id=$user_id]
 	} ] } {
@@ -394,8 +352,6 @@ proc ::libtelegram::kickChatMember {chat_id user_id} {
 # https://core.telegram.org/bots/api#setchatphoto                              #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::setChatPhoto {chat_id photo} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/setChatPhoto -d chat_id=$chat_id -d photo=$photo]
 	} ] } {
@@ -417,8 +373,6 @@ proc ::libtelegram::setChatPhoto {chat_id photo} {
 # https://core.telegram.org/bots/api#setchattitle                              #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::setChatTitle {chat_id title} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/setChatTitle -d chat_id=$chat_id -d title=$title]
 	} ] } {
@@ -440,7 +394,6 @@ proc ::libtelegram::setChatTitle {chat_id title} {
 # https://core.telegram.org/bots/api#getchat                                   #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getChat {chat_id} {
-	global tg_bot_id tg_bot_token
 
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getChat -d chat_id=$chat_id]
@@ -458,8 +411,6 @@ proc ::libtelegram::getChat {chat_id} {
 # https://core.telegram.org/bots/api#getchatadministrators                     #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getChatAdministrators {chat_id} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getChatAdministrators -d chat_id=$chat_id]
 	} ] } {
@@ -476,8 +427,6 @@ proc ::libtelegram::getChatAdministrators {chat_id} {
 # https://core.telegram.org/bots/api#getchatmemberscount                       #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getChatMembersCount {chat_id} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getChatMembersCount -d chat_id=$chat_id]
 	} ] } {
@@ -494,8 +443,6 @@ proc ::libtelegram::getChatMembersCount {chat_id} {
 # https://core.telegram.org/bots/api#getchatmember                             #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getChatMember {chat_id user_id} {
-	global tg_bot_id tg_bot_token
-
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getChatMember -d chat_id=$chat_id -d user_id=$user_id]
 	} ] } {
@@ -503,6 +450,4 @@ proc ::libtelegram::getChatMember {chat_id user_id} {
 		return -1
 	}
 	return $result
-}
-
 }
