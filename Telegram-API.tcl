@@ -674,9 +674,11 @@ proc tg2irc_privateCommands {from_id msgid message} {
 					setuser $irchandle XTRA "TELEGRAM_CREATED" "[clock seconds]"
 				}
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERLOGIN "$::telegram::tg_bot_nickname" "$irchandle"]\n\n $lastlogin"
+				putlog "Telegram-API: Succesfull login from $from_id, username $irchandle"
 			} else {
 				# Username/password combo doesn't match
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERPASSWRONG]"
+				putlog "Telegram-API: Failed login attempt from $from_id, username $irchandle"
 			}
 		}
 
@@ -695,6 +697,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "$from_id"
 				setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "[clock seconds]"
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]"
+				putlog "Telegram-API: Succesfull logout from $from_id, username $irchandle"
 			} else {
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
 			}
@@ -720,8 +723,8 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				set irc_laston [clock format [lindex [split [getuser $irchandle LASTON] " "] 0] -format $timeformat]
 				set irc_hosts [getuser $irchandle HOSTS]
 				set irc_info [getuser $irchandle INFO]
-				putlog "$irc_hosts"
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERINFO "$irchandle" "$from_id" "$tg_lastlogin" "$tg_lastlogout" "$tg_lastuserid" "$tg_created" "$irc_created" "$irc_laston" "irc_hosts" "$irc_info"]"
+				putlog "Telegram-API: My informatio accessed by $from_id, username $irchandle"
 			} else {
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
 			}
@@ -738,7 +741,6 @@ proc tg2irc_privateCommands {from_id msgid message} {
 
 			# Not in our dynamic command list either, so respond with an unknown command message
 			::libtelegram::sendMessage $from_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
-			putchan $channel "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 		}
 	}
 }
