@@ -5,7 +5,7 @@ v20180126:
 * Telegram-API.tcl: Added logging for private bot commands (2d54a8c)
 * Telegram-API-config.tcl: Moved all config settings to the ::telegram namespace (f009e31 / e097100)
 * libtelegram.tcl: Removed unused code / Fixed bug when accessing the ::telegram::tg_web_page_preview (50f37dd)
-* Locate.tcl: Added url in IRC response
+* Locate.tcl: Added url in IRC response (881774d)
 
 v20180125:
 * Telegram-API.tcl: Added support for channels and edited messages (63d3aa0 / beb419f / ffe66b2 / 17c440e / 01c1f90 / 8a8cb31 / 154f4af / 3610e33 / a48e172 / 2c3b246)
