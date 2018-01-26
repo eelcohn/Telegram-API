@@ -1,3 +1,7 @@
+v20180126:
+* Telegram-API.tcl: Moved all config settings to the ::telegram namespace (f009e31 / e097100)
+* Telegram-API-config.tcl: Moved all config settings to the ::telegram namespace (f009e31 / e097100)
+
 v20180125:
 * Telegram-API.tcl: Added support for channels and edited messages (63d3aa0 / beb419f / ffe66b2 / 17c440e / 01c1f90 / 8a8cb31 / 154f4af / 3610e33 / a48e172 / 2c3b246)
 * Telegram-API.tcl: Fixed sending the caption of a photo to IRC (154f4af / 2c3b246)
