@@ -849,6 +849,18 @@ proc getColorFromString {string} {
 	# Return only values from 1 to 15
 	return [expr [expr $color % 15] + 1]
 }
+proc getColorFromUserID {user_id} {
+	array set colortable {	0	\004
+				1	\003
+				2	\007
+				3	\012
+				4	\006
+				5	\011
+				6	\013
+				7	\005}
+
+	return colortable([expr $user_id % 7])
+}
 
 # ---------------------------------------------------------------------------- #
 # Get the title of a website for website previews on IRC                       #
