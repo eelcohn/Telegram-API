@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Quote module for Eggdrop v20180124                              #
+# Telegram-API Quote module for Eggdrop v20180126                              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -24,13 +24,13 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 	}
 	close $quote_fd
 
-	set quote_count [expr $quote_count - 2]
+	set quote_count [expr $quote_count - 1]
 	if {$quote_id==""} { 
-		set quote_id [rand [expr $quote_count + 1]]
+		set quote_id [rand $quote_count]
 		set qot_sel $quote_list($quote_id)
 	} else {
 		if {[string is integer $quote_id]} {
-			unset quote_list([expr $quote_count + 1])
+			unset quote_list($quote_count)
 			if {![info exists quote_list([expr {$quote_id} - 1])]} {
 				set qot_sel [::msgcat::mc MSG_QUOTE_NOTEXIST $quote_id]
 			} else {
