@@ -55,4 +55,36 @@ array set stickertable {
 	{CAADBAADQgADyIsGAAHbkbbtFVHNZAI}	{"Whitney Houston - "}
 	{CAADBAADOwADyIsGAAFClAdwTFmgJwI}	{"Wilhelm Konrad Rontgen - "}
 	{CAADBAADRwADyIsGAAGQU-a9UvB-xQI}	{"William Shakespear - "}
+
+	# Evil minds stickerset
+	{CAADAgADhQMAAgi3GQJJ-luqZysfcQI}	{"Adolf Hitler"}
+	{CAADAgADhwMAAgi3GQJaBKaj3TGUPAI}	{"Albert de Gondi"}
+	{CAADAgADDwQAAgi3GQKn6x4arMBASgI}	{"Albert Fish"}
+	{CAADAgADLwQAAgi3GQIqOMZ-BTCsXAI}	{"Aleister Crowley"}
+	{CAADAgADIQQAAgi3GQJm4nUGNLXssAI}	{"Anton LaVey"}
+	{CAADAgADgwMAAgi3GQJR9yC4FrbWZAI}	{"Benito Mussolini"}
+	{CAADAgADlgMAAgi3GQL1c5fysxo50QI}	{"Caligula"}
+	{CAADAgADEgQAAgi3GQKgpTqoAoh63AI}	{"Elisabeth Bathory"}
+	{CAADAgADgQMAAgi3GQIiG0lIV05f5AI}	{"Grigori Rasputin"}
+	{CAADAgADiQMAAgi3GQJ7vTUBG994kQI}	{"Heinrich Himmler"}
+	{CAADAgADHQQAAgi3GQLlWmBAyRLdAAEC}	{"Herod the Great"}
+	{CAADAgADjQMAAgi3GQLa8GKrKtcI8wI}	{"Idi Amin Dada"}
+	{CAADAgADhwMAAgi3GQJaBKaj3TGUPAI}	{"Ioseb Goebbels"}
+	{CAADAgADkwMAAgi3GQIl7uGVipqu-QI}	{"Ivan the Terrible"}
+	{CAADAgADHwQAAgi3GQID7ia8R0aqJgI}	{"Jim Jones"}
+	{CAADAgADLQQAAgi3GQJ-iD6c-tUyxwI}	{"John Wilks Booth"}
+	{CAADAgADiwMAAgi3GQJbJJ5TL4zWFAI}	{"Joseph Stalin"}
+	{CAADAgADdQMAAgi3GQJVu8dRhRDFhwI}	{"Judas Iscariot"}
+	{CAADAgADMQQAAgi3GQI12tfK6nbikQI}	{"Mao Zedong"}
+	{CAADAgADKQQAAgi3GQJ45o2-bRDUZwI}	{"Nero Germanicus"}
+	{CAADAgADkQMAAgi3GQJnw6KGbwNtmwI}	{"Osama Bin Laden"}
+	{CAADAgADGwQAAgi3GQIAARgrCY1-Kg8C}	{"Pablo Escobar"}
+	{CAADAgADKwQAAgi3GQJIDzoO-7w0jAI}	{"Pol Pot"}
+	{CAADAgADfwMAAgi3GQImCrotVl2jpQI}	{"Pope Alexander VI"}
+	{CAADAgADjwMAAgi3GQLeZcznLRZS9QI}	{"Saddam Hussein"}
+	{CAADAgADfQMAAgi3GQLJsHVGG7QJ2gI}	{"Tomas de Torquemada"}
+	{CAADAgADJQQAAgi3GQKS4b910iYMrgI}	{"Victor Lustig"}
+	{CAADAgADeQMAAgi3GQIE0j5N4LIhQQI}	{"Vlad the Impaler"}
+	{CAADAgADIwQAAgi3GQIp7k4OQeIooQI}	{"Vladimir Lenin"}
+	{CAADAgAD6wcAAgi3GQLh6oKAnDyHSAI}	{"unknown"}
 }
