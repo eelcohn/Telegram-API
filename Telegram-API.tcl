@@ -872,6 +872,7 @@ source "[file join $scriptdir lib libjson.tcl]"
 source "[file join $scriptdir lib libtelegram.tcl]"
 source "[file join $scriptdir Telegram-API-config.tcl]"
 source "[file join $scriptdir utftable.tcl]"
+source "[file join $scriptdir Stickers.tcl]"
 
 # Set localization
 ::msgcat::mclocale $::telegram::locale
