@@ -16,7 +16,7 @@ array set stickertable {
 	{CAADBAADPwADyIsGAAGI1S2AmQ002AI}	{"Elvis Presley - "}
   {CAADBAADNwADyIsGAAFOgk-EJUfH-gI} {"Ervin Shryodinger - "}
 	{CAADBAADFgADyIsGAAGo-jfilnNJyAI}	{"Franz Kafka - https://telegram.org/file/811140332/2/KJzzslK440U/b11181fd7bbf1c56aa"}
-	{CAADBAADLQADyIsGAAGJcalkB0bXSQI}	{"Freddy Mercury - "}
+	{CAADBAADQAADyIsGAAE7MpzFPFQX5QI}	{"Freddy Mercury - "}
   {CAADBAADMgADyIsGAAGw4osRBXRB3AI} {"Frederik Douglas - "} 
 	{CAADBAADMwADyIsGAAFI6xgyK-qNMgI}	{"George Carlin - "}
   {CAADBAADRQADyIsGAAH1EiOQIkWtagI} {"George Orwell - "}
