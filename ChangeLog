@@ -1,4 +1,5 @@
 v20180128:
+* Added channel flags for user configurable notification of topic/mode changes of IRC channels (3a977af / fe60c51)
 * Moved sticker definitions from utftable.tcl to Stickers.tcl (1c9c665 / 16e4524 / e5b374f)
 * Telegram-API.tcl: Fixed translating stickers to ASCII code (03cc7ec)
 * Telegram-API.tcl: Updated handling stickers (3f0d4bd)
