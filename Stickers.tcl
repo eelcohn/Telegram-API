@@ -58,7 +58,7 @@ array set stickertable {
 
 	# Evil minds stickerset
 	{CAADAgADhQMAAgi3GQJJ-luqZysfcQI}	{"Adolf Hitler"}
-	{CAADAgADhwMAAgi3GQJaBKaj3TGUPAI}	{"Albert de Gondi"}
+	{CAADAgADDAQAAgi3GQLZhDzBxoQ47gI}	{"Albert de Gondi"}
 	{CAADAgADDwQAAgi3GQKn6x4arMBASgI}	{"Albert Fish"}
 	{CAADAgADLwQAAgi3GQIqOMZ-BTCsXAI}	{"Aleister Crowley"}
 	{CAADAgADIQQAAgi3GQJm4nUGNLXssAI}	{"Anton LaVey"}
