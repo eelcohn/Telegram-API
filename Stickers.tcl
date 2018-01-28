@@ -1,5 +1,6 @@
 array set stickersets {
 	{TelegramGreatMinds}	{"Great Minds"}
+	{EvilMinds}		{"Evil Minds"}
 }
 
 array set stickertable {
