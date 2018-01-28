@@ -1,4 +1,5 @@
 v20180128:
+* Telegram-API.tcl: Removed debug code from irc2tg_modeChange (336ba26)
 * Telegram-API.tcl: Updated colorization of nicknames to match colors in the Telegram-desktop (6845dfc)
 * Telegram-API-config.tcl: Updated colorization of nicknames to match colors in the Telegram-desktop (809b6c5)
 
