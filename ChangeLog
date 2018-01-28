@@ -1,5 +1,6 @@
 v20180128:
 * Moved sticker definitions from utftable.tcl to Stickers.tcl (1c9c665 / 16e4524 / e5b374f)
+* Telegram-API.tcl: Fixed translating stickers to ASCII code (03cc7ec)
 * Telegram-API.tcl: Updated handling stickers (3f0d4bd)
 * en.msg: Updated handling stickers (dedafa2)
 * nl.msg: Updated handling stickers (2752840)
