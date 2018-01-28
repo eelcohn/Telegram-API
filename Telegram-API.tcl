@@ -170,7 +170,7 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 	if {[string first "m" $::telegram::userflags]} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
-				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
+#				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
 			}
 		}
 	}
