@@ -167,17 +167,11 @@ proc irc2tg_nickKicked {nick uhost handle channel target reason} {
 # Inform the Telegram group(s) that a channel's mode has changed               #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_modeChange {nick uhost hand channel mode target} {
-	# Don't send mode changes to the Telegram if the bot just joined the IRC channel
-	if {$nick eq $::telegram::irc_bot_nickname} {
-#		if {$::server-online+30 < [clock seconds]} {
-			putlog "$::telegram::irc_bot_nickname changes mode $mode at [clock seconds] (serveronline=$::server-online)"
-			return 0
-#		}
-	}
-
-	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-		if {$channel eq $tg_channel} {
-#			::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
+	if {[string first "m" $::telegram::userflags]} {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$channel eq $tg_channel} {
+				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
+			}
 		}
 	}
 	return 0
