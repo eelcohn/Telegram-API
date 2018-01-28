@@ -1,3 +1,7 @@
+v20180128:
+* Telegram-API.tcl: Updated colorization of nicknames to match colors in the Telegram-desktop (6845dfc)
+* Telegram-API-config.tcl: Updated colorization of nicknames to match colors in the Telegram-desktop (809b6c5)
+
 v20180126:
 * Telegram-API.tcl: Moved all config settings to the ::telegram namespace (f009e31 / e097100 / 47fade3 / d5c8dad)
 * Telegram-API.tcl: Added support for dynamic private bot commands (b26e9c2 / e908296)
