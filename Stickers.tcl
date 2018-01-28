@@ -18,7 +18,7 @@ array set stickertable {
 	{CAADBAADNwADyIsGAAFOgk-EJUfH-gI}	{"Ervin Shryodinger - "}
 	{CAADBAADFgADyIsGAAGo-jfilnNJyAI}	{"Franz Kafka - https://telegram.org/file/811140332/2/KJzzslK440U/b11181fd7bbf1c56aa"}
 	{CAADBAADQAADyIsGAAE7MpzFPFQX5QI}	{"Freddy Mercury - "}
-	{CAADBAADMgADyIsGAAGw4osRBXRB3AI}	{"Frederik Douglas - "} 
+	{CAADBAADMgADyIsGAAGw4osRBXRB3AI}	{"Frederik Douglas - https://telegram.org/file/811140519/1/8vLtx2w3n10/2a603572363d422fc0"} 
 	{CAADBAADMwADyIsGAAFI6xgyK-qNMgI}	{"George Carlin - "}
 	{CAADBAADRQADyIsGAAH1EiOQIkWtagI}	{"George Orwell - "}
 	{CAADBAADNAADyIsGAAGjDT0cxHKm2gI}	{"George Washington - "}
@@ -32,20 +32,20 @@ array set stickertable {
 	{CAADBAADEgADyIsGAAE-gRk5Wrs8NwI}	{"Julius Cesar approves - https://telegram.org/file/811140007/2/uHbXgsdVXQY/a75eee858dd829fb89"}
 	{CAADBAADIAADyIsGAAGwI-I5pMSEdQI}	{"Julius Cesar disapproves - https://telegram.org/file/811140801/1/14Ka_5LSkus/11ef924b87783bd339"}
 	{CAADBAADPgADyIsGAAEuCrQ7AXgedwI}	{"Kurt Cobain - "}
-	{CAADBAADLAADyIsGAAF6cRm5hiOkCAI}	{"Lady Diana - "}
 	{CAADBAADRgADyIsGAAF-kAhqVu7-1QI}	{"Leopold von Sacher-Masoch - "}
 	{CAADBAADQQADyIsGAAHv8OkTOGk0SwI}	{"Louis Armstrong - "}
 	{CAADBAADGwADyIsGAAE68wt0DU90mgI}	{"Mahatma Gandhi - https://telegram.org/file/811140053/1/A6JVcXDZiZM/d28d4a5029d010e953"}
-	{CAADBAADLwADyIsGAAHjj-PTeuEdBgI}	{"Malcom X - "}
+	{CAADBAADLwADyIsGAAHjj-PTeuEdBgI}	{"Malcom X - https://telegram.org/file/811140689/2/VQ95ysNb35U/4adabae15888ee9b37"}
 	{CAADBAADEAADyIsGAAFCZre3kULkngI}	{"Marilyn Monroe - https://telegram.org/file/811140117/2/dGMVFePbDos/68ae9b4e90b10c1fb8"}
 	{CAADBAADHwADyIsGAAFHId3ggt-PAAEC}	{"Mark Twain - https://telegram.org/file/811140849/1/cpP6i93xxaA/c082e8a2ad59522cfd"}
 	{CAADBAADMQADyIsGAAEX-8KrVIT5lwI}	{"Napoleon Bonaparte - https://telegram.org/file/811140354/1/-NUBye754Pw/2fa1e3148047b624b3"}
 	{CAADBAADFQADyIsGAAHPdbDyCcpB8gI}	{"Nikola Tesla - "}
-	{CAADBAADEwADyIsGAAHgGKfPXeaQDAI}	{"Richard Wagner - "}
+	{CAADBAADLAADyIsGAAF6cRm5hiOkCAI}	{"Princess Diana - https://telegram.org/file/811140066/2/mv4D4qzDys8/d19275c7c681c63367"}
+	{CAADBAADEwADyIsGAAHgGKfPXeaQDAI}	{"Richard Wagner - https://telegram.org/file/811140446/1/ZOVGuV17wSI/932a093624e7bec4c9"}
 	{CAADBAADHAADyIsGAAFzjQavel2uswI}	{"Salvador Dali - https://telegram.org/file/811140579/1/i974MzakdcM/7752f8ee0262a57fdd"}
-	{CAADBAADGgADyIsGAAHw_WAnR5mwUAI}	{"Siegmund Freud - "}
+	{CAADBAADGgADyIsGAAHw_WAnR5mwUAI}	{"Siegmund Freud - https://telegram.org/file/811140811/2/FJWJRL9vxME/b44ed832aced2e6dc7"}
 	{CAADBAADFwADyIsGAAF1CK9t7qjAigI}	{"Steve Jobs - https://telegram.org/file/811140823/2/gEXq-ZISs9g/55f6c9c9f87c4dceb0"}
-	{CAADBAADJwADyIsGAAH6wu4EMqyrvgI}	{"Virginia Vulf - "}
+	{CAADBAADJwADyIsGAAH6wu4EMqyrvgI}	{"Virginia Vulf - https://telegram.org/file/811140251/1/kjMKzKP2S6o/16635fe8e0485bd0b8"}
 	{CAADBAADNQADyIsGAAF_Q3DFvKDCzgI}	{"Walt Disney - "}
 	{CAADBAADQgADyIsGAAHbkbbtFVHNZAI}	{"Whitney Houston - "}
 	{CAADBAADOwADyIsGAAFClAdwTFmgJwI}	{"Wilhelm Konrad Rontgen - "}
