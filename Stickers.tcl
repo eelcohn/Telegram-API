@@ -1,3 +1,7 @@
+array set stickersets {
+	{TelegramGreatMinds}	{"Great Minds"}
+}
+
 array set stickertable {
 	# Great minds stickerset
 	{CAADBAADGQADyIsGAAFl6KYZBflVyQI}	{"Abraham Lincoln - https://telegram.org/file/811140066/1/7fM-CwKk4F0/53f9f1fc731c63547d"}
