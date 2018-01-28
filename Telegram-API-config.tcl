@@ -14,7 +14,8 @@ set ::telegram::tg_web_page_preview	false
 set ::telegram::locale			"en"
 set ::telegram::timeformat		"%Y-%m-%d %H:%M:%S"
 set ::telegram::colorize_nicknames	7
-set ::telegram::userflags		"jlvck"
+set ::telegram::userflags		"jlvckm"
+set ::telegram::chanflags		"tms"
 set ::telegram::cmdmodifier		"/"
 array set	::telegram::usercolors	{	0	4
 						1	7
