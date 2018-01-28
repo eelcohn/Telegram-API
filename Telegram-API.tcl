@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180126 for Eggdrop                                    #
+# Telegram-API module v20180128 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -15,14 +15,6 @@ set		::telegram::tg_bot_realname	""
 set 		::telegram::irc_bot_nickname	""
 set		::telegram::userflags		"jlvck"
 set		::telegram::cmdmodifier		"/"
-array set	::telegram::usercolors	{	0	4
-						1	3
-						2	6
-						3	12
-						4	7
-						5	11
-						6	13
-						7	5}
 array set	::telegram::public_commands	{}
 array set	::telegram::private_commands	{}
 
@@ -261,10 +253,7 @@ proc tg2irc_pollTelegram {} {
 					if {$name == "null" } {
 						set name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
 					}
-
-					if {$::telegram::colorize_nicknames == "true"} {
-						set name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$name\003"
-					}
+					set name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$name\003"
 				}
 
 				# Check if this message is a reply to a previous message
@@ -273,9 +262,7 @@ proc tg2irc_pollTelegram {} {
 					if {$replyname == "null" } {
 						set replyname [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.reply_to_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.reply_to_message.from.last_name//empty"]]]
 					}
-					if {$::telegram::colorize_nicknames == "true"} {
-						set replyname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.reply_to_message.from.id"]]$replyname\003"
-					} 
+					set replyname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.reply_to_message.from.id"]]$replyname\003"
 				}
 
 				# Check if this message is a forwarded message
@@ -284,9 +271,7 @@ proc tg2irc_pollTelegram {} {
 					if {$forwardname == "null" } {
 						set forwardname [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.forward_from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.forward_from.last_name//empty"]]]
 					}
-					if {$::telegram::colorize_nicknames == "true"} {
-						set forwardname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.forward_from.id"]]$forwardname\003"
-					} 
+					set forwardname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.forward_from.id"]]$forwardname\003"
 				}
 
 				# Check if a text message has been sent to the Telegram group
@@ -847,7 +832,13 @@ proc url_encode {str} {
 # Calculate an IRC color code for a user ID                                    #
 # ---------------------------------------------------------------------------- #
 proc getColorFromUserID {user_id} {
-	return $::telegram::usercolors([expr $user_id % 7])
+	if {($::telegram::colorize_nicknames == 0) || ($::telegram::colorize_nicknames > 15)} {
+		# Default color is black for no colorization
+		return 1
+	} else {
+		# Calculate color by doing userid mod x, where x is 1...15
+		return $::telegram::usercolors([expr $user_id % $::telegram::colorize_nicknames])
+	}
 }
 
 # ---------------------------------------------------------------------------- #
