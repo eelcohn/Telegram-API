@@ -296,6 +296,19 @@ proc tg2irc_pollTelegram {} {
 					}
 				}
 
+				# Check if a sticker has been sent to the Telegram group
+				if {[::libjson::hasKey $msg ".$msgtype.sticker"]} {
+					set setname [::libjson::getValue $msg ".$msgtype.sticker.set_name"]
+					set emoji [::libjson::getValue $msg ".$msgtype.sticker.emoji"]
+					set file_id [::libjson::getValue $msg ".$msgtype.sticker.file_id"]
+
+					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
+						if {$chatid eq $tg_chat_id} {
+							putchan $irc_channel [::msgcat::mc MSG_TG_STICKERSENT "$name" "setname" "[sticker2ascii $file_id]"]
+						}
+					}
+				}
+
 				# Check if audio has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".$msgtype.audio"]} {
 					set tg_file_id [::libjson::getValue $msg ".$msgtype.audio.file_id"]
@@ -338,18 +351,6 @@ proc tg2irc_pollTelegram {} {
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							putchan $irc_channel [::msgcat::mc MSG_TG_PHOTOSENT "$name" "$caption" "$::telegram::irc_bot_nickname" "$tg_file_id"]
-						}
-					}
-				}
-
-				# Check if a sticker has been sent to the Telegram group
-				if {[::libjson::hasKey $msg ".$msgtype.sticker"]} {
-					set setname [::libjson::getValue $msg ".$msgtype.sticker.set_name"]
-					set emoji [::libjson::getValue $msg ".$msgtype.sticker.file_id"]
-
-					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
-						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_STICKERSENT "$name" "setname" "[sticker2ascii $emoji]"]
 						}
 					}
 				}
@@ -783,16 +784,16 @@ proc ascii2utf {txt} {
 # ---------------------------------------------------------------------------- #
 # Replace sticker code with ASCII code                                         #
 # ---------------------------------------------------------------------------- #
-proc sticker2ascii {txt} {
+proc sticker2ascii {file_id} {
 	global stickertable
 
-	foreach {utfstring stickerdesc} [array get stickertable] {
-		set txt [string map -nocase [concat $utfstring $stickerdesc] $txt]
+	foreach {filedesc stickerdesc} [array get stickertable] {
+		if {$file_id == $filedesc} {
+			return $stickerdesc
+		}
 	}
-	if {$stickerdesc eq ""} {
-		return [::msgcat::mc MSG_TG_UNKNOWNSTICKER]
-	}
-	return $stickerdesc
+
+	return [::msgcat::mc MSG_TG_UNKNOWNSTICKER]
 }
 
 # ---------------------------------------------------------------------------- #
