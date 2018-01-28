@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - Dutch language file v20180123              #
+# Telegram-API module for Eggdrop - Dutch language file v20180128              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -21,7 +21,7 @@
 ::msgcat::mcset nl MSG_TG_AUDIOSENT		"%1\$s@Telegram heeft een audiobestand verstuurd: %2\$s - %3\$s (%4\$s s). Gebruik /ctcp %5\$s tgfile %6\$s om het bestand te downloaden."
 ::msgcat::mcset nl MSG_TG_DOCSENT		"%1\$s@Telegram heeft een document verstuurd: %2\$s (%3\$s bytes). Gebruik /ctcp %4\$s tgfile %5\$s om het bestand te downloaden."
 ::msgcat::mcset nl MSG_TG_PHOTOSENT		"%1\$s@Telegram heeft een foto verstuurd%2\$s. Gebruik /ctcp %3\$s tgfile %4\$s om het bestand te downloaden."
-::msgcat::mcset nl MSG_TG_STICKERSENT		"%1\$s@Telegram heeft een sticker verstuurd (%2\$s)."
+::msgcat::mcset nl MSG_TG_STICKERSENT		"%1\$s@Telegram heeft een sticker uit de %s serie verstuurd (%2\$s)."
 ::msgcat::mcset nl MSG_TG_VIDEOSENT		"%1\$s@Telegram heeft een video verstuurd%2\$s (%3\$s s). Gebruik /ctcp %4\$s tgfile %5\$s om het bestand te downloaden."
 ::msgcat::mcset nl MSG_TG_VOICESENT		"%1\$s@Telegram heeft een voicebestand verstuurd: %2\$s (%3\$s bytes). Gebruik /ctcp %4\$s tgfile %5\$s om het bestand te downloaden."
 ::msgcat::mcset nl MSG_TG_CONTACTSENT		"%1\$s@Telegram heeft een contact verstuurd: %2\$s (%3\$s %4\$s)."
