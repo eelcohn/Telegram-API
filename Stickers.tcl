@@ -23,7 +23,7 @@ array set stickertable {
 	{CAADBAADRQADyIsGAAH1EiOQIkWtagI}	{"George Orwell - "}
 	{CAADBAADNAADyIsGAAGjDT0cxHKm2gI}	{"George Washington - "}
 	{CAADBAADOQADyIsGAAG3aA9Q2a6wywI}	{"Howard Lavkraft - "}
-	{CAADBAADNQADyIsGAAF_Q3DFvKDCzgI}	{"Isaac Newton - "}
+	{CAADBAADRAADyIsGAAFtStkoP5sgQQI}	{"Isaac Newton - "}
 	{CAADBAADLQADyIsGAAGJcalkB0bXSQI}	{"Jay Hawkins - https://telegram.org/file/811140885/1/r4SVbb90Quc/7333932a5fdcf5f057"}
 	{CAADBAADLgADyIsGAAGPsGcNmlLjPQI}	{"Jimi Hendrix - https://telegram.org/file/811140525/2/vCDL8Gv_k6U/a39c95e5aa621c46c6"}
 	{CAADBAADOgADyIsGAAH3hdtO3aqUpwI}	{"Jeanne d'Arc - "}
