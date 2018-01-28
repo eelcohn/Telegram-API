@@ -344,11 +344,12 @@ proc tg2irc_pollTelegram {} {
 
 				# Check if a sticker has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".$msgtype.sticker"]} {
-					set emoji [::libjson::getValue $msg ".$msgtype.thumb.file_id"]
+					set setname [::libjson::getValue $msg ".$msgtype.sticker.set_name"]
+					set emoji [::libjson::getValue $msg ".$msgtype.sticker.file_id"]
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_STICKERSENT "$name" "[sticker2ascii $emoji]"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_STICKERSENT "$name" "setname" "[sticker2ascii $emoji]"]
 						}
 					}
 				}
