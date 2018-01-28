@@ -21,7 +21,7 @@
 ::msgcat::mcset en MSG_TG_AUDIOSENT		"%s@Telegram has sent an audiofile: %s - %s (%s s). Use /ctcp %s tgfile %s to download the file."
 ::msgcat::mcset en MSG_TG_DOCSENT			"%s@Telegram has sent a document: %s (%s bytes).  Use /ctcp %s tgfile %s to download the file."
 ::msgcat::mcset en MSG_TG_PHOTOSENT		"%s@Telegram has sent a photo%s. Use /ctcp %s tgfile %s to download the file."
-::msgcat::mcset en MSG_TG_STICKERSENT		"%s@Telegram has sent a sticker (%s)."
+::msgcat::mcset en MSG_TG_STICKERSENT		"%s@Telegram has sent a sticker from the %s set (%s)."
 ::msgcat::mcset en MSG_TG_VIDEOSENT		"%s@Telegram has sent a video%s (%s s). Use /ctcp %s tgfile %s to download the file."
 ::msgcat::mcset en MSG_TG_VOICESENT		"%s@Telegram has sent a voice file: %s (%s bytes). Use /ctcp %s tgfile %s to download the file."
 ::msgcat::mcset en MSG_TG_CONTACTSENT		"%s@Telegram has sent a contact: %s (%s %s)."
