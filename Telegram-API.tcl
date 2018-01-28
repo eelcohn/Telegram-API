@@ -14,6 +14,7 @@ set		::telegram::tg_bot_nickname	""
 set		::telegram::tg_bot_realname	""
 set 		::telegram::irc_bot_nickname	""
 set		::telegram::userflags		"jlvck"
+set		::telegram::chanflags		"tms"
 set		::telegram::cmdmodifier		"/"
 array set	::telegram::public_commands	{}
 array set	::telegram::private_commands	{}
@@ -137,11 +138,15 @@ proc irc2tg_nickChange {nick uhost handle channel newnick} {
 proc irc2tg_topicChange {nick uhost handle channel topic} {
 	global serveraddress
 
-	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-		if {$channel eq $tg_channel} {
-			if {$nick ne "*"} {
-				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"]
-				::libtelegram::setChatTitle $chat_id $topic
+	if {[string match "*t*" $::telegram::chanflags]} {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$channel eq $tg_channel} {
+				if {$nick ne "*"} {
+					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"]
+					if {[string match "*s*" $::telegram::chanflags]} {
+						::libtelegram::setChatTitle $chat_id $topic
+					}
+				}
 			}
 		}
 	}
@@ -167,10 +172,22 @@ proc irc2tg_nickKicked {nick uhost handle channel target reason} {
 # Inform the Telegram group(s) that a channel's mode has changed               #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_modeChange {nick uhost hand channel mode target} {
-	if {[string match "*m*" $::telegram::userflags]} {
-		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-			if {$channel eq $tg_channel} {
-				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
+	if {$target == ""} {
+		# Mode change target was a channel
+		if {[string match "*m*" $::telegram::chanflags]} {
+			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+				if {$channel eq $tg_channel} {
+					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
+				}
+			}
+		}
+	} else {
+		# Mode change target was an user
+		if {[string match "*m*" $::telegram::userflags]} {
+			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+				if {$channel eq $tg_channel} {
+					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
+				}
 			}
 		}
 	}
