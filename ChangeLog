@@ -1,3 +1,6 @@
+v20180129:
+* libtelegram.tcl: Added ::libtelegram::downloadFile for downloading attachments (361b0be)
+
 v20180128:
 * Added channel flags for user configurable notification of topic/mode changes of IRC channels (3a977af / fe60c51)
 * Moved sticker definitions from utftable.tcl to Stickers.tcl (1c9c665 / 16e4524 / e5b374f)
