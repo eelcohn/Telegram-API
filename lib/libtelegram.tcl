@@ -8,7 +8,6 @@
 namespace eval libtelegram {
 	variable ::libtelegram::bot_id
 	variable ::libtelegram::bot_token
-	set ::libtelegram::max_file_size 20480000
 }
 
 # ---------------------------------------------------------------------------- #
@@ -451,35 +450,4 @@ proc ::libtelegram::getChatMember {chat_id user_id} {
 		return -1
 	}
 	return $result
-}
-
-# ---------------------------------------------------------------------------- #
-# ::libtelegram::downloadFile                                                  #
-# ---------------------------------------------------------------------------- #
-# Download a Telegram attachment                                               #
-# https://core.telegram.org/bots/api#getfile                                   #
-# ---------------------------------------------------------------------------- #
-proc ::libtelegram::downloadFile {file_path file_id} {
-	set filename [file join $temp-path $file_id]
-
-	# Check if we can open a temp file
-	if { [catch {open $filename w} fo] } {
-		# Probably no need to close and delete the file, but we'll do it anyways just to be sure
-		close $fo
-		file delete -force $filename
-		putlog "::libtelegram::downloadFile: cannot create temp file $filename"
-		return -1
-	} else {
-		fconfigure $fo -translation binary
-		if { [ catch {
-			puts -nonewline $fo [exec curl --tlsv1.2 --max-filesize $::libtelegram::max_file_size --range 0-$::libtelegram::max_file_size --silent --request POST https://api.telegram.org/file/bot$::libtelegram::bot_id:$::libtelegram::bot_token/$file_path]
-		} ] } {
-			close $fo
-			file delete -force $filename
-			putlog "Telegram-API: cannot connect to api.telegram.com for downloading $file_path"
-			return -2
-		}
-	}
-	close $fo
-	return 0
 }
