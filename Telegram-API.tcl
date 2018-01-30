@@ -194,6 +194,85 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 	return 0
 }
 
+# ---------------------------------------------------------------------------- #
+# Download a Telegram attachment and send it via DCC to an IRC user            #
+# ---------------------------------------------------------------------------- #
+proc irc2tg_sendFile {nick hostmask handle channel text} {
+	set file_id $text
+	set max_file_size 20480000
+
+#	if {[regexp {"/[^A-Za-z0-9\-_]/"} $file_id]} {
+		set result [::libtelegram::getFile $file_id]
+		if {$result ne -1} {
+			set file_path [::libjson::getValue $result ".result.file_path"]
+			set file_size [::libjson::getValue $result ".result.file_size"]
+
+			if {$file_size > $max_file_size} {
+				putlog "sendTgFileByDCC: file $file_id too big ($file_size)"
+				putchan $channel "Could not send file. Please ask the admin to take a look at the log file."
+				return -1
+			} else {
+				set filename [file join /tmp $file_id]
+				if {[::libtelegram::downloadFile $file_path $filename] eq 0} {
+					# To prevent our temp folder filling up with downloaded Telegram files, we'll set a timeout on the filetransfer
+					bind TOUT * * [cleanUpFile $file_id]
+
+					if {[info exists $filename]} {
+						switch -- [dccsend $filename $nick] {
+							0 {
+								puthelp "NOTICE $nick :Sending $filename to you."
+							}
+
+							1 {
+								puthelp "NOTICE $nick :dcc table is full (too many connections), try to get $filename later."
+							}
+
+							2 {
+								puthelp "NOTICE $nick :can't open a socket for the transfer of $filename."
+							}
+
+							3 {
+								puthelp "NOTICE $nick :$filename doesn't exist."
+							}
+
+							4 {
+								puthelp "NOTICE $nick :$filename was queued for later transfer."
+							}
+
+							default {
+								putlog "sendTgFileByDCC: dccsend returned default value! This should never happen, please check your log files!"
+							}
+						}
+					}
+					dccsend $filename $nick
+				} else {
+					putlog "::libtelegram::downloadFile failed"
+					putchan $channel "Could not send file. Please ask the admin to take a look at the log file."
+					return -2
+				}
+			}
+		} else {
+			putlog "::libtelegram::getFile failed"
+			putchan $channel "Could not send file. Please ask the admin to take a look at the log file."
+			return -3
+		}
+#	} else {
+#		putlog "sendTgFileByDCC: $nick ($hostmask) attempted to download an illegal Telegram file: $file_id"
+#		return -4
+#	}
+}
+
+# ---------------------------------------------------------------------------- #
+# Delete the downloaded Telegram attachment after use                          #
+# ---------------------------------------------------------------------------- #
+proc cleanUpFile {filename} {
+	if { [catch { file delete -force $filename } error] } {
+		putlog "WARNING! Could not delete temporary file $filename!"
+		return -1
+	}
+	return 0
+}
+
 
 
 # ---------------------------------------------------------------------------- #
@@ -941,6 +1020,7 @@ bind nick - * irc2tg_nickChange
 bind topc - * irc2tg_topicChange
 bind kick - * irc2tg_nickKicked
 bind mode - * irc2tg_modeChange
+bind pub * /tgfile irc2tg_sendFile
 
 initialize
 
