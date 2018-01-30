@@ -1,6 +1,3 @@
-v20180130:
-* Telegram-API.tcl: Userflags can now be added on a per-user base to the userfile (b654f29)
-
 v20180126:
 * Telegram-API.tcl: Moved all config settings to the ::telegram namespace (f009e31 / e097100 / 47fade3 / d5c8dad)
 * Telegram-API.tcl: Added support for dynamic private bot commands (b26e9c2 / e908296)
