@@ -777,6 +777,29 @@ proc del_private_command {keyword} {
 	}
 }
 
+# ---------------------------------------------------------------------------- #
+# Remove a bot command from the dynamic bot command list                       #
+# ---------------------------------------------------------------------------- #
+proc getUserFlags {irchandle} {
+	set irchandle ""
+
+	# Look up the IRC handle for the Telegram user
+	foreach user [userlist] {
+		if {[getuser $user XTRA "TELEGRAM_USERID"] == "$from_id"} {
+			set irchandle $user
+		}
+	}
+
+	if {$irchandle != ""} {
+		if {[getuser $irchandle XTRA "TELEGRAM_USERFLAGS"] == ""} {
+			return $::telegram::userflags
+		} else {
+			return [getuser $irchandle XTRA "TELEGRAM_USERFLAGS"]
+		}
+	}
+	return $::telegram::userflags
+}	
+
 
 
 # ---------------------------------------------------------------------------- #
