@@ -1,3 +1,6 @@
+v20180130:
+* Telegram-API.tcl: Userflags can now be added on a per-user base to the userfile (b654f29)
+
 v20180129:
 * libtelegram.tcl: Added ::libtelegram::downloadFile for downloading attachments (361b0be)
 
