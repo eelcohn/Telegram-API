@@ -18,6 +18,7 @@ set		::telegram::chanflags		"tms"
 set		::telegram::cmdmodifier		"/"
 array set	::telegram::public_commands	{}
 array set	::telegram::private_commands	{}
+array set	::telegram::filetransfers	{}
 
 
 
@@ -212,13 +213,15 @@ proc irc2tg_sendFile {nick hostmask handle channel text} {
 				puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
 				return -1
 			} else {
-				set filename [file join /tmp [file tail $file_path]]
-				if {[::libtelegram::downloadFile $file_path $filename] eq 0} {
-					if {[file exists $filename]} {
+				set filename [file tail $file_path]
+				set fullname [file join /tmp $filename]
+				if {[::libtelegram::downloadFile $file_path $fullname] eq 0} {
+					if {[file exists $fullname]} {
 						# To prevent our temp folder filling up with downloaded Telegram files, we'll set a timeout on the filetransfer
-						bind TOUT * * [cleanUpFile $filename]
+						set filetransfers($fullname) [clock seconds]
+						bind TOUT * * cleanUpFile
 
-						switch -- [dccsend $filename $nick] {
+						switch -- [dccsend $fullname $nick] {
 							0 {
 								puthelp "NOTICE $nick :Sending $filename to you."
 							}
@@ -265,13 +268,15 @@ proc irc2tg_sendFile {nick hostmask handle channel text} {
 # ---------------------------------------------------------------------------- #
 # Delete the downloaded Telegram attachment after use                          #
 # ---------------------------------------------------------------------------- #
-proc cleanUpFile {filename} {
-	if { [catch { file delete -force $filename } error] } {
-		putlog "WARNING! Could not delete temporary file $filename!"
-		return -1
+proc cleanUpFile {} {
+	foreach {file_id time} [array get ::telegram::filetransfers] {
+		if {[eval $time + {$xfer-timeout}] >= [clock seconds]} {
+			if { [catch { file delete -force $filename } error] } {
+			putlog "WARNING! Could not delete temporary file $filename!"
+		} else {
+			putlog "File $filename succesfully deleted"
+		}
 	}
-	putlog "File $filename succesfully deleted"
-	return 0
 }
 
 
