@@ -660,9 +660,7 @@ proc ::libtelegram::deleteChatStickerSet {chat_id sticker_set_name} {
 # Download a Telegram attachment                                               #
 # https://core.telegram.org/bots/api#getfile                                   #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::downloadFile {file_path file_id} {
-	set filename [file join $temp-path $file_id]
-
+proc ::libtelegram::downloadFile {file_path filename} {
 	# Check if we can open a temp file
 	if { [catch {open $filename w} fo] } {
 		# Probably no need to close and delete the file, but we'll do it anyways just to be sure
