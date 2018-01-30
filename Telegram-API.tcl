@@ -208,8 +208,8 @@ proc irc2tg_sendFile {nick hostmask handle channel text} {
 			set file_size [::libjson::getValue $result ".result.file_size"]
 
 			if {$file_size > $max_file_size} {
-				putlog "sendTgFileByDCC: file $file_id too big ($file_size)"
-				putchan $channel "Could not send file. Please ask the admin to take a look at the log file."
+				putlog "irc2tg_sendFile: file $file_id too big ($file_size)"
+				puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
 				return -1
 			} else {
 				set filename [file join /tmp [file tail $file_path]]
@@ -240,24 +240,24 @@ proc irc2tg_sendFile {nick hostmask handle channel text} {
 							}
 
 							default {
-								putlog "sendTgFileByDCC: dccsend returned default value! This should never happen, please check your log files!"
+								putlog "irc2tg_sendFile: dccsend returned default value! This should never happen, please check your log files!"
+								puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
 							}
 						}
 					}
-					dccsend $filename $nick
 				} else {
-					putlog "::libtelegram::downloadFile failed"
-					putchan $channel "Could not send file. Please ask the admin to take a look at the log file."
+					putlog "irc2tg_sendFile: ::libtelegram::downloadFile failed"
+					puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
 					return -2
 				}
 			}
 		} else {
-			putlog "::libtelegram::getFile failed"
-			putchan $channel "Could not send file. Please ask the admin to take a look at the log file."
+			putlog "irc2tg_sendFile: ::libtelegram::getFile failed"
+			puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
 			return -3
 		}
 #	} else {
-#		putlog "sendTgFileByDCC: $nick ($hostmask) attempted to download an illegal Telegram file: $file_id"
+#		puthelp "NOTICE $nick :irc2tg_sendFile: $nick ($hostmask) attempted to download an illegal Telegram file: $file_id"
 #		return -4
 #	}
 }
@@ -270,6 +270,7 @@ proc cleanUpFile {filename} {
 		putlog "WARNING! Could not delete temporary file $filename!"
 		return -1
 	}
+	putlog "File $filename succesfully deleted"
 	return 0
 }
 
