@@ -1020,7 +1020,7 @@ bind nick - * irc2tg_nickChange
 bind topc - * irc2tg_topicChange
 bind kick - * irc2tg_nickKicked
 bind mode - * irc2tg_modeChange
-bind pub * /tgfile irc2tg_sendFile
+bind pub * !tgfile irc2tg_sendFile
 
 initialize
 
