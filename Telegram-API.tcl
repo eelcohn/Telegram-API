@@ -679,6 +679,12 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				if {[getuser $irchandle XTRA "TELEGRAM_CREATED"] == ""} {
 					setuser $irchandle XTRA "TELEGRAM_CREATED" "[clock seconds]"
 				}
+
+				# Set the userflags to the default settings
+				if {[getuser $irchandle XTRA "TELEGRAM_USERFLAGS"] == ""} {
+					setuser $irchandle XTRA "TELEGRAM_USERFLAGS" "$::telegram::userflags"
+				}
+
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERLOGIN "$::telegram::tg_bot_nickname" "$irchandle"]\n\n $lastlogin"
 				putlog "Telegram-API: Succesfull login from $from_id, username $irchandle"
 			} else {
@@ -725,6 +731,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 				set tg_lastlogout [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGOUT"] -format $timeformat]
 				set tg_lastuserid [getuser $irchandle XTRA "TELEGRAM_LASTUSERID"]
 				set tg_created [clock format [getuser $irchandle XTRA "TELEGRAM_CREATED"] -format $timeformat]
+				set tg_userflags [getuser $irchandle XTRA "TELEGRAM_USERFLAGS"]
 				set irc_created [clock format [getuser $irchandle XTRA "created"] -format $timeformat]
 				set irc_laston [clock format [lindex [split [getuser $irchandle LASTON] " "] 0] -format $timeformat]
 				set irc_hosts [getuser $irchandle HOSTS]
