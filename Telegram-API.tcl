@@ -214,10 +214,10 @@ proc irc2tg_sendFile {nick hostmask handle channel text} {
 			} else {
 				set filename [file join /tmp [file tail $file_path]]
 				if {[::libtelegram::downloadFile $file_path $filename] eq 0} {
-					# To prevent our temp folder filling up with downloaded Telegram files, we'll set a timeout on the filetransfer
-					bind TOUT * * [cleanUpFile $filename]
+					if {[file exists $filename]} {
+						# To prevent our temp folder filling up with downloaded Telegram files, we'll set a timeout on the filetransfer
+						bind TOUT * * [cleanUpFile $filename]
 
-					if {[info exists $filename]} {
 						switch -- [dccsend $filename $nick] {
 							0 {
 								puthelp "NOTICE $nick :Sending $filename to you."
