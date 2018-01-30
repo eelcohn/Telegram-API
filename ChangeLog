@@ -1,5 +1,17 @@
 v20180130:
 * Telegram-API.tcl: Userflags can now be added on a per-user base to the userfile (b654f29)
+* libtelegram.tcl: Added until_date parameter to ::libtelegram::kickChatMember (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::unbanChatMember method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::restrictChatMember method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::promoteChatMember method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::exportChatInviteLink method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::deleteChatPhoto method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::setChatDescription method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::pinChatMessage method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::unpinChatMessage method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::leaveChat method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::setChatStickerSet method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::deleteChatStickerSet method (9124a6e)
 
 v20180129:
 * libtelegram.tcl: Added ::libtelegram::downloadFile for downloading attachments (361b0be)
