@@ -1,7 +1,7 @@
 v20180130:
 * Telegram-API.tcl: Userflags can now be added on a per-user base to the userfile (b654f29)
 * Telegram-API.tcl: Added getUserFlags (04942c8)
-* Telegram-API.tcl: Added downloading Telegram attachments by DCC (1664ccf / 83c4644 / 7de10b2 / 5cf4ec9)
+* Telegram-API.tcl: Added downloading Telegram attachments by DCC (1664ccf / 83c4644 / 7de10b2 / 5cf4ec9 / 8f03d96)
 * libtelegram.tcl: Added until_date parameter to ::libtelegram::kickChatMember (9124a6e)
 * libtelegram.tcl: Added ::libtelegram::unbanChatMember method (9124a6e)
 * libtelegram.tcl: Added ::libtelegram::restrictChatMember method (9124a6e)
