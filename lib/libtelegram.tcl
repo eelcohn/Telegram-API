@@ -333,12 +333,12 @@ proc ::libtelegram::getFile {file_id} {
 # ---------------------------------------------------------------------------- #
 # ::libtelegram::kickChatMember                                                #
 # ---------------------------------------------------------------------------- #
-# Kicks an user from a chat group in Telegram                                  #
+# Kicks an user from a chat group or channel in Telegram                       #
 # https://core.telegram.org/bots/api#kickchatmember                            #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::kickChatMember {chat_id user_id} {
+proc ::libtelegram::kickChatMember {chat_id user_id until_date} {
 	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/kickChatMember -d chat_id=$chat_id -d user_id=$user_id]
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/kickChatMember -d chat_id=$chat_id -d user_id=$user_id -d until_date=$until_date]
 	} ] } {
 		putlog "Telegram-API: cannot connect to api.telegram.com using kickChatMember method."
 		return -1
@@ -347,9 +347,73 @@ proc ::libtelegram::kickChatMember {chat_id user_id} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::unbanChatMember                                               #
+# ---------------------------------------------------------------------------- #
+# Unbans a previously kicked user from a chat group or channel in Telegram     #
+# https://core.telegram.org/bots/api#unbanchatmember                           #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::unbanChatMember {chat_id user_id} {
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/unbanChatMember -d chat_id=$chat_id -d user_id=$user_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using unbanChatMember method."
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::restrictChatMember                                            #
+# ---------------------------------------------------------------------------- #
+# Restrict a user in a chat group or channel in Telegram                       #
+# https://core.telegram.org/bots/api#restrictchatmember                        #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::restrictChatMember {chat_id user_id until_date can_send_messages can_send_media_messages can_send_other_messages can_add_web_page_previews} {
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/restrictChatMember -d chat_id=$chat_id -d user_id=$user_id -d until_date=$until_date -d can_send_messages=$can_send_messages -d can_send_media_messages=$can_send_media_messages -d can_send_other_messages=$can_send_other_messages -d can_add_web_page_previews=$can_add_web_page_previews]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using restrictChatMember method."
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::promoteChatMember                                             #
+# ---------------------------------------------------------------------------- #
+# Promote or demote a user in a chat group or channel in Telegram              #
+# https://core.telegram.org/bots/api#promotechatmember                         #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::restrictChatMember {chat_id user_id can_change_info can_post_messages can_edit_messages can_delete_messages can_invite_users can_restrict_members can_pin_messages can_promote_members} {
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/promoteChatMember -d chat_id=$chat_id -d user_id=$user_id -d can_change_info=$can_change_info -d can_post_messages=$can_post_messages -d can_edit_messages=$can_edit_messages -d can_delete_messages=$can_delete_messages -d can_invite_users=$can_invite_users -d can_restrict_members=$can_restrict_members -d can_pin_messages=$can_pin_messages -d can_promote_members=$can_promote_members]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using promoteChatMember method."
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::exportChatInviteLink                                          #
+# ---------------------------------------------------------------------------- #
+# Promote or demote a user in a chat group or channel in Telegram              #
+# https://core.telegram.org/bots/api#exportchatinvitelink                      #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::exportChatInviteLink {chat_id} {
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/exportChatInviteLink -d chat_id=$chat_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using exportChatInviteLink method."
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
 # ::libtelegram::setChatPhoto                                                  #
 # ---------------------------------------------------------------------------- #
-# Sets the channel's profile photo of a chat group in Telegram                 #
+# Sets the channel's profile photo of a chat group or channel in Telegram      #
 # https://core.telegram.org/bots/api#setchatphoto                              #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::setChatPhoto {chat_id photo} {
@@ -368,9 +432,30 @@ proc ::libtelegram::setChatPhoto {chat_id photo} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::deleteChatPhoto                                               #
+# ---------------------------------------------------------------------------- #
+# Delete the channel's profile photo of a chat group or channel in Telegram    #
+# https://core.telegram.org/bots/api#deletechatphoto                           #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::setChatPhoto {chat_id} {
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/deleteChatPhoto -d chat_id=$chat_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using deleteChatPhoto method."
+		return -1
+	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from deleteChatPhoto method: [jsonGetValue $result "" "description"]"
+	}
+
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
 # ::libtelegram::setChatTitle                                                  #
 # ---------------------------------------------------------------------------- #
-# Sets the channel's profile title of a chat group in Telegram                 #
+# Sets the channel's title of a chat group or channel in Telegram              #
 # https://core.telegram.org/bots/api#setchattitle                              #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::setChatTitle {chat_id title} {
@@ -383,6 +468,90 @@ proc ::libtelegram::setChatTitle {chat_id title} {
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
 		putlog "Telegram-API: bad result from setChatTitle method: [jsonGetValue $result "" "description"]"
+	}
+
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::setChatDescription                                            #
+# ---------------------------------------------------------------------------- #
+# Sets the channel's description of a chat group or channel in Telegram        #
+# https://core.telegram.org/bots/api#setchatdescription                        #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::setChatDescription {chat_id description} {
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/setChatDescription -d chat_id=$chat_id -d description=$description]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using setChatDescription method."
+		return -1
+	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from setChatDescription method: [jsonGetValue $result "" "description"]"
+	}
+
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::pinChatMessage                                                #
+# ---------------------------------------------------------------------------- #
+# Pin a message in a supergroup or a channel in Telegram                       #
+# https://core.telegram.org/bots/api#pinchatmessage                            #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::pinChatMessage {chat_id message_id disable_notification} {
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/pinChatMessage -d chat_id=$chat_id -d message_id=$message_id -d disable_notification=$disable_notification]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using pinChatMessage method."
+		return -1
+	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from pinChatMessage method: [jsonGetValue $result "" "description"]"
+	}
+
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::unpinChatMessage                                              #
+# ---------------------------------------------------------------------------- #
+# Unpin a message in a supergroup or a channel in Telegram                     #
+# https://core.telegram.org/bots/api#unpinchatmessage                          #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::pinChatMessage {chat_id} {
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/unpinChatMessage -d chat_id=$chat_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using unpinChatMessage method."
+		return -1
+	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from unpinChatMessage method: [jsonGetValue $result "" "description"]"
+	}
+
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::leaveChat                                                     #
+# ---------------------------------------------------------------------------- #
+# Use this method for your bot to leave a group, supergroup or channel         #
+# https://core.telegram.org/bots/api#leavechat                                 #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::leaveChat {chat_id} {
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/leaveChat -d chat_id=$chat_id]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using leaveChat method."
+		return -1
+	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from leaveChat method: [jsonGetValue $result "" "description"]"
 	}
 
 	return $result
@@ -448,6 +617,38 @@ proc ::libtelegram::getChatMember {chat_id user_id} {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getChatMember -d chat_id=$chat_id -d user_id=$user_id]
 	} ] } {
 		putlog "Telegram-API: cannot connect to api.telegram.com using getChatMember method."
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::setChatStickerSet                                             #
+# ---------------------------------------------------------------------------- #
+# Set a new group sticker set for a supergroup in Telegram                     #
+# https://core.telegram.org/bots/api#setchatstickerset                         #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::setChatStickerSet {chat_id sticker_set_name} {
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/setChatStickerSet -d chat_id=$chat_id -d sticker_set_name=$sticker_set_name]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using setChatStickerSet method."
+		return -1
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::deleteChatStickerSet                                          #
+# ---------------------------------------------------------------------------- #
+# Delete a group sticker set from a supergroup in Telegram                     #
+# https://core.telegram.org/bots/api#deletechatstickerset                      #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::deleteChatStickerSet {chat_id sticker_set_name} {
+	if { [ catch {
+		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/deleteChatStickerSet -d chat_id=$chat_id -d sticker_set_name=$sticker_set_name]
+	} ] } {
+		putlog "Telegram-API: cannot connect to api.telegram.com using deleteChatStickerSet method."
 		return -1
 	}
 	return $result
