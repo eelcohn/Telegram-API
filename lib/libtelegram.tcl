@@ -673,7 +673,7 @@ proc ::libtelegram::downloadFile {file_path file_id} {
 	} else {
 		fconfigure $fo -translation binary
 		if { [ catch {
-			puts -nonewline $fo [exec curl --tlsv1.2 --max-filesize $::libtelegram::max_file_size --range 0-$::libtelegram::max_file_size --silent --request POST https://api.telegram.org/file/bot$::libtelegram::bot_id:$::libtelegram::bot_token/$file_path]
+			puts -nonewline $fo [exec curl --tlsv1.2 --max-filesize $::libtelegram::max_file_size --range 0-$::libtelegram::max_file_size --silent --request GET https://api.telegram.org/file/bot$::libtelegram::bot_id:$::libtelegram::bot_token/$file_path]
 		} ] } {
 			close $fo
 			file delete -force $filename
