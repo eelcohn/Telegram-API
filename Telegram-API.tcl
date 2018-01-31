@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180128 for Eggdrop                                    #
+# Telegram-API module v20180131 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -201,6 +201,7 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 proc irc2tg_sendFile {nick hostmask handle channel text} {
 	set file_id $text
 	set max_file_size 20480000
+	set timeout 30
 
 #	if {[regexp {"/[^A-Za-z0-9\-_]/"} $file_id]} {
 		set result [::libtelegram::getFile $file_id]
@@ -218,8 +219,8 @@ proc irc2tg_sendFile {nick hostmask handle channel text} {
 				if {[::libtelegram::downloadFile $file_path $fullname] eq 0} {
 					if {[file exists $fullname]} {
 						# To prevent our temp folder filling up with downloaded Telegram files, we'll set a timeout on the filetransfer
-						set filetransfers($fullname) [clock seconds]
-						bind TOUT * * cleanUpFile
+						set ::telegram::filetransfers($fullname) [expr [clock seconds] + $timeout]
+						utimer $timeout cleanUpFile
 
 						switch -- [dccsend $fullname $nick] {
 							0 {
@@ -266,16 +267,17 @@ proc irc2tg_sendFile {nick hostmask handle channel text} {
 }
 
 # ---------------------------------------------------------------------------- #
-# Delete the downloaded Telegram attachment after use                          #
+# Delete the downloaded Telegram attachments after use                         #
 # ---------------------------------------------------------------------------- #
-proc cleanUpFile {} {
-	foreach {file_id time} [array get ::telegram::filetransfers] {
-		if {[eval $time + {$xfer-timeout}] >= [clock seconds]} {
+proc cleanUpFiles {} {
+	foreach {filename time} [array get ::telegram::filetransfers] {
+		if {$time <= [clock seconds]} {
 			if { [catch { file delete -force $filename } error] } {
 			putlog "WARNING! Could not delete temporary file $filename!"
 		} else {
 			putlog "File $filename succesfully deleted"
 		}
+		array unset ::telegram::filetransfers $filename
 	}
 }
 
