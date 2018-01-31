@@ -1,5 +1,6 @@
 v20180131:
 * Telegram-API.tcl: Fixed auto-removal of downloaded Telegram attachments (8886599)
+* libunicode.tcl: Moved all Unicode-related procedures and data to this file (a8d2cf9)
 
 v20180130:
 * Telegram-API.tcl: Userflags can now be added on a per-user base to the userfile (b654f29)
