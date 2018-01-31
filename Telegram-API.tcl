@@ -220,7 +220,7 @@ proc irc2tg_sendFile {nick hostmask handle channel text} {
 					if {[file exists $fullname]} {
 						# To prevent our temp folder filling up with downloaded Telegram files, we'll set a timeout on the filetransfer
 						set ::telegram::filetransfers($fullname) [expr [clock seconds] + $timeout]
-						utimer $timeout cleanUpFile
+						utimer $timeout cleanUpFiles
 
 						switch -- [dccsend $fullname $nick] {
 							0 {
@@ -273,11 +273,12 @@ proc cleanUpFiles {} {
 	foreach {filename time} [array get ::telegram::filetransfers] {
 		if {$time <= [clock seconds]} {
 			if { [catch { file delete -force $filename } error] } {
-			putlog "WARNING! Could not delete temporary file $filename!"
-		} else {
-			putlog "File $filename succesfully deleted"
+				putlog "WARNING! Could not delete temporary file $filename!"
+			} else {
+				putlog "File $filename succesfully deleted"
+			}
+			array unset ::telegram::filetransfers $filename
 		}
-		array unset ::telegram::filetransfers $filename
 	}
 }
 
