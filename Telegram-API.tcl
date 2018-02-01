@@ -11,14 +11,16 @@ namespace eval ::telegram {}
 
 set		::telegram::tg_update_id	0
 set		::telegram::tg_bot_nickname	""
-set		::telegram::tg_bot_realname	""
-set 		::telegram::irc_bot_nickname	""
-set		::telegram::userflags		"jlvck"
-set		::telegram::chanflags		"tms"
-set		::telegram::cmdmodifier		"/"
-array set	::telegram::public_commands	{}
-array set	::telegram::private_commands	{}
-array set	::telegram::filetransfers	{}
+set		::telegram::tg_bot_realname		""
+set 		::telegram::irc_bot_nickname		""
+set		::telegram::userflags			"jlvck"
+set		::telegram::chanflags			"tms"
+set		::telegram::cmdmodifier			"/"
+array set	::telegram::public_commands		{}
+array set	::telegram::public_commands_help	{}
+array set	::telegram::private_commands		{}
+array set	::telegram::private_commands_help	{}
+array set	::telegram::filetransfers		{}
 
 
 
@@ -458,8 +460,9 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 # ---------------------------------------------------------------------------- #
 # Add a bot command to the dynamic bot command list                            #
 # ---------------------------------------------------------------------------- #
-proc add_public_command {keyword procedure} {
+proc add_public_command {keyword procedure helpmessage} {
 	set ::telegram::public_commands($keyword) $procedure
+	set ::telegram::public_commands_help($keyword) $helpmessage
 }
 
 # ---------------------------------------------------------------------------- #
@@ -468,6 +471,7 @@ proc add_public_command {keyword procedure} {
 proc del_public_command {keyword} {
 	if {[info exists $::telegram::public_commands($keyword)]} {
 		unset -nocomplain ::telegram::public_commands($keyword)
+		unset -nocomplain ::telegram::public_commands_help($keyword)
 		return true
 	} else {
 		return false
@@ -609,8 +613,9 @@ proc tg2irc_privateCommands {from_id msgid message} {
 # ---------------------------------------------------------------------------- #
 # Add a bot command to the dynamic bot command list                            #
 # ---------------------------------------------------------------------------- #
-proc add_private_command {keyword procedure} {
+proc add_private_command {keyword procedure helpmessage} {
 	set ::telegram::private_commands($keyword) $procedure
+	set ::telegram::private_commands_help($keyword) $procedure
 }
 
 # ---------------------------------------------------------------------------- #
@@ -619,6 +624,7 @@ proc add_private_command {keyword procedure} {
 proc del_private_command {keyword} {
 	if {[info exists $::telegram::private_commands($keyword)]} {
 		unset -nocomplain ::telegram::private_commands($keyword)
+		unset -nocomplain ::telegram::private_commands_help($keyword)
 		return true
 	} else {
 		return false
