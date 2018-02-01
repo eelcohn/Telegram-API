@@ -5,6 +5,20 @@ A gateway between IRC chat channels and Telegram groups
 
 This script requires `tcl`, `eggdrop`, `curl` and `jq`.
 
+## Features
+
+* Bi-directional chats between IRC and Telegram
+* Support for Telegram groups, supergroups, channels and private messages
+* 1-to-1, 1-to-many and many-to-many linking IRC channels to Telegram groups/supergroups/channels
+* Seamless translation of Unicode emoji's to ASCII variants and vice-versa
+* Support for Telegram Stickers
+* Download Telegram attachments using DCC on your favourite IRC client (a PHP-script on your webserver is available as an alternative)
+* Multi-language support (currently English and Dutch are available)
+* Global and per-user settings for allowing/denying notifications for joins/leaves/kicks/bans etc.
+* You can login/logout to your Eggdrop bot from your Telegram client
+* Linking your Eggdrop user profile to your Telegram account
+* Modular support for public and private Telegram bot commands
+
 ## Quick start guide
 
 How do I setup this IRC-Telegram gateway?<br>
