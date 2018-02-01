@@ -45,257 +45,6 @@ proc initialize {} {
 
 
 # ---------------------------------------------------------------------------- #
-# Procedures for sending data from IRC to Telegram                             #
-# ---------------------------------------------------------------------------- #
-# Send a message from IRC to Telegram                                          #
-# ---------------------------------------------------------------------------- #
-proc irc2tg_sendMessage {nick hostmask handle channel msg} {
-	# Check if this is a bot command
-	if {[string match "*[string index $msg 1]*" "/!."]} {
-		# If so, then check which bot command it is, and process it. Don't send it to the Telegram group though.
-		set parameter_start [string wordend $msg 1]
-		set command [string tolower [string range $msg 1 $parameter_start-1]]
-		if {[string match $command "tgfile"]} {
-			irc2tg_sendFile {nick hostmask handle channel [string range $msg $parameter_start end]}
-			return
-		}
-	}
-
-	# Only send a message to the Telegram group if the 'voice'-flag is set in the user flags variable
-	if {[string match "*v*" $::telegram::userflags]} {
-		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-			if {$channel eq $tg_channel} {
-				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MSGSENT "$nick" "[url_encode $msg]"]
-			}
-		}
-	}
-	return 0
-}
-
-# ---------------------------------------------------------------------------- #
-# Inform the Telegram group(s) that someone joined an IRC channel              #
-# ---------------------------------------------------------------------------- #
-proc irc2tg_nickJoined {nick uhost handle channel} {
-	global serveraddress
-
-	# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
-	if {[string match "*j*" $::telegram::userflags]} {
-		if {$nick eq $::telegram::irc_bot_nickname} {
-			return 0
-		}
-
-		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-			if {$channel eq $tg_channel} {
-				if {![validuser $nick]} {
-					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
-				}
-			}
-		}
-	}
-	return 0
-}
-
-# ---------------------------------------------------------------------------- #
-# Inform the Telegram group(s) that someone has left an IRC channel            #
-# ---------------------------------------------------------------------------- #
-proc irc2tg_nickLeft {nick uhost handle channel message} {
-	global  serveraddress
-
-	# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
-	if {[string match "*l*" $::telegram::userflags]} {
-		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-			if {$channel eq $tg_channel} {
-				if {![validuser $nick]} {
-					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
-				}
-			}
-		}
-	}
-	return 0
-}
-
-# ---------------------------------------------------------------------------- #
-# Send an action from an IRC user to Telegram                                  #
-# ---------------------------------------------------------------------------- #
-proc irc2tg_nickAction {nick uhost handle dest keyword message} {
-	# Only send an action message to the Telegram group if the 'voice'-flag is set in the user flags variable
-	if {[string match "*v*" $::telegram::userflags]} {
-		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-			if {$dest eq $tg_channel} {
-				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKACTION "$nick" "$nick" "$message"]
-			}
-		}
-	}
-	return 0
-}
-
-# ---------------------------------------------------------------------------- #
-# Inform the Telegram group(s) that an IRC nickname has been changed           #
-# ---------------------------------------------------------------------------- #
-proc irc2tg_nickChange {nick uhost handle channel newnick} {
-	# Only send a nick change message to the Telegram group if the 'change'-flag is set in the user flags variable
-	if {[string match "*c*" $::telegram::userflags]} {
-		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-			if {$channel eq $tg_channel} {
-				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKCHANGE "$nick" "$newnick"]
-			}
-		}
-	}
-	return 0
-}
-
-# ---------------------------------------------------------------------------- #
-# Inform the Telegram group(s) that the topic of an IRC channel has changed    #
-# ---------------------------------------------------------------------------- #
-proc irc2tg_topicChange {nick uhost handle channel topic} {
-	global serveraddress
-
-	if {[string match "*t*" $::telegram::chanflags]} {
-		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-			if {$channel eq $tg_channel} {
-				if {$nick ne "*"} {
-					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"]
-					if {[string match "*s*" $::telegram::chanflags]} {
-						::libtelegram::setChatTitle $chat_id $topic
-					}
-				}
-			}
-		}
-	}
-	return 0
-}
-
-# ---------------------------------------------------------------------------- #
-# Inform the Telegram group(s) that someone has been kicked from the channel   #
-# ---------------------------------------------------------------------------- #
-proc irc2tg_nickKicked {nick uhost handle channel target reason} {
-	# Only send a kick message to the Telegram group if the 'kick'-flag is set in the user flags variable
-	if {[string match "*k*" $::telegram::userflags]} {
-		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-			if {$channel eq $tg_channel} {
-				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_KICK "$nick" "$target" "$channel" "$reason"]
-			}
-		}
-	}
-	return 0
-}
-
-# ---------------------------------------------------------------------------- #
-# Inform the Telegram group(s) that a channel's mode has changed               #
-# ---------------------------------------------------------------------------- #
-proc irc2tg_modeChange {nick uhost hand channel mode target} {
-	if {$target == ""} {
-		# Mode change target was a channel
-		if {[string match "*m*" $::telegram::chanflags]} {
-			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-				if {$channel eq $tg_channel} {
-					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
-				}
-			}
-		}
-	} else {
-		# Mode change target was an user
-		if {[string match "*m*" $::telegram::userflags]} {
-			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-				if {$channel eq $tg_channel} {
-					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
-				}
-			}
-		}
-	}
-	return 0
-}
-
-# ---------------------------------------------------------------------------- #
-# Download a Telegram attachment and send it via DCC to an IRC user            #
-# ---------------------------------------------------------------------------- #
-proc irc2tg_sendFile {nick hostmask handle channel text} {
-	set file_id $text
-	set max_file_size 20480000
-	set timeout 30
-
-#	if {[regexp {"/[^A-Za-z0-9\-_]/"} $file_id]} {
-		set result [::libtelegram::getFile $file_id]
-		if {$result ne -1} {
-			set file_path [::libjson::getValue $result ".result.file_path"]
-			set file_size [::libjson::getValue $result ".result.file_size"]
-
-			if {$file_size > $max_file_size} {
-				putlog "irc2tg_sendFile: file $file_id too big ($file_size)"
-				puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
-				return -1
-			} else {
-				set filename [file tail $file_path]
-				set fullname [file join /tmp $filename]
-				if {[::libtelegram::downloadFile $file_path $fullname] eq 0} {
-					if {[file exists $fullname]} {
-						# To prevent our temp folder filling up with downloaded Telegram files, we'll set a timeout on the filetransfer
-						set ::telegram::filetransfers($fullname) [expr [clock seconds] + $timeout]
-						utimer $timeout cleanUpFiles
-
-						switch -- [dccsend $fullname $nick] {
-							0 {
-								puthelp "NOTICE $nick :Sending $filename to you."
-							}
-
-							1 {
-								puthelp "NOTICE $nick :dcc table is full (too many connections), try to get $filename later."
-							}
-
-							2 {
-								puthelp "NOTICE $nick :can't open a socket for the transfer of $filename."
-							}
-
-							3 {
-								puthelp "NOTICE $nick :$filename doesn't exist."
-							}
-
-							4 {
-								puthelp "NOTICE $nick :$filename was queued for later transfer."
-							}
-
-							default {
-								putlog "irc2tg_sendFile: dccsend returned default value! This should never happen, please check your log files!"
-								puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
-							}
-						}
-					}
-				} else {
-					putlog "irc2tg_sendFile: ::libtelegram::downloadFile failed"
-					puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
-					return -2
-				}
-			}
-		} else {
-			putlog "irc2tg_sendFile: ::libtelegram::getFile failed"
-			puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
-			return -3
-		}
-#	} else {
-#		puthelp "NOTICE $nick :irc2tg_sendFile: $nick ($hostmask) attempted to download an illegal Telegram file: $file_id"
-#		return -4
-#	}
-}
-
-# ---------------------------------------------------------------------------- #
-# Delete the downloaded Telegram attachments after use                         #
-# ---------------------------------------------------------------------------- #
-proc cleanUpFiles {} {
-	foreach {filename time} [array get ::telegram::filetransfers] {
-		if {$time <= [clock seconds]} {
-			if { [catch { file delete -force $filename } error] } {
-				putlog "WARNING! Could not delete temporary file $filename!"
-			} else {
-				putlog "File $filename succesfully deleted"
-			}
-			array unset ::telegram::filetransfers $filename
-		}
-	}
-}
-
-
-
-# ---------------------------------------------------------------------------- #
 # Procedures for reading data from the Telegram servers                        #
 # ---------------------------------------------------------------------------- #
 # Poll the Telegram server for updates                                         #
@@ -876,8 +625,264 @@ proc del_private_command {keyword} {
 	}
 }
 
+
+
 # ---------------------------------------------------------------------------- #
-# Remove a bot command from the dynamic bot command list                       #
+# Procedures for sending data from IRC to Telegram                             #
+# ---------------------------------------------------------------------------- #
+# Send a message from IRC to Telegram                                          #
+# ---------------------------------------------------------------------------- #
+proc irc2tg_sendMessage {nick hostmask handle channel msg} {
+	# Check if this is a bot command
+	if {[string match "*[string index $msg 1]*" "/!."]} {
+		# If so, then check which bot command it is, and process it. Don't send it to the Telegram group though.
+		set parameter_start [string wordend $msg 1]
+		set command [string tolower [string range $msg 1 $parameter_start-1]]
+		if {[string match $command "tgfile"]} {
+			irc2tg_sendFile {nick hostmask handle channel [string range $msg $parameter_start end]}
+			return
+		}
+	}
+
+	# Only send a message to the Telegram group if the 'voice'-flag is set in the user flags variable
+	if {[string match "*v*" $::telegram::userflags]} {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$channel eq $tg_channel} {
+				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MSGSENT "$nick" "[url_encode $msg]"]
+			}
+		}
+	}
+	return 0
+}
+
+# ---------------------------------------------------------------------------- #
+# Inform the Telegram group(s) that someone joined an IRC channel              #
+# ---------------------------------------------------------------------------- #
+proc irc2tg_nickJoined {nick uhost handle channel} {
+	global serveraddress
+
+	# Don't notify the Telegram users when the bot joins an IRC channel
+	if {$nick eq $::telegram::irc_bot_nickname} {
+		return 0
+	}
+
+	# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
+	if {[string match "*j*" $::telegram::userflags]} {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$channel eq $tg_channel} {
+				if {![validuser $nick]} {
+					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
+				}
+			}
+		}
+	}
+	return 0
+}
+
+# ---------------------------------------------------------------------------- #
+# Inform the Telegram group(s) that someone has left an IRC channel            #
+# ---------------------------------------------------------------------------- #
+proc irc2tg_nickLeft {nick uhost handle channel message} {
+	global  serveraddress
+
+	# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
+	if {[string match "*l*" $::telegram::userflags]} {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$channel eq $tg_channel} {
+				if {![validuser $nick]} {
+					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
+				}
+			}
+		}
+	}
+	return 0
+}
+
+# ---------------------------------------------------------------------------- #
+# Send an action from an IRC user to Telegram                                  #
+# ---------------------------------------------------------------------------- #
+proc irc2tg_nickAction {nick uhost handle dest keyword message} {
+	# Only send an action message to the Telegram group if the 'voice'-flag is set in the user flags variable
+	if {[string match "*v*" $::telegram::userflags]} {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$dest eq $tg_channel} {
+				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKACTION "$nick" "$nick" "$message"]
+			}
+		}
+	}
+	return 0
+}
+
+# ---------------------------------------------------------------------------- #
+# Inform the Telegram group(s) that an IRC nickname has been changed           #
+# ---------------------------------------------------------------------------- #
+proc irc2tg_nickChange {nick uhost handle channel newnick} {
+	# Only send a nick change message to the Telegram group if the 'change'-flag is set in the user flags variable
+	if {[string match "*c*" $::telegram::userflags]} {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$channel eq $tg_channel} {
+				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKCHANGE "$nick" "$newnick"]
+			}
+		}
+	}
+	return 0
+}
+
+# ---------------------------------------------------------------------------- #
+# Inform the Telegram group(s) that the topic of an IRC channel has changed    #
+# ---------------------------------------------------------------------------- #
+proc irc2tg_topicChange {nick uhost handle channel topic} {
+	global serveraddress
+
+	if {[string match "*t*" $::telegram::chanflags]} {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$channel eq $tg_channel} {
+				if {$nick ne "*"} {
+					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"]
+					if {[string match "*s*" $::telegram::chanflags]} {
+						::libtelegram::setChatTitle $chat_id $topic
+					}
+				}
+			}
+		}
+	}
+	return 0
+}
+
+# ---------------------------------------------------------------------------- #
+# Inform the Telegram group(s) that someone has been kicked from the channel   #
+# ---------------------------------------------------------------------------- #
+proc irc2tg_nickKicked {nick uhost handle channel target reason} {
+	# Only send a kick message to the Telegram group if the 'kick'-flag is set in the user flags variable
+	if {[string match "*k*" $::telegram::userflags]} {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$channel eq $tg_channel} {
+				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_KICK "$nick" "$target" "$channel" "$reason"]
+			}
+		}
+	}
+	return 0
+}
+
+# ---------------------------------------------------------------------------- #
+# Inform the Telegram group(s) that a channel's mode has changed               #
+# ---------------------------------------------------------------------------- #
+proc irc2tg_modeChange {nick uhost hand channel mode target} {
+	if {$target == ""} {
+		# Mode change target was a channel
+		if {[string match "*m*" $::telegram::chanflags]} {
+			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+				if {$channel eq $tg_channel} {
+					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
+				}
+			}
+		}
+	} else {
+		# Mode change target was an user
+		if {[string match "*m*" $::telegram::userflags]} {
+			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+				if {$channel eq $tg_channel} {
+					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"]
+				}
+			}
+		}
+	}
+	return 0
+}
+
+# ---------------------------------------------------------------------------- #
+# Download a Telegram attachment and send it via DCC to an IRC user            #
+# ---------------------------------------------------------------------------- #
+proc irc2tg_sendFile {nick hostmask handle channel text} {
+	set file_id $text
+	set max_file_size 20480000
+	set timeout 30
+
+#	if {[regexp {"/[^A-Za-z0-9\-_]/"} $file_id]} {
+		set result [::libtelegram::getFile $file_id]
+		if {$result ne -1} {
+			set file_path [::libjson::getValue $result ".result.file_path"]
+			set file_size [::libjson::getValue $result ".result.file_size"]
+
+			if {$file_size > $max_file_size} {
+				putlog "irc2tg_sendFile: file $file_id too big ($file_size)"
+				puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
+				return -1
+			} else {
+				set filename [file tail $file_path]
+				set fullname [file join /tmp $filename]
+				if {[::libtelegram::downloadFile $file_path $fullname] eq 0} {
+					if {[file exists $fullname]} {
+						# To prevent our temp folder filling up with downloaded Telegram files, we'll set a timeout on the filetransfer
+						set ::telegram::filetransfers($fullname) [expr [clock seconds] + $timeout]
+						utimer $timeout cleanUpFiles
+
+						switch -- [dccsend $fullname $nick] {
+							0 {
+								puthelp "NOTICE $nick :Sending $filename to you."
+							}
+
+							1 {
+								puthelp "NOTICE $nick :dcc table is full (too many connections), try to get $filename later."
+							}
+
+							2 {
+								puthelp "NOTICE $nick :can't open a socket for the transfer of $filename."
+							}
+
+							3 {
+								puthelp "NOTICE $nick :$filename doesn't exist."
+							}
+
+							4 {
+								puthelp "NOTICE $nick :$filename was queued for later transfer."
+							}
+
+							default {
+								putlog "irc2tg_sendFile: dccsend returned default value! This should never happen, please check your log files!"
+								puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
+							}
+						}
+					}
+				} else {
+					putlog "irc2tg_sendFile: ::libtelegram::downloadFile failed"
+					puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
+					return -2
+				}
+			}
+		} else {
+			putlog "irc2tg_sendFile: ::libtelegram::getFile failed"
+			puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
+			return -3
+		}
+#	} else {
+#		puthelp "NOTICE $nick :irc2tg_sendFile: $nick ($hostmask) attempted to download an illegal Telegram file: $file_id"
+#		return -4
+#	}
+}
+
+# ---------------------------------------------------------------------------- #
+# Delete the downloaded Telegram attachments after use                         #
+# ---------------------------------------------------------------------------- #
+proc cleanUpFiles {} {
+	foreach {filename time} [array get ::telegram::filetransfers] {
+		if {$time <= [clock seconds]} {
+			if { [catch { file delete -force $filename } error] } {
+				putlog "WARNING! Could not delete temporary file $filename!"
+			} else {
+				putlog "File $filename succesfully deleted"
+			}
+			array unset ::telegram::filetransfers $filename
+		}
+	}
+}
+
+
+
+# ---------------------------------------------------------------------------- #
+# Some general usage procedures
+# ---------------------------------------------------------------------------- #
+# Get the userflags for a specific user                                        #
 # ---------------------------------------------------------------------------- #
 proc getUserFlags {irchandle} {
 	set irchandle ""
@@ -889,6 +894,7 @@ proc getUserFlags {irchandle} {
 		}
 	}
 
+	# Get the userflags for this user, or return the global userflags if the user doesn't have them
 	if {$irchandle != ""} {
 		if {[getuser $irchandle XTRA "TELEGRAM_USERFLAGS"] == ""} {
 			return $::telegram::userflags
@@ -899,10 +905,6 @@ proc getUserFlags {irchandle} {
 	return $::telegram::userflags
 }	
 
-
-
-# ---------------------------------------------------------------------------- #
-# Some general usage procedures
 # ---------------------------------------------------------------------------- #
 # Replace Escaped-Unicode characters to ASCII                                  #
 # ---------------------------------------------------------------------------- #
