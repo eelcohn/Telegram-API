@@ -44,4 +44,4 @@ proc imagesearch_getImage {chat_id msgid channel message parameter_start} {
 	}
 }
 
-add_public_command get imagesearch_getImage
+add_public_command get imagesearch_getImage "<keyword>: Search for an image matching <keyword>."
