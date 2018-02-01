@@ -138,7 +138,7 @@ v20180105:
 * utftable.tcl: Added \ud83d\udd90 :hand_raised:
 
 v20171220:
-* modules/Quotes.tcl: Fixed sending quotes to Telegram with cpecial characters [ and ]
+* modules/Quotes.tcl: Fixed sending quotes to Telegram with special characters [ and ]
 * Fixed modules/Spotify.tcl
 
 v20171219:
