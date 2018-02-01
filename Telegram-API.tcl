@@ -494,7 +494,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 
 	switch $command {
 		"help" {
-			set response "Available commands are:\n login <username> <password>\n logout\n myinfo\n help\n
+			set response "Available commands are:\n login <username> <password>\n logout\n myinfo\n help\n"
 			foreach {command helpmessage} [array get ::telegram::private_commands_help] {
 				append $response "$command $helpmessage\n"
 			}
