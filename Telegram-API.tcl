@@ -49,9 +49,20 @@ proc initialize {} {
 # ---------------------------------------------------------------------------- #
 # Send a message from IRC to Telegram                                          #
 # ---------------------------------------------------------------------------- #
-proc irc2tg_sendMessage {nick uhost hand channel msg} {
+proc irc2tg_sendMessage {nick hostmask handle channel msg} {
+	# Check if this is a bot command
+	if {[string match "*[string index $msg 1]*" "/!."]} {
+		# If so, then check which bot command it is, and process it. Don't send it to the Telegram group though.
+		set parameter_start [string wordend $msg 1]
+		set command [string tolower [string range $msg 1 $parameter_start-1]]
+		if {[string match $command "tgfile"]} {
+			irc2tg_sendFile {nick hostmask handle channel [string range $msg $parameter_start end]}
+			return
+		}
+	}
+
 	# Only send a message to the Telegram group if the 'voice'-flag is set in the user flags variable
-	if {[string first "v" $::telegram::userflags]} {
+	if {[string match "*v*" $::telegram::userflags]} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
 				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_MSGSENT "$nick" "[url_encode $msg]"]
