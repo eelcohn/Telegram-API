@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Spotify module for Eggdrop with the Telegram-API module v20180119            #
+# Spotify module for Eggdrop with the Telegram-API module v20180201            #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -39,5 +39,5 @@ proc spotify_getTrack {chat_id msgid channel message parameter_start} {
 	putchan $channel "[strip_html $url]"
 }
 
-add_public_command spotify spotify_getTrack
+add_public_command spotify spotify_getTrack "<keyword>: Search Spotify for music matching <keyword>."
 
