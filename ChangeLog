@@ -1,5 +1,6 @@
 v20180201:
 * Telegram-API.tcl: Don't send IRC bot commands directly to the Telegram group (68059d3)
+* Telegram-API.tcl: Moved some code around to make the sourcecode more readable (ef43f7e)
 
 v20180131:
 * Telegram-API.tcl: Fixed auto-removal of downloaded Telegram attachments (8886599 /6de1485)
