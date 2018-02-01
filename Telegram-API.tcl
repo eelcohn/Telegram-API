@@ -485,8 +485,6 @@ proc del_public_command {keyword} {
 # Respond to private commands send by Telegram users                           #
 # ---------------------------------------------------------------------------- #
 proc tg2irc_privateCommands {from_id msgid message} {
-	global timeformat
-
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
 
@@ -528,7 +526,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 					setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "0"
 				} else {
 					# Prepare string with last login time
-					set lastlogin "[::msgcat::mc MSG_BOT_LASTLOGIN "$::telegram::tg_bot_nickname" "[clock format $lastlogin -format $timeformat]"]"
+					set lastlogin "[::msgcat::mc MSG_BOT_LASTLOGIN "$::telegram::tg_bot_nickname" "[clock format $lastlogin -format $::telegram::timeformat]"]"
 				}
 
 				# ...and set the last login time to the current time
@@ -586,13 +584,13 @@ proc tg2irc_privateCommands {from_id msgid message} {
 			}
 
 			if {$irchandle != ""} {
-				set tg_lastlogin [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"] -format $timeformat]
-				set tg_lastlogout [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGOUT"] -format $timeformat]
+				set tg_lastlogin [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"] -format $::telegram::timeformat]
+				set tg_lastlogout [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGOUT"] -format $::telegram::timeformat]
 				set tg_lastuserid [getuser $irchandle XTRA "TELEGRAM_LASTUSERID"]
-				set tg_created [clock format [getuser $irchandle XTRA "TELEGRAM_CREATED"] -format $timeformat]
+				set tg_created [clock format [getuser $irchandle XTRA "TELEGRAM_CREATED"] -format $::telegram::timeformat]
 				set tg_userflags [getuser $irchandle XTRA "TELEGRAM_USERFLAGS"]
-				set irc_created [clock format [getuser $irchandle XTRA "created"] -format $timeformat]
-				set irc_laston [clock format [lindex [split [getuser $irchandle LASTON] " "] 0] -format $timeformat]
+				set irc_created [clock format [getuser $irchandle XTRA "created"] -format $::telegram::timeformat]
+				set irc_laston [clock format [lindex [split [getuser $irchandle LASTON] " "] 0] -format $::telegram::timeformat]
 				set irc_hosts [getuser $irchandle HOSTS]
 				set irc_info [getuser $irchandle INFO]
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERINFO "$irchandle" "$from_id" "$tg_lastlogin" "$tg_lastlogout" "$tg_lastuserid" "$tg_created" "$irc_created" "$irc_laston" "irc_hosts" "$irc_info"]"
