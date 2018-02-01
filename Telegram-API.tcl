@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180131 for Eggdrop                                    #
+# Telegram-API module v20180201 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -1006,8 +1006,8 @@ package require msgcat
 
 source "[file join $scriptdir lib libjson.tcl]"
 source "[file join $scriptdir lib libtelegram.tcl]"
+source "[file join $scriptdir lib libunicode.tcl]"
 source "[file join $scriptdir Telegram-API-config.tcl]"
-source "[file join $scriptdir utftable.tcl]"
 source "[file join $scriptdir Stickers.tcl]"
 
 # Set localization
