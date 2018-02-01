@@ -407,7 +407,10 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 
 	switch $command {
 		"help" {
-			set response "[::msgcat::mc MSG_BOT_HELP "$::telegram::irc_bot_nickname"]"
+			set response "[::msgcat::mc MSG_BOT_HELP "$::telegram::irc_bot_nickname"]\n"
+			foreach {command helpmessage} [array get ::telegram::public_commands_help] {
+				append $response "$command $helpmessage\n
+			}
 			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
@@ -491,7 +494,11 @@ proc tg2irc_privateCommands {from_id msgid message} {
 
 	switch $command {
 		"help" {
-			::libtelegram::sendMessage $from_id $msgid "html" "Available commands are:\n login <username> <password>\n logout\n myinfo\n help\n"
+			set response "Available commands are:\n login <username> <password>\n logout\n myinfo\n help\n
+			foreach {command helpmessage} [array get ::telegram::private_commands_help] {
+				append $response "$command $helpmessage\n
+			}
+			::libtelegram::sendMessage $from_id $msgid "html" "$response"
 		}
 
 		"login" {
