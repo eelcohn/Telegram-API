@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Quote module for Eggdrop v20180126                              #
+# Telegram-API Quote module for Eggdrop v20180201                              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -82,5 +82,5 @@ proc quotes_addQuote {chat_id msgid channel message parameter_start} {
 	}
 }
 
-add_public_command quote quotes_getQuote
-add_public_command addquote quotes_addQuote
+add_public_command quote quotes_getQuote "(keyword/id): Show a quote from the legendary quotes-database."
+add_public_command addquote quotes_addQuote "<quote>: Adds a quote to the legendary quote database."
