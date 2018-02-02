@@ -175,8 +175,8 @@ proc tg2irc_pollTelegram {} {
 					}
 					set pin_name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.pinned_message.from.id"]]$pin_name\003"
 					set pin_by [::libjson::getValue $msg ".$msgtype.from.username"]
-					if {$pin_name == "null" } {
-						set pin_name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
+					if {$pin_by == "null" } {
+						set pin_by [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
 					}
 					set pin_by "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$pin_by\003"
 					set pin_date "[::libjson::getValue $msg ".$msgtype.pinned_message.date"]"
@@ -714,7 +714,7 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 			}
 
 			# Show pinned messages (if any) as a notice to the new user on IRC
-			if {$::telegram::pinned_messages($channel)} {
+			if {$::telegram::pinned_messages($channel) ne ""} {
 				puthelp "NOTICE $nick: $::telegram::pinned_messages($channel)"
 			}
 		}
