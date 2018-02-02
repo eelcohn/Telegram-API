@@ -173,7 +173,7 @@ proc tg2irc_pollTelegram {} {
 					if {$pin_name == "null" } {
 						set pin_name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.pinned_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.pinned_message.from.last_name//empty"]]]
 					}
-					set pin_name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.pinned_message.from.id"]]$pinnedname\003"
+					set pin_name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.pinned_message.from.id"]]$pin_name\003"
 					set pin_date "[::libjson::getValue $msg ".$msgtype.pinned_message.date"]"
 					set pin_txt "[utf2ascii [::libjson::getValue $msg ".$msgtype.pinned_message.text"]]"
 
