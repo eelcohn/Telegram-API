@@ -169,16 +169,23 @@ proc tg2irc_pollTelegram {} {
 
 				# Check if this message is a pinned message
 				if {[::libjson::hasKey $msg ".$msgtype.pinned_message"]} {
+					# Get the name of the Telegram user who wrote the message
 					set pin_name [::libjson::getValue $msg ".$msgtype.pinned_message.from.username"]
 					if {$pin_name == "null" } {
 						set pin_name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.pinned_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.pinned_message.from.last_name//empty"]]]
 					}
-					set pin_name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.pinned_message.from.id"]]$pin_name\003"
+					if {$msgtype ne "channel_post"} {
+						set pin_name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.pinned_message.from.id"]]$pin_name\003"
+					}
+
+					# Get name of the Telegram user who pinned the message
 					set pin_by [::libjson::getValue $msg ".$msgtype.from.username"]
 					if {$pin_by == "null" } {
 						set pin_by [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
 					}
-					set pin_by "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$pin_by\003"
+					if {$msgtype ne "channel_post"} {
+						set pin_by "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$pin_by\003"
+					}		
 					set pin_date "[clock format [::libjson::getValue $msg ".$msgtype.pinned_message.date"] -format $::telegram::timeformat]"
 					set pin_txt "[utf2ascii [::libjson::getValue $msg ".$msgtype.pinned_message.text"]]"
 
