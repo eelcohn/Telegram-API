@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180201 for Eggdrop                                    #
+# Telegram-API module v20180202 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -7,15 +7,19 @@
 # ---------------------------------------------------------------------------- #
 # Global internal variables                                                    #
 # ---------------------------------------------------------------------------- #
+
+# Create a namespace for the Telegram-API script
 namespace eval ::telegram {}
 
-set		::telegram::tg_update_id	0
-set		::telegram::tg_bot_nickname	""
+# Declare global variables
+set		::telegram::tg_update_id		0
+set		::telegram::tg_bot_nickname		""
 set		::telegram::tg_bot_realname		""
 set 		::telegram::irc_bot_nickname		""
 set		::telegram::userflags			"jlvck"
 set		::telegram::chanflags			"tms"
 set		::telegram::cmdmodifier			"/"
+array set	::telegram::pinned_messages		{}
 array set	::telegram::public_commands		{}
 array set	::telegram::public_commands_help	{}
 array set	::telegram::private_commands		{}
@@ -159,6 +163,24 @@ proc tg2irc_pollTelegram {} {
 								set msgid [::libjson::getValue $msg ".$msgtype.message_id"]
 								tg2irc_botCommands "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
 							}
+						}
+					}
+				}
+
+				# Check if this message is a pinned message
+				if {[::libjson::hasKey $msg ".$msgtype.pinned_message"]} {
+					set pin_name [::libjson::getValue $msg ".$msgtype.pinned_message.from.username"]
+					if {$pin_name == "null" } {
+						set pin_name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.pinned_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.pinned_message.from.last_name//empty"]]]
+					}
+					set pin_name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.pinned_message.from.id"]]$pinnedname\003"
+					set pin_date "[::libjson::getValue $msg ".$msgtype.pinned_message.date"]"
+					set pin_txt "[utf2ascii [::libjson::getValue $msg ".$msgtype.pinned_message.text"]]"
+
+					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
+						if {$chatid eq $tg_chat_id} {
+							set $::telegram::pinned_messages($irc_channel) [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "$pin_date" "[remove_slashes $pin_txt]"]
+							puthelp "PRIVMSG $irc_channel: $::telegram::pinned_messages($irc_channel)"
 						}
 					}
 				}
@@ -677,13 +699,18 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 		return 0
 	}
 
-	# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
-	if {[string match "*j*" $::telegram::userflags]} {
-		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-			if {$channel eq $tg_channel} {
+	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+		if {$channel eq $tg_channel} {
+			# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
+			if {[string match "*j*" $::telegram::userflags]} {
 				if {![validuser $nick]} {
 					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
 				}
+			}
+
+			# Show pinned messages (if any) as a notice to the new user on IRC
+			if {$::telegram::pinned_messages($channel)} {
+				puthelp "NOTICE $nick: $::telegram::pinned_messages($channel)"
 			}
 		}
 	}
