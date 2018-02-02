@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram TCL library v20180128                                               #
+# Telegram API library for Tcl - v20180128                                     #
 # This library has functions for interacting with the Telegram servers         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
