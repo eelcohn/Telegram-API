@@ -1,3 +1,7 @@
+v20180202:
+* Telegram-API.tcl: Added support for pinned messages (5e22d32)
+* utftable.tcl: Removed (replaced by libunicode.tcl) (c778c74)
+
 v20180201:
 * Telegram-API.tcl: Don't send IRC bot commands directly to the Telegram group (68059d3)
 * Telegram-API.tcl: Moved some code around to make the sourcecode more readable (ef43f7e)
