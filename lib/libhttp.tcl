@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# HTTP web request module v20180123 for Eggdrop                                #
+# HTTP web request library for Tcl - v20180123                                 #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -12,9 +12,9 @@ namespace eval libhttp {
 }
 
 # ---------------------------------------------------------------------------- #
-# Make a HTTP request and return the response                                  #
+# Make a HTTP GET request and return the response                              #
 # ---------------------------------------------------------------------------- #
-proc ::libhttp::request {url type parameters} {
+proc ::libhttp::get {url parameters} {
 	switch $::libjson::processor {
 		"http_pkg" {
 			set errormessage "Tcllib::http processor not supported"
@@ -22,11 +22,7 @@ proc ::libhttp::request {url type parameters} {
 			return -1
 
 			::http::register https 443 [list ::tls::socket -tls1 1 -ssl2 0 -ssl3 0]
-			if {$type eq "POST"} {
-				set request [::http::geturl $url -query [::http::formatQuery [list $parameters]]]
-			} else {
-				set request [::http::geturl $url]
-			}
+			set request [::http::geturl $url]
 			set result [::http::data $request]
 			http::cleanup $request
 		}
@@ -39,16 +35,57 @@ proc ::libhttp::request {url type parameters} {
 			}
 
 			if { [ catch {
-				set result [exec curl --tlsv1.2 -s -X $type $url $curldata]
+				set result [exec curl --tlsv1.2 -s -X GET $url $curldata]
 			} ] } {
-				set errormessage "::libhttp::request: cannot connect to $url"
+				set errormessage "::libhttp::get: cannot connect to $url"
 				set errornumber -2
 				return -1
 			}
 		}
 
 		default {
-			set errormessage "::libhttp::request unknown http processor $::libhttp::processor"
+			set errormessage "::libhttp::get unknown http processor $::libhttp::processor"
+			set errornumber -3
+			return -1
+		}
+	}
+	return $result
+}
+
+# ---------------------------------------------------------------------------- #
+# Make a HTTP POST request and return the response                              #
+# ---------------------------------------------------------------------------- #
+proc ::libhttp::post {url parameters} {
+	switch $::libjson::processor {
+		"http_pkg" {
+			set errormessage "Tcllib::http processor not supported"
+			set errornumber -1
+			return -1
+
+			::http::register https 443 [list ::tls::socket -tls1 1 -ssl2 0 -ssl3 0]
+			set request [::http::geturl $url -query [::http::formatQuery [list $parameters]]]
+			set result [::http::data $request]
+			http::cleanup $request
+		}
+
+		"curl" {
+			set curldata ""
+ 
+			foreach data value [list $parameters] {
+				lappend " -d $data=$value" $curldata
+			}
+
+			if { [ catch {
+				set result [exec curl --tlsv1.2 -s -X POST $url $curldata]
+			} ] } {
+				set errormessage "::libhttp::post: cannot connect to $url"
+				set errornumber -2
+				return -1
+			}
+		}
+
+		default {
+			set errormessage "::libhttp::post unknown http processor $::libhttp::processor"
 			set errornumber -3
 			return -1
 		}
