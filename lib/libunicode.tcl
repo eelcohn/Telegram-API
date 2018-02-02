@@ -1,3 +1,9 @@
+# ---------------------------------------------------------------------------- #
+# Unicode library for Tcl - v20180202                                          #
+#                                                                              #
+# written by Eelco Huininga 2016-2018                                          #
+# ---------------------------------------------------------------------------- #
+
 namespace eval libunicode {}
 
 # ---------------------------------------------------------------------------- #
@@ -21,9 +27,16 @@ proc ::libunicode::ascii2escaped {txt} {
 }
 
 # ---------------------------------------------------------------------------- #
+# Convert escaped-Unicode characters to UTF-8 characters                       #
+# ---------------------------------------------------------------------------- #
+proc ::libunicode::escaped2utf8 {string} {
+	return "Unsupported"
+}
+
+# ---------------------------------------------------------------------------- #
 # Convert Unicode characters to escaped-Unicode characters                     #
 # ---------------------------------------------------------------------------- #
-proc ::libunicode::unicode2escaped {string} {
+proc ::libunicode::utf82escaped {string} {
 	set result ""
 	set utf16output true
 
@@ -88,9 +101,16 @@ proc ::libunicode::unicode2escaped {string} {
 }
 
 # ---------------------------------------------------------------------------- #
+# Convert escaped-Unicode characters to UTF-16 characters                      #
+# ---------------------------------------------------------------------------- #
+proc ::libunicode::escaped2utf16 {string} {
+	return "Unsupported"
+}
+
+# ---------------------------------------------------------------------------- #
 # Convert escaped-Unicode characters to Unicode characters                     #
 # ---------------------------------------------------------------------------- #
-proc ::libunicode::escaped2unicode {string} {
+proc ::libunicode::utf162escaped {string} {
 	set result ""
 
 	set index [string first "\\u" $string]
@@ -1411,4 +1431,14 @@ array set ::libunicode::utftable {
 	{\\uddba\\udf1c}	{" :diamonds:"}
 	{\\udbba\\udf1d}	{" :clubs:"}
 	{\\ufe0f}		{""}
+}
+
+# Build the translation table between UTF-8 and it's corresponsing ASCII value
+foreach {escapedstring asciistring} [array get ::libunicode::utftable] {
+	set utf8table([::libunicode::escaped2utf8 $escapedstring]) $asciistring
+}
+
+# Build the translation table between UTF-16 and it's corresponsing ASCII value
+foreach {escapedstring asciistring} [array get ::libunicode::utftable] {
+	set utf8table([::libunicode::escaped2utf16 $escapedstring]) $asciistring
 }
