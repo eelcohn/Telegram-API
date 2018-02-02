@@ -174,11 +174,11 @@ proc tg2irc_pollTelegram {} {
 						set pin_name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.pinned_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.pinned_message.from.last_name//empty"]]]
 					}
 					set pin_name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.pinned_message.from.id"]]$pin_name\003"
-					set pin_by [::libjson::getValue $msg ".$msgtype.message.from.username"]
+					set pin_by [::libjson::getValue $msg ".$msgtype.from.username"]
 					if {$pin_name == "null" } {
-						set pin_name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.message.from.last_name//empty"]]]
+						set pin_name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
 					}
-					set pin_by "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.message.from.id"]]$pin_by\003"
+					set pin_by "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$pin_by\003"
 					set pin_date "[::libjson::getValue $msg ".$msgtype.pinned_message.date"]"
 					set pin_txt "[utf2ascii [::libjson::getValue $msg ".$msgtype.pinned_message.text"]]"
 
