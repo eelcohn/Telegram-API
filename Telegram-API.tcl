@@ -186,7 +186,7 @@ proc tg2irc_pollTelegram {} {
 					if {$msgtype ne "channel_post"} {
 						set pin_by "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$pin_by\003"
 					}		
-					set pin_date "[clock format [::libjson::getValue $msg ".$msgtype.pinned_message.date"] -format $::telegram::timeformat]"
+					set pin_date "[clock format [::libjson::getValue $msg ".$msgtype.date"] -format $::telegram::timeformat]"
 					set pin_txt "[utf2ascii [::libjson::getValue $msg ".$msgtype.pinned_message.text"]]"
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
