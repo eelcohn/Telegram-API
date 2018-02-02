@@ -179,7 +179,7 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							set $::telegram::pinned_messages($irc_channel) [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "$pin_date" "[remove_slashes $pin_txt]"]
+							set ::telegram::pinned_messages($irc_channel) [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "$pin_date" "[remove_slashes $pin_txt]"]
 							puthelp "PRIVMSG $irc_channel: $::telegram::pinned_messages($irc_channel)"
 						}
 					}
@@ -832,9 +832,11 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 # Download a Telegram attachment and send it via DCC to an IRC user            #
 # ---------------------------------------------------------------------------- #
 proc irc2tg_sendFile {nick hostmask handle channel text} {
+	global xfer-timeout
+
 	set file_id $text
 	set max_file_size 20480000
-	set timeout 30
+	set timeout [expr ${xfer-timeout} + 1]
 
 #	if {[regexp {"/[^A-Za-z0-9\-_]/"} $file_id]} {
 		set result [::libtelegram::getFile $file_id]
