@@ -73,9 +73,7 @@ proc ::libjson::getValue {record key} {
 	}
 }
 
-}
-
-namespace eval ::libjson::internal {
+namespace eval ::libjson::internal {}
 
 # ---------------------------------------------------------------------------- #
 # Check if a JSON key is present                                               #
