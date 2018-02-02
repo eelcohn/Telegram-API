@@ -18,7 +18,13 @@ proc ::libjson::hasKey {record key} {
 		}
 
 		"jq" {
-			if {[exec jq --raw-output $key << $record] != "null"} {
+			if { [ catch {
+				set result [exec jq --raw-output $key << $record]
+			} ] } {
+				putlog "libjson: cannot exec jq (key=$key, record=$record)"
+				return -1
+			}
+			if {$result != "null"} {
 				return true
 			} else {
 				return false
@@ -125,7 +131,13 @@ namespace eval ::libjson::jq {
 #		if {[exec jq --raw-output $filter|type << $data] eq "string"} {
 #			return [string trim [exec jq --ascii-output $filter << $data] "\""]
 #		} else {
-			return [exec jq --raw-output --compact-output $filter << $data]
+			if { [ catch {
+				set result [exec jq --raw-output --compact-output $filter << $data]
+			} ] } {
+				putlog "libjson: cannot exec jq (key=$key, record=$record)"
+				return -1
+			}
+			return $result
 #		}
 	}
 	proc json2dict {data} {
