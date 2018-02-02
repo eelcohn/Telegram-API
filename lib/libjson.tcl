@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180121 for Eggdrop                                    #
+# Telegram-API module v20180202 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -7,6 +7,7 @@
 
 namespace eval libjson {
 	variable processor
+}
 
 # ---------------------------------------------------------------------------- #
 # Check if a JSON key is present                                               #
@@ -51,7 +52,14 @@ proc ::libjson::getValue {record key} {
 		}
 
 		"jq" {
-			return [::libjson::jq::jq "$key" $record]
+			# http://wiki.tcl.tk/11630
+			if { [ catch {
+				set result [exec jq --raw-output --compact-output $key << $record]
+			} ] } {
+				putlog "libjson: cannot exec jq (key=$key, record=$record)"
+				return -1
+			}
+			return $result
 		}
 
 		"internal" {
@@ -115,54 +123,6 @@ proc ::libjson::internal::getValue {record object key} {
 		}
 	}
 	return ""
-}
-
-}
-
-# http://wiki.tcl.tk/11630
-
-# jq-0.4.0.tm
-# To use this module you need jq version 1.5rc1 or later installed.
-namespace eval ::libjson::jq {
-	proc jq {filter data} {
-		# We need --ascii-output so we can find and replace Unicode emoji's with ASCII emoticons, but jq cannot
-		# handle both the --raw-output and --ascii-output switches. Therefore we need to find out the type first
-		# so the leading and trailing quotes can be removed manually.
-#		if {[exec jq --raw-output $filter|type << $data] eq "string"} {
-#			return [string trim [exec jq --ascii-output $filter << $data] "\""]
-#		} else {
-			if { [ catch {
-				set result [exec jq --raw-output --compact-output $filter << $data]
-			} ] } {
-				putlog "libjson: cannot exec jq (key=$key, record=$record)"
-				return -1
-			}
-			return $result
-#		}
-	}
-	proc json2dict {data} {
-		jq {
-			def totcl:
-				if type == "array" then
-					# Convert array to object with keys 0, 1, 2... and process
-					# it as object.
-					[range(0;length) as $i
-						| {key: $i | tostring, value: .[$i]}]
-					| from_entries
-					| totcl
-				elif type == "object" then
-					.
-					| to_entries
-					| map("{\(.key)} {\(.value | totcl)}")
-					| join(" ")
-				else
-					tostring
-					| gsub("{"; "\\{")
-					| gsub("}"; "\\}")
-				end;
-			. | totcl
-		} $data
-	}
 }
 
 set ::libjson::processor "jq"
