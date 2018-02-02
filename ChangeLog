@@ -1,5 +1,5 @@
 v20180202:
-* Telegram-API.tcl: Added support for pinned messages (5e22d32 / 6d7f897 / 9830897 / d1a1cb9 / a488d03 / 404400d)
+* Telegram-API.tcl: Added support for pinned messages (5e22d32 / 6d7f897 / 9830897 / d1a1cb9 / a488d03 / 404400d / f6b8ea4)
 * Telegram-API.tcl: Timeout's for auto-removal of DCC-sent attachments now uses xfer-timeout (9830897)
 * utftable.tcl: Removed (replaced by libunicode.tcl) (c778c74)
 
