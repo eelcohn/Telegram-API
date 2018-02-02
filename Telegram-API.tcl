@@ -174,12 +174,17 @@ proc tg2irc_pollTelegram {} {
 						set pin_name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.pinned_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.pinned_message.from.last_name//empty"]]]
 					}
 					set pin_name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.pinned_message.from.id"]]$pin_name\003"
+					set pin_by [::libjson::getValue $msg ".$msgtype.message.from.username"]
+					if {$pin_name == "null" } {
+						set pin_name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.message.from.last_name//empty"]]]
+					}
+					set pin_by "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.message.from.id"]]$pin_by\003"
 					set pin_date "[::libjson::getValue $msg ".$msgtype.pinned_message.date"]"
 					set pin_txt "[utf2ascii [::libjson::getValue $msg ".$msgtype.pinned_message.text"]]"
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							set ::telegram::pinned_messages($irc_channel) [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "$pin_date" "[remove_slashes $pin_txt]"]
+							set ::telegram::pinned_messages($irc_channel) [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "[remove_slashes $pin_txt]" "$pin_by" "$pin_date"]
 							puthelp "PRIVMSG $irc_channel: $::telegram::pinned_messages($irc_channel)"
 						}
 					}
