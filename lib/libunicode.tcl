@@ -30,7 +30,33 @@ proc ::libunicode::ascii2escaped {txt} {
 # Convert escaped-Unicode characters to UTF-8 characters                       #
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::escaped2utf8 {string} {
-	return "Unsupported"
+	set result ""
+
+	set index1 [string first "\\u" $str]
+
+	while {$index1 ne -1} {
+		set value1 [string range $str $index1+2 $index1+5]
+		scan $value1 %x hex1
+		if {($hex1 >= 0xd800) && ($hex1 <= 0xdfff)} {
+			set index2 [string first "\\u" $str $index1+5]
+			set value2 [string range $str $index2+2 $index2+5]
+			scan $value2 %x hex2
+			set value [expr 0x10000 + (($hex1 - 0xd800) << 10) + ($hex2 - 0xdc00)]
+			set byte1 [expr 0xf0 + (($value & 0x1c0000) >> 18)]
+			set byte2 [expr 0x80 + (($value & 0x03f000) >> 12)]
+			set byte3 [expr 0x80 + (($value & 0x000fc0) >> 6)]
+			set byte4 [expr 0x80 + ($value & 0x00003f)]
+#			set str [string map {"\\u$value1\\u$value2" "[binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3][format %x $byte4]]"} $str]
+			set result [string range $str 0 $index1-1]
+			append result "[binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3][format %x $byte4]]"
+			append result [string range $str $index2+6 end]
+			set str $result
+		} else {
+			set str [string map {"\\u$value1" $hex1} $str]
+		}
+		set index1 [string first "\\u" $str]
+	}
+	return $str
 }
 
 # ---------------------------------------------------------------------------- #
@@ -103,8 +129,33 @@ proc ::libunicode::utf82escaped {string} {
 # ---------------------------------------------------------------------------- #
 # Convert escaped-Unicode characters to UTF-16 characters                      #
 # ---------------------------------------------------------------------------- #
-proc ::libunicode::escaped2utf16 {string} {
-	return "Unsupported"
+proc ::libunicode::escaped2utf16 {str} {
+	set result ""
+
+	set index1 [string first "\\u" $str]
+
+	while {$index1 ne -1} {
+		set value1 [string range $str $index1+2 $index1+5]
+		scan $value1 %x hex1
+		if {($hex1 >= 0xd800) && ($hex1 <= 0xdfff)} {
+			set index2 [string first "\\u" $str $index1+5]
+			set value2 [string range $str $index2+2 $index2+5]
+			scan $value2 %x hex2
+			set byte1 [expr ($value1 & 0xff00) >> 8)]
+			set byte2 [expr ($value1 & 0x00ff)]
+			set byte3 [expr ($value2 & 0xff00) >> 8)]
+			set byte4 [expr ($value2 & 0x00ff)]
+#			set str [string map {"\\u$value1\\u$value2" "[binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3][format %x $byte4]]"} $str]
+			set result [string range $str 0 $index1-1]
+			append result "[binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3][format %x $byte4]]"
+			append result [string range $str $index2+6 end]
+			set str $result
+		} else {
+			set str [string map {"\\u$value1" $hex1} $str]
+		}
+		set index1 [string first "\\u" $str]
+	}
+	return $str
 }
 
 # ---------------------------------------------------------------------------- #
@@ -1440,5 +1491,5 @@ foreach {escapedstring asciistring} [array get ::libunicode::utftable] {
 
 # Build the translation table between UTF-16 and it's corresponsing ASCII value
 foreach {escapedstring asciistring} [array get ::libunicode::utftable] {
-	set utf8table([::libunicode::escaped2utf16 $escapedstring]) $asciistring
+	set utf16table([::libunicode::escaped2utf16 $escapedstring]) $asciistring
 }
