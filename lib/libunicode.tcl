@@ -1309,18 +1309,66 @@ array set ::libunicode::utftable {
 	{\\ud83d\\udc61}	{" :womans_sandals:"}
 	{\\ud83d\\udc62}	{" :womans_boots:"}
 	{\\ud83d\\udc63}	{" :footprints:"}
+	{\\ud83d\\udc64}	{" :silhouette:"}
+	{\\ud83d\\udc65}	{" :silhouettes:"}
+	{\\ud83d\\udc66}	{" :boy:"}
+	{\\ud83d\\udc67}	{" :girl:"}
+	{\\ud83d\\udc68}	{" :man:"}
+	{\\ud83d\\udc69}	{" :woman:"}
+	{\\ud83d\\udc6a}	{" :family:"}
+	{\\ud83d\\udc6b}	{" :man_woman_holding_hands:"}
+	{\\ud83d\\udc6c}	{" :two_men_holding_hands:"}
+	{\\ud83d\\udc6d}	{" :two_women_holding_hands:"}
+	{\\ud83d\\udc6e}	{" :police_officer:"}
+	{\\ud83d\\udc6f}	{" :women_with_bunny_ears:"}
+	{\\ud83d\\udc70}	{" :bride:"}
+	{\\ud83d\\udc71}	{" :man_with_blond_hair:"}
+	{\\ud83d\\udc72}	{" :man_with_gua_pi_mao:"}
+	{\\ud83d\\udc73}	{" :man_with_turban:"}
+	{\\ud83d\\udc74}	{" :older_man:"}
+	{\\ud83d\\udc75}	{" :older_woman:"}
+	{\\ud83d\\udc76}	{" :baby:"}
+	{\\ud83d\\udc77}	{" :construction_worker:"}
+	{\\ud83d\\udc78}	{" :princess:"}
+	{\\ud83d\\udc79}	{" :japanese_ogre:"}
+	{\\ud83d\\udc7a}	{" :japanese_goblin:"}
+	{\\ud83d\\udc7b}	{" :ghost:"}
+	{\\ud83d\\udc7c}	{" :baby_angel:"}
 	{\\ud83d\\udc7d}	{" :alien:"}
+	{\\ud83d\\udc7e}	{" :space_invader:"}
+	{\\ud83d\\udc7f}	{" :imp:"}
+	{\\ud83d\\udc80}	{" :skull:"}
+	{\\ud83d\\udc81}	{" :information_desk_person:"}
+	{\\ud83d\\udc82}	{" :guardsman:"}
+	{\\ud83d\\udc83}	{" :female_dancer:"}
+	{\\ud83d\\udc84}	{" :lipstick:"}
+	{\\ud83d\\udc85}	{" :nail_polish:"}
+	{\\ud83d\\udc86}	{" :face_massage:"}
+	{\\ud83d\\udc87}	{" :haircut:"}
+	{\\ud83d\\udc88}	{" :barber_pole:"}
+	{\\ud83d\\udc89}	{" :syringe:"}
+	{\\ud83d\\udc8a}	{" :pill:"}
 	{\\ud83d\\udc8b}	{" :kissing_lips:"}
+	{\\ud83d\\udc8c}	{" :love_letter:"}
 	{\\ud83d\\udc8d}	{" :ring:"}
 	{\\ud83d\\udc8e}	{" :gem:"}
+	{\\ud83d\\udc8f}	{" :couple_kissing:"}
+	{\\ud83d\\udc90}	{" :bouquet:"}
+	{\\ud83d\\udc91}	{" :couple_heart:"}
+	{\\ud83d\\udc92}	{" :wedding_chapel:"}
 	{\\ud83d\\udc93}	{" :heart_pulsating:"}
 	{\\ud83d\\udc94}	{" :heart_broken:"}
 	{\\ud83d\\udc95}	{" :two_hearts:"}
 	{\\ud83d\\udc96}	{" :heart_sparkling:"}
 	{\\ud83d\\udc97}	{" :heart_beating:"}
+	{\\ud83d\\udc98}	{" :heart_with_arrow:"}
 	{\\ud83d\\udc99}	{" :heart_blue:"}
 	{\\ud83d\\udc9a}	{" :heart_green:"}
 	{\\ud83d\\udc9b}	{" :heart_yellow:"}
+	{\\ud83d\\udc9c}	{" :heart_purple:"}
+	{\\ud83d\\udc9d}	{" :heart_with_ribbon:"}
+	{\\ud83d\\udc9e}	{" :hearts_revolving:"}
+	{\\ud83d\\udc9f}	{" :heart_box:"}
 	{\\ud83d\\udca0}	{" :diamond_shape_with_a_dot_inside:"}
 	{\\ud83d\\udca1}	{" :light_bulb:"}
 	{\\ud83d\\udca2}	{" :anger:"}
@@ -1333,13 +1381,90 @@ array set ::libunicode::utftable {
 	{\\ud83d\\udca9}	{" :poo:"}
 	{\\ud83d\\udcaa}	{" :muscle:"}
 	{\\ud83d\\udcab}	{" :dizzy:"}
+	{\\ud83d\\udcac}	{" :speech_balloon:"}
+	{\\ud83d\\udcad}	{" :thought_balloon:"}
+	{\\ud83d\\udcae}	{" :white_flower:"}
+	{\\ud83d\\udcaf}	{" :100_symbol:"}
 	{\\ud83d\\udcb0}	{" :moneybag:"}
+	{\\ud83d\\udcb1}	{" :currency_exchange:"}
+	{\\ud83d\\udcb2}	{" :dollar_sign:"}
+	{\\ud83d\\udcb3}	{" :credit_card:"}
+	{\\ud83d\\udcb4}	{" :banknotes_yen:"}
+	{\\ud83d\\udcb5}	{" :banknotes_dollar:"}
+	{\\ud83d\\udcb6}	{" :banknotes_euro:"}
+	{\\ud83d\\udcb7}	{" :banknotes_pound:"}
+	{\\ud83d\\udcb8}	{" :banknotes_dollar_flying:"}
+	{\\ud83d\\udcb9}	{" :stock_chart:"}
+	{\\ud83d\\udcba}	{" :seat:"}
+	{\\ud83d\\udcbb}	{" :computer:"}
+	{\\ud83d\\udcbc}	{" :briefcase:"}
+	{\\ud83d\\udcbd}	{" :minidisc:"}
+	{\\ud83d\\udcbe}	{" :floppydisc:"}
+	{\\ud83d\\udcbf}	{" :opticaldisc:"}
 	{\\ud83d\\udcc0}	{" :dvd:"}
+	{\\ud83d\\udcc1}	{" :file_folder:"}
+	{\\ud83d\\udcc2}	{" :file_folder_open:"}
+	{\\ud83d\\udcc3}	{" :page_doublesided:"}
+	{\\ud83d\\udcc4}	{" :page_facing_up:"}
+	{\\ud83d\\udcc5}	{" :calendar:"}
+	{\\ud83d\\udcc6}	{" :tearoff_calendar:"}
+	{\\ud83d\\udcc7}	{" :card_index:"}
+	{\\ud83d\\udcc8}	{" :chart_upward_trend:"}
+	{\\ud83d\\udcc9}	{" :chart_downward_trend:"}
+	{\\ud83d\\udcca}	{" :bar_chart:"}
+	{\\ud83d\\udccb}	{" :clipboard:"}
+	{\\ud83d\\udccc}	{" :pushpin:"}
+	{\\ud83d\\udccd}	{" :pin:"}
+	{\\ud83d\\udcce}	{" :paperclip:"}
+	{\\ud83d\\udccf}	{" :ruler:"}
+	{\\ud83d\\udcd0}	{" :ruler_triangular:"}
+	{\\ud83d\\udcd1}	{" :bookmark_tabs:"}
+	{\\ud83d\\udcd2}	{" :ledger:"}
+	{\\ud83d\\udcd3}	{" :notebook_black:"}
+	{\\ud83d\\udcd4}	{" :notebook_white:"}
+	{\\ud83d\\udcd5}	{" :book_closed:"}
+	{\\ud83d\\udcd6}	{" :book_open:"}
+	{\\ud83d\\udcd7}	{" :book_green:"}
+	{\\ud83d\\udcd8}	{" :book_blue:"}
+	{\\ud83d\\udcd9}	{" :book_orange:"}
+	{\\ud83d\\udcda}	{" :books:"}
+	{\\ud83d\\udcdb}	{" :name_badge:"}
+	{\\ud83d\\udcdc}	{" :scroll:"}
 	{\\ud83d\\udcdd}	{" :memo:"}
+	{\\ud83d\\udcde}	{" :telephone_receiver:"}
+	{\\ud83d\\udcdf}	{" :pager:"}
+	{\\ud83d\\udce0}	{" :fax_machine:"}
+	{\\ud83d\\udce1}	{" :sattelite_dish:"}
+	{\\ud83d\\udce2}	{" :pa_megaphone:"}
+	{\\ud83d\\udce3}	{" :megaphone:"}
+	{\\ud83d\\udce4}	{" :outbox:"}
+	{\\ud83d\\udce5}	{" :inbox:"}
+	{\\ud83d\\udce6}	{" :package:"}
+	{\\ud83d\\udce7}	{" :email:"}
+	{\\ud83d\\udce8}	{" :incoming_mail:"}
+	{\\ud83d\\udce9}	{" :envelope_with_incoming_arrow:"}
+	{\\ud83d\\udcea}	{" :mailbox_closed:"}
+	{\\ud83d\\udceb}	{" :mailbox_closed_with_flag:"}
+	{\\ud83d\\udcec}	{" :mailbox_open_with_flag:"}
+	{\\ud83d\\udced}	{" :mailbox_open:"}
+	{\\ud83d\\udcee}	{" :postbox:"}
+	{\\ud83d\\udcef}	{" :postal_horn:"}
 	{\\ud83d\\udcf0}	{" :newspaper:"}
+	{\\ud83d\\udcf1}	{" :mobile_phone:"}
+	{\\ud83d\\udcf2}	{" :mobile_phone_with_arrow:"}
+	{\\ud83d\\udcf3}	{" :mobile_phone_vibrating:"}
+	{\\ud83d\\udcf4}	{" :mobile_phone_off:"}
+	{\\ud83d\\udcf5}	{" :no_mobile_phones:"}
+	{\\ud83d\\udcf6}	{" :antenna_signal_strength:"}
+	{\\ud83d\\udcf7}	{" :camera:"}
+	{\\ud83d\\udcf8}	{" :camera_with_flash:"}
+	{\\ud83d\\udcf9}	{" :video_camera:"}
+	{\\ud83d\\udcfa}	{" :television:"}
 	{\\ud83d\\udcfb}	{" :radio:"}
-	{\\ud83d\\udcfc}	{" :vhs:"}
-	{\\ud83d\\udc38}	{" :frogface:"}
+	{\\ud83d\\udcfc}	{" :videocassette:"}
+	{\\ud83d\\udcfd}	{" :film_projector:"}
+	{\\ud83d\\udcfe}	{" :portable_stereo:"}
+	{\\ud83d\\udcff}	{" :prayer_beads:"}
 	{\\ud83d\\udd0a}	{" :loud_sound:"}
 	{\\ud83d\\udd0f}	{" :lock_with_ink_pen:"}
 	{\\ud83d\\udd10}	{" :closed_lock_with_key:"}
