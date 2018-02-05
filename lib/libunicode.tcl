@@ -71,7 +71,7 @@ proc ::libunicode::ascii2utf16 {txt} {
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::escaped2utf8 {str} {
 	set result ""
-
+return $str
 	set index1 [string first "\\u" $str]
 
 	while {$index1 ne -1} {
@@ -414,8 +414,86 @@ array set ::libunicode::utftable {
 	{\\u2b50}	{" :star:"}
 	{\\u2b55}	{" :circle:"}
 	{\\u3030}	{" :wavy_dash:"}
+
+	# Enclosed Alphanumeric Supplement
+	{\\ud83c\\udd00}	{" :0.:"}
+	{\\ud83c\\udd01}	{" :0,:"}
+	{\\ud83c\\udd02}	{" :1,:"}
+	{\\ud83c\\udd03}	{" :2,:"}
+	{\\ud83c\\udd04}	{" :3,:"}
+	{\\ud83c\\udd05}	{" :4,:"}
+	{\\ud83c\\udd06}	{" :5,:"}
+	{\\ud83c\\udd07}	{" :6,:"}
+	{\\ud83c\\udd08}	{" :7,:"}
+	{\\ud83c\\udd09}	{" :8,:"}
+	{\\ud83c\\udd0a}	{" :9,:"}
+	{\\ud83c\\udd10}	{" :(A):"}
+	{\\ud83c\\udd11}	{" :(B):"}
+	{\\ud83c\\udd12}	{" :(C):"}
+	{\\ud83c\\udd13}	{" :(D):"}
+	{\\ud83c\\udd14}	{" :(E):"}
+	{\\ud83c\\udd15}	{" :(F):"}
+	{\\ud83c\\udd16}	{" :(G):"}
+	{\\ud83c\\udd17}	{" :(H):"}
+	{\\ud83c\\udd18}	{" :(I):"}
+	{\\ud83c\\udd19}	{" :(J):"}
+	{\\ud83c\\udd1a}	{" :(K):"}
+	{\\ud83c\\udd1b}	{" :(L):"}
+	{\\ud83c\\udd1c}	{" :(M):"}
+	{\\ud83c\\udd1d}	{" :(N):"}
+	{\\ud83c\\udd1e}	{" :(O):"}
+	{\\ud83c\\udd1f}	{" :(P):"}
+	{\\ud83c\\udd20}	{" :(Q):"}
+	{\\ud83c\\udd21}	{" :(R):"}
+	{\\ud83c\\udd22}	{" :(S):"}
+	{\\ud83c\\udd23}	{" :(T):"}
+	{\\ud83c\\udd24}	{" :(U):"}
+	{\\ud83c\\udd25}	{" :(V):"}
+	{\\ud83c\\udd26}	{" :(W):"}
+	{\\ud83c\\udd27}	{" :(X):"}
+	{\\ud83c\\udd28}	{" :(Y):"}
+	{\\ud83c\\udd29}	{" :(Z):"}
+	{\\ud83c\\udd30}	{" :[A]:"}
+	{\\ud83c\\udd31}	{" :[B]:"}
+	{\\ud83c\\udd32}	{" :[C]:"}
+	{\\ud83c\\udd33}	{" :[D]:"}
+	{\\ud83c\\udd34}	{" :[E]:"}
+	{\\ud83c\\udd35}	{" :[F]:"}
+	{\\ud83c\\udd36}	{" :[G]:"}
+	{\\ud83c\\udd37}	{" :[H]:"}
+	{\\ud83c\\udd38}	{" :[I]:"}
+	{\\ud83c\\udd39}	{" :[J]:"}
+	{\\ud83c\\udd3a}	{" :[K]:"}
+	{\\ud83c\\udd3b}	{" :[L]:"}
+	{\\ud83c\\udd3c}	{" :[M]:"}
+	{\\ud83c\\udd3d}	{" :[N]:"}
+	{\\ud83c\\udd3e}	{" :[O]:"}
+	{\\ud83c\\udd3f}	{" :[P]:"}
+	{\\ud83c\\udd40}	{" :[Q]:"}
+	{\\ud83c\\udd41}	{" :[R]:"}
+	{\\ud83c\\udd42}	{" :[S]:"}
+	{\\ud83c\\udd43}	{" :[T]:"}
+	{\\ud83c\\udd44}	{" :[U]:"}
+	{\\ud83c\\udd45}	{" :[V]:"}
+	{\\ud83c\\udd46}	{" :[W]:"}
+	{\\ud83c\\udd47}	{" :[X]:"}
+	{\\ud83c\\udd48}	{" :[Y]:"}
+	{\\ud83c\\udd49}	{" :[Z]:"}
+	{\\ud83c\\udd4a}	{" :[HV]:"}
+	{\\ud83c\\udd4b}	{" :[MV]:"}
+	{\\ud83c\\udd4c}	{" :[SD]:"}
+	{\\ud83c\\udd4d}	{" :[SS]:"}
+	{\\ud83c\\udd4e}	{" :[PPV]:"}
+	{\\ud83c\\udd4f}	{" :[WC]:"}
+	{\\ud83c\\udd70}	{" :bloodtype_a:"}
+	{\\ud83c\\udd71}	{" :bloodtype_b:"}
+	{\\ud83c\\udd7e}	{" :bloodtype_o:"}
+	{\\ud83c\\udd7f}	{" :parking:"}
 	{\\ud83c\\udd8e}	{" :bloodtype_ab:"}
+	{\\ud83c\\udd8f}	{" :wc:"}
 	{\\ud83c\\udd93}	{" :free:"}
+
+	# Regional indicator symbols
 	{\\ud83c\\udde6\\ud83c\\udde6}	{" :flag_aa:"}
 	{\\ud83c\\udde6\\ud83c\\udde7}	{" :flag_ab:"}
 	{\\ud83c\\udde6\\ud83c\\udde8}	{" :flag_ac:"}
