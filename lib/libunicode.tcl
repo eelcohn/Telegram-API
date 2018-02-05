@@ -171,7 +171,7 @@ proc ::libunicode::utf82escaped {string} {
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::escaped2utf16 {str} {
 	set result ""
-
+return ""
 	set index1 [string first "\\u" $str]
 
 	while {$index1 ne -1} {
@@ -203,7 +203,7 @@ proc ::libunicode::escaped2utf16 {str} {
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::utf162escaped {string} {
 	set result ""
-
+return ""
 	set index [string first "\\u" $string]
 
 	while {$index ne -1} {
@@ -1505,7 +1505,21 @@ array set ::libunicode::utftable {
 	{\\ud83d\\udcfd}	{" :film_projector:"}
 	{\\ud83d\\udcfe}	{" :portable_stereo:"}
 	{\\ud83d\\udcff}	{" :prayer_beads:"}
-	{\\ud83d\\udd0a}	{" :loud_sound:"}
+	{\\ud83d\\udd00}	{" :play_random:"}
+	{\\ud83d\\udd01}	{" :play_repeat:"}
+	{\\ud83d\\udd02}	{" :play_repeat_one:"}
+	{\\ud83d\\udd03}	{" :arrows_clockwise:"}
+	{\\ud83d\\udd04}	{" :arrows_anticlockwise:"}
+	{\\ud83d\\udd05}	{" :brightness_low:"}
+	{\\ud83d\\udd06}	{" :brightness_high:"}
+	{\\ud83d\\udd07}	{" :sound_off:"}
+	{\\ud83d\\udd08}	{" :sound:"}
+	{\\ud83d\\udd09}	{" :sound_medium:"}
+	{\\ud83d\\udd0a}	{" :sound_loud:"}
+	{\\ud83d\\udd0b}	{" :battery:"}
+	{\\ud83d\\udd0c}	{" :powercord:"}
+	{\\ud83d\\udd0d}	{" :magnifying_glass_pointing_left:"}
+	{\\ud83d\\udd0e}	{" :magnifying_glass_pointing_right:"}
 	{\\ud83d\\udd0f}	{" :lock_with_ink_pen:"}
 	{\\ud83d\\udd10}	{" :closed_lock_with_key:"}
 	{\\ud83d\\udd11}	{" :key:"}
@@ -1530,19 +1544,62 @@ array set ::libunicode::utftable {
 	{\\ud83d\\udd24}	{" :telephone_receiver:"}
 	{\\ud83d\\udd25}	{" :fire:"}
 	{\\ud83d\\udd26}	{" :flashlight:"}
+	{\\ud83d\\udd27}	{" :wrench:"}
+	{\\ud83d\\udd28}	{" :hammer:"}
+	{\\ud83d\\udd29}	{" :nut_and_bolt:"}
 	{\\ud83d\\udd2a}	{" :knife:"}
+	{\\ud83d\\udd2b}	{" :pistol:"}
+	{\\ud83d\\udd2c}	{" :microscope:"}
+	{\\ud83d\\udd2d}	{" :telescope:"}
+	{\\ud83d\\udd2e}	{" :crystal_ball:"}
+	{\\ud83d\\udd2f}	{" :david_star:"}
+	{\\ud83d\\udd30}	{" :beginner_japanese_symbol:"}
+	{\\ud83d\\udd31}	{" :trident:"}
 	{\\ud83d\\udd32}	{" :black_square_button:"}
 	{\\ud83d\\udd33}	{" :white_square_button:"}
-	{\\ud83d\\udd34}	{" :red_circle:"}
+	{\\ud83d\\udd34}	{" :large_red_circle:"}
 	{\\ud83d\\udd35}	{" :large_blue_circle:"}
+	{\\ud83d\\udd36}	{" :large_orange_diamond:"}
+	{\\ud83d\\udd37}	{" :large_blue_diamond:"}
 	{\\ud83d\\udd38}	{" :small_orange_diamond:"}
-	{\\ud83d\\udd3b}	{" :small_red_triangle_down:"}
+	{\\ud83d\\udd39}	{" :small_blue_diamond:"}
+	{\\ud83d\\udd3a}	{" :red_triangle_up:"}
+	{\\ud83d\\udd3b}	{" :red_triangle_down:"}
 	{\\ud83d\\udd3c}	{" :arrow_up_small:"}
 	{\\ud83d\\udd3d}	{" :arrow_down_small:"}
 	{\\ud83d\\udd43}	{" :left_semicircle:"}
+	{\\ud83d\\udd50}	{" :clock_one_oclock:"}
+	{\\ud83d\\udd51}	{" :clock_two_oclock:"}
+	{\\ud83d\\udd52}	{" :clock_three_oclock:"}
+	{\\ud83d\\udd53}	{" :clock_four_oclock:"}
+	{\\ud83d\\udd54}	{" :clock_five_oclock:"}
+	{\\ud83d\\udd55}	{" :clock_six_oclock:"}
+	{\\ud83d\\udd56}	{" :clock_seven_oclock:"}
+	{\\ud83d\\udd57}	{" :clock_eight_oclock:"}
+	{\\ud83d\\udd58}	{" :clock_nine_oclock:"}
+	{\\ud83d\\udd59}	{" :clock_ten_oclock:"}
+	{\\ud83d\\udd5a}	{" :clock_eleven_oclock:"}
+	{\\ud83d\\udd5b}	{" :clock_twelve_oclock:"}
+	{\\ud83d\\udd5c}	{" :clock_one_thirty:"}
+	{\\ud83d\\udd5d}	{" :clock_two_thirty:"}
+	{\\ud83d\\udd5e}	{" :clock_three_thirty:"}
+	{\\ud83d\\udd5f}	{" :clock_four_thirty:"}
+	{\\ud83d\\udd60}	{" :clock_five_thirty:"}
+	{\\ud83d\\udd61}	{" :clock_six_thirty:"}
+	{\\ud83d\\udd62}	{" :clock_seven_thirty:"}
+	{\\ud83d\\udd63}	{" :clock_eight_thirty:"}
+	{\\ud83d\\udd64}	{" :clock_nine_thirty:"}
+	{\\ud83d\\udd65}	{" :clock_ten_thirty:"}
+	{\\ud83d\\udd66}	{" :clock_eleven_thirty:"}
+	{\\ud83d\\udd67}	{" :clock_twelve_thirty:"}
 	{\\ud83d\\udd90}	{" :hand_raised:"}
 	{\\ud83d\\udd95}	{" :middle_finger:"}
 	{\\ud83d\\udde5}	{" :ray_below:"}
+	{\\ud83d\\uddfb}	{" :mount_fuji:"}
+	{\\ud83d\\uddfc}	{" :tokyo_tower:"}
+	{\\ud83d\\uddfd}	{" :statue_of_liberty:"}
+	{\\ud83d\\uddfe}	{" :silhouette_of_japan:"}
+	{\\ud83d\\uddff}	{" :statue_moyai:"}
 	{\\ud83d\\ude00}	{" :D"}
 	{\\ud83d\\ude01}	{" :-||"}
 	{\\ud83d\\ude02}	{" xD"}
