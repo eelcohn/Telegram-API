@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Unicode library for Tcl - v20180204                                          #
+# Unicode library for Tcl - v20180205                                          #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -10,8 +10,8 @@ namespace eval libunicode {}
 # Convert escaped-Unicode characters to ASCII characters                       #
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::escaped2ascii {txt} {
-	foreach {utfstring asciistring} [array get ::libunicode::utftable] {
-		set txt [string map -nocase [concat $utfstring $asciistring] $txt]
+	foreach {escaped ascii} [array get ::libunicode::utftable] {
+		set txt [string map -nocase [concat $escaped $ascii] $txt]
 	}
 	return $txt
 }
@@ -20,8 +20,48 @@ proc ::libunicode::escaped2ascii {txt} {
 # Convert ASCII characters to escaped-Unicode characters                       #
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::ascii2escaped {txt} {
-	foreach {utfstring asciistring} [array get ::libunicode::utftable] {
-		set txt [string map [concat $asciistring $utfstring] $txt]
+	foreach {escaped ascii} [array get ::libunicode::utftable] {
+		set txt [string map -nocase [concat $ascii $escaped] $txt]
+	}
+	return $txt
+}
+
+# ---------------------------------------------------------------------------- #
+# Convert UTF-8 encoded Unicode to ASCII characters                            #
+# ---------------------------------------------------------------------------- #
+proc ::libunicode::utf82ascii {txt} {
+	foreach {utf8 ascii} [array get ::libunicode::utf8table] {
+		set txt [string map -nocase [concat $utf8 $ascii] $txt]
+	}
+	return $txt
+}
+
+# ---------------------------------------------------------------------------- #
+# Convert ASCII characters to UTF-8 encoded Unicode                            #
+# ---------------------------------------------------------------------------- #
+proc ::libunicode::ascii2utf8 {txt} {
+	foreach {utf8 ascii} [array get ::libunicode::utf8table] {
+		set txt [string map -nocase [concat $ascii $utf8] $txt]
+	}
+	return $txt
+}
+
+# ---------------------------------------------------------------------------- #
+# Convert UTF-16 encoded Unicode to ASCII characters                           #
+# ---------------------------------------------------------------------------- #
+proc ::libunicode::utf162ascii {txt} {
+	foreach {utf16 ascii} [array get ::libunicode::utf16table] {
+		set txt [string map -nocase [concat $utf16 $ascii] $txt]
+	}
+	return $txt
+}
+
+# ---------------------------------------------------------------------------- #
+# Convert ASCII characters to UTF-16 encoded Unicode                           #
+# ---------------------------------------------------------------------------- #
+proc ::libunicode::ascii2utf16 {txt} {
+	foreach {utf16 ascii} [array get ::libunicode::utf16table] {
+		set txt [string map -nocase [concat $ascii $utf16] $txt]
 	}
 	return $txt
 }
