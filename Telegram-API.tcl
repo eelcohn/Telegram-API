@@ -735,12 +735,17 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 proc irc2tg_nickLeft {nick uhost handle channel message} {
 	global  serveraddress
 
+	# Don't notify the Telegram users when the bot joins an IRC channel
+	if {$nick eq $::telegram::irc_bot_nickname} {
+		return 0
+	}
+
 	# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
 	if {[string match "*l*" $::telegram::userflags]} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
 				if {![validuser $nick]} {
-					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
+#					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
 				}
 			}
 		}
