@@ -69,7 +69,7 @@ proc ::libunicode::ascii2utf16 {txt} {
 # ---------------------------------------------------------------------------- #
 # Convert escaped-Unicode characters to UTF-8 characters                       #
 # ---------------------------------------------------------------------------- #
-proc ::libunicode::escaped2utf8 {string} {
+proc ::libunicode::escaped2utf8 {str} {
 	set result ""
 
 	set index1 [string first "\\u" $str]
@@ -181,10 +181,10 @@ proc ::libunicode::escaped2utf16 {str} {
 			set index2 [string first "\\u" $str $index1+5]
 			set value2 [string range $str $index2+2 $index2+5]
 			scan $value2 %x hex2
-			set byte1 [expr ($value1 & 0xff00) >> 8)]
-			set byte2 [expr ($value1 & 0x00ff)]
-			set byte3 [expr ($value2 & 0xff00) >> 8)]
-			set byte4 [expr ($value2 & 0x00ff)]
+			set byte1 [expr (($hex1 & 0xff00) >> 8)]
+			set byte2 [expr ($hex1 & 0x00ff)]
+			set byte3 [expr (($hex2 & 0xff00) >> 8)]
+			set byte4 [expr ($hex2 & 0x00ff)]
 #			set str [string map {"\\u$value1\\u$value2" "[binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3][format %x $byte4]]"} $str]
 			set result [string range $str 0 $index1-1]
 			append result "[binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3][format %x $byte4]]"
