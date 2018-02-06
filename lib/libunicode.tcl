@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Unicode library for Tcl - v20180205                                          #
+# Unicode library for Tcl - v20180206                                          #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -1932,22 +1932,51 @@ array set ::libunicode::utftable {
 	# 1f900-1f9ff: Supplemental symbols and pictographs
 	{\\ud83e\\udd10}	{" :zipper_mouth:"}
 	{\\ud83e\\udd11}	{" :money_mouth:"}
+	{\\ud83e\\udd12}	{" :face_with_thermometer:"}
 	{\\ud83e\\udd13}	{" :nerd:"}
 	{\\ud83e\\udd14}	{" :thinking:"}
+	{\\ud83e\\udd15}	{" :face_with_headbandage:"}
+	{\\ud83e\\udd16}	{" :robot:"}
 	{\\ud83e\\udd17}	{" :hugging_face:"}
 	{\\ud83e\\udd18}	{" :hands_hornsign:"}
+	{\\ud83e\\udd19}	{" :hand_call_me_sign:"}
+	{\\ud83e\\udd1a}	{" :raised_back_of_hand:"}
+	{\\ud83e\\udd1b}	{" :fist_left:"}
+	{\\ud83e\\udd1c}	{" :fist_right:"}
 	{\\ud83e\\udd1d}	{" :handshake:"}
 	{\\ud83e\\udd1e}	{" :hand_crossed_fingers:"}
+	{\\ud83e\\udd1f}	{" :hand_i_love_you:"}
+	{\\ud83e\\udd20}	{" :cowboy_hat_face:"}
 	{\\ud83e\\udd21}	{" :clown:"}
 	{\\ud83e\\udd22}	{" :sick_face:"}
-	{\\ud83e\\udd2a}	{" :crazy_face:"}
 	{\\ud83e\\udd23}	{" :rofl:"}
+	{\\ud83e\\udd24}	{" :face_drooling:"}
+	{\\ud83e\\udd25}	{" :face_lying:"}
+	{\\ud83e\\udd26}	{" :facepalm:"}
+	{\\ud83e\\udd27}	{" :face_sneezing:"}
+	{\\ud83e\\udd28}	{" :face_raised_eyebrow:"}
+	{\\ud83e\\udd29}	{" :grinning_face_with_star_eyes:"}
+	{\\ud83e\\udd2a}	{" :crazy_face:"}
+	{\\ud83e\\udd2b}	{" :face_shushing:"}
+	{\\ud83e\\udd2c}	{" :face_swearing:"}
+	{\\ud83e\\udd2d}	{" :face_with_hand_over_mouth:"}
+	{\\ud83e\\udd2e}	{" :vomit:"}
+	{\\ud83e\\udd2f}	{" :face_exploding_mushroom_cloud:"}
+	{\\ud83e\\udd30}	{" :pregnant:"}
+	{\\ud83e\\udd31}	{" :breast_feeding:"}
+	{\\ud83e\\udd32}	{" :handpalms_up_together:"}
+	{\\ud83e\\udd33}	{" :selfie:"}
+	{\\ud83e\\udd34}	{" :prince:"}
+	{\\ud83e\\udd35}	{" :tuxedo:"}
+	{\\ud83e\\udd36}	{" :mrs_santa_claus:"}
+	{\\ud83e\\udd37}	{" :shrugging:"}
 	{\\ud83e\\udd38}	{" :cartwheeling:"}
 	{\\ud83e\\udd39}	{" :juggling:"}
 	{\\ud83e\\udd3a}	{" :fencing:"}
 	{\\ud83e\\udd3c}	{" :wrestling:"}
 	{\\ud83e\\udd3d}	{" :waterpolo:"}
 	{\\ud83e\\udd3e}	{" :handball:"}
+	{\\ud83e\\udd40}	{" :wilted_flower:"}
 	{\\ud83e\\udd41}	{" :drum:"}
 	{\\ud83e\\udd42}	{" :clinking_glasses:"}
 	{\\ud83e\\udd43}	{" :whiskey:"}
@@ -1958,6 +1987,7 @@ array set ::libunicode::utftable {
 	{\\ud83e\\udd49}	{" :bronze_medal:"}
 	{\\ud83e\\udd4a}	{" :boxing_glove:"}
 	{\\ud83e\\udd4b}	{" :martial_arts_uniform:"}
+	{\\ud83e\\udd4c}	{" :curling:"}
 	{\\ud83e\\udd50}	{" :croissant:"}
 	{\\ud83e\\udd51}	{" :avocado:"}
 	{\\ud83e\\udd52}	{" :cucumber:"}
@@ -1973,6 +2003,19 @@ array set ::libunicode::utftable {
 	{\\ud83e\\udd5c}	{" :peanut:"}
 	{\\ud83e\\udd5d}	{" :kiwi:"}
 	{\\ud83e\\udd5e}	{" :pancakes:"}
+	{\\ud83e\\udd5f}	{" :dumpling:"}
+	{\\ud83e\\udd60}	{" :fortune_cookie:"}
+	{\\ud83e\\udd61}	{" :takeout_noodles:"}
+	{\\ud83e\\udd62}	{" :chopsticks:"}
+	{\\ud83e\\udd63}	{" :bowl_with_spoon:"}
+	{\\ud83e\\udd64}	{" :cup_with_straw:"}
+	{\\ud83e\\udd65}	{" :coconut:"}
+	{\\ud83e\\udd66}	{" :broccoli:"}
+	{\\ud83e\\udd67}	{" :pie:"}
+	{\\ud83e\\udd68}	{" :pretzel:"}
+	{\\ud83e\\udd69}	{" :steak:"}
+	{\\ud83e\\udd6a}	{" :sandwich:"}
+	{\\ud83e\\udd6b}	{" :canned_food:"}
 	{\\ud83e\\udd80}	{" :crab:"}
 	{\\ud83e\\udd81}	{" :lion:"}
 	{\\ud83e\\udd82}	{" :scorpion:"}
@@ -1991,7 +2034,38 @@ array set ::libunicode::utftable {
 	{\\ud83e\\udd8f}	{" :rhinoceros:"}
 	{\\ud83e\\udd90}	{" :shrimp:"}
 	{\\ud83e\\udd91}	{" :squid:"}
+	{\\ud83e\\udd92}	{" :giraffe:"}
+	{\\ud83e\\udd93}	{" :zebra:"}
+	{\\ud83e\\udd94}	{" :hedgehog:"}
+	{\\ud83e\\udd95}	{" :brontosaurus:"}
+	{\\ud83e\\udd96}	{" :tyrannosaurus:"}
+	{\\ud83e\\udd97}	{" :grasshopper:"}
 	{\\ud83e\\uddc0}	{" :cheese:"}
+	{\\ud83e\\uddd0}	{" :face_monocle:"}
+	{\\ud83e\\uddd1}	{" :adult:"}
+	{\\ud83e\\uddd2}	{" :child:"}
+	{\\ud83e\\uddd3}	{" :older_adult:"}
+	{\\ud83e\\uddd4}	{" :man_bearded:"}
+	{\\ud83e\\uddd5}	{" :woman_with_headscarf:"}
+	{\\ud83e\\uddd6}	{" :person_in_sauna:"}
+	{\\ud83e\\uddd7}	{" :person_climbing:"}
+	{\\ud83e\\uddd8}	{" :person_lotus_position:"}
+	{\\ud83e\\uddd9}	{" :wizard:"}
+	{\\ud83e\\uddda}	{" :fairy:"}
+	{\\ud83e\\udddb}	{" :vampire:"}
+	{\\ud83e\\udddc}	{" :mermaid:"}
+	{\\ud83e\\udddd}	{" :elf:"}
+	{\\ud83e\\uddde}	{" :genie:"}
+	{\\ud83e\\udddf}	{" :zombie:"}
+	{\\ud83e\\udde0}	{" :brain:"}
+	{\\ud83e\\udde1}	{" :heart_orange:"}
+	{\\ud83e\\udde2}	{" :baseball_cap:"}
+	{\\ud83e\\udde3}	{" :scarf:"}
+	{\\ud83e\\udde4}	{" :gloves:"}
+	{\\ud83e\\udde5}	{" :coat:"}
+	{\\ud83e\\udde6}	{" :socks:"}
+
+	#
 	{\\udbb8\\uddc4}	{" :monkey_face:"}
 	{\\uddba\\udf1a}	{" :hearts:"}
 	{\\uddba\\udf1c}	{" :diamonds:"}
