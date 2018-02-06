@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# JSON library for Tcl - v20180202                                             #
+# JSON library for Tcl - v20180206                                             #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -7,6 +7,8 @@
 
 namespace eval libjson {
 	variable processor
+	variable errormessage
+	variable errornumber
 }
 
 # ---------------------------------------------------------------------------- #
@@ -15,14 +17,15 @@ namespace eval libjson {
 proc ::libjson::hasKey {record key} {
 	switch $::libjson::processor {
 		"json_pkg" {
-			putlog "Tcllib::json json processor not supported"
+			set ::libjson::errormessage "Tcllib::json json processor not supported"
+			return -1
 		}
 
 		"jq" {
 			if { [ catch {
 				set result [exec jq --raw-output $key << $record]
 			} ] } {
-				putlog "libjson: cannot exec jq (key=$key, record=$record)"
+				set ::libjson::errormessage "libjson: cannot exec jq (key=$key, record=$record)"
 				return -1
 			}
 			if {$result != "null"} {
@@ -37,7 +40,8 @@ proc ::libjson::hasKey {record key} {
 		}
 
 		default {
-			putlog "::libjson::hasKey unknown json processor $::libjson::processor"
+			set ::libjson::errormessage "::libjson::hasKey unknown json processor $::libjson::processor"
+			return -1
 		}
 	}
 }
@@ -48,7 +52,8 @@ proc ::libjson::hasKey {record key} {
 proc ::libjson::getValue {record key} {
 	switch $::libjson::processor {
 		"json_pkg" {
-			putlog "Tcllib::json json processor not supported"
+			set ::libjson::errormessage "Tcllib::json json processor not supported"
+			return -1
 		}
 
 		"jq" {
@@ -56,7 +61,7 @@ proc ::libjson::getValue {record key} {
 			if { [ catch {
 				set result [exec jq --raw-output --compact-output $key << $record]
 			} ] } {
-				putlog "libjson: cannot exec jq (key=$key, record=$record)"
+				set ::libjson::errormessage "libjson: cannot exec jq (key=$key, record=$record)"
 				return -1
 			}
 			return $result
@@ -68,7 +73,8 @@ proc ::libjson::getValue {record key} {
 		}
 
 		default {
-			putlog "::libjson::hasKey unknown json processor $::libjson::processor"
+			set ::libjson::errormessage "::libjson::hasKey unknown json processor $::libjson::processor"
+			return -1
 		}
 	}
 }
