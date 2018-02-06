@@ -67,16 +67,35 @@ proc ::libunicode::ascii2utf16 {txt} {
 }
 
 # ---------------------------------------------------------------------------- #
-# Convert escaped-Unicode characters to UTF-8 characters                       #
+# Convert an escaped-Unicode string to an UTF-8 encoded string                 #
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::escaped2utf8 {str} {
 	set result ""
-return $str
+
 	set index1 [string first "\\u" $str]
 
 	while {$index1 ne -1} {
 		set value1 [string range $str $index1+2 $index1+5]
 		scan $value1 %x hex1
+		if {($hex1 >= 0x0080) && ($hex1 <= 0x07ff)} {
+			set byte1 [expr 0xc0 + (($hex1 & 0x07c0) >> 6)]
+			set byte2 [expr 0x80 + ($hex1 & 0x003f)]
+#			set str [string map "\\\\u$value1 [binary decode hex [format %x $byte1][format %x $byte2]]" $str]
+			set result [string range $str 0 $index1-2]
+			append result "[binary decode hex [format %x $byte1][format %x $byte2]]"
+			append result [string range $str $index1+6 end]
+			set str $result
+		}
+		if {(($hex1 >= 0x0800) && ($hex1 <= 0xd7ff)) || ($hex1 >= 0xe000)} {
+			set byte1 [expr 0xe0 + (($hex1 & 0xf000) >> 12)]
+			set byte2 [expr 0x80 + (($hex1 & 0x0fc0) >> 6)]
+			set byte3 [expr 0x80 + ($hex1 & 0x003f)]
+#			set str [string map "\\\\u$value1 [binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3]]" $str]
+			set result [string range $str 0 $index1-2]
+			append result "[binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3]]"
+			append result [string range $str $index1+6 end]
+			set str $result
+		}
 		if {($hex1 >= 0xd800) && ($hex1 <= 0xdfff)} {
 			set index2 [string first "\\u" $str $index1+5]
 			set value2 [string range $str $index2+2 $index2+5]
@@ -86,13 +105,11 @@ return $str
 			set byte2 [expr 0x80 + (($value & 0x03f000) >> 12)]
 			set byte3 [expr 0x80 + (($value & 0x000fc0) >> 6)]
 			set byte4 [expr 0x80 + ($value & 0x00003f)]
-#			set str [string map {"\\u$value1\\u$value2" "[binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3][format %x $byte4]]"} $str]
-			set result [string range $str 0 $index1-1]
+#			set str [string map "\\\\u$value1\\\\u$value2 [binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3][format %x $byte4]]" $str]
+			set result [string range $str 0 $index1-2]
 			append result "[binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3][format %x $byte4]]"
 			append result [string range $str $index2+6 end]
 			set str $result
-		} else {
-			set str [string map {"\\u$value1" $hex1} $str]
 		}
 		set index1 [string first "\\u" $str]
 	}
@@ -167,11 +184,11 @@ proc ::libunicode::utf82escaped {string} {
 }
 
 # ---------------------------------------------------------------------------- #
-# Convert escaped-Unicode characters to UTF-16 characters                      #
+# Convert an escaped-Unicode string to an UTF-16 encoded string                #
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::escaped2utf16 {str} {
 	set result ""
-return ""
+
 	set index1 [string first "\\u" $str]
 
 	while {$index1 ne -1} {
@@ -185,13 +202,19 @@ return ""
 			set byte2 [expr ($hex1 & 0x00ff)]
 			set byte3 [expr (($hex2 & 0xff00) >> 8)]
 			set byte4 [expr ($hex2 & 0x00ff)]
-#			set str [string map {"\\u$value1\\u$value2" "[binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3][format %x $byte4]]"} $str]
-			set result [string range $str 0 $index1-1]
+#			set str [string map "\\\\u$value1\\\\u$value2 [binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3][format %x $byte4]]" $str]
+			set result [string range $str 0 $index1-2]
 			append result "[binary decode hex [format %x $byte1][format %x $byte2][format %x $byte3][format %x $byte4]]"
 			append result [string range $str $index2+6 end]
 			set str $result
 		} else {
-			set str [string map {"\\u$value1" $hex1} $str]
+			set byte1 [expr (($hex1 & 0xff00) >> 8)]
+			set byte2 [expr ($hex1 & 0x00ff)]
+#			set str [string map "\\\\u$value1 [binary decode hex [format %x $byte1][format %x $byte2]]" $str]
+			set result [string range $str 0 $index1-2]
+			append result "[binary decode hex [format %x $byte1][format %x $byte2]]"
+			append result [string range $str $index1+6 end]
+			set str $result
 		}
 		set index1 [string first "\\u" $str]
 	}
