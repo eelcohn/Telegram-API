@@ -415,7 +415,7 @@ array set ::libunicode::utftable {
 	{\\u2b55}	{" :circle:"}
 	{\\u3030}	{" :wavy_dash:"}
 
-	# Enclosed Alphanumeric Supplement
+	# 1f100-1f1ff: Enclosed Alphanumeric Supplement
 	{\\ud83c\\udd00}	{" :0.:"}
 	{\\ud83c\\udd01}	{" :0,:"}
 	{\\ud83c\\udd02}	{" :1,:"}
@@ -1169,6 +1169,8 @@ array set ::libunicode::utftable {
 	{\\ud83c\\uddff\\ud83c\\uddfd}	{" :flag_zx:"}
 	{\\ud83c\\uddff\\ud83c\\uddfe}	{" :flag_zy:"}
 	{\\ud83c\\uddff\\ud83c\\uddff}	{" :flag_zz:"}
+
+	# 1f300-1f5ff: Miscellaneous Symbols And Pictographs Block
 	{\\ud83c\\udf00}	{" :cyclone:"}
 	{\\ud83c\\udf01}	{" :foggy:"}
 	{\\ud83c\\udf02}	{" :umbrella_closed:"}
@@ -1325,10 +1327,91 @@ array set ::libunicode::utftable {
 	{\\ud83c\\udf9c}	{" :music_note:"}
 	{\\ud83c\\udfa9}	{" :tophat:"}
 	{\\ud83c\\udfaa}	{" :circus_tent:"}
+	{\\ud83c\\udfab}	{" :ticket:"}
+	{\\ud83c\\udfac}	{" :clapper_board:"}
+	{\\ud83c\\udfad}	{" :performing_arts:"}
 	{\\ud83c\\udfae}	{" :video_game:"}
+	{\\ud83c\\udfaf}	{" :bullseye:"}
+	{\\ud83c\\udfb0}	{" :slot_machine:"}
+	{\\ud83c\\udfb1}	{" :8ball:"}
+	{\\ud83c\\udfb2}	{" :dice:"}
+	{\\ud83c\\udfb3}	{" :bowling:"}
+	{\\ud83c\\udfb4}	{" :playing_cards:"}
+	{\\ud83c\\udfb5}	{" :musical_note:"}
+	{\\ud83c\\udfb6}	{" :musical_notes:"}
+	{\\ud83c\\udfb7}	{" :saxophone:"}
+	{\\ud83c\\udfb8}	{" :guitar:"}
+	{\\ud83c\\udfb9}	{" :keyboard:"}
+	{\\ud83c\\udfba}	{" :trumpet:"}
+	{\\ud83c\\udfbb}	{" :violin:"}
+	{\\ud83c\\udfbc}	{" :musical_score:"}
+	{\\ud83c\\udfbd}	{" :running_shirt:"}
+	{\\ud83c\\udfbe}	{" :tennis:"}
+	{\\ud83c\\udfbf}	{" :skiing:"}
+	{\\ud83c\\udfc0}	{" :basketball:"}
+	{\\ud83c\\udfc1}	{" :checkered_flag:"}
+	{\\ud83c\\udfc2}	{" :snowboarder:"}
+	{\\ud83c\\udfc3}	{" :runner:"}
+	{\\ud83c\\udfc4}	{" :surfer:"}
+	{\\ud83c\\udfc5}	{" :sports_medal:"}
 	{\\ud83c\\udfc6}	{" :trophy:"}
+	{\\ud83c\\udfc7}	{" :horse_racing:"}
+	{\\ud83c\\udfc8}	{" :american_football:"}
+	{\\ud83c\\udfc9}	{" :rugby:"}
+	{\\ud83c\\udfca}	{" :swimmer:"}
+	{\\ud83c\\udfcb}	{" :weight_lifting:"}
+	{\\ud83c\\udfcc}	{" :golfing:"}
+	{\\ud83c\\udfcd}	{" :motorcycle:"}
+	{\\ud83c\\udfce}	{" :racing_car:"}
+	{\\ud83c\\udfcf}	{" :cricket:"}
+	{\\ud83c\\udfd0}	{" :volleyball:"}
+	{\\ud83c\\udfd1}	{" :hockey:"}
+	{\\ud83c\\udfd2}	{" :ice_hockey:"}
+	{\\ud83c\\udfd3}	{" :table_tennis:"}
+	{\\ud83c\\udfd4}	{" :mountain_snow:"}
+	{\\ud83c\\udfd5}	{" :camping:"}
+	{\\ud83c\\udfd6}	{" :beach_parasol:"}
+	{\\ud83c\\udfd7}	{" :building_construction:"}
+	{\\ud83c\\udfd8}	{" :houses:"}
+	{\\ud83c\\udfd9}	{" :cityscape:"}
+	{\\ud83c\\udfda}	{" :derelict_house:"}
+	{\\ud83c\\udfdb}	{" :roman_building:"}
+	{\\ud83c\\udfdc}	{" :desert:"}
+	{\\ud83c\\udfdd}	{" :desert_island:"}
+	{\\ud83c\\udfde}	{" :national_park:"}
+	{\\ud83c\\udfdf}	{" :stadium:"}
+	{\\ud83c\\udfe0}	{" :house:"}
+	{\\ud83c\\udfe1}	{" :house_with_garden:"}
+	{\\ud83c\\udfe2}	{" :office:"}
+	{\\ud83c\\udfe3}	{" :japanese_post_office:"}
+	{\\ud83c\\udfe4}	{" :european_post_office:"}
+	{\\ud83c\\udfe5}	{" :hospital:"}
+	{\\ud83c\\udfe6}	{" :bank:"}
+	{\\ud83c\\udfe7}	{" :atm:"}
+	{\\ud83c\\udfe8}	{" :hotel:"}
+	{\\ud83c\\udfe9}	{" :love_hotel:"}
+	{\\ud83c\\udfea}	{" :convenience_store:"}
+	{\\ud83c\\udfeb}	{" :school:"}
+	{\\ud83c\\udfec}	{" :department_store:"}
+	{\\ud83c\\udfed}	{" :factory:"}
+	{\\ud83c\\udfee}	{" :izakaya_lantern:"}
+	{\\ud83c\\udfef}	{" :japanese_castle:"}
+	{\\ud83c\\udff0}	{" :european_castle:"}
+	{\\ud83c\\udff1}	{" :white_pennant:"}
+	{\\ud83c\\udff2}	{" :black_pennant:"}
+	{\\ud83c\\udff3}	{" :white_flag:"}
+	{\\ud83c\\udff4}	{" :black_flag:"}
+	{\\ud83c\\udff5}	{" :rosette:"}
+	{\\ud83c\\udff6}	{" :black_rosette:"}
+	{\\ud83c\\udff7}	{" :label:"}
+	{\\ud83c\\udff8}	{" :badminton:"}
+	{\\ud83c\\udff9}	{" :bow_and_arrow:"}
+	{\\ud83c\\udffa}	{" :amphora:"}
 	{\\ud83c\\udffb}	{""}
 	{\\ud83c\\udffc}	{""}
+	{\\ud83c\\udffd}	{""}
+	{\\ud83c\\udffe}	{""}
+	{\\ud83c\\udfff}	{""}
 	{\\ud83d\\udc00}	{" :rat:"}
 	{\\ud83d\\udc01}	{" :mouse:"}
 	{\\ud83d\\udc02}	{" :ox:"}
@@ -1688,6 +1771,8 @@ array set ::libunicode::utftable {
 	{\\ud83d\\uddfd}	{" :statue_of_liberty:"}
 	{\\ud83d\\uddfe}	{" :silhouette_of_japan:"}
 	{\\ud83d\\uddff}	{" :statue_moyai:"}
+
+	# 1F600-1f64f: Emoticons
 	{\\ud83d\\ude00}	{" :D"}
 	{\\ud83d\\ude01}	{" :-||"}
 	{\\ud83d\\ude02}	{" xD"}
@@ -1765,18 +1850,86 @@ array set ::libunicode::utftable {
 	{\\ud83d\\ude4a}	{" :monkey_speak_no_evil:"}
 	{\\ud83d\\ude4b}	{" :girl_raising_hand:"}
 	{\\ud83d\\ude4c}	{" :hands_in_the_air:"}
+	{\\ud83d\\ude4d}	{" :girl_frowning:"}
+	{\\ud83d\\ude4e}	{" :girl_pouting:"}
+	{\\ud83d\\ude4f}	{" :folded_hands:"}
+
+	# 1f650-1f67f: 
 	{\\ud83d\\ude59}	{" :sw_vine:"}
-	{\\ud83d\\ude95}	{" :car:"}
+
+	# 1f680-1f6ff: Transport And Map Symbols Block
+	{\\ud83d\\ude80}	{" :rocket:"}
+	{\\ud83d\\ude81}	{" :helicopter:"}
+	{\\ud83d\\ude82}	{" :steam_locomotive:"}
+	{\\ud83d\\ude83}	{" :railway_car:"}
+	{\\ud83d\\ude84}	{" :highspeed_train:"}
+	{\\ud83d\\ude85}	{" :highspeed_train_bulletnose:"}
+	{\\ud83d\\ude86}	{" :train:"}
+	{\\ud83d\\ude87}	{" :metro:"}
+	{\\ud83d\\ude88}	{" :lightrail:"}
+	{\\ud83d\\ude89}	{" :station:"}
+	{\\ud83d\\ude8a}	{" :tram:"}
+	{\\ud83d\\ude8b}	{" :tram_car:"}
+	{\\ud83d\\ude8c}	{" :bus:"}
+	{\\ud83d\\ude8d}	{" :bus_front:"}
+	{\\ud83d\\ude8e}	{" :trolley:"}
+	{\\ud83d\\ude8f}	{" :bus_stop:"}
+	{\\ud83d\\ude90}	{" :minibus:"}
+	{\\ud83d\\ude91}	{" :ambulance:"}
+	{\\ud83d\\ude92}	{" :fire_truck:"}
+	{\\ud83d\\ude93}	{" :police_car:"}
+	{\\ud83d\\ude94}	{" :police_car_front:"}
+	{\\ud83d\\ude95}	{" :taxi:"}
+	{\\ud83d\\ude96}	{" :taxi_front:"}
+	{\\ud83d\\ude97}	{" :car:"}
+	{\\ud83d\\ude98}	{" :car_front:"}
+	{\\ud83d\\ude99}	{" :car_rvu:"}
+	{\\ud83d\\ude9a}	{" :delivery_truck:"}
+	{\\ud83d\\ude9b}	{" :lorry:"}
+	{\\ud83d\\ude9c}	{" :tractor:"}
+	{\\ud83d\\ude9d}	{" :monorail:"}
+	{\\ud83d\\ude9e}	{" :mountain_railway:"}
+	{\\ud83d\\ude9f}	{" :suspension_railway:"}
 	{\\ud83d\\udea0}	{" :mountain_cableway:"}
+	{\\ud83d\\udea1}	{" :aerial_tram:"}
+	{\\ud83d\\udea2}	{" :ship:"}
+	{\\ud83d\\udea3}	{" :rowboat:"}
+	{\\ud83d\\udea4}	{" :speedboat:"}
+	{\\ud83d\\udea5}	{" :traffic_light_horizontal:"}
+	{\\ud83d\\udea6}	{" :traffic_light:"}
+	{\\ud83d\\udea7}	{" :construction_sign:"}
+	{\\ud83d\\udea8}	{" :flashing_light:"}
 	{\\ud83d\\udea9}	{" :triangular_flag_on_post:"}
+	{\\ud83d\\udeaa}	{" :door:"}
 	{\\ud83d\\udeab}	{" :no_entry_sign:"}
 	{\\ud83d\\udeac}	{" :cigarette:"}
+	{\\ud83d\\udead}	{" :no_smoking_sign:"}
+	{\\ud83d\\udeae}	{" :put_litter_here:"}
+	{\\ud83d\\udeaf}	{" :no_littering:"}
+	{\\ud83d\\udeb0}	{" :water_potable:"}
+	{\\ud83d\\udeb1}	{" :water_nonpotable:"}
 	{\\ud83d\\udeb2}	{" :bicycle:"}
-	{\\ud83d\\udeb5}	{" :cyclist:"}
+	{\\ud83d\\udeb3}	{" :no_bicycles:"}
+	{\\ud83d\\udeb4}	{" :bicyclist:"}
+	{\\ud83d\\udeb5}	{" :bicyclist_mountain:"}
+	{\\ud83d\\udeb6}	{" :pedestrian:"}
+	{\\ud83d\\udeb7}	{" :no_pedestrians:"}
+	{\\ud83d\\udeb8}	{" :childrens_crossing:"}
+	{\\ud83d\\udeb9}	{" :mens_toilet_sign:"}
+	{\\ud83d\\udeba}	{" :womens_toilet_sign:"}
+	{\\ud83d\\udebb}	{" :restroom_sign:"}
+	{\\ud83d\\udebc}	{" :baby_sign:"}
+	{\\ud83d\\udebd}	{" :toilet:"}
+	{\\ud83d\\udebe}	{" :wc:"}
 	{\\ud83d\\udebf}	{" :shower:"}
-	{\\ud83d\\udf44}	{" :mushroom:"}
-	{\\ud83d\\udf7a}	{" :beer:"}
-	{\\ud83d\\udffb}	{" "}
+	{\\ud83d\\udec0}	{" :bath_with_person:"}
+	{\\ud83d\\udec1}	{" :bath:"}
+	{\\ud83d\\udec2}	{" :passport_control:"}
+	{\\ud83d\\udec3}	{" :customs:"}
+	{\\ud83d\\udec4}	{" :baggage_claim:"}
+	{\\ud83d\\udec5}	{" :left_luggage:"}
+
+	# 
 	{\\ud83e\\udd10}	{" :zipper_mouth:"}
 	{\\ud83e\\udd11}	{" :money_mouth:"}
 	{\\ud83e\\udd13}	{" :nerd:"}
