@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180202 for Eggdrop                                    #
+# Telegram-API module v20180206 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -721,7 +721,7 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 			}
 
 			# Show pinned messages (if any) as a notice to the new user on IRC
-			if {$::telegram::pinned_messages($channel) ne ""} {
+			if {![info exists $::telegram::pinned_messages($channel)]} {
 				putserv "NOTICE $nick :$::telegram::pinned_messages($channel)"
 			}
 		}
