@@ -1763,9 +1763,36 @@ array set ::libunicode::utftable {
 	{\\ud83d\\udd78}	{" :spiderweb:"}
 	{\\ud83d\\udd79}	{" :joystick:"}
 	{\\ud83d\\udd7a}	{" :man_dancing:"}
+	{\\ud83d\\udd87}	{" :paperclips_linked:"}
+	{\\ud83d\\udd8a}	{" :pen:"}
+	{\\ud83d\\udd8b}	{" :fountain_pen:"}
+	{\\ud83d\\udd8c}	{" :paintbrush:"}
+	{\\ud83d\\udd8d}	{" :crayon:"}
 	{\\ud83d\\udd90}	{" :hand_raised:"}
 	{\\ud83d\\udd95}	{" :middle_finger:"}
+	{\\ud83d\\udd96}	{" :hand_vulcan:"}
+	{\\ud83d\\udda4}	{" :black_heart:"}
+	{\\ud83d\\udda5}	{" :desktop_computer:"}
+	{\\ud83d\\udda8}	{" :printer:"}
+	{\\ud83d\\uddb1}	{" :computer_mouse:"}
+	{\\ud83d\\uddb2}	{" :trackball:"}
+	{\\ud83d\\uddbc}	{" :framed_picture:"}
+	{\\ud83d\\uddc2}	{" :card_index_dividers:"}
+	{\\ud83d\\uddc3}	{" :card_file_box:"}
+	{\\ud83d\\uddc4}	{" :file_cabinet:"}
+	{\\ud83d\\uddd1}	{" :wastebasket:"}
+	{\\ud83d\\uddd2}	{" :spiral_notepad:"}
+	{\\ud83d\\uddd3}	{" :spiral_calendar:"}
+	{\\ud83d\\udddc}	{" :clamp:"}
+	{\\ud83d\\udddd}	{" :old_key:"}
+	{\\ud83d\\uddde}	{" :rolled_up_newspaper:"}
+	{\\ud83d\\udde1}	{" :dagger:"}
+	{\\ud83d\\udde3}	{" :speaking_head:"}
 	{\\ud83d\\udde5}	{" :ray_below:"}
+	{\\ud83d\\udde8}	{" :speech_bubble_left:"}
+	{\\ud83d\\uddef}	{" :anger_bubble_right:"}
+	{\\ud83d\\uddf3}	{" :voting_box:"}
+	{\\ud83d\\uddfa}	{" :world_map:"}
 	{\\ud83d\\uddfb}	{" :mount_fuji:"}
 	{\\ud83d\\uddfc}	{" :tokyo_tower:"}
 	{\\ud83d\\uddfd}	{" :statue_of_liberty:"}
@@ -1928,6 +1955,27 @@ array set ::libunicode::utftable {
 	{\\ud83d\\udec3}	{" :customs:"}
 	{\\ud83d\\udec4}	{" :baggage_claim:"}
 	{\\ud83d\\udec5}	{" :left_luggage:"}
+	{\\ud83d\\udecb}	{" :couch:"}
+	{\\ud83d\\udecc}	{" :person_in_bed:"}
+	{\\ud83d\\udecd}	{" :shopping_bags:"}
+	{\\ud83d\\udece}	{" :bellhop:"}
+	{\\ud83d\\udecf}	{" :bed:"}
+	{\\ud83d\\udee0}	{" :hammer_and_wrench:"}
+	{\\ud83d\\udee1}	{" :shield:"}
+	{\\ud83d\\udee2}	{" :oildrum:"}
+	{\\ud83d\\udee3}	{" :motorway:"}
+	{\\ud83d\\udee4}	{" :railway_tracks:"}
+	{\\ud83d\\udee5}	{" :motorboat:"}
+	{\\ud83d\\udee9}	{" :airplane:"}
+	{\\ud83d\\udeeb}	{" :airplane_departing:"}
+	{\\ud83d\\udeec}	{" :airplane_arrival:"}
+	{\\ud83d\\udef0}	{" :sattelite:"}
+	{\\ud83d\\udef3}	{" :cruiseship:"}
+	{\\ud83d\\udef4}	{" :kick_scooter:"}
+	{\\ud83d\\udef5}	{" :motor_scooter:"}
+	{\\ud83d\\udef6}	{" :canoe:"}
+	{\\ud83d\\udef7}	{" :sled:"}
+	{\\ud83d\\udef8}	{" :ufo:"}
 
 	# 1f900-1f9ff: Supplemental symbols and pictographs
 	{\\ud83e\\udd10}	{" :zipper_mouth:"}
