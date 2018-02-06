@@ -1929,13 +1929,15 @@ array set ::libunicode::utftable {
 	{\\ud83d\\udec4}	{" :baggage_claim:"}
 	{\\ud83d\\udec5}	{" :left_luggage:"}
 
-	# 
+	# 1f900-1f9ff: Supplemental symbols and pictographs
 	{\\ud83e\\udd10}	{" :zipper_mouth:"}
 	{\\ud83e\\udd11}	{" :money_mouth:"}
 	{\\ud83e\\udd13}	{" :nerd:"}
 	{\\ud83e\\udd14}	{" :thinking:"}
 	{\\ud83e\\udd17}	{" :hugging_face:"}
 	{\\ud83e\\udd18}	{" :hands_hornsign:"}
+	{\\ud83e\\udd1d}	{" :handshake:"}
+	{\\ud83e\\udd1e}	{" :hand_crossed_fingers:"}
 	{\\ud83e\\udd21}	{" :clown:"}
 	{\\ud83e\\udd22}	{" :sick_face:"}
 	{\\ud83e\\udd2a}	{" :crazy_face:"}
@@ -1957,8 +1959,11 @@ array set ::libunicode::utftable {
 	{\\ud83e\\udd4a}	{" :boxing_glove:"}
 	{\\ud83e\\udd4b}	{" :martial_arts_uniform:"}
 	{\\ud83e\\udd50}	{" :croissant:"}
+	{\\ud83e\\udd51}	{" :avocado:"}
+	{\\ud83e\\udd52}	{" :cucumber:"}
 	{\\ud83e\\udd53}	{" :bacon:"}
 	{\\ud83e\\udd54}	{" :potato:"}
+	{\\ud83e\\udd55}	{" :carrot:"}
 	{\\ud83e\\udd56}	{" :baguette:"}
 	{\\ud83e\\udd57}	{" :salad:"}
 	{\\ud83e\\udd58}	{" :paella:"}
@@ -1966,15 +1971,25 @@ array set ::libunicode::utftable {
 	{\\ud83e\\udd5a}	{" :egg:"}
 	{\\ud83e\\udd5b}	{" :milk_glass:"}
 	{\\ud83e\\udd5c}	{" :peanut:"}
+	{\\ud83e\\udd5d}	{" :kiwi:"}
 	{\\ud83e\\udd5e}	{" :pancakes:"}
 	{\\ud83e\\udd80}	{" :crab:"}
+	{\\ud83e\\udd81}	{" :lion:"}
 	{\\ud83e\\udd82}	{" :scorpion:"}
-	{\\ud83e\\udd83}	{" :thanksgiving:"}
+	{\\ud83e\\udd83}	{" :turkey:"}
+	{\\ud83e\\udd84}	{" :unicorn:"}
+	{\\ud83e\\udd85}	{" :eagle:"}
+	{\\ud83e\\udd86}	{" :duck:"}
+	{\\ud83e\\udd87}	{" :bat:"}
 	{\\ud83e\\udd88}	{" :shark:"}
+	{\\ud83e\\udd89}	{" :owl:"}
+	{\\ud83e\\udd8a}	{" :fox:"}
+	{\\ud83e\\udd8b}	{" :butterfly:"}
 	{\\ud83e\\udd8c}	{" :deer:"}
 	{\\ud83e\\udd8d}	{" :gorilla:"}
 	{\\ud83e\\udd8e}	{" :lizard:"}
 	{\\ud83e\\udd8f}	{" :rhinoceros:"}
+	{\\ud83e\\udd90}	{" :shrimp:"}
 	{\\ud83e\\udd91}	{" :squid:"}
 	{\\ud83e\\uddc0}	{" :cheese:"}
 	{\\udbb8\\uddc4}	{" :monkey_face:"}
