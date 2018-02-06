@@ -1570,7 +1570,7 @@ array set ::libunicode::utftable {
 	{\\ud83d\\udc9d}	{" :heart_with_ribbon:"}
 	{\\ud83d\\udc9e}	{" :hearts_revolving:"}
 	{\\ud83d\\udc9f}	{" :heart_box:"}
-	{\\ud83d\\udca0}	{" :diamond_shape_with_a_dot_inside:"}
+	{\\ud83d\\udca0}	{" :diamond_shape_with_dot_inside:"}
 	{\\ud83d\\udca1}	{" :light_bulb:"}
 	{\\ud83d\\udca2}	{" :anger:"}
 	{\\ud83d\\udca3}	{" :bomb:"}
@@ -2003,7 +2003,7 @@ array set ::libunicode::utftable {
 	{\\ud83e\\udd26}	{" :facepalm:"}
 	{\\ud83e\\udd27}	{" :face_sneezing:"}
 	{\\ud83e\\udd28}	{" :face_raised_eyebrow:"}
-	{\\ud83e\\udd29}	{" :grinning_face_with_star_eyes:"}
+	{\\ud83e\\udd29}	{" :face_starstruck_eyes:"}
 	{\\ud83e\\udd2a}	{" :crazy_face:"}
 	{\\ud83e\\udd2b}	{" :face_shushing:"}
 	{\\ud83e\\udd2c}	{" :face_swearing:"}
