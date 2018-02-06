@@ -1670,6 +1670,16 @@ array set ::libunicode::utftable {
 	{\\ud83d\\udd65}	{" :clock_ten_thirty:"}
 	{\\ud83d\\udd66}	{" :clock_eleven_thirty:"}
 	{\\ud83d\\udd67}	{" :clock_twelve_thirty:"}
+	{\\ud83d\\udd6f}	{" :candle:"}
+	{\\ud83d\\udd70}	{" :mantelpiece_clock:"}
+	{\\ud83d\\udd73}	{" :hole:"}
+	{\\ud83d\\udd74}	{" :business_suit:"}
+	{\\ud83d\\udd75}	{" :detective:"}
+	{\\ud83d\\udd76}	{" :sunglasses:"}
+	{\\ud83d\\udd77}	{" :spider:"}
+	{\\ud83d\\udd78}	{" :spiderweb:"}
+	{\\ud83d\\udd79}	{" :joystick:"}
+	{\\ud83d\\udd7a}	{" :man_dancing:"}
 	{\\ud83d\\udd90}	{" :hand_raised:"}
 	{\\ud83d\\udd95}	{" :middle_finger:"}
 	{\\ud83d\\udde5}	{" :ray_below:"}
@@ -1774,9 +1784,46 @@ array set ::libunicode::utftable {
 	{\\ud83e\\udd17}	{" :hugging_face:"}
 	{\\ud83e\\udd18}	{" :hands_hornsign:"}
 	{\\ud83e\\udd21}	{" :clown:"}
+	{\\ud83e\\udd22}	{" :sick_face:"}
 	{\\ud83e\\udd2a}	{" :crazy_face:"}
 	{\\ud83e\\udd23}	{" :rofl:"}
+	{\\ud83e\\udd38}	{" :cartwheeling:"}
+	{\\ud83e\\udd39}	{" :juggling:"}
+	{\\ud83e\\udd3a}	{" :fencing:"}
+	{\\ud83e\\udd3c}	{" :wrestling:"}
+	{\\ud83e\\udd3d}	{" :waterpolo:"}
+	{\\ud83e\\udd3e}	{" :handball:"}
+	{\\ud83e\\udd41}	{" :drum:"}
+	{\\ud83e\\udd42}	{" :clinking_glasses:"}
 	{\\ud83e\\udd43}	{" :whiskey:"}
+	{\\ud83e\\udd44}	{" :spoon:"}
+	{\\ud83e\\udd45}	{" :goal_net:"}
+	{\\ud83e\\udd47}	{" :gold_medal:"}
+	{\\ud83e\\udd48}	{" :silver_medal:"}
+	{\\ud83e\\udd49}	{" :bronze_medal:"}
+	{\\ud83e\\udd4a}	{" :boxing_glove:"}
+	{\\ud83e\\udd4b}	{" :martial_arts_uniform:"}
+	{\\ud83e\\udd50}	{" :croissant:"}
+	{\\ud83e\\udd53}	{" :bacon:"}
+	{\\ud83e\\udd54}	{" :potato:"}
+	{\\ud83e\\udd56}	{" :baguette:"}
+	{\\ud83e\\udd57}	{" :salad:"}
+	{\\ud83e\\udd58}	{" :paella:"}
+	{\\ud83e\\udd59}	{" :stuffed_flatbread:"}
+	{\\ud83e\\udd5a}	{" :egg:"}
+	{\\ud83e\\udd5b}	{" :milk_glass:"}
+	{\\ud83e\\udd5c}	{" :peanut:"}
+	{\\ud83e\\udd5e}	{" :pancakes:"}
+	{\\ud83e\\udd80}	{" :crab:"}
+	{\\ud83e\\udd82}	{" :scorpion:"}
+	{\\ud83e\\udd83}	{" :thanksgiving:"}
+	{\\ud83e\\udd88}	{" :shark:"}
+	{\\ud83e\\udd8c}	{" :deer:"}
+	{\\ud83e\\udd8d}	{" :gorilla:"}
+	{\\ud83e\\udd8e}	{" :lizard:"}
+	{\\ud83e\\udd8f}	{" :rhinoceros:"}
+	{\\ud83e\\udd91}	{" :squid:"}
+	{\\ud83e\\uddc0}	{" :cheese:"}
 	{\\udbb8\\uddc4}	{" :monkey_face:"}
 	{\\uddba\\udf1a}	{" :hearts:"}
 	{\\uddba\\udf1c}	{" :diamonds:"}
