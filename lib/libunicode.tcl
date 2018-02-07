@@ -1330,6 +1330,9 @@ array set ::libunicode::escapedtable {
 	{\\ud83c\\udf80}	{" :ribbon:"}
 	{\\ud83c\\udf81}	{" :present:"}
 	{\\ud83c\\udf82}	{" :birthday_cake:"}
+	{\\ud83c\\udf83}	{" :jack_o_lantern:"}
+	{\\ud83c\\udf84}	{" :christmas_tree:"}
+	{\\ud83c\\udf85}	{" :santa_claus:"}
 	{\\ud83c\\udf86}	{" :fireworks:"}
 	{\\ud83c\\udf87}	{" :sparkler:"}
 	{\\ud83c\\udf88}	{" :balloon:"}
