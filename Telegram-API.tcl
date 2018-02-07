@@ -721,7 +721,7 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 			}
 
 			# Show pinned messages (if any) as a notice to the new user on IRC
-			if {![info exists $::telegram::pinned_messages($channel)]} {
+			if {[info exists $::telegram::pinned_messages($channel)]} {
 				putserv "NOTICE $nick :$::telegram::pinned_messages($channel)"
 			}
 		}
