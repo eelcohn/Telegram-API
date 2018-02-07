@@ -2,7 +2,7 @@ v20180207:
 * Telegram-API.tcl: Fixed displaying pinned messages on IRC (1c1d5c5 / cd3c75d)
 * libunicode.tcl: Fixed correct naming of ASCII translation tables (f952b1d / 540384f / 137134a / 12f4314)
 * libunicode.tcl: Fixed escaped2utf8 (5400f7b / 5acac10 / 346ec83)
-* libunicode.tcl: Added more emoji's and pictograms (915571d / 763f028 / b0a54d2 / 9dcb44c / cdac4c4 / cb78092 / 8546bbc / a9c501c / 2a2e0c6 / 7500945)
+* libunicode.tcl: Added more emoji's and pictograms (915571d / 763f028 / b0a54d2 / 9dcb44c / cdac4c4 / cb78092 / 8546bbc / a9c501c / 2a2e0c6 / 7500945 / 0f1eed6)
 * en.msg: Fixed downloading attachments with !tgfile (b6a9a4c / 6d54682)
 * nl.msg: Fixed downloading attachments with !tgfile (95650a7)
 * Telegram-API.tcl: Fixed downloading attachments with !tgfile (b4b5d06)
