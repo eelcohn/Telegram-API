@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Unicode library for Tcl - v20180206                                          #
+# Unicode library for Tcl - v20180207                                          #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -10,7 +10,7 @@ namespace eval libunicode {}
 # Convert escaped-Unicode characters to ASCII characters                       #
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::escaped2ascii {txt} {
-	foreach {escaped ascii} [array get ::libunicode::utftable] {
+	foreach {escaped ascii} [array get ::libunicode::escapedtable] {
 		set txt [string map -nocase [concat $escaped $ascii] $txt]
 	}
 	return $txt
@@ -20,7 +20,7 @@ proc ::libunicode::escaped2ascii {txt} {
 # Convert ASCII characters to escaped-Unicode characters                       #
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::ascii2escaped {txt} {
-	foreach {escaped ascii} [array get ::libunicode::utftable] {
+	foreach {escaped ascii} [array get ::libunicode::escapedtable] {
 		set txt [string map -nocase [concat $ascii $escaped] $txt]
 	}
 	return $txt
@@ -262,7 +262,7 @@ proc ::libunicode::ascii2unicode {string} {
 # http://www.charbase.com/block/emoticons
 # http://www.charbase.com/block/miscellaneous-symbols-and-pictographs
 
-array set ::libunicode::utftable {
+array set ::libunicode::escapedtable {
 	{\\u00a1}	{¡}
 	{\\u00a2}	{¢}
 	{\\u00a3}	{£}
@@ -2146,10 +2146,10 @@ array set ::libunicode::utftable {
 
 # Build the translation table between UTF-8 and it's corresponsing ASCII value
 foreach {escapedstring asciistring} [array get ::libunicode::utftable] {
-	set utf8table([::libunicode::escaped2utf8 $escapedstring]) $asciistring
+	set ::libunicode::utf8table([::libunicode::escaped2utf8 $escapedstring]) $asciistring
 }
 
 # Build the translation table between UTF-16 and it's corresponsing ASCII value
 foreach {escapedstring asciistring} [array get ::libunicode::utftable] {
-	set utf16table([::libunicode::escaped2utf16 $escapedstring]) $asciistring
+	set ::libunicode::utf16table([::libunicode::escaped2utf16 $escapedstring]) $asciistring
 }
