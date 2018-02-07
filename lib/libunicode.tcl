@@ -2145,11 +2145,11 @@ array set ::libunicode::escapedtable {
 }
 
 # Build the translation table between UTF-8 and it's corresponsing ASCII value
-foreach {escapedstring asciistring} [array get ::libunicode::utftable] {
+foreach {escapedstring asciistring} [array get ::libunicode::escapedtable] {
 	set ::libunicode::utf8table([::libunicode::escaped2utf8 $escapedstring]) $asciistring
 }
 
 # Build the translation table between UTF-16 and it's corresponsing ASCII value
-foreach {escapedstring asciistring} [array get ::libunicode::utftable] {
+foreach {escapedstring asciistring} [array get ::libunicode::escapedtable] {
 	set ::libunicode::utf16table([::libunicode::escaped2utf16 $escapedstring]) $asciistring
 }
