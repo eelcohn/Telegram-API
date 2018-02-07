@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - Dutch language file v20180202              #
+# Telegram-API module for Eggdrop - Dutch language file v20180207              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -19,12 +19,12 @@
 ::msgcat::mcset nl MSG_TG_MSGREPLYTOSENT "%1\$s (antwoord op %2\$s@Telegram: %3\$s)"
 ::msgcat::mcset nl MSG_TG_MSGFORWARDED "%1\$s (doorgestuurd van %2\$s)"
 ::msgcat::mcset nl MSG_TG_PINNEDMESSAGE "%1\$s@Telegram: %2\$s (vastgezet door %3\$s op %4\$s)"
-::msgcat::mcset nl MSG_TG_AUDIOSENT		"%1\$s@Telegram heeft een audiobestand verstuurd: %2\$s - %3\$s (%4\$s s). Gebruik /ctcp %5\$s tgfile %6\$s om het bestand te downloaden."
-::msgcat::mcset nl MSG_TG_DOCSENT		"%1\$s@Telegram heeft een document verstuurd: %2\$s (%3\$s bytes). Gebruik /ctcp %4\$s tgfile %5\$s om het bestand te downloaden."
-::msgcat::mcset nl MSG_TG_PHOTOSENT		"%1\$s@Telegram heeft een foto verstuurd%2\$s. Gebruik /ctcp %3\$s tgfile %4\$s om het bestand te downloaden."
+::msgcat::mcset nl MSG_TG_AUDIOSENT		"%1\$s@Telegram heeft een audiobestand verstuurd: %2\$s - %3\$s (%4\$s s). Gebruik !tgfile %5\$s om het bestand te downloaden."
+::msgcat::mcset nl MSG_TG_DOCSENT		"%1\$s@Telegram heeft een document verstuurd: %2\$s (%3\$s bytes). Gebruik !tgfile %4\$s om het bestand te downloaden."
+::msgcat::mcset nl MSG_TG_PHOTOSENT		"%1\$s@Telegram heeft een foto verstuurd%2\$s. Gebruik !tgfile %3\$s om het bestand te downloaden."
 ::msgcat::mcset nl MSG_TG_STICKERSENT		"%1\$s@Telegram heeft een sticker uit de %2\$s serie verstuurd (%3\$s)."
-::msgcat::mcset nl MSG_TG_VIDEOSENT		"%1\$s@Telegram heeft een video verstuurd%2\$s (%3\$s s). Gebruik /ctcp %4\$s tgfile %5\$s om het bestand te downloaden."
-::msgcat::mcset nl MSG_TG_VOICESENT		"%1\$s@Telegram heeft een voicebestand verstuurd: %2\$s (%3\$s bytes). Gebruik /ctcp %4\$s tgfile %5\$s om het bestand te downloaden."
+::msgcat::mcset nl MSG_TG_VIDEOSENT		"%1\$s@Telegram heeft een video verstuurd%2\$s (%3\$s s). Gebruik !tgfile %4\$s om het bestand te downloaden."
+::msgcat::mcset nl MSG_TG_VOICESENT		"%1\$s@Telegram heeft een voicebestand verstuurd: %2\$s (%3\$s bytes). Gebruik !tgfile %4\$s om het bestand te downloaden."
 ::msgcat::mcset nl MSG_TG_CONTACTSENT		"%1\$s@Telegram heeft een contact verstuurd: %2\$s (%3\$s %4\$s)."
 ::msgcat::mcset nl MSG_TG_LOCATIONSENT		"%1\$s@Telegram heeft een locatie verstuurd: https://www.openstreetmap.org/#map=19/%3\$s/%2\$s"
 ::msgcat::mcset nl MSG_TG_VENUESENT		"%1\$s@Telegram heeft een venue verstuurd: location=%2\$s title=%3\$s address=%4\$s foursquare_id=%5\$s."
@@ -33,7 +33,7 @@
 ::msgcat::mcset nl MSG_TG_USERLEFT		"%1\$s@Telegram heeft de Telegram groep verlaten."
 ::msgcat::mcset nl MSG_TG_USERREMOVED		"%1\$s@Telegram heeft %2\$s uit de Telegram groep verwijderd."
 ::msgcat::mcset nl MSG_TG_CHATTITLE		"%1\$s@Telegram heeft het onderwerp van de Telegram groep gewijzigd naar %2\$s."
-::msgcat::mcset nl MSG_TG_PICCHANGE		"%1\$s@Telegram heeft de afbeelding van de Telegram groep gewijzigd. Gebruik /ctcp %2\$s tgfile %3\$s om het bestand te downloaden."
+::msgcat::mcset nl MSG_TG_PICCHANGE		"%1\$s@Telegram heeft de afbeelding van de Telegram groep gewijzigd. Gebruik !tgfile %2\$s om het bestand te downloaden."
 ::msgcat::mcset nl MSG_TG_PICDELETE		"%1\$s@Telegram heeft de afbeelding van de Telegram groep verwijderd."
 ::msgcat::mcset nl MSG_TG_GROUPMIGRATED  "%1$\s@Telegram heeft de Telegram groep gemigreerd naar een supergroep."
 ::msgcat::mcset nl MSG_TG_UNKNOWNSTICKER	"Onbekende sticker."
