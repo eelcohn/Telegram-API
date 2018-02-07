@@ -261,6 +261,14 @@ proc ::libunicode::ascii2unicode {string} {
 # http://www.charbase.com/
 # http://www.charbase.com/block/emoticons
 # http://www.charbase.com/block/miscellaneous-symbols-and-pictographs
+# https://emojiterra.com/star-struck/
+
+# 1f100-1f1ff = \ud83c\udd00 - \ud83c\uddff: Enclosed Alphanumeric Supplement / Regional indicator symbols
+# 1f300-1f5ff = \ud83c\udf00 - \ud83d\uddff: Miscellaneous Symbols And Pictographs Block
+# 1F600-1f64f = \ud83d\ude00 - \ud83d\ude4f: Emoticons
+# 1f650-1f67f = \ud83d\ude50 - \ud83d\ude7f: 
+# 1f680-1f6ff = \ud83d\ude80 - \ud83d\udeff: Transport And Map Symbols Block
+# 1f900-1f9ff = \ud83e\udd00 - \ud83d\uddff: Supplemental symbols and pictographs
 
 array set ::libunicode::escapedtable {
 	{\\u00a1}	{¡}
@@ -438,7 +446,6 @@ array set ::libunicode::escapedtable {
 	{\\u2b55}	{" :circle:"}
 	{\\u3030}	{" :wavy_dash:"}
 
-	# 1f100-1f1ff: Enclosed Alphanumeric Supplement
 	{\\ud83c\\udd00}	{" :0.:"}
 	{\\ud83c\\udd01}	{" :0,:"}
 	{\\ud83c\\udd02}	{" :1,:"}
@@ -516,7 +523,6 @@ array set ::libunicode::escapedtable {
 	{\\ud83c\\udd8f}	{" :wc:"}
 	{\\ud83c\\udd93}	{" :free:"}
 
-	# Regional indicator symbols
 	{\\ud83c\\udde6\\ud83c\\udde6}	{" :flag_aa:"}
 	{\\ud83c\\udde6\\ud83c\\udde7}	{" :flag_ab:"}
 	{\\ud83c\\udde6\\ud83c\\udde8}	{" :flag_ac:"}
@@ -1193,7 +1199,6 @@ array set ::libunicode::escapedtable {
 	{\\ud83c\\uddff\\ud83c\\uddfe}	{" :flag_zy:"}
 	{\\ud83c\\uddff\\ud83c\\uddff}	{" :flag_zz:"}
 
-	# 1f300-1f5ff: Miscellaneous Symbols And Pictographs Block
 	{\\ud83c\\udf00}	{" :cyclone:"}
 	{\\ud83c\\udf01}	{" :foggy:"}
 	{\\ud83c\\udf02}	{" :umbrella_closed:"}
@@ -1822,7 +1827,6 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\uddfe}	{" :silhouette_of_japan:"}
 	{\\ud83d\\uddff}	{" :statue_moyai:"}
 
-	# 1F600-1f64f: Emoticons
 	{\\ud83d\\ude00}	{" :D"}
 	{\\ud83d\\ude01}	{" :-||"}
 	{\\ud83d\\ude02}	{" xD"}
@@ -1904,10 +1908,8 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\ude4e}	{" :girl_pouting:"}
 	{\\ud83d\\ude4f}	{" :folded_hands:"}
 
-	# 1f650-1f67f: 
 	{\\ud83d\\ude59}	{" :sw_vine:"}
 
-	# 1f680-1f6ff: Transport And Map Symbols Block
 	{\\ud83d\\ude80}	{" :rocket:"}
 	{\\ud83d\\ude81}	{" :helicopter:"}
 	{\\ud83d\\ude82}	{" :steam_locomotive:"}
@@ -2000,7 +2002,6 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\udef7}	{" :sled:"}
 	{\\ud83d\\udef8}	{" :ufo:"}
 
-	# 1f900-1f9ff: Supplemental symbols and pictographs
 	{\\ud83e\\udd10}	{" :zipper_mouth:"}
 	{\\ud83e\\udd11}	{" :money_mouth:"}
 	{\\ud83e\\udd12}	{" :face_with_thermometer:"}
@@ -2136,7 +2137,6 @@ array set ::libunicode::escapedtable {
 	{\\ud83e\\udde5}	{" :coat:"}
 	{\\ud83e\\udde6}	{" :socks:"}
 
-	#
 	{\\udbb8\\uddc4}	{" :monkey_face:"}
 	{\\uddba\\udf1a}	{" :hearts:"}
 	{\\uddba\\udf1c}	{" :diamonds:"}
