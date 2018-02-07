@@ -1,3 +1,9 @@
+v20180207:
+* Telegram-API.tcl: Fixed displaying pinned messages on IRC (1c1d5c5 / cd3c75d)
+* libunicode.tcl: Fixed correct naming of ASCII translation tables (f952b1d / 540384f / 137134a / 12f4314)
+* libunicode.tcl: Fixed escaped2utf8 (5400f7b / 5acac10 / 346ec83)
+* libunicode.tcl: Added more emoji's and pictograms (915571d / 763f028 / b0a54d2 / 9dcb44c / cdac4c4 / cb78092 / 8546bbc / a9c501c / 2a2e0c6 / 7500945)
+
 v20180202:
 * Telegram-API.tcl: Added support for pinned messages (5e22d32 / 6d7f897 / 9830897 / d1a1cb9 / a488d03 / 404400d / f6b8ea4)
 * Telegram-API.tcl: Timeout's for auto-removal of DCC-sent attachments now uses xfer-timeout (9830897)
