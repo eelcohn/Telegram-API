@@ -11,7 +11,7 @@ namespace eval libunicode {}
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::escaped2ascii {txt} {
 	foreach {escaped ascii} [array get ::libunicode::escapedtable] {
-		set txt [string map -nocase [concat $escaped $ascii] $txt]
+		set txt [string map -nocase "$escaped $ascii" $txt]
 	}
 	return $txt
 }
@@ -21,7 +21,7 @@ proc ::libunicode::escaped2ascii {txt} {
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::ascii2escaped {txt} {
 	foreach {escaped ascii} [array get ::libunicode::escapedtable] {
-		set txt [string map -nocase [concat $ascii $escaped] $txt]
+		set txt [string map -nocase "$ascii $escaped" $txt]
 	}
 	return $txt
 }
@@ -31,7 +31,7 @@ proc ::libunicode::ascii2escaped {txt} {
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::utf82ascii {txt} {
 	foreach {utf8 ascii} [array get ::libunicode::utf8table] {
-		set txt [string map -nocase [concat $utf8 $ascii] $txt]
+		set txt [string map -nocase "$utf8 $ascii" $txt]
 	}
 	return $txt
 }
@@ -41,7 +41,7 @@ proc ::libunicode::utf82ascii {txt} {
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::ascii2utf8 {txt} {
 	foreach {utf8 ascii} [array get ::libunicode::utf8table] {
-		set txt [string map -nocase [concat $ascii $utf8] $txt]
+		set txt [string map -nocase "$ascii $utf8" $txt]
 	}
 	return $txt
 }
@@ -51,7 +51,7 @@ proc ::libunicode::ascii2utf8 {txt} {
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::utf162ascii {txt} {
 	foreach {utf16 ascii} [array get ::libunicode::utf16table] {
-		set txt [string map -nocase [concat $utf16 $ascii] $txt]
+		set txt [string map -nocase "$utf16 $ascii" $txt]
 	}
 	return $txt
 }
@@ -61,7 +61,7 @@ proc ::libunicode::utf162ascii {txt} {
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::ascii2utf16 {txt} {
 	foreach {utf16 ascii} [array get ::libunicode::utf16table] {
-		set txt [string map -nocase [concat $ascii $utf16] $txt]
+		set txt [string map -nocase "$ascii $utf16" $txt]
 	}
 	return $txt
 }
@@ -236,26 +236,6 @@ return ""
 		set index [string first "\\u" $string $index+1]	
 	}
 	return $string
-}
-
-# ---------------------------------------------------------------------------- #
-# Convert Unicode characters to ASCII characters                               #
-# ---------------------------------------------------------------------------- #
-proc ::libunicode::unicode2ascii {string} {
-	foreach {unicodestring asciistring} [array get ::libunicode::unicodetable] {
-		set txt [string map -nocase [concat $unicodestring $asciistring] $txt]
-	}
-	return $txt
-}
-
-# ---------------------------------------------------------------------------- #
-# Convert ASCII characters to Unicode characters                               #
-# ---------------------------------------------------------------------------- #
-proc ::libunicode::ascii2unicode {string} {
-	foreach {unicodestring asciistring} [array get ::libunicode::unicodetable] {
-		set txt [string map [concat $asciistring $unicodestring] $txt]
-	}
-	return $txt
 }
 
 # http://www.charbase.com/
