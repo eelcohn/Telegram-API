@@ -72,9 +72,7 @@ proc ::libunicode::ascii2utf16 {txt} {
 proc ::libunicode::escaped2utf8 {str} {
 	set result ""
 
-	set index1 [string first "\\u" $str]
-
-	while {$index1 ne -1} {
+	while {[set index1 [string first "\\u" $str]] ne -1} {
 		set value1 [string range $str $index1+2 $index1+5]
 		scan $value1 %x hex1
 		if {($hex1 >= 0x0080) && ($hex1 <= 0x07ff)} {
@@ -111,7 +109,6 @@ proc ::libunicode::escaped2utf8 {str} {
 			append result [string range $str $index2+6 end]
 			set str $result
 		}
-		set index1 [string first "\\u" $str]
 	}
 	return $str
 }
@@ -189,9 +186,7 @@ proc ::libunicode::utf82escaped {string} {
 proc ::libunicode::escaped2utf16 {str} {
 	set result ""
 
-	set index1 [string first "\\u" $str]
-
-	while {$index1 ne -1} {
+	while {[set index1 [string first "\\u" $str]] ne -1} {
 		set value1 [string range $str $index1+2 $index1+5]
 		scan $value1 %x hex1
 		if {($hex1 >= 0xd800) && ($hex1 <= 0xdfff)} {
@@ -216,7 +211,6 @@ proc ::libunicode::escaped2utf16 {str} {
 			append result [string range $str $index1+6 end]
 			set str $result
 		}
-		set index1 [string first "\\u" $str]
 	}
 	return $str
 }
