@@ -963,30 +963,6 @@ proc getUserFlags {irchandle} {
 }	
 
 # ---------------------------------------------------------------------------- #
-# Replace Escaped-Unicode characters to ASCII                                  #
-# ---------------------------------------------------------------------------- #
-proc utf2ascii {txt} {
-	global utftable
-
-	foreach {utfstring asciistring} [array get utftable] {
-		set txt [string map -nocase [concat $utfstring $asciistring] $txt]
-	}
-	return $txt
-}
-
-# ---------------------------------------------------------------------------- #
-# Replace ASCII characters to Escaped-Unicode                                  #
-# ---------------------------------------------------------------------------- #
-proc ascii2utf {txt} {
-	global utftable
-
-	foreach {utfstring asciistring} [array get utftable] {
-		set txt [string map [concat $asciistring $utfstring] $txt]
-	}
-	return [encoding convertto unicode $txt]
-}
-
-# ---------------------------------------------------------------------------- #
 # Replace sticker code with ASCII code                                         #
 # ---------------------------------------------------------------------------- #
 proc sticker2ascii {file_id} {
