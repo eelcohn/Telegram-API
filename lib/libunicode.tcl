@@ -220,14 +220,12 @@ proc ::libunicode::escaped2utf16 {str} {
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::utf162escaped {string} {
 	set result ""
-return ""
-	set index [string first "\\u" $string]
+	set index -1
 
-	while {$index ne -1} {
+	while {[set index [string first "\\u" $string] $index+1] ne -1} {
 		set value [string range $string $index+2 $index+5]
 		scan $value %x hex
 		set string [string map {"\\u$value" $hex} $string]
-		set index [string first "\\u" $string $index+1]	
 	}
 	return $string
 }
