@@ -1345,7 +1345,7 @@ array set ::libunicode::escapedtable {
 	{\\ud83c\\udf8f}	{" :carp_streamer:"}
 	{\\ud83c\\udf90}	{" :wind_chime:"}
 	{\\ud83c\\udf91}	{" :moon_viewing_ceremony:"}
-	{\\ud83c\\udf92}	{" :school_satchel:"}
+	{\\ud83c\\udf92}	{" :school_backpack:"}
 	{\\ud83c\\udf93}	{" :graduation_cap:"}
 	{\\ud83c\\udf94}	{" :heart_tip:"}
 	{\\ud83c\\udf95}	{" :bouquet:"}
@@ -1355,7 +1355,19 @@ array set ::libunicode::escapedtable {
 	{\\ud83c\\udf99}	{" :microphone:"}
 	{\\ud83c\\udf9a}	{" :mixer_slider:"}
 	{\\ud83c\\udf9b}	{" :mixer_knobs:"}
-	{\\ud83c\\udf9c}	{" :music_note:"}
+	{\\ud83c\\udf9c}	{" :music_notes_ascending:"}
+	{\\ud83c\\udf9d}	{" :music_notes_descending:"}
+	{\\ud83c\\udf9e}	{" :film_frames:"}
+	{\\ud83c\\udf9f}	{" :admission_tickets:"}
+	{\\ud83c\\udfa0}	{" :carousel_horse:"}
+	{\\ud83c\\udfa1}	{" :ferris_wheel:"}
+	{\\ud83c\\udfa2}	{" :roller_coaster:"}
+	{\\ud83c\\udfa3}	{" :fishing_pole_and_fish:"}
+	{\\ud83c\\udfa4}	{" :microphone:"}
+	{\\ud83c\\udfa5}	{" :movie_camera:"}
+	{\\ud83c\\udfa6}	{" :cinema:"}
+	{\\ud83c\\udfa7}	{" :headphone:"}
+	{\\ud83c\\udfa8}	{" :artist_palette:"}
 	{\\ud83c\\udfa9}	{" :tophat:"}
 	{\\ud83c\\udfaa}	{" :circus_tent:"}
 	{\\ud83c\\udfab}	{" :ticket:"}
@@ -1504,6 +1516,8 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\udc3a}	{" :wolf_face:"}
 	{\\ud83d\\udc3b}	{" :bear_face:"}
 	{\\ud83d\\udc3c}	{" :panda_face:"}
+	{\\ud83d\\udc3e}	{" :paw_prints:"}
+	{\\ud83d\\udc3f}	{" :chipmunk:"}
 	{\\ud83d\\udc3d}	{" :pig_nose:"}
 	{\\ud83d\\udc40}	{" :eyes:"}
 	{\\ud83d\\udc41}	{" :eye:"}
@@ -1760,6 +1774,7 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\udd3c}	{" :arrow_up_small:"}
 	{\\ud83d\\udd3d}	{" :arrow_down_small:"}
 	{\\ud83d\\udd43}	{" :left_semicircle:"}
+	{\\ud83d\\udd4a}	{" :dove:"}
 	{\\ud83d\\udd50}	{" :clock_one_oclock:"}
 	{\\ud83d\\udd51}	{" :clock_two_oclock:"}
 	{\\ud83d\\udd52}	{" :clock_three_oclock:"}
