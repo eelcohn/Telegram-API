@@ -242,6 +242,7 @@ return ""
 # http://www.charbase.com/block/emoticons
 # http://www.charbase.com/block/miscellaneous-symbols-and-pictographs
 # https://emojiterra.com/star-struck/
+# http://www.endmemo.com/unicode/symbols.php
 
 # 1f100-1f1ff = \ud83c\udd00 - \ud83c\uddff: Enclosed Alphanumeric Supplement / Regional indicator symbols
 # 1f300-1f5ff = \ud83c\udf00 - \ud83d\uddff: Miscellaneous Symbols And Pictographs Block
@@ -384,20 +385,50 @@ array set ::libunicode::escapedtable {
 	{\\u2668}	{" :warning_hot:"}
 	{\\u267b}	{" :recycle:"}
 	{\\u267f}	{" :wheelchair:"}
+	{\\u2690}	{" :white_flag:"}
+	{\\u2691}	{" :black_flag:"}
 	{\\u2693}	{" :anchor:"}
+	{\\u2696}	{" :scales:"}
+	{\\u2698}	{" :flower:"}
 	{\\u26a0}	{" :warning:"}
 	{\\u26a1}	{" :zap:"}
+	{\\u26a2}	{" :double_female_sign:"}
+	{\\u26a3}	{" :double_male_sign:"}
+	{\\u26a4}	{" :interlocked_male_female_sign:"}
+	{\\u26a5}	{" :male_female_sign:"}
+	{\\u26a6}	{" :male_stroked_sign:"}
+	{\\u26a7}	{" :male_stroked_with_male_female_sign:"}
+	{\\u26a8}	{" :vertical_male_stroked_sign:"}
+	{\\u26a9}	{" :horizontal_male_stroked_sign:"}
 	{\\u26aa}	{" :white_circle:"}
 	{\\u26ab}	{" :black_circle:"}
+	{\\u26ac}	{" :small_white_circle:"}
 	{\\u26b0}	{" :coffin:"}
 	{\\u26bd}	{" :soccer:"}
+	{\\u26be}	{" :baseball:"}
+	{\\u26c4}	{" :snowman:"}
+	{\\u26c6}	{" :rain:"}
+	{\\u26cf}	{" :pick:"}
 	{\\u26d4}	{" :no_entry:"}
+	{\\u26e9}	{" :shinto_shrine:"}
 	{\\u26ea}	{" :church:"}
+	{\\u26eb}	{" :castle:"}
+	{\\u26f0}	{" :mountain:"}
+	{\\u26f1}	{" :beach_umbrella:"}
 	{\\u26f2}	{" :fountain:"}
 	{\\u26f3}	{" :golf:"}
+	{\\u26f4}	{" :ferry:"}
 	{\\u26f5}	{" :sailboat:"}
+	{\\u26f6}	{" :square_four_corners:"}
+	{\\u26f7}	{" :skier:"}
+	{\\u26f8}	{" :ice_skate:"}
+	{\\u26f9}	{" :person_playing_basketball:"}
 	{\\u26fa}	{" :tent:"}
-	{\\u26fb}	{" :gaspump:"}
+	{\\u26fb}	{" :japanese_bank:"}
+	{\\u26fc}	{" :headstone_graveyard:"}
+	{\\u26fd}	{" :gaspump:"}
+	{\\u26fe}	{" :coffee_sign:"}
+	{\\u26ff}	{" :flag_with_stripe:"}
 	{\\u2702}	{" :scissors:"}
 	{\\u2705}	{" :check_mark:"}
 	{\\u2708}	{" :airplane:"}
@@ -1753,8 +1784,24 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\udd3b}	{" :red_triangle_down:"}
 	{\\ud83d\\udd3c}	{" :arrow_up_small:"}
 	{\\ud83d\\udd3d}	{" :arrow_down_small:"}
+	{\\ud83d\\udd3e}	{" :circle_shadow_lower_right:"}
+	{\\ud83d\\udd3f}	{" :circle_shadow_upper_right:"}
+	{\\ud83d\\udd40}	{" :cross_pommee_circled:"}
+	{\\ud83d\\udd41}	{" :cross_pommee_with_halfcircle:"}
+	{\\ud83d\\udd42}	{" :cross_pommee:"}
 	{\\ud83d\\udd43}	{" :left_semicircle:"}
+	{\\ud83d\\udd44}	{" :right_semicircle:"}
+	{\\ud83d\\udd45}	{" :marks_chapter:"}
+	{\\ud83d\\udd46}	{" :latin_cross_white:"}
+	{\\ud83d\\udd47}	{" :latin_cross_black:"}
+	{\\ud83d\\udd48}	{" :celtic_cross:"}
+	{\\ud83d\\udd49}	{" :om:"}
 	{\\ud83d\\udd4a}	{" :dove:"}
+	{\\ud83d\\udd4b}	{" :kaaba:"}
+	{\\ud83d\\udd4c}	{" :mosque:"}
+	{\\ud83d\\udd4d}	{" :synagogue:"}
+	{\\ud83d\\udd4e}	{" :menorah:"}
+	{\\ud83d\\udd4f}	{" :bowl_of_hygieia:"}
 	{\\ud83d\\udd50}	{" :clock_one_oclock:"}
 	{\\ud83d\\udd51}	{" :clock_two_oclock:"}
 	{\\ud83d\\udd52}	{" :clock_three_oclock:"}
@@ -1789,35 +1836,105 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\udd78}	{" :spiderweb:"}
 	{\\ud83d\\udd79}	{" :joystick:"}
 	{\\ud83d\\udd7a}	{" :man_dancing:"}
+	{\\ud83d\\udd7b}	{" :left_telephone_receiver:"}
+	{\\ud83d\\udd7c}	{" :left_telephone_receiver_with_page:"}
+	{\\ud83d\\udd7d}	{" :right_telephone_receiver:"}
+	{\\ud83d\\udd7e}	{" :touchtone_telephone_white:"}
+	{\\ud83d\\udd7f}	{" :touchtone_telephone_black:"}
+	{\\ud83d\\udd80}	{" :telephone_with_modem:"}
+	{\\ud83d\\udd81}	{" :clamshell_mobile_phone:"}
+	{\\ud83d\\udd82}	{" :envelope_back:"}
+	{\\ud83d\\udd83}	{" :envelope_front:"}
+	{\\ud83d\\udd84}	{" :envelope_flash:"}
+	{\\ud83d\\udd85}	{" :envelope_flying:"}
+	{\\ud83d\\udd85}	{" :envelope_with_pen:"}
 	{\\ud83d\\udd87}	{" :paperclips_linked:"}
+	{\\ud83d\\udd88}	{" :pushpin_black:"}
+	{\\ud83d\\udd89}	{" :pencil:"}
 	{\\ud83d\\udd8a}	{" :pen:"}
 	{\\ud83d\\udd8b}	{" :fountain_pen:"}
 	{\\ud83d\\udd8c}	{" :paintbrush:"}
 	{\\ud83d\\udd8d}	{" :crayon:"}
+	{\\ud83d\\udd8e}	{" :hand_with_pen:"}
+	{\\ud83d\\udd8f}	{" :hand_ok_sign:"}
 	{\\ud83d\\udd90}	{" :hand_raised:"}
+	{\\ud83d\\udd91}	{" :hand_palm:"}
+	{\\ud83d\\udd92}	{" :thumbs_up:"}
+	{\\ud83d\\udd93}	{" :thumbs_down:"}
+	{\\ud83d\\udd94}	{" :hand_peace_sign:"}
 	{\\ud83d\\udd95}	{" :middle_finger:"}
 	{\\ud83d\\udd96}	{" :hand_vulcan:"}
+	{\\ud83d\\udd97}	{" :finger_pointing_down:"}
+	{\\ud83d\\udd98}	{" :finger_pointing_left:"}
+	{\\ud83d\\udd99}	{" :finger_pointing_right:"}
 	{\\ud83d\\udda4}	{" :black_heart:"}
 	{\\ud83d\\udda5}	{" :desktop_computer:"}
+	{\\ud83d\\udda6}	{" :keyboard_and_mouse:"}
+	{\\ud83d\\udda7}	{" :networked_computers:"}
 	{\\ud83d\\udda8}	{" :printer:"}
+	{\\ud83d\\udda9}	{" :calculator:"}
+	{\\ud83d\\uddaa}	{" :floppy_disc_black:"}
+	{\\ud83d\\uddab}	{" :floppy_disc_white:"}
+	{\\ud83d\\uddac}	{" :floppy_disc:"}
+	{\\ud83d\\uddad}	{" :backup_tape:"}
+	{\\ud83d\\uddae}	{" :keyboard:"}
+	{\\ud83d\\uddaf}	{" :mouse_one_button:"}
+	{\\ud83d\\uddb0}	{" :mouse_two_buttons:"}
 	{\\ud83d\\uddb1}	{" :computer_mouse:"}
 	{\\ud83d\\uddb2}	{" :trackball:"}
+	{\\ud83d\\uddb3}	{" :pc:"}
+	{\\ud83d\\uddb4}	{" :icon_harddisk:"}
+	{\\ud83d\\uddb5}	{" :icon_screen:"}
+	{\\ud83d\\uddb6}	{" :icon_printer:"}
+	{\\ud83d\\uddb7}	{" :icon_fax:"}
+	{\\ud83d\\uddb8}	{" :icon_optical_disc:"}
+	{\\ud83d\\uddb9}	{" :icon_document_text:"}
+	{\\ud83d\\uddba}	{" :icon_document_text_picture:"}
+	{\\ud83d\\uddb6}	{" :icon_document_picture:"}
 	{\\ud83d\\uddbc}	{" :framed_picture:"}
+	{\\ud83d\\uddbd}	{" :framed_tiles:"}
+	{\\ud83d\\uddbe}	{" :framed_x:"}
+	{\\ud83d\\uddbf}	{" :icon_folder_black:"}
+	{\\ud83d\\uddc0}	{" :icon_folder:"}
+	{\\ud83d\\uddc1}	{" :icon_folder_opened:"}
 	{\\ud83d\\uddc2}	{" :card_index_dividers:"}
 	{\\ud83d\\uddc3}	{" :card_file_box:"}
 	{\\ud83d\\uddc4}	{" :file_cabinet:"}
 	{\\ud83d\\uddd1}	{" :wastebasket:"}
 	{\\ud83d\\uddd2}	{" :spiral_notepad:"}
 	{\\ud83d\\uddd3}	{" :spiral_calendar:"}
+	{\\ud83d\\uddda}	{" :increase_font_size:"}
+	{\\ud83d\\udddb}	{" :decrease_font_size:"}
 	{\\ud83d\\udddc}	{" :clamp:"}
 	{\\ud83d\\udddd}	{" :old_key:"}
 	{\\ud83d\\uddde}	{" :rolled_up_newspaper:"}
+	{\\ud83d\\udddf}	{" :page_with_circled_text:"}
+	{\\ud83d\\udde0}	{" :stock_chart:"}
 	{\\ud83d\\udde1}	{" :dagger:"}
+	{\\ud83d\\udde2}	{" :lips:"}
 	{\\ud83d\\udde3}	{" :speaking_head:"}
+	{\\ud83d\\udde4}	{" :ray_above:"}
 	{\\ud83d\\udde5}	{" :ray_below:"}
+	{\\ud83d\\udde6}	{" :three_rays_left:"}
+	{\\ud83d\\udde7}	{" :three_rays_right:"}
 	{\\ud83d\\udde8}	{" :speech_bubble_left:"}
+	{\\ud83d\\udde9}	{" :speech_bubble_right:"}
+	{\\ud83d\\uddea}	{" :two_speech_bubbles:"}
+	{\\ud83d\\uddeb}	{" :three_speech_bubbles:"}
+	{\\ud83d\\uddec}	{" :thought_bubble_left:"}
+	{\\ud83d\\udded}	{" :thought_bubble_right:"}
+	{\\ud83d\\uddee}	{" :anger_bubble_left:"}
 	{\\ud83d\\uddef}	{" :anger_bubble_right:"}
+	{\\ud83d\\uddf0}	{" :mood_bubble:"}
+	{\\ud83d\\uddf1}	{" :mood_bubble_with_flash:"}
+	{\\ud83d\\uddf2}	{" :flash:"}
 	{\\ud83d\\uddf3}	{" :voting_box:"}
+	{\\ud83d\\uddf4}	{" :x:"}
+	{\\ud83d\\uddf5}	{" :ballot_box_with_x:"}
+	{\\ud83d\\uddf6}	{" :x:"}
+	{\\ud83d\\uddf7}	{" :ballot_box_with_x:"}
+	{\\ud83d\\uddf8}	{" :check:"}
+	{\\ud83d\\uddf9}	{" :ballot_box_checked:"}
 	{\\ud83d\\uddfa}	{" :world_map:"}
 	{\\ud83d\\uddfb}	{" :mount_fuji:"}
 	{\\ud83d\\uddfc}	{" :tokyo_tower:"}
