@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180206 for Eggdrop                                    #
+# Telegram-API module v20180207 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -95,7 +95,7 @@ proc tg2irc_pollTelegram {} {
 			"private" {
 				# Record is a private chat record
 				if {[::libjson::hasKey $msg ".message.text"]} {
-					set txt [remove_slashes [utf2ascii [::libjson::getValue $msg ".message.text"]]]
+					set txt [remove_slashes [::libunicode::utf82ascii [::libjson::getValue $msg ".message.text"]]]
 					set msgid [::libjson::getValue $msg ".message.message_id"]
 					set fromid [::libjson::getValue $msg ".message.from.id"]
 
@@ -111,12 +111,12 @@ proc tg2irc_pollTelegram {} {
 
 				if {$chattype eq "channel"} {
 					# Set sender's name to the title of the channel for channel announcements
-					set name [utf2ascii [::libjson::getValue $msg ".$msgtype.chat.title"]]
+					set name [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.chat.title"]]
 				} else {
 					# Set sender's name for group or supergroup messages
-					set name [utf2ascii [::libjson::getValue $msg ".$msgtype.from.username"]]
+					set name [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.from.username"]]
 					if {$name == "null" } {
-						set name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
+						set name [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
 					}
 					set name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$name\003"
 				}
@@ -125,7 +125,7 @@ proc tg2irc_pollTelegram {} {
 				if {[::libjson::hasKey $msg ".$msgtype.reply_to_message"]} {
 					set replyname [::libjson::getValue $msg ".$msgtype.reply_to_message.from.username"]
 					if {$replyname == "null" } {
-						set replyname [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.reply_to_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.reply_to_message.from.last_name//empty"]]]
+						set replyname [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.reply_to_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.reply_to_message.from.last_name//empty"]]]
 					}
 					set replyname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.reply_to_message.from.id"]]$replyname\003"
 				}
@@ -134,18 +134,18 @@ proc tg2irc_pollTelegram {} {
 				if {[::libjson::hasKey $msg ".$msgtype.forward_from"]} {
 					set forwardname [::libjson::getValue $msg ".$msgtype.forward_from.username"]
 					if {$forwardname == "null" } {
-						set forwardname [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.forward_from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.forward_from.last_name//empty"]]]
+						set forwardname [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.forward_from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.forward_from.last_name//empty"]]]
 					}
 					set forwardname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.forward_from.id"]]$forwardname\003"
 				}
 
 				# Check if a text message has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".$msgtype.text"]} {
-					set txt [utf2ascii [::libjson::getValue $msg ".$msgtype.text"]]
+					set txt [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.text"]]
 
 					# Modify text if it is a reply-to or forwarded from
 					if {[::libjson::hasKey $msg ".$msgtype.reply_to_message"]} {
-						set replytomsg [utf2ascii [::libjson::getValue $msg ".$msgtype.reply_to_message.text"]]
+						set replytomsg [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.reply_to_message.text"]]
 						set txt "[::msgcat::mc MSG_TG_MSGREPLYTOSENT "$txt" "$replyname" "$replytomsg"]"
 					} elseif {[::libjson::hasKey $msg ".$msgtype.forward_from"]} {
 						set txt "[::msgcat::mc MSG_TG_MSGFORWARDED "$txt" "$forwardname"]"
@@ -172,7 +172,7 @@ proc tg2irc_pollTelegram {} {
 					# Get the name of the Telegram user who wrote the message
 					set pin_name [::libjson::getValue $msg ".$msgtype.pinned_message.from.username"]
 					if {$pin_name == "null" } {
-						set pin_name [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.pinned_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.pinned_message.from.last_name//empty"]]]
+						set pin_name [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.pinned_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.pinned_message.from.last_name//empty"]]]
 					}
 					if {$msgtype ne "channel_post"} {
 						set pin_name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.pinned_message.from.id"]]$pin_name\003"
@@ -181,13 +181,13 @@ proc tg2irc_pollTelegram {} {
 					# Get name of the Telegram user who pinned the message
 					set pin_by [::libjson::getValue $msg ".$msgtype.from.username"]
 					if {$pin_by == "null" } {
-						set pin_by [utf2ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
+						set pin_by [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
 					}
 					if {$msgtype ne "channel_post"} {
 						set pin_by "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$pin_by\003"
 					}		
 					set pin_date "[clock format [::libjson::getValue $msg ".$msgtype.date"] -format $::telegram::timeformat]"
-					set pin_txt "[utf2ascii [::libjson::getValue $msg ".$msgtype.pinned_message.text"]]"
+					set pin_txt "[::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.pinned_message.text"]]"
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -244,7 +244,7 @@ proc tg2irc_pollTelegram {} {
 				if {[::libjson::hasKey $msg ".$msgtype.photo"]} {
 					set tg_file_id [::libjson::getValue $msg ".$msgtype.photo\[3\].file_id"]
 					if {[::libjson::hasKey $msg ".$msgtype.caption"]} {
-						set caption " ([remove_slashes [utf2ascii [::libjson::getValue $msg ".$msgtype.caption"]]])"
+						set caption " ([remove_slashes [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.caption"]]])"
 					} else {
 						set caption ""
 					}
@@ -265,7 +265,7 @@ proc tg2irc_pollTelegram {} {
 					}
 
 					if {[::libjson::hasKey $msg ".$msgtype.video.caption"]} {
-						set caption " ([utf2ascii [remove_slashes [::libjson::getValue $msg ".$msgtype.video.caption"]]])"
+						set caption " ([::libunicode::utf82ascii [remove_slashes [::libjson::getValue $msg ".$msgtype.video.caption"]]])"
 					} else {
 						set caption ""
 					}
@@ -340,9 +340,9 @@ proc tg2irc_pollTelegram {} {
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							if {$name eq $new_chat_member} {
-								putchan $irc_channel [::msgcat::mc MSG_TG_USERJOINED "[utf2ascii $name]"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_USERJOINED "[::libunicode::utf82ascii $name]"]
 							} else {
-								putchan $irc_channel [::msgcat::mc MSG_TG_USERADD "[utf2ascii $name]" "[utf2ascii $new_chat_member]"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_USERADD "[::libunicode::utf82ascii $name]" "[::libunicode::utf82ascii $new_chat_member]"]
 							}
 						}
 					}
@@ -355,9 +355,9 @@ proc tg2irc_pollTelegram {} {
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							if {$name eq $left_chat_member} {
-								putchan $irc_channel [::msgcat::mc MSG_TG_USERLEFT "[utf2ascii $name]"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_USERLEFT "[::libunicode::utf82ascii $name]"]
 							} else {
-								putchan $irc_channel [::msgcat::mc MSG_TG_USERREMOVED "[utf2ascii $name]" "[utf2ascii $left_chat_member]"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_USERREMOVED "[::libunicode::utf82ascii $name]" "[::libunicode::utf82ascii $left_chat_member]"]
 							}
 						}
 					}
@@ -369,7 +369,7 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_CHATTITLE "[utf2ascii $name]" "[utf2ascii $chat_title]"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_CHATTITLE "[::libunicode::utf82ascii $name]" "[::libunicode::utf82ascii $chat_title]"]
 						}
 					}
 				}
@@ -380,7 +380,7 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_PICCHANGE "[utf2ascii $name]" "$tg_file_id"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_PICCHANGE "[::libunicode::utf82ascii $name]" "$tg_file_id"]
 						}
 					}
 				}
@@ -389,7 +389,7 @@ proc tg2irc_pollTelegram {} {
 				if {[::libjson::hasKey $msg ".$msgtype.delete_chat_photo"]} {
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_PICDELETE "[utf2ascii $name]"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_PICDELETE "[::libunicode::utf82ascii $name]"]
 						}
 					}
 				}
@@ -398,7 +398,7 @@ proc tg2irc_pollTelegram {} {
 				if {[::libjson::hasKey $msg ".$msgtype.migrate_to_chat_id"]} {
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_GROUPMIGRATED "[utf2ascii $name]"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_GROUPMIGRATED "[::libunicode::utf82ascii $name]"]
 						}
 					}
 				}
