@@ -130,7 +130,7 @@ proc tg2irc_pollTelegram {} {
 				if {[::libjson::hasKey $msg ".$msgtype.reply_to_message"]} {
 					if {$chattype eq "channel"} {
 						# Set sender's name to the title of the channel for channel announcements
-						set name [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.reply_to_message.chat.title"]]
+						set replyname [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.reply_to_message.chat.title"]]
 					} else {
 						set replyname [::libjson::getValue $msg ".$msgtype.reply_to_message.from.username"]
 						if {$replyname == "null" } {
@@ -144,7 +144,7 @@ proc tg2irc_pollTelegram {} {
 				if {[::libjson::hasKey $msg ".$msgtype.forward_from"]} {
 					if {$chattype eq "channel"} {
 						# Set sender's name to the title of the channel for channel announcements
-						set name [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.forward_from.chat.title"]]
+						set forwardname [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.forward_from.chat.title"]]
 					} else {
 						set forwardname [::libjson::getValue $msg ".$msgtype.forward_from.username"]
 						if {$forwardname == "null" } {
