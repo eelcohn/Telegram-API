@@ -369,8 +369,28 @@ array set ::libunicode::escapedtable {
 	{\\u2600}		{" :sunny:"}
 	{\\u2601}		{" :cloud:"}
 	{\\u2602}		{" :umbrella:"}
+	{\\u2603}		{" :snowman:"}
+	{\\u2604}		{" :comet:"}
+	{\\u2605}		{" :black_star:"}
+	{\\u2606}		{" :white_star:"}
+	{\\u2607}		{" :lightning:"}
+	{\\u2608}		{" :thunderstorm:"}
+	{\\u2609}		{" :sun:"}
 	{\\u2614}		{" :umbrella_rain:"}
 	{\\u2615}		{" :coffee:"}
+	{\\u2622}		{" :radioactive:"}
+	{\\u2623}		{" :biohazard:"}
+	{\\u262d}		{" :hammer_and_sickle:"}
+	{\\u262e}		{" :peace_symbol:"}
+	{\\u262f}		{" :yin_yan:"}
+	{\\u2630}		{" :trigram_heaven:"}
+	{\\u2631}		{" :trigram_lake:"}
+	{\\u2632}		{" :trigram_fire:"}
+	{\\u2633}		{" :trigram_thunder:"}
+	{\\u2634}		{" :trigram_wind:"}
+	{\\u2635}		{" :trigram_water:"}
+	{\\u2636}		{" :trigram_mountain:"}
+	{\\u2637}		{" :trigram_earth:"}
 	{\\u2648}		{" :aries:"}
 	{\\u2649}		{" :taurus:"}
 	{\\u264a}		{" :gemini:"}
@@ -381,11 +401,13 @@ array set ::libunicode::escapedtable {
 	{\\u2651}		{" :capricorn:"}
 	{\\u2652}		{" :aquarius:"}
 	{\\u2653}		{" :pisces:"}
+	{\\u265f}		{" :chess_pawn:"}
 	{\\u2660}		{" :spades:"}
 	{\\u2663}		{" :clubs:"}
 	{\\u2665}		{" :hearts:"}
 	{\\u2668}		{" :warning_hot:"}
 	{\\u267b}		{" :recycle:"}
+	{\\u267e}		{" :infinity:"}
 	{\\u267f}		{" :wheelchair:"}
 	{\\u2690}		{" :white_flag:"}
 	{\\u2691}		{" :black_flag:"}
@@ -1457,6 +1479,7 @@ array set ::libunicode::escapedtable {
 	{\\ud83c\\udff2}	{" :black_pennant:"}
 	{\\ud83c\\udff3}	{" :white_flag:"}
 	{\\ud83c\\udff4}	{" :black_flag:"}
+	{\\ud83c\\udff4\\u200d\\u2620}	{"pirate_flag:"}
 	{\\ud83c\\udff5}	{" :rosette:"}
 	{\\ud83c\\udff6}	{" :black_rosette:"}
 	{\\ud83c\\udff7}	{" :label:"}
@@ -2139,6 +2162,9 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\udecd}	{" :shopping_bags:"}
 	{\\ud83d\\udece}	{" :bellhop:"}
 	{\\ud83d\\udecf}	{" :bed:"}
+	{\\ud83d\\uded0}	{" :place_of_worship:"}
+	{\\ud83d\\uded1}	{" :stop_sign:"}
+	{\\ud83d\\uded2}	{" :shopping_cart:"}
 	{\\ud83d\\udee0}	{" :hammer_and_wrench:"}
 	{\\ud83d\\udee1}	{" :shield:"}
 	{\\ud83d\\udee2}	{" :oildrum:"}
@@ -2155,6 +2181,7 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\udef6}	{" :canoe:"}
 	{\\ud83d\\udef7}	{" :sled:"}
 	{\\ud83d\\udef8}	{" :ufo:"}
+	{\\ud83d\\udef9}	{" :skateboard:"}
 
 	{\\ud83e\\udd10}	{" :zipper_mouth:"}
 	{\\ud83e\\udd11}	{" :money_mouth:"}
@@ -2214,6 +2241,9 @@ array set ::libunicode::escapedtable {
 	{\\ud83e\\udd4a}	{" :boxing_glove:"}
 	{\\ud83e\\udd4b}	{" :martial_arts_uniform:"}
 	{\\ud83e\\udd4c}	{" :curling:"}
+	{\\ud83e\\udd4d}	{" :lacrosse:"}
+	{\\ud83e\\udd4e}	{" :softball:"}
+	{\\ud83e\\udd4f}	{" :frisbee:"}
 	{\\ud83e\\udd50}	{" :croissant:"}
 	{\\ud83e\\udd51}	{" :avocado:"}
 	{\\ud83e\\udd52}	{" :cucumber:"}
@@ -2242,6 +2272,20 @@ array set ::libunicode::escapedtable {
 	{\\ud83e\\udd69}	{" :steak:"}
 	{\\ud83e\\udd6a}	{" :sandwich:"}
 	{\\ud83e\\udd6b}	{" :canned_food:"}
+	{\\ud83e\\udd6c}	{" :lettuce:"}
+	{\\ud83e\\udd6d}	{" :mango:"}
+	{\\ud83e\\udd6e}	{" :cake:"}
+	{\\ud83e\\udd6f}	{" :bagel:"}
+	{\\ud83e\\udd70}	{" :in_love_face:"}
+	{\\ud83e\\udd73}	{" :party_face:"}
+	{\\ud83e\\udd74}	{" :drunk_face:"}
+	{\\ud83e\\udd75}	{" :hot_face:"}
+	{\\ud83e\\udd76}	{" :cold_face:"}
+	{\\ud83e\\udd7a}	{" :begging_face:"}
+	{\\ud83e\\udd7c}	{" :lab_coat:"}
+	{\\ud83e\\udd7d}	{" :goggles:"}
+	{\\ud83e\\udd7e}	{" :hiking_boot:"}
+	{\\ud83e\\udd7f}	{" :flat_shoe:"}
 	{\\ud83e\\udd80}	{" :crab:"}
 	{\\ud83e\\udd81}	{" :lion:"}
 	{\\ud83e\\udd82}	{" :scorpion:"}
@@ -2266,7 +2310,30 @@ array set ::libunicode::escapedtable {
 	{\\ud83e\\udd95}	{" :brontosaurus:"}
 	{\\ud83e\\udd96}	{" :tyrannosaurus:"}
 	{\\ud83e\\udd97}	{" :grasshopper:"}
+	{\\ud83e\\udd98}	{" :kangaroo:"}
+	{\\ud83e\\udd99}	{" :llama:"}
+	{\\ud83e\\udd9a}	{" :peacock:"}
+	{\\ud83e\\udd9b}	{" :hippo:"}
+	{\\ud83e\\udd9c}	{" :parrot:"}
+	{\\ud83e\\udd9d}	{" :raccoon:"}
+	{\\ud83e\\udd9e}	{" :lobster:"}
+	{\\ud83e\\udd9f}	{" :mosquito:"}
+	{\\ud83e\\udda0}	{" :microbe:"}
+	{\\ud83e\\udda1}	{" :badget:"}
+	{\\ud83e\\udda2}	{" :swan:"}
+	{\\ud83e\\uddb0}	{" :red_haired:"}
+	{\\ud83e\\uddb1}	{" :curly_haired:"}
+	{\\ud83e\\uddb2}	{" :bald:"}
+	{\\ud83e\\uddb3}	{" :white_haired:"}
+	{\\ud83e\\uddb4}	{" :bone:"}
+	{\\ud83e\\uddb5}	{" :leg:"}
+	{\\ud83e\\uddb6}	{" :foot:"}
+	{\\ud83e\\uddb7}	{" :tooth:"}
+	{\\ud83e\\uddb8}	{" :superhero:"}
+	{\\ud83e\\uddb9}	{" :supervillain:"}
 	{\\ud83e\\uddc0}	{" :cheese:"}
+	{\\ud83e\\uddc1}	{" :cupcake:"}
+	{\\ud83e\\uddc2}	{" :salt:"}
 	{\\ud83e\\uddd0}	{" :face_monocle:"}
 	{\\ud83e\\uddd1}	{" :adult:"}
 	{\\ud83e\\uddd2}	{" :child:"}
@@ -2290,6 +2357,31 @@ array set ::libunicode::escapedtable {
 	{\\ud83e\\udde4}	{" :gloves:"}
 	{\\ud83e\\udde5}	{" :coat:"}
 	{\\ud83e\\udde6}	{" :socks:"}
+	{\\ud83e\\udde7}	{" :red_envelope:"}
+	{\\ud83e\\udde8}	{" :firecracker:"}
+	{\\ud83e\\udde9}	{" :jigsaw:"}
+	{\\ud83e\\uddea}	{" :testtube:"}
+	{\\ud83e\\uddeb}	{" :petri_dish:"}
+	{\\ud83e\\uddec}	{" :dna:"}
+	{\\ud83e\\udded}	{" :compass:"}
+	{\\ud83e\\uddee}	{" :abacus:"}
+	{\\ud83e\\uddef}	{" :fire_extinguisher:"}
+	{\\ud83e\\uddf0}	{" :toolbox:"}
+	{\\ud83e\\uddf1}	{" :bricks:"}
+	{\\ud83e\\uddf2}	{" :magnet:"}
+	{\\ud83e\\uddf3}	{" :luggage:"}
+	{\\ud83e\\uddf4}	{" :lotion:"}
+	{\\ud83e\\uddf5}	{" :thread:"}
+	{\\ud83e\\uddf6}	{" :yarn:"}
+	{\\ud83e\\uddf7}	{" :safety_pin:"}
+	{\\ud83e\\uddf8}	{" :teddy_bear:"}
+	{\\ud83e\\uddf9}	{" :broom:"}
+	{\\ud83e\\uddfa}	{" :basket:"}
+	{\\ud83e\\uddfb}	{" :toiletpaper:"}
+	{\\ud83e\\uddfc}	{" :soap:"}
+	{\\ud83e\\uddfd}	{" :sponge:"}
+	{\\ud83e\\uddfe}	{" :receipt:"}
+	{\\ud83e\\uddff}	{" :amulet:"}
 
 	{\\udbb8\\uddc4}	{" :monkey_face:"}
 	{\\uddba\\udf1a}	{" :hearts:"}
