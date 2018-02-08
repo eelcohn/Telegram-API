@@ -1827,8 +1827,17 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\udd65}	{" :clock_ten_thirty:"}
 	{\\ud83d\\udd66}	{" :clock_eleven_thirty:"}
 	{\\ud83d\\udd67}	{" :clock_twelve_thirty:"}
+	{\\ud83d\\udd68}	{" :volume_low:"}
+	{\\ud83d\\udd69}	{" :volume_medium:"}
+	{\\ud83d\\udd6a}	{" :volume_high:"}
+	{\\ud83d\\udd6b}	{" :bullhorn:"}
+	{\\ud83d\\udd6c}	{" :bullhorn_with_soundwaves:"}
+	{\\ud83d\\udd6d}	{" :bell:"}
+	{\\ud83d\\udd6e}	{" :book:"}
 	{\\ud83d\\udd6f}	{" :candle:"}
 	{\\ud83d\\udd70}	{" :mantelpiece_clock:"}
+	{\\ud83d\\udd71}	{" :skull_and_bones:"}
+	{\\ud83d\\udd72}	{" :no_piracy:"}
 	{\\ud83d\\udd73}	{" :hole:"}
 	{\\ud83d\\udd74}	{" :business_suit:"}
 	{\\ud83d\\udd75}	{" :detective:"}
@@ -1868,6 +1877,16 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\udd97}	{" :finger_pointing_down:"}
 	{\\ud83d\\udd98}	{" :finger_pointing_left:"}
 	{\\ud83d\\udd99}	{" :finger_pointing_right:"}
+	{\\ud83d\\udd9a}	{" :finger_pointing_left:"}
+	{\\ud83d\\udd9b}	{" :finger_pointing_right:"}
+	{\\ud83d\\udd9c}	{" :finger_pointing_left:"}
+	{\\ud83d\\udd9d}	{" :finger_pointing_right:"}
+	{\\ud83d\\udd9e}	{" :finger_pointing_up:"}
+	{\\ud83d\\udd9f}	{" :finger_pointing_down:"}
+	{\\ud83d\\udda0}	{" :finger_pointing_up:"}
+	{\\ud83d\\udda1}	{" :finger_pointing_down:"}
+	{\\ud83d\\udda2}	{" :finger_pointing_up:"}
+	{\\ud83d\\udda3}	{" :finger_pointing_down:"}
 	{\\ud83d\\udda4}	{" :black_heart:"}
 	{\\ud83d\\udda5}	{" :desktop_computer:"}
 	{\\ud83d\\udda6}	{" :keyboard_and_mouse:"}
@@ -1891,7 +1910,7 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\uddb8}	{" :icon_optical_disc:"}
 	{\\ud83d\\uddb9}	{" :icon_document_text:"}
 	{\\ud83d\\uddba}	{" :icon_document_text_picture:"}
-	{\\ud83d\\uddb6}	{" :icon_document_picture:"}
+	{\\ud83d\\uddbb}	{" :icon_document_picture:"}
 	{\\ud83d\\uddbc}	{" :framed_picture:"}
 	{\\ud83d\\uddbd}	{" :framed_tiles:"}
 	{\\ud83d\\uddbe}	{" :framed_x:"}
@@ -1901,9 +1920,27 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\uddc2}	{" :card_index_dividers:"}
 	{\\ud83d\\uddc3}	{" :card_file_box:"}
 	{\\ud83d\\uddc4}	{" :file_cabinet:"}
+	{\\ud83d\\uddc5}	{" :empty_note:"}
+	{\\ud83d\\uddc6}	{" :empty_note_page:"}
+	{\\ud83d\\uddc7}	{" :empty_note_pad:"}
+	{\\ud83d\\uddc8}	{" :note:"}
+	{\\ud83d\\uddc9}	{" :note_page:"}
+	{\\ud83d\\uddca}	{" :note_pad:"}
+	{\\ud83d\\uddcb}	{" :empty_document:"}
+	{\\ud83d\\uddcc}	{" :empty_page:"}
+	{\\ud83d\\uddcd}	{" :empty_pages:"}
+	{\\ud83d\\uddce}	{" :document:"}
+	{\\ud83d\\uddcf}	{" :page:"}
+	{\\ud83d\\uddd0}	{" :pages:"}
 	{\\ud83d\\uddd1}	{" :wastebasket:"}
 	{\\ud83d\\uddd2}	{" :spiral_notepad:"}
 	{\\ud83d\\uddd3}	{" :spiral_calendar:"}
+	{\\ud83d\\uddd4}	{" :desktop_window:"}
+	{\\ud83d\\uddd5}	{" :minimize:"}
+	{\\ud83d\\uddd6}	{" :maximize:"}
+	{\\ud83d\\uddd7}	{" :overlap:"}
+	{\\ud83d\\uddd8}	{" :rotate:"}
+	{\\ud83d\\uddd9}	{" :close:"}
 	{\\ud83d\\uddda}	{" :increase_font_size:"}
 	{\\ud83d\\udddb}	{" :decrease_font_size:"}
 	{\\ud83d\\udddc}	{" :clamp:"}
