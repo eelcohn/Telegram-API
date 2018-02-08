@@ -567,7 +567,7 @@ array set ::libunicode::escapedtable {
 	{\\u26c5}		{:sun_behind_cloud:}
 	{\\u26c6}		{:rain:}
 	{\\u26c7}		{:snowman_black:}
-	{\\u26c8}		{:thunderstorm:}
+	{\\u26c8}		{:thunder_cloud_and_rain:}
 	{\\u26c9}		{:shogi_white:}
 	{\\u26ca}		{:shogi_black:}
 	{\\u26cb}		{:diamond_in_square:}
