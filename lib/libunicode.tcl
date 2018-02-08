@@ -252,210 +252,211 @@ return ""
 # 1f900-1f9ff = \ud83e\udd00 - \ud83d\uddff: Supplemental symbols and pictographs
 
 array set ::libunicode::escapedtable {
-	{\\u00a1}	{¡}
-	{\\u00a2}	{¢}
-	{\\u00a3}	{£}
-	{\\u00a4}	{€}
-	{\\u00a5}	{¥}
-	{\\u00a6}	{Š}
-	{\\u00a7}	{§}
-	{\\u00a8}	{š}
-	{\\u00a9}	{©}
-	{\\u00aa}	{ª}
-	{\\u00ab}	{«}
-	{\\u00ac}	{¬}
-	{\\u00ae}	{®}
-	{\\u00af}	{¯}
-	{\\u00b0}	{°}
-	{\\u00b1}	{±}
-	{\\u00b2}	{²}
-	{\\u00b3}	{³}
-	{\\u00b4}	{Ž}
-	{\\u00b5}	{µ}
-	{\\u00b6}	{¶}
-	{\\u00b7}	{·}
-	{\\u00b8}	{ž}
-	{\\u00b9}	{¹}
-	{\\u00ba}	{º}
-	{\\u00bb}	{»}
-	{\\u00bc}	{Œ}
-	{\\u00bd}	{œ}
-	{\\u00be}	{Ÿ}
-	{\\u00bf}	{¿}
-	{\\u00c0}	{À}
-	{\\u00c1}	{Á}
-	{\\u00c2}	{Â}
-	{\\u00c3}	{Ã}
-	{\\u00c4}	{Ä}
-	{\\u00c5}	{Å}
-	{\\u00c6}	{Æ}
-	{\\u00c7}	{Ç}
-	{\\u00c8}	{È}
-	{\\u00c9}	{É}
-	{\\u00ca}	{Ê}
-	{\\u00cb}	{Ë}
-	{\\u00cc}	{Ì}
-	{\\u00cd}	{Í}
-	{\\u00ce}	{Î}
-	{\\u00cf}	{Ï}
-	{\\u00e0}	{à}
-	{\\u00e1}	{á}
-	{\\u00e2}	{â}
-	{\\u00e3}	{ã}
-	{\\u00e4}	{ä}
-	{\\u00e5}	{å}
-	{\\u00e6}	{æ}
-	{\\u00e7}	{ç}
-	{\\u00e8}	{è}
-	{\\u00e9}	{é}
-	{\\u00ea}	{ê}
-	{\\u00eb}	{ë}
-	{\\u00ec}	{ì}
-	{\\u00ed}	{í}
-	{\\u00ee}	{î}
-	{\\u00ef}	{ï}
-	{\\u00f0}	{ð}
-	{\\u00f1}	{ñ}
-	{\\u00f2}	{ò}
-	{\\u00f3}	{ó}
-	{\\u00f4}	{ô}
-	{\\u00f5}	{õ}
-	{\\u00f6}	{ö}
-	{\\u00f7}	{÷}
-	{\\u00f8}	{ø}
-	{\\u00f9}	{ù}
-	{\\u00fa}	{ú}
-	{\\u00fb}	{û}
-	{\\u00fc}	{ü}
-	{\\u00fd}	{ý}
-	{\\u00fe}	{þ}
-	{\\u00ff}	{ÿ}
-	{\\u0e3f}	{"฿"}
-	{\\u2019}	{"'"}
-	{\\u203c}	{" !!"}
-	{\\u2049}	{" !?"}
-	{\\u20a8}	{"₨"}
-	{\\u20a9}	{"₩"}
-	{\\u20aa}	{"₪"}
-	{\\u20ab}	{"₫"}
-	{\\u20ac}	{"€"}
-	{\\u20b1}	{"₱"}
-	{\\u20b9}	{"₹"}
-	{\\u2105}	{" c/o"}
-	{\\u2117}	{"℗"}
-	{\\u2120}	{"℠"}
-	{\\u2122}	{"™"}
-	{\\u2139}	{" :information_source:"}
-	{\\u2194}	{" :left_right:"}
-	{\\u2195}	{" :up_down:"}
-	{\\u2196}	{" :northwest:"}
-	{\\u2197}	{" :northeaast:"}
-	{\\u2198}	{" :southeast:"}
-	{\\u2199}	{" :southwest:"}
-	{\\u21a9}	{" :back_left:"}
-	{\\u21aa}	{" :back_right:"}
-	{\\u231a}	{" :watch:"}
-	{\\u231b}	{" :hourglass:"}
-	{\\u23ec}	{" :arrow_double_down:"}
-	{\\u24c2}	{" :m:"}
-	{\\u25aa}	{" :black_small_square:"}
-	{\\u25ab}	{" :white_small_square:"}
-	{\\u25c0}	{" :arrow_backward:"}
-	{\\u25fb}	{" :white_medium_square:"}
-	{\\u25fc}	{" :black_medium_square:"}
-	{\\u25fd}	{" :white_medium_small_square:"}
-	{\\u2600}	{" :sunny:"}
-	{\\u2601}	{" :cloud:"}
-	{\\u2602}	{" :umbrella:"}
-	{\\u2614}	{" :umbrella_rain:"}
-	{\\u2615}	{" :coffee:"}
-	{\\u2648}	{" :aries:"}
-	{\\u2649}	{" :taurus:"}
-	{\\u264a}	{" :gemini:"}
-	{\\u264b}	{" :cancer:"}
-	{\\u264d}	{" :virgo:"}
-	{\\u264e}	{" :libra:"}
-	{\\u2650}	{" :sagittarius:"}
-	{\\u2651}	{" :capricorn:"}
-	{\\u2652}	{" :aquarius:"}
-	{\\u2653}	{" :pisces:"}
-	{\\u2660}	{" :spades:"}
-	{\\u2663}	{" :clubs:"}
-	{\\u2665}	{" :hearts:"}
-	{\\u2668}	{" :warning_hot:"}
-	{\\u267b}	{" :recycle:"}
-	{\\u267f}	{" :wheelchair:"}
-	{\\u2690}	{" :white_flag:"}
-	{\\u2691}	{" :black_flag:"}
-	{\\u2693}	{" :anchor:"}
-	{\\u2696}	{" :scales:"}
-	{\\u2698}	{" :flower:"}
-	{\\u26a0}	{" :warning:"}
-	{\\u26a1}	{" :zap:"}
-	{\\u26a2}	{" :double_female_sign:"}
-	{\\u26a3}	{" :double_male_sign:"}
-	{\\u26a4}	{" :interlocked_male_female_sign:"}
-	{\\u26a5}	{" :male_female_sign:"}
-	{\\u26a6}	{" :male_stroked_sign:"}
-	{\\u26a7}	{" :male_stroked_with_male_female_sign:"}
-	{\\u26a8}	{" :vertical_male_stroked_sign:"}
-	{\\u26a9}	{" :horizontal_male_stroked_sign:"}
-	{\\u26aa}	{" :white_circle:"}
-	{\\u26ab}	{" :black_circle:"}
-	{\\u26ac}	{" :small_white_circle:"}
-	{\\u26b0}	{" :coffin:"}
-	{\\u26bd}	{" :soccer:"}
-	{\\u26be}	{" :baseball:"}
-	{\\u26c4}	{" :snowman:"}
-	{\\u26c6}	{" :rain:"}
-	{\\u26cf}	{" :pick:"}
-	{\\u26d4}	{" :no_entry:"}
-	{\\u26e9}	{" :shinto_shrine:"}
-	{\\u26ea}	{" :church:"}
-	{\\u26eb}	{" :castle:"}
-	{\\u26f0}	{" :mountain:"}
-	{\\u26f1}	{" :beach_umbrella:"}
-	{\\u26f2}	{" :fountain:"}
-	{\\u26f3}	{" :golf:"}
-	{\\u26f4}	{" :ferry:"}
-	{\\u26f5}	{" :sailboat:"}
-	{\\u26f6}	{" :square_four_corners:"}
-	{\\u26f7}	{" :skier:"}
-	{\\u26f8}	{" :ice_skate:"}
-	{\\u26f9}	{" :person_playing_basketball:"}
-	{\\u26fa}	{" :tent:"}
-	{\\u26fb}	{" :japanese_bank:"}
-	{\\u26fc}	{" :headstone_graveyard:"}
-	{\\u26fd}	{" :gaspump:"}
-	{\\u26fe}	{" :coffee_sign:"}
-	{\\u26ff}	{" :flag_with_stripe:"}
-	{\\u2702}	{" :scissors:"}
-	{\\u2705}	{" :check_mark:"}
-	{\\u2708}	{" :airplane:"}
-	{\\u2709}	{" :envelope:"}
-	{\\u270a}	{" :raised_fist:"}
-	{\\u270c}	{" :v:"}
-	{\\u270f}	{" :pencil:"}
-	{\\u2712}	{" :ink_pen:"}
-	{\\u2716}	{" :heavy_multiplication_x:"}
-	{\\u2728}	{" :sparkles:"}
-	{\\u2734}	{" :eight_pointed_black_star:"}
-	{\\u2744}	{" :snowflake:"}
-	{\\u2753}	{" :?_black:"}
-	{\\u2754}	{" :?_grey:"}
-	{\\u2755}	{" :!_grey:"}
-	{\\u2757}	{" :!:"}
-	{\\u2763}	{" :heart_exclamation_mark:"}
-	{\\u2764}	{" :heart:"}
-	{\\u2797}	{" :heavy_division_sign:"}
-	{\\u27b0}	{" :curly_loop:"}
-	{\\u2935}	{" :arrow_heading_down:"}
-	{\\u2b05}	{" :arrow_left:"}
-	{\\u2b1b}	{" :black_large_square:"}
-	{\\u2b1c}	{" :white_large_square:"}
-	{\\u2b50}	{" :star:"}
-	{\\u2b55}	{" :circle:"}
-	{\\u3030}	{" :wavy_dash:"}
+	{\\u00a1}		{¡}
+	{\\u00a2}		{¢}
+	{\\u00a3}		{£}
+	{\\u00a4}		{€}
+	{\\u00a5}		{¥}
+	{\\u00a6}		{Š}
+	{\\u00a7}		{§}
+	{\\u00a8}		{š}
+	{\\u00a9}		{©}
+	{\\u00aa}		{ª}
+	{\\u00ab}		{«}
+	{\\u00ac}		{¬}
+	{\\u00ae}		{®}
+	{\\u00af}		{¯}
+	{\\u00b0}		{°}
+	{\\u00b1}		{±}
+	{\\u00b2}		{²}
+	{\\u00b3}		{³}
+	{\\u00b4}		{Ž}
+	{\\u00b5}		{µ}
+	{\\u00b6}		{¶}
+	{\\u00b7}		{·}
+	{\\u00b8}		{ž}
+	{\\u00b9}		{¹}
+	{\\u00ba}		{º}
+	{\\u00bb}		{»}
+	{\\u00bc}		{Œ}
+	{\\u00bd}		{œ}
+	{\\u00be}		{Ÿ}
+	{\\u00bf}		{¿}
+	{\\u00c0}		{À}
+	{\\u00c1}		{Á}
+	{\\u00c2}		{Â}
+	{\\u00c3}		{Ã}
+	{\\u00c4}		{Ä}
+	{\\u00c5}		{Å}
+	{\\u00c6}		{Æ}
+	{\\u00c7}		{Ç}
+	{\\u00c8}		{È}
+	{\\u00c9}		{É}
+	{\\u00ca}		{Ê}
+	{\\u00cb}		{Ë}
+	{\\u00cc}		{Ì}
+	{\\u00cd}		{Í}
+	{\\u00ce}		{Î}
+	{\\u00cf}		{Ï}
+	{\\u00e0}		{à}
+	{\\u00e1}		{á}
+	{\\u00e2}		{â}
+	{\\u00e3}		{ã}
+	{\\u00e4}		{ä}
+	{\\u00e5}		{å}
+	{\\u00e6}		{æ}
+	{\\u00e7}		{ç}
+	{\\u00e8}		{è}
+	{\\u00e9}		{é}
+	{\\u00ea}		{ê}
+	{\\u00eb}		{ë}
+	{\\u00ec}		{ì}
+	{\\u00ed}		{í}
+	{\\u00ee}		{î}
+	{\\u00ef}		{ï}
+	{\\u00f0}		{ð}
+	{\\u00f1}		{ñ}
+	{\\u00f2}		{ò}
+	{\\u00f3}		{ó}
+	{\\u00f4}		{ô}
+	{\\u00f5}		{õ}
+	{\\u00f6}		{ö}
+	{\\u00f7}		{÷}
+	{\\u00f8}		{ø}
+	{\\u00f9}		{ù}
+	{\\u00fa}		{ú}
+	{\\u00fb}		{û}
+	{\\u00fc}		{ü}
+	{\\u00fd}		{ý}
+	{\\u00fe}		{þ}
+	{\\u00ff}		{ÿ}
+	{\\u0e3f}		{"฿"}
+	{\\u2019}		{"'"}
+	{\\u200d\\u2640}	{"female:"}
+	{\\u203c}		{" !!"}
+	{\\u2049}		{" !?"}
+	{\\u20a8}		{"₨"}
+	{\\u20a9}		{"₩"}
+	{\\u20aa}		{"₪"}
+	{\\u20ab}		{"₫"}
+	{\\u20ac}		{"€"}
+	{\\u20b1}		{"₱"}
+	{\\u20b9}		{"₹"}
+	{\\u2105}		{" c/o"}
+	{\\u2117}		{"℗"}
+	{\\u2120}		{"℠"}
+	{\\u2122}		{"™"}
+	{\\u2139}		{" :information_source:"}
+	{\\u2194}		{" :left_right:"}
+	{\\u2195}		{" :up_down:"}
+	{\\u2196}		{" :northwest:"}
+	{\\u2197}		{" :northeaast:"}
+	{\\u2198}		{" :southeast:"}
+	{\\u2199}		{" :southwest:"}
+	{\\u21a9}		{" :back_left:"}
+	{\\u21aa}		{" :back_right:"}
+	{\\u231a}		{" :watch:"}
+	{\\u231b}		{" :hourglass:"}
+	{\\u23ec}		{" :arrow_double_down:"}
+	{\\u24c2}		{" :m:"}
+	{\\u25aa}		{" :black_small_square:"}
+	{\\u25ab}		{" :white_small_square:"}
+	{\\u25c0}		{" :arrow_backward:"}
+	{\\u25fb}		{" :white_medium_square:"}
+	{\\u25fc}		{" :black_medium_square:"}
+	{\\u25fd}		{" :white_medium_small_square:"}
+	{\\u2600}		{" :sunny:"}
+	{\\u2601}		{" :cloud:"}
+	{\\u2602}		{" :umbrella:"}
+	{\\u2614}		{" :umbrella_rain:"}
+	{\\u2615}		{" :coffee:"}
+	{\\u2648}		{" :aries:"}
+	{\\u2649}		{" :taurus:"}
+	{\\u264a}		{" :gemini:"}
+	{\\u264b}		{" :cancer:"}
+	{\\u264d}		{" :virgo:"}
+	{\\u264e}		{" :libra:"}
+	{\\u2650}		{" :sagittarius:"}
+	{\\u2651}		{" :capricorn:"}
+	{\\u2652}		{" :aquarius:"}
+	{\\u2653}		{" :pisces:"}
+	{\\u2660}		{" :spades:"}
+	{\\u2663}		{" :clubs:"}
+	{\\u2665}		{" :hearts:"}
+	{\\u2668}		{" :warning_hot:"}
+	{\\u267b}		{" :recycle:"}
+	{\\u267f}		{" :wheelchair:"}
+	{\\u2690}		{" :white_flag:"}
+	{\\u2691}		{" :black_flag:"}
+	{\\u2693}		{" :anchor:"}
+	{\\u2696}		{" :scales:"}
+	{\\u2698}		{" :flower:"}
+	{\\u26a0}		{" :warning:"}
+	{\\u26a1}		{" :zap:"}
+	{\\u26a2}		{" :double_female_sign:"}
+	{\\u26a3}		{" :double_male_sign:"}
+	{\\u26a4}		{" :interlocked_male_female_sign:"}
+	{\\u26a5}		{" :male_female_sign:"}
+	{\\u26a6}		{" :male_stroked_sign:"}
+	{\\u26a7}		{" :male_stroked_with_male_female_sign:"}
+	{\\u26a8}		{" :vertical_male_stroked_sign:"}
+	{\\u26a9}		{" :horizontal_male_stroked_sign:"}
+	{\\u26aa}		{" :white_circle:"}
+	{\\u26ab}		{" :black_circle:"}
+	{\\u26ac}		{" :small_white_circle:"}
+	{\\u26b0}		{" :coffin:"}
+	{\\u26bd}		{" :soccer:"}
+	{\\u26be}		{" :baseball:"}
+	{\\u26c4}		{" :snowman:"}
+	{\\u26c6}		{" :rain:"}
+	{\\u26cf}		{" :pick:"}
+	{\\u26d4}		{" :no_entry:"}
+	{\\u26e9}		{" :shinto_shrine:"}
+	{\\u26ea}		{" :church:"}
+	{\\u26eb}		{" :castle:"}
+	{\\u26f0}		{" :mountain:"}
+	{\\u26f1}		{" :beach_umbrella:"}
+	{\\u26f2}		{" :fountain:"}
+	{\\u26f3}		{" :golf:"}
+	{\\u26f4}		{" :ferry:"}
+	{\\u26f5}		{" :sailboat:"}
+	{\\u26f6}		{" :square_four_corners:"}
+	{\\u26f7}		{" :skier:"}
+	{\\u26f8}		{" :ice_skate:"}
+	{\\u26f9}		{" :person_playing_basketball:"}
+	{\\u26fa}		{" :tent:"}
+	{\\u26fb}		{" :japanese_bank:"}
+	{\\u26fc}		{" :headstone_graveyard:"}
+	{\\u26fd}		{" :gaspump:"}
+	{\\u26fe}		{" :coffee_sign:"}
+	{\\u26ff}		{" :flag_with_stripe:"}
+	{\\u2702}		{" :scissors:"}
+	{\\u2705}		{" :check_mark:"}
+	{\\u2708}		{" :airplane:"}
+	{\\u2709}		{" :envelope:"}
+	{\\u270a}		{" :raised_fist:"}
+	{\\u270c}		{" :v:"}
+	{\\u270f}		{" :pencil:"}
+	{\\u2712}		{" :ink_pen:"}
+	{\\u2716}		{" :heavy_multiplication_x:"}
+	{\\u2728}		{" :sparkles:"}
+	{\\u2734}		{" :eight_pointed_black_star:"}
+	{\\u2744}		{" :snowflake:"}
+	{\\u2753}		{" :?_black:"}
+	{\\u2754}		{" :?_grey:"}
+	{\\u2755}		{" :!_grey:"}
+	{\\u2757}		{" :!:"}
+	{\\u2763}		{" :heart_exclamation_mark:"}
+	{\\u2764}		{" :heart:"}
+	{\\u2797}		{" :heavy_division_sign:"}
+	{\\u27b0}		{" :curly_loop:"}
+	{\\u2935}		{" :arrow_heading_down:"}
+	{\\u2b05}		{" :arrow_left:"}
+	{\\u2b1b}		{" :black_large_square:"}
+	{\\u2b1c}		{" :white_large_square:"}
+	{\\u2b50}		{" :star:"}
+	{\\u2b55}		{" :circle:"}
+	{\\u3030}		{" :wavy_dash:"}
 
 	{\\ud83c\\udd00}	{" :0.:"}
 	{\\ud83c\\udd01}	{" :0,:"}
