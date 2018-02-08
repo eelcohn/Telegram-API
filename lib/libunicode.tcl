@@ -333,6 +333,7 @@ array set ::libunicode::escapedtable {
 	{\\u0e3f}		{"฿"}
 	{\\u2019}		{"'"}
 	{\\u200d\\u2640}	{"female:"}
+	{\\u200d\\u2640}	{"male:"}
 	{\\u203c}		{" !!"}
 	{\\u2049}		{" !?"}
 	{\\u20a8}		{"₨"}
