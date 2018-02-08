@@ -1687,72 +1687,72 @@ array set ::libunicode::escapedtable {
 	{\\ud83c\\udffd}	{""}
 	{\\ud83c\\udffe}	{""}
 	{\\ud83c\\udfff}	{""}
-	{\\ud83d\\udc00}	{" :rat:"}
-	{\\ud83d\\udc01}	{" :mouse:"}
-	{\\ud83d\\udc02}	{" :ox:"}
-	{\\ud83d\\udc03}	{" :water_buffalo:"}
-	{\\ud83d\\udc04}	{" :cow:"}
-	{\\ud83d\\udc05}	{" :tiger:"}
-	{\\ud83d\\udc06}	{" :leopard:"}
-	{\\ud83d\\udc07}	{" :rabbit:"}
-	{\\ud83d\\udc08}	{" :cat:"}
-	{\\ud83d\\udc09}	{" :dragon:"}
-	{\\ud83d\\udc0a}	{" :crocodile:"}
-	{\\ud83d\\udc0b}	{" :whale:"}
-	{\\ud83d\\udc0c}	{" :snail:"}
-	{\\ud83d\\udc0d}	{" :snake:"}
-	{\\ud83d\\udc0e}	{" :horse:"}
-	{\\ud83d\\udc0f}	{" :ram:"}
-	{\\ud83d\\udc10}	{" :goat:"}
-	{\\ud83d\\udc11}	{" :sheep:"}
-	{\\ud83d\\udc12}	{" :monkey:"}
-	{\\ud83d\\udc13}	{" :rooster:"}
-	{\\ud83d\\udc14}	{" :dog:"}
-	{\\ud83d\\udc15}	{" :chicken:"}
-	{\\ud83d\\udc16}	{" :pig:"}
-	{\\ud83d\\udc17}	{" :boar:"}
-	{\\ud83d\\udc18}	{" :elephant:"}
-	{\\ud83d\\udc19}	{" :octopus:"}
-	{\\ud83d\\udc1a}	{" :shell:"}
-	{\\ud83d\\udc1b}	{" :bug:"}
-	{\\ud83d\\udc1c}	{" :ant:"}
-	{\\ud83d\\udc1d}	{" :bee:"}
-	{\\ud83d\\udc1e}	{" :ladybug:"}
-	{\\ud83d\\udc1f}	{" :fish:"}
-	{\\ud83d\\udc20}	{" :tropical_fish:"}
-	{\\ud83d\\udc21}	{" :blowfish:"}
-	{\\ud83d\\udc22}	{" :turtle:"}
-	{\\ud83d\\udc23}	{" :hatching_chick:"}
-	{\\ud83d\\udc24}	{" :baby_chick:"}
-	{\\ud83d\\udc25}	{" :hatched_chick:"}
-	{\\ud83d\\udc26}	{" :bird:"}
-	{\\ud83d\\udc27}	{" :penguin:"}
-	{\\ud83d\\udc28}	{" :koala:"}
-	{\\ud83d\\udc29}	{" :poodle:"}
-	{\\ud83d\\udc2a}	{" :dromedary:"}
-	{\\ud83d\\udc2b}	{" :camel:"}
-	{\\ud83d\\udc2c}	{" :dolphin:"}
-	{\\ud83d\\udc2d}	{" :mouse_face:"}
-	{\\ud83d\\udc2e}	{" :cow_face:"}
-	{\\ud83d\\udc2f}	{" :tiger_face:"}
-	{\\ud83d\\udc30}	{" :rabbit_face:"}
-	{\\ud83d\\udc31}	{" :cat_face:"}
-	{\\ud83d\\udc32}	{" :dragon_face:"}
-	{\\ud83d\\udc33}	{" :whale:"}
-	{\\ud83d\\udc34}	{" :horse_face:"}
-	{\\ud83d\\udc35}	{" :monkey_face:"}
-	{\\ud83d\\udc36}	{" :dog_face:"}
-	{\\ud83d\\udc37}	{" :pig_face:"}
-	{\\ud83d\\udc38}	{" :frog_face:"}
-	{\\ud83d\\udc39}	{" :hamster_face:"}
-	{\\ud83d\\udc3a}	{" :wolf_face:"}
-	{\\ud83d\\udc3b}	{" :bear_face:"}
-	{\\ud83d\\udc3c}	{" :panda_face:"}
-	{\\ud83d\\udc3e}	{" :paw_prints:"}
-	{\\ud83d\\udc3f}	{" :chipmunk:"}
-	{\\ud83d\\udc3d}	{" :pig_nose:"}
-	{\\ud83d\\udc40}	{" :eyes:"}
-	{\\ud83d\\udc41}	{" :eye:"}
+	{\\ud83d\\udc00}	{:rat:}
+	{\\ud83d\\udc01}	{:mouse:}
+	{\\ud83d\\udc02}	{:ox:}
+	{\\ud83d\\udc03}	{:water_buffalo:}
+	{\\ud83d\\udc04}	{:cow:}
+	{\\ud83d\\udc05}	{:tiger:}
+	{\\ud83d\\udc06}	{:leopard:}
+	{\\ud83d\\udc07}	{:rabbit:}
+	{\\ud83d\\udc08}	{:cat:}
+	{\\ud83d\\udc09}	{:dragon:}
+	{\\ud83d\\udc0a}	{:crocodile:}
+	{\\ud83d\\udc0b}	{:whale:}
+	{\\ud83d\\udc0c}	{:snail:}
+	{\\ud83d\\udc0d}	{:snake:}
+	{\\ud83d\\udc0e}	{:horse:}
+	{\\ud83d\\udc0f}	{:ram:}
+	{\\ud83d\\udc10}	{:goat:}
+	{\\ud83d\\udc11}	{:sheep:}
+	{\\ud83d\\udc12}	{:monkey:}
+	{\\ud83d\\udc13}	{:rooster:}
+	{\\ud83d\\udc14}	{:chicken:}
+	{\\ud83d\\udc15}	{:dog:}
+	{\\ud83d\\udc16}	{:pig:}
+	{\\ud83d\\udc17}	{:boar:}
+	{\\ud83d\\udc18}	{:elephant:}
+	{\\ud83d\\udc19}	{:octopus:}
+	{\\ud83d\\udc1a}	{:shell:}
+	{\\ud83d\\udc1b}	{:bug:}
+	{\\ud83d\\udc1c}	{:ant:}
+	{\\ud83d\\udc1d}	{:bee:}
+	{\\ud83d\\udc1e}	{:ladybug:}
+	{\\ud83d\\udc1f}	{:fish:}
+	{\\ud83d\\udc20}	{:tropical_fish:}
+	{\\ud83d\\udc21}	{:blowfish:}
+	{\\ud83d\\udc22}	{:turtle:}
+	{\\ud83d\\udc23}	{:hatching_chick:}
+	{\\ud83d\\udc24}	{:baby_chick:}
+	{\\ud83d\\udc25}	{:hatched_chick:}
+	{\\ud83d\\udc26}	{:bird:}
+	{\\ud83d\\udc27}	{:penguin:}
+	{\\ud83d\\udc28}	{:koala:}
+	{\\ud83d\\udc29}	{:poodle:}
+	{\\ud83d\\udc2a}	{:dromedary:}
+	{\\ud83d\\udc2b}	{:camel:}
+	{\\ud83d\\udc2c}	{:dolphin:}
+	{\\ud83d\\udc2d}	{:mouse_face:}
+	{\\ud83d\\udc2e}	{:cow_face:}
+	{\\ud83d\\udc2f}	{:tiger_face:}
+	{\\ud83d\\udc30}	{:rabbit_face:}
+	{\\ud83d\\udc31}	{:cat_face:}
+	{\\ud83d\\udc32}	{:dragon_face:}
+	{\\ud83d\\udc33}	{:whale:}
+	{\\ud83d\\udc34}	{:horse_face:}
+	{\\ud83d\\udc35}	{:monkey_face:}
+	{\\ud83d\\udc36}	{:dog_face:}
+	{\\ud83d\\udc37}	{:pig_face:}
+	{\\ud83d\\udc38}	{:frog_face:}
+	{\\ud83d\\udc39}	{:hamster_face:}
+	{\\ud83d\\udc3a}	{:wolf_face:}
+	{\\ud83d\\udc3b}	{:bear_face:}
+	{\\ud83d\\udc3c}	{:panda_face:}
+	{\\ud83d\\udc3e}	{:paw_prints:}
+	{\\ud83d\\udc3f}	{:chipmunk:}
+	{\\ud83d\\udc3d}	{:pig_nose:}
+	{\\ud83d\\udc40}	{:eyes:}
+	{\\ud83d\\udc41}	{:eye:}
 	{\\ud83d\\udc42}	{" :ear:"}
 	{\\ud83d\\udc43}	{" :nose:"}
 	{\\ud83d\\udc44}	{" :mouth:"}
