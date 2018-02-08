@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Unicode library for Tcl - v20180207                                          #
+# Unicode library for Tcl - v20180208                                          #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -359,6 +359,8 @@ array set ::libunicode::escapedtable {
 	{\\u231a}		{" :watch:"}
 	{\\u231b}		{" :hourglass:"}
 	{\\u23ec}		{" :arrow_double_down:"}
+	{\\u23f1}		{" :stopwatch:"}
+	{\\u23f3}		{" :hourglass:"}
 	{\\u24c2}		{" :m:"}
 	{\\u25aa}		{" :black_small_square:"}
 	{\\u25ab}		{" :white_small_square:"}
@@ -376,10 +378,41 @@ array set ::libunicode::escapedtable {
 	{\\u2607}		{" :lightning:"}
 	{\\u2608}		{" :thunderstorm:"}
 	{\\u2609}		{" :sun:"}
+	{\\u260a}		{" :ascending_note:"}
+	{\\u260b}		{" :descending_note:"}
+	{\\u260c}		{" :conjunction:"}
+	{\\u260d}		{" :opposition:"}
+	{\\u260e}		{" :telephone_black:"}
+	{\\u260f}		{" :telephone_white:"}
+	{\\u2610}		{" :ballot_box:"}
+	{\\u2611}		{" :ballot_box_checked:"}
+	{\\u2612}		{" :ballot_box_x:"}
+	{\\u2613}		{" :saltire:"}
 	{\\u2614}		{" :umbrella_rain:"}
 	{\\u2615}		{" :coffee:"}
+	{\\u2616}		{" :shogi_white:"}
+	{\\u2617}		{" :shogi_black:"}
+	{\\u2618}		{" :shamrock:"}
+	{\\u2619}		{" :reversed_rotated_floral_heart_bullet:"}
+	{\\u261a}		{" :finger_pointing_left:"}
+	{\\u261b}		{" :finger_pointing_right:"}
+	{\\u261c}		{" :finger_pointing_left:"}
+	{\\u261d}		{" :finger_pointing_up:"}
+	{\\u261e}		{" :finger_pointing_right:"}
+	{\\u261f}		{" :finger_pointing_down:"}
+	{\\u2620}		{" :skull_and_bones:"}
+	{\\u2621}		{" :caution:"}
 	{\\u2622}		{" :radioactive:"}
 	{\\u2623}		{" :biohazard:"}
+	{\\u2624}		{" :caduceus:"}
+	{\\u2625}		{" :ankh:"}
+	{\\u2626}		{" :orthodox_cross:"}
+	{\\u2627}		{" :chi_rho:"}
+	{\\u2628}		{" :cross_of_lorraine:"}
+	{\\u2629}		{" :cross_of_jerusalem:"}
+	{\\u262a}		{" :star_and_crescent:"}
+	{\\u262b}		{" :farsi:"}
+	{\\u262c}		{" :adi_shakti:"}
 	{\\u262d}		{" :hammer_and_sickle:"}
 	{\\u262e}		{" :peace_symbol:"}
 	{\\u262f}		{" :yin_yan:"}
@@ -391,29 +424,109 @@ array set ::libunicode::escapedtable {
 	{\\u2635}		{" :trigram_water:"}
 	{\\u2636}		{" :trigram_mountain:"}
 	{\\u2637}		{" :trigram_earth:"}
+	{\\u2638}		{" :wheel_of_dharma:"}
+	{\\u2639}		{" :-("}
+	{\\u263a}		{" :-)"}
+	{\\u263b}		{" :-)"}
+	{\\u263c}		{" :sun_with_rays:"}
+	{\\u263d}		{" :moon_first_quarter:"}
+	{\\u263e}		{" :moon_last_quarter:"}
+	{\\u263f}		{" :mercury:"}
+	{\\u2640}		{" :female:"}
+	{\\u2641}		{" :earth:"}
+	{\\u2642}		{" :male:"}
+	{\\u2643}		{" :jupiter:"}
+	{\\u2644}		{" :saturn:"}
+	{\\u2645}		{" :uranus:"}
+	{\\u2646}		{" :neptune:"}
+	{\\u2647}		{" :pluto:"}
 	{\\u2648}		{" :aries:"}
 	{\\u2649}		{" :taurus:"}
 	{\\u264a}		{" :gemini:"}
 	{\\u264b}		{" :cancer:"}
+	{\\u264c}		{" :leo:"}
 	{\\u264d}		{" :virgo:"}
 	{\\u264e}		{" :libra:"}
+	{\\u264f}		{" :scorpius:"}
 	{\\u2650}		{" :sagittarius:"}
 	{\\u2651}		{" :capricorn:"}
 	{\\u2652}		{" :aquarius:"}
 	{\\u2653}		{" :pisces:"}
-	{\\u265f}		{" :chess_pawn:"}
-	{\\u2660}		{" :spades:"}
-	{\\u2663}		{" :clubs:"}
-	{\\u2665}		{" :hearts:"}
+	{\\u2654}		{" :white_chess_king:"}
+	{\\u2655}		{" :white_chess_queen:"}
+	{\\u2656}		{" :white_chess_rook:"}
+	{\\u2657}		{" :white_chess_bishop:"}
+	{\\u2658}		{" :white_chess_knight:"}
+	{\\u2659}		{" :white_chess_pawn:"}
+	{\\u265a}		{" :black_chess_king:"}
+	{\\u265b}		{" :black_chess_queen:"}
+	{\\u265c}		{" :black_chess_rook:"}
+	{\\u265d}		{" :black_chess_bishop:"}
+	{\\u265e}		{" :black_chess_knight:"}
+	{\\u265f}		{" :black_chess_pawn:"}
+	{\\u2660}		{" :black_spades:"}
+	{\\u2661}		{" :white_hearts:"}
+	{\\u2662}		{" :white_diamonds:"}
+	{\\u2663}		{" :black_clubs:"}
+	{\\u2664}		{" :white_spades:"}
+	{\\u2665}		{" :black_hearts:"}
+	{\\u2666}		{" :black_diamonds:"}
+	{\\u2667}		{" :white_clubs:"}
 	{\\u2668}		{" :warning_hot:"}
+	{\\u2669}		{" :quarter_note:"}
+	{\\u266a}		{" :eight_note:"}
+	{\\u266b}		{" :beamed_eight_note:"}
+	{\\u266c}		{" :beamed_sixteenth_note:"}
+	{\\u266d}		{" :music_flat:"}
+	{\\u266e}		{" :music_natural:"}
+	{\\u266f}		{" :music_sharp:"}
+	{\\u2670}		{" :west_syrriac_cross:"}
+	{\\u2671}		{" :east_syrriac_cross:"}
+	{\\u2672}		{" :recycle:"}
+	{\\u2673}		{" :recycle_type1:"}
+	{\\u2674}		{" :recycle_type2:"}
+	{\\u2675}		{" :recycle_type3:"}
+	{\\u2676}		{" :recycle_type4:"}
+	{\\u2677}		{" :recycle_type5:"}
+	{\\u2678}		{" :recycle_type6:"}
+	{\\u2679}		{" :recycle_type7:"}
+	{\\u267a}		{" :recycle_generic:"}
 	{\\u267b}		{" :recycle:"}
+	{\\u267b}		{" :recycle_paper:"}
+	{\\u267b}		{" :recycle_paper_partially:"}
 	{\\u267e}		{" :infinity:"}
 	{\\u267f}		{" :wheelchair:"}
+	{\\u2680}		{" :die_face_1:"}
+	{\\u2681}		{" :die_face_2:"}
+	{\\u2682}		{" :die_face_3:"}
+	{\\u2683}		{" :die_face_4:"}
+	{\\u2684}		{" :die_face_5:"}
+	{\\u2685}		{" :die_face_6:"}
+	{\\u2686}		{" :white_circle_dot_right:"}
+	{\\u2687}		{" :white_circle_dots_left_right:"}
+	{\\u2688}		{" :black_circle_dot_right:"}
+	{\\u2689}		{" :black_circle_dots_left_right:"}
+	{\\u268a}		{" :monogram_yang:"}
+	{\\u268b}		{" :monogram_yin:"}
+	{\\u268c}		{" :diagram_greater_yang:"}
+	{\\u268d}		{" :diagram_lesser_yang:"}
+	{\\u268e}		{" :diagram_greater_yin:"}
+	{\\u268f}		{" :diagram_lesser_yin:"}
 	{\\u2690}		{" :white_flag:"}
 	{\\u2691}		{" :black_flag:"}
 	{\\u2693}		{" :anchor:"}
+	{\\u2694}		{" :crossed_swords:"}
+	{\\u2695}		{" :aesculape:"}
 	{\\u2696}		{" :scales:"}
+	{\\u2697}		{" :alembic:"}
 	{\\u2698}		{" :flower:"}
+	{\\u2699}		{" :gear:"}
+	{\\u269a}		{" :staff_of_hermes:"}
+	{\\u269b}		{" :atom:"}
+	{\\u269c}		{" :fleur_de_lis:"}
+	{\\u269d}		{" :white_star:"}
+	{\\u269e}		{" :three_lines_converging_right:"}
+	{\\u269f}		{" :three_lines_converging_left:"}
 	{\\u26a0}		{" :warning:"}
 	{\\u26a1}		{" :zap:"}
 	{\\u26a2}		{" :double_female_sign:"}
@@ -427,16 +540,73 @@ array set ::libunicode::escapedtable {
 	{\\u26aa}		{" :white_circle:"}
 	{\\u26ab}		{" :black_circle:"}
 	{\\u26ac}		{" :small_white_circle:"}
+	{\\u26ad}		{" :marriage:"}
+	{\\u26ae}		{" :divorce:"}
+	{\\u26af}		{" :partnership:"}
 	{\\u26b0}		{" :coffin:"}
+	{\\u26b1}		{" :urn:"}
+	{\\u26b2}		{" :neuter:"}
+	{\\u26b3}		{" :ceres:"}
+	{\\u26b4}		{" :pallas:"}
+	{\\u26b5}		{" :juno:"}
+	{\\u26b6}		{" :vesta:"}
+	{\\u26b7}		{" :chiron:"}
+	{\\u26b8}		{" :lilith:"}
+	{\\u26b9}		{" :sextile:"}
+	{\\u26ba}		{" :semisextile:"}
+	{\\u26bb}		{" :quincunx:"}
+	{\\u26bc}		{" :sesquiquadrate:"}
 	{\\u26bd}		{" :soccer:"}
 	{\\u26be}		{" :baseball:"}
+	{\\u26bf}		{" :squared_key:"}
+	{\\u26c0}		{" :white_draughts_man:"}
+	{\\u26c1}		{" :white_draughts_king:"}
+	{\\u26c2}		{" :black_draughts_man:"}
+	{\\u26c3}		{" :black_draughts_king:"}
 	{\\u26c4}		{" :snowman:"}
+	{\\u26c5}		{" :sun_behind_cloud:"}
 	{\\u26c6}		{" :rain:"}
+	{\\u26c7}		{" :snowman_black:"}
+	{\\u26c8}		{" :thunderstorm:"}
+	{\\u26c9}		{" :shogi_white:"}
+	{\\u26ca}		{" :shogi_black:"}
+	{\\u26cb}		{" :diamond_in_square:"}
+	{\\u26cc}		{" :crossing_lanes:"}
+	{\\u26cd}		{" :disabled_car:"}
+	{\\u26ce}		{" :ophiuchus:"}
 	{\\u26cf}		{" :pick:"}
+	{\\u26d0}		{" :car_sliding:"}
+	{\\u26d1}		{" :helmet_white_cross:"}
+	{\\u26d2}		{" :circled_crossing_lanes:"}
+	{\\u26d3}		{" :chains:"}
 	{\\u26d4}		{" :no_entry:"}
+	{\\u26d5}		{" :alternate_oneway_traffic_left:"}
+	{\\u26d6}		{" :twoway_left_way_traffic_black:"}
+	{\\u26d7}		{" :twoway_left_way_traffic_white:"}
+	{\\u26d8}		{" :left_lane_merge_black:"}
+	{\\u26d9}		{" :left_lane_merge_white:"}
+	{\\u26da}		{" :drive_slow:"}
+	{\\u26db}		{" :down_pointing_triangle:"}
+	{\\u26dc}		{" :left_closed_entry:"}
+	{\\u26dd}		{" :squared_saltire:"}
+	{\\u26de}		{" :diagonal_in_white_circle_black_square:"}
+	{\\u26df}		{" :black_truck:"}
+	{\\u26e0}		{" :restricted_left_entry:"}
+	{\\u26e1}		{" :restricted_left_entry:"}
+	{\\u26e2}		{" :uranus:"}
+	{\\u26e3}		{" :circle_with_stroke_and_two_dots:"}
+	{\\u26e4}		{" :pentagram:"}
+	{\\u26e5}		{" :pentagram_interlaced_right:"}
+	{\\u26e6}		{" :pentagram_interlaced_left:"}
+	{\\u26e7}		{" :pentagram_inverted:"}
+	{\\u26e8}		{" :black_cross_on_shield:"}
 	{\\u26e9}		{" :shinto_shrine:"}
 	{\\u26ea}		{" :church:"}
 	{\\u26eb}		{" :castle:"}
+	{\\u26ec}		{" :historic_site:"}
+	{\\u26ed}		{" :gear_without_hub:"}
+	{\\u26ee}		{" :gear_with_handles:"}
+	{\\u26ef}		{" :lighthouse:"}
 	{\\u26f0}		{" :mountain:"}
 	{\\u26f1}		{" :beach_umbrella:"}
 	{\\u26f2}		{" :fountain:"}
@@ -453,15 +623,40 @@ array set ::libunicode::escapedtable {
 	{\\u26fd}		{" :gaspump:"}
 	{\\u26fe}		{" :coffee_sign:"}
 	{\\u26ff}		{" :flag_with_stripe:"}
+	{\\u2700}		{" :scissors:"}
+	{\\u2701}		{" :scissors_upper_blade:"}
 	{\\u2702}		{" :scissors:"}
+	{\\u2703}		{" :scissors_lower_blade:"}
+	{\\u2704}		{" :scissors:"}
 	{\\u2705}		{" :check_mark:"}
+	{\\u2706}		{" :telephone_sign:"}
+	{\\u2707}		{" :tapedrive:"}
 	{\\u2708}		{" :airplane:"}
 	{\\u2709}		{" :envelope:"}
 	{\\u270a}		{" :raised_fist:"}
-	{\\u270c}		{" :v:"}
+	{\\u270b}		{" :raised_hand:"}
+	{\\u270c}		{" :victory_hand:"}
+	{\\u270d}		{" :writing_hand:"}
+	{\\u270e}		{" :pencil:"}
 	{\\u270f}		{" :pencil:"}
+	{\\u2710}		{" :pencil:"}
+	{\\u2711}		{" :ink_pen:"}
 	{\\u2712}		{" :ink_pen:"}
+	{\\u2713}		{" :check_mark:"}
+	{\\u2714}		{" :check_mark:"}
+	{\\u2715}		{" :multiplication_x:"}
 	{\\u2716}		{" :heavy_multiplication_x:"}
+	{\\u2717}		{" :ballot_x:"}
+	{\\u2718}		{" :heavy_ballot_x:"}
+	{\\u2719}		{" :greek_cross:"}
+	{\\u271a}		{" :greek_cross:"}
+	{\\u271b}		{" :open_center_cross:"}
+	{\\u271c}		{" :heavy_open_center_cross:"}
+	{\\u271d}		{" :latin_cross:"}
+	{\\u271e}		{" :latin_cross_shadowed:"}
+	{\\u271f}		{" :latin_cross_outlined:"}
+	{\\u2720}		{" :maltese_cross:"}
+	{\\u2721}		{" :star_of_david:"}
 	{\\u2728}		{" :sparkles:"}
 	{\\u2734}		{" :eight_pointed_black_star:"}
 	{\\u2744}		{" :snowflake:"}
@@ -473,6 +668,7 @@ array set ::libunicode::escapedtable {
 	{\\u2764}		{" :heart:"}
 	{\\u2797}		{" :heavy_division_sign:"}
 	{\\u27b0}		{" :curly_loop:"}
+	{\\u27bf}		{" :double_curly_loop:"}
 	{\\u2935}		{" :arrow_heading_down:"}
 	{\\u2b05}		{" :arrow_left:"}
 	{\\u2b1b}		{" :black_large_square:"}
@@ -1716,7 +1912,7 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\udcde}	{" :telephone_receiver:"}
 	{\\ud83d\\udcdf}	{" :pager:"}
 	{\\ud83d\\udce0}	{" :fax_machine:"}
-	{\\ud83d\\udce1}	{" :sattelite_dish:"}
+	{\\ud83d\\udce1}	{" :satellite_dish:"}
 	{\\ud83d\\udce2}	{" :pa_megaphone:"}
 	{\\ud83d\\udce3}	{" :megaphone:"}
 	{\\ud83d\\udce4}	{" :outbox:"}
