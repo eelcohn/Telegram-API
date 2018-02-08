@@ -1,6 +1,6 @@
 v20180208:
 * Telegram-API.tcl: ASCII emoticons from IRC are now sent to Telegram as Unicode emoji's (0be4aed)
-* Telegram-API.tcl: Fixed reply_to_message and forward_from messages from channels (80e95ea)
+* Telegram-API.tcl: Fixed reply_to_message and forward_from messages from channels (80e95ea / eae9912)
 * Telegram-API.tcl: Replaced all utf2ascii calls with ::libunicode::utf82ascii (6b173bb)
 * Telegram-API.tcl: Removed utf2ascii and ascii2utf procedures (moved to libunicode.tcl) (28b51e2)
 * Telegram-API.tcl: Added verbose error handling when trying to access old chat_id's for groups which have been migrated to supergroups (f5dc9e8)
