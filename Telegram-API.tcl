@@ -128,20 +128,30 @@ proc tg2irc_pollTelegram {} {
 
 				# Check if this message is a reply to a previous message
 				if {[::libjson::hasKey $msg ".$msgtype.reply_to_message"]} {
-					set replyname [::libjson::getValue $msg ".$msgtype.reply_to_message.from.username"]
-					if {$replyname == "null" } {
-						set replyname [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.reply_to_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.reply_to_message.from.last_name//empty"]]]
+					if {$chattype eq "channel"} {
+						# Set sender's name to the title of the channel for channel announcements
+						set name [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.reply_to_message.chat.title"]]
+					} else {
+						set replyname [::libjson::getValue $msg ".$msgtype.reply_to_message.from.username"]
+						if {$replyname == "null" } {
+							set replyname [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.reply_to_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.reply_to_message.from.last_name//empty"]]]
+						}
+						set replyname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.reply_to_message.from.id"]]$replyname\003"
 					}
-					set replyname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.reply_to_message.from.id"]]$replyname\003"
 				}
 
 				# Check if this message is a forwarded message
 				if {[::libjson::hasKey $msg ".$msgtype.forward_from"]} {
-					set forwardname [::libjson::getValue $msg ".$msgtype.forward_from.username"]
-					if {$forwardname == "null" } {
-						set forwardname [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.forward_from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.forward_from.last_name//empty"]]]
+					if {$chattype eq "channel"} {
+						# Set sender's name to the title of the channel for channel announcements
+						set name [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.forward_from.chat.title"]]
+					} else {
+						set forwardname [::libjson::getValue $msg ".$msgtype.forward_from.username"]
+						if {$forwardname == "null" } {
+							set forwardname [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.forward_from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.forward_from.last_name//empty"]]]
+						}
+						set forwardname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.forward_from.id"]]$forwardname\003"
 					}
-					set forwardname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.forward_from.id"]]$forwardname\003"
 				}
 
 				# Check if a text message has been sent to the Telegram group
