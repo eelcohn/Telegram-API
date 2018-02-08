@@ -1,7 +1,7 @@
 v20180208:
 * Telegram-API.tcl: Replaced all utf2ascii calls with ::libunicode::utf82ascii (6b173bb)
 * Telegram-API.tcl: Removed utf2ascii and ascii2utf procedures (moved to libunicode.tcl) (28b51e2)
-* libunicode.tcl: Added more moji's and pictograms (bddbaf4 / 02e0bf0)
+* libunicode.tcl: Added more moji's and pictograms (bddbaf4 / 02e0bf0 / 710585b)
 * libunicode.tcl: Optimized code (75845d3)
 
 v20180207:
