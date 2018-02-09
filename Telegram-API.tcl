@@ -331,7 +331,7 @@ proc tg2irc_pollTelegram {} {
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_CONTACTSENT "$name" "$tg_phone_number" "$tg_first_name" "$tg_last_name"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_CONTACTSENT "$name" "+$tg_phone_number" "$tg_first_name" "$tg_last_name"]
 						}
 					}
 				}
