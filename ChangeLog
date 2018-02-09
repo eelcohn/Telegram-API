@@ -7,6 +7,7 @@ v20180209:
 * en.msg: Added localization for DCC file transfers (3aec4ed)
 * nl.msg: Added localization for DCC file transfers (f0cfe39)
 * Fixed adding caption-texts for photo's & videos, added caption-texts for documents (91fcf89 / a4ea254 / 01a5812)
+* Added filesize to IRC notifications for photo attachments (67fd43a / 
 
 v20180208:
 * Telegram-API.tcl: ASCII emoticons from IRC are now sent to Telegram as Unicode emoji's (0be4aed)
