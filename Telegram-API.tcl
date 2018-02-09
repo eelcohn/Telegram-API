@@ -19,6 +19,7 @@ set 		::telegram::irc_bot_nickname		""
 set		::telegram::userflags			"jlvck"
 set		::telegram::chanflags			"tms"
 set		::telegram::cmdmodifier			"/"
+set		::telegram::show_invite_link		true
 array set	::telegram::pinned_messages		{}
 array set	::telegram::chat_invite_link		{}
 array set	::telegram::public_commands		{}
@@ -242,8 +243,8 @@ proc ::telegram::pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							set ::telegram::pinned_messages($irc_channel) [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "[remove_slashes $pin_txt]" "$pin_by" "$pin_date"]
-							putchan $irc_channel $::telegram::pinned_messages($irc_channel)
+							set ::telegram::pinned_messages($chatid) [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "[remove_slashes $pin_txt]" "$pin_by" "$pin_date"]
+							putchan $irc_channel $::telegram::pinned_messages($chatid)
 						}
 					}
 				}
@@ -764,6 +765,22 @@ proc irc2tg_sendMessage {nick hostmask handle channel msg} {
 proc irc2tg_nickJoined {nick uhost handle channel} {
 	global serveraddress
 
+	# Show the invite link for all Telegram groups connected to this IRC channel
+	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
+		if {$channel eq $irc_channel} {
+			# Show pinned messages (if any) as a notice to the new user on IRC
+			if {[info exists $::telegram::pinned_messages($tg_chat_id)]} {
+				putchan $irc_channel :$::telegram::pinned_messages($tg_chat_id)
+			}
+			# Show the Telegram chat invite link
+			if {$::telegram::show_invite_link} {
+				if {[info exist $::telegram::chat_invite_link($tg_chat_id)]} {
+					putchan $irc_channel [::msgcat::mc MSG_IRC_INVITELINK $::telegram::chat_invite_link($tg_chat_id)]
+				}
+			}
+		}
+	}
+
 	# Don't notify the Telegram users when the bot joins an IRC channel
 	if {$nick eq $::telegram::irc_bot_nickname} {
 		return 0
@@ -776,11 +793,6 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 				if {![validuser $nick]} {
 					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
 				}
-			}
-
-			# Show pinned messages (if any) as a notice to the new user on IRC
-			if {[info exists $::telegram::pinned_messages($channel)]} {
-				putserv "NOTICE $nick :$::telegram::pinned_messages($channel)"
 			}
 		}
 	}
