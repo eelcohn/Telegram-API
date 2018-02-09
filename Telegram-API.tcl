@@ -79,10 +79,14 @@ proc tg2irc_pollTelegram {} {
 	# Check if the result was valid
 	if {[::libjson::getValue $result ".ok"] ne "true"} {
 		# Dont go into the parsing process but plan the next polling
-		if {[::libjson::getValue $result ".parameters.migrate_to_chat_id"] ne "null"} {
-			set errormessage "[::libjson::getValue $result ".description"] - New chat_id is [::libjson::getValue $result ".parameters.migrate_to_chat_id"]"
+		if {[::libjson::getValue $result ".ok"] eq "false"} {
+			if {[::libjson::getValue $result ".parameters.migrate_to_chat_id"] ne "null"} {
+				set errormessage "[::libjson::getValue $result ".description"] - Please edit your conf file with your new chat_id: [::libjson::getValue $result ".parameters.migrate_to_chat_id"]"
+			} else {
+				set errormessage "[::libjson::getValue $result ".description"] - [::libjson::getValue $result ".parameters"]"
+			}
 		} else {
-			set errormessage "[::libjson::getValue $result ".description"]"
+			set errormessage "Got a result, but not formatted as JSON. Server is probably down."
 		}
 		putlog "Telegram-API: bad result from getUpdates method: $errormessage"
 		utimer $::telegram::tg_poll_freq tg2irc_pollTelegram
