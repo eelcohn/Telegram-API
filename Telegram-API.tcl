@@ -127,6 +127,7 @@ proc tg2irc_pollTelegram {} {
 					if {$name == "null" } {
 						set name [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
 					}
+					putlog "[::libjson::getValue $msg ".$msgtype.from.id"] -> $name"
 					set name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$name\003"
 				}
 
