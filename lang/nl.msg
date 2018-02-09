@@ -13,6 +13,12 @@
 ::msgcat::mcset nl MSG_IRC_TOPICCHANGE		"<i>%1\$s@IRC</i> heeft het onderwerp op <a href=\"%2\$s\">%3\$s</a> veranderd naar <i>%4\$s</i>"
 ::msgcat::mcset nl MSG_IRC_KICK		"<i>%1\$s@IRC</i> heeft <i>%2\$s</i> weggeschopt van <i>%3\$s</i>: <b>%4\$s</b>"
 ::msgcat::mcset nl MSG_IRC_MODECHANGE "<i>%1\$s@IRC</i> zet de modus %3\$s op %2\$s"
+::msgcat::mcset nl MSG_IRC_DCCSENDFAILED  "Kan het bestand niet verzenden. Vraag de beheerder om naar de logbestanden te kijken."
+::msgcat::mcset nl MSG_IRC_DCCSENDFILE  "DCC overdracht van %1\$s wordt gestart."
+::msgcat::mcset nl MSG_IRC_DCCSENDFULL  "Kan %1\$s niet verzenden (te veel connecties). Probeer het later opnieuw."
+::msgcat::mcset nl MSG_IRC_DCCSOCKET  "Kan geen socket openen voor het versturen van %1\$s."
+::msgcat::mcset nl MSG_IRC_DCCNOTFOUND  "Bestand %1\$s niet gevonden."
+::msgcat::mcset nl MSG_IRC_DCCQUEUED  "Bestand %1\$s is in de wachtrij gezet om te verzenden."
 
 # Messages from Telegram to IRC
 ::msgcat::mcset nl MSG_TG_MSGSENT		"%1\$s@Telegram: %2\$s"
