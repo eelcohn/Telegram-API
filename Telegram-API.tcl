@@ -54,15 +54,15 @@ proc ::telegram::initialize {} {
 
 	# Get pinned messages and chat invite links for all Telegram groups/supergroups/channels
 	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
-		# Prevent multiple polls for groups we.ve already processed
-#		if {![info exist $::telegram::pinned_messages($tg_chat_id)]} {
+		# Prevent multiple polls for groups we've already processed
+		if {![info exists $::telegram::pinned_messages($tg_chat_id)]} {
 			set result [::libtelegram::getChat $tg_chat_id]
 			set ::telegram::pinned_messages($tg_chat_id) [::libjson::getValue $result ".result.pinned_message.text//empty"]
-#		}
-#		if {![info exist $::telegram::chat_invite_link($tg_chat_id)]} {
+		}
+		if {![info exists $::telegram::chat_invite_link($tg_chat_id)]} {
 			set result [::libtelegram::exportChatInviteLink $tg_chat_id]
 			set ::telegram::chat_invite_link($tg_chat_id) [::libjson::getValue $result ".result"]
-#		}
+		}
 	}
 	return 0
 }
@@ -770,12 +770,12 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 		if {$channel eq $irc_channel} {
 			# Show pinned messages (if any) as a notice to the new user on IRC
 			if {[info exists $::telegram::pinned_messages($tg_chat_id)]} {
-				putchan $irc_channel :$::telegram::pinned_messages($tg_chat_id)
+				putchan $irc_channel "$::telegram::pinned_messages($tg_chat_id)"
 			}
 			# Show the Telegram chat invite link
 			if {$::telegram::show_invite_link} {
-				if {[info exist $::telegram::chat_invite_link($tg_chat_id)]} {
-					putchan $irc_channel [::msgcat::mc MSG_IRC_INVITELINK $::telegram::chat_invite_link($tg_chat_id)]
+				if {[info exists $::telegram::chat_invite_link($tg_chat_id)]} {
+					putchan $irc_channel "[::msgcat::mc MSG_IRC_INVITELINK $::telegram::chat_invite_link($tg_chat_id)]"
 				}
 			}
 		}
