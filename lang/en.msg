@@ -26,7 +26,7 @@
 ::msgcat::mcset en MSG_TG_MSGFORWARDED "%1\$s (forwarded from %2\$s)"
 ::msgcat::mcset en MSG_TG_PINNEDMESSAGE "%1\$s@Telegram: %2\$s (pinned by %3\$s on %4\$s)"
 ::msgcat::mcset en MSG_TG_AUDIOSENT		"%s@Telegram has sent an audiofile: %s - %s (%s s). Use !tgfile %s to download the file."
-::msgcat::mcset en MSG_TG_DOCSENT			"%s@Telegram has sent a document: %s (%s bytes).  Use !tgfile %s to download the file."
+::msgcat::mcset en MSG_TG_DOCSENT			"%1\$s@Telegram has sent a document%2\$s: %3\$s (%4\$s bytes).  Use !tgfile %5\$s to download the file."
 ::msgcat::mcset en MSG_TG_PHOTOSENT		"%s@Telegram has sent a photo%s. Use !tgfile %s to download the file."
 ::msgcat::mcset en MSG_TG_STICKERSENT		"%s@Telegram has sent a sticker from the %s set (%s)."
 ::msgcat::mcset en MSG_TG_VIDEOSENT		"%s@Telegram has sent a video%s (%s s). Use !tgfile %s to download the file."
