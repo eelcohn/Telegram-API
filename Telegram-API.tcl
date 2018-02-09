@@ -432,11 +432,13 @@ proc tg2irc_pollTelegram {} {
 				}
 
 				# Check if the group is migrated to a supergroup
-				if {[::libjson::hasKey $msg ".$msgtype.migrate_to_chat_id"]} {
+				
+				if {[set newchatid [::libjson::getValue $msg ".$msgtype.migrate_to_chat_id"]] ne "null"} {
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_GROUPMIGRATED "[::libunicode::utf82ascii $name]"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_GROUPMIGRATED "[::libunicode::utf82ascii $name] $chatid $newchatid"]
+							putlog "Telegam-API: The group with id $chatid has been migrated to a supergroup by $name. Please edit your config file and add \{$newchatid $irc_channel\}"
 						}
 					}
 				}
