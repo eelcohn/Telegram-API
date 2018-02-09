@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# HTTP web request library for Tcl - v20180123                                 #
+# HTTP web request library for Tcl - v20180209                                 #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -14,17 +14,18 @@ namespace eval libhttp {
 # ---------------------------------------------------------------------------- #
 # Make a HTTP GET request and return the response                              #
 # ---------------------------------------------------------------------------- #
-proc ::libhttp::get {url parameters} {
+proc ::libhttp::get {url {parameters ""}} {
 	switch $::libjson::processor {
 		"http_pkg" {
-			set errormessage "Tcllib::http processor not supported"
-			set errornumber -1
-			return -1
+#			set errormessage "Tcllib::http processor not supported"
+#			set errornumber -1
 
 			::http::register https 443 [list ::tls::socket -tls1 1 -ssl2 0 -ssl3 0]
-			set request [::http::geturl $url]
-			set result [::http::data $request]
-			http::cleanup $request
+			set token [::http::geturl $url]
+			set status [::http::status $token]
+			set result [::http::data $token]
+			::http::cleanup $token
+			::http::unregister https
 		}
 
 		"curl" {
@@ -53,7 +54,7 @@ proc ::libhttp::get {url parameters} {
 }
 
 # ---------------------------------------------------------------------------- #
-# Make a HTTP POST request and return the response                              #
+# Make a HTTP POST request and return the response                             #
 # ---------------------------------------------------------------------------- #
 proc ::libhttp::post {url parameters} {
 	switch $::libjson::processor {
@@ -63,9 +64,11 @@ proc ::libhttp::post {url parameters} {
 			return -1
 
 			::http::register https 443 [list ::tls::socket -tls1 1 -ssl2 0 -ssl3 0]
-			set request [::http::geturl $url -query [::http::formatQuery [list $parameters]]]
-			set result [::http::data $request]
-			http::cleanup $request
+			set token [::http::geturl $url -query [::http::formatQuery [list $parameters]]]
+			set status [::http::status $token]
+			set result [::http::data $token]
+			::http::cleanup $token
+			::http::unregister https
 		}
 
 		"curl" {
