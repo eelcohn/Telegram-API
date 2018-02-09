@@ -269,11 +269,12 @@ proc tg2irc_pollTelegram {} {
 
 				# Check if a photo has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".$msgtype.photo"]} {
-					set tg_file_id [::libjson::getValue $msg ".$msgtype.photo\[3\].file_id"]
+					set tg_file_id [::libjson::getValue $msg ".$msgtype.photo\[-1\].file_id"]
+					set tg_file_size [::libjson::getValue $msg ".$msgtype.photo\[-1\].file_size"]
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_PHOTOSENT "$name" "$caption" "$tg_file_id"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_PHOTOSENT "$name" "$caption" "$tg_file_size" "$tg_file_id"]
 						}
 					}
 				}
