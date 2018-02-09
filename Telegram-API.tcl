@@ -20,6 +20,7 @@ set		::telegram::userflags			"jlvck"
 set		::telegram::chanflags			"tms"
 set		::telegram::cmdmodifier			"/"
 array set	::telegram::pinned_messages		{}
+array set	::telegram::chat_invite_link		{}
 array set	::telegram::public_commands		{}
 array set	::telegram::public_commands_help	{}
 array set	::telegram::private_commands		{}
@@ -33,19 +34,36 @@ array set	::telegram::filetransfers		{}
 # ---------------------------------------------------------------------------- #
 # Initialize some variables (botnames)                                         #
 # ---------------------------------------------------------------------------- #
-proc initialize {} {
+proc ::telegram::initialize {} {
 	global nick
 
+	# Get some basic info about the Telegram bot
 	set result [::libtelegram::getMe]
 
 	if {[::libjson::getValue $result ".ok"] ne "true"} {
 		putlog "Telegram-API: bad result from getMe method: [::libjson::getValue $result ".description"]"
 		utimer $::telegram::tg_poll_freq tg2irc_pollTelegram
+		return -1
 	}
 
+	# Get the Telegram bot's nickname and realname
 	set ::telegram::tg_bot_nickname [::libjson::getValue $result ".result.username"]
 	set ::telegram::tg_bot_realname [concat [::libjson::getValue $result ".result.first_name//empty"] [::libjson::getValue $result ".result.last_name//empty"]]
 	set ::telegram::irc_bot_nickname "$nick"
+
+	# Get pinned messages and chat invite links for all Telegram groups/supergroups/channels
+	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
+		# Prevent multiple polls for groups we.ve already processed
+		if {![info exist $::telegram::pinned_message($tg_chat_id)]} {
+			set result ::libtelegram::getChat $tg_chat_id
+			set ::telegram::pinned_messages($tg_chat_id) ::libjson::getValue $result ".result.pinned_message.text//empty"
+		}
+		if {![info exist $::telegram::chat_invite_link($tg_chat_id)]} {
+			set result ::libtelegram::exportChatInviteLink $tg_chat_id
+			set ::telegram::chat_invite_link($tg_chat_id) ::libjson::getValue $result ".result"
+		}
+	}
+	return 0
 }
 
 
@@ -55,12 +73,12 @@ proc initialize {} {
 # ---------------------------------------------------------------------------- #
 # Poll the Telegram server for updates                                         #
 # ---------------------------------------------------------------------------- #
-proc tg2irc_pollTelegram {} {
+proc ::telegram::pollTelegram {} {
 	# Check if the bot has already joined a channel
 	if { [botonchan] != 1 } {
 		putlog "Telegram-API: Not connected to IRC, skipping"
 		# Dont go into the function but plan the next one
-		utimer $::telegram::tg_poll_freq tg2irc_pollTelegram
+		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
 		return -1
 	}
 
@@ -70,7 +88,7 @@ proc tg2irc_pollTelegram {} {
 	# Check if we got a result
 	if {$result == -1} {
 		# Dont go into the parsing process but plan the next polling
-		utimer $::telegram::tg_poll_freq tg2irc_pollTelegram
+		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
  		return -2
 	}
 
@@ -87,7 +105,7 @@ proc tg2irc_pollTelegram {} {
 			set errormessage "Got a result, but not formatted as JSON. Server is probably down."
 		}
 		putlog "Telegram-API: bad result from getUpdates method: $errormessage"
-		utimer $::telegram::tg_poll_freq tg2irc_pollTelegram
+		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
 		return -3
 	}
 
@@ -453,7 +471,7 @@ proc tg2irc_pollTelegram {} {
 	}
 
 	# ...and set a timer so it triggers the next poll
-	utimer $::telegram::tg_poll_freq tg2irc_pollTelegram
+	utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
 }
 
 # ---------------------------------------------------------------------------- #
@@ -1115,8 +1133,8 @@ bind topc - * irc2tg_topicChange
 bind kick - * irc2tg_nickKicked
 bind mode - * irc2tg_modeChange
 
-initialize
+::telegram::initialize
 
-tg2irc_pollTelegram
+::telegram::pollTelegram
 
 putlog "Script loaded: Telegram-API.tcl ($::telegram::tg_bot_nickname)"
