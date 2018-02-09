@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180207 for Eggdrop                                    #
+# Telegram-API module v20180209 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -158,6 +158,14 @@ proc tg2irc_pollTelegram {} {
 					}
 				}
 
+				# Get the caption of this message (if any)
+#				if {[::libjson::hasKey $msg ".$msgtype.caption"]} {
+					set caption " ([remove_slashes [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.caption//empty"]]])"
+#				} else {
+#					set caption ""
+#				}
+
+
 				# Check if a text message has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".$msgtype.text"]} {
 					set txt [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.text"]]
@@ -254,7 +262,7 @@ proc tg2irc_pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_DOCSENT " $name" "$tg_file_name" "$tg_file_size" "$tg_file_id"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_DOCSENT " $name" "$caption" "$tg_file_name" "$tg_file_size" "$tg_file_id"]
 						}
 					}
 				}
@@ -262,11 +270,6 @@ proc tg2irc_pollTelegram {} {
 				# Check if a photo has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".$msgtype.photo"]} {
 					set tg_file_id [::libjson::getValue $msg ".$msgtype.photo\[3\].file_id"]
-					if {[::libjson::hasKey $msg ".$msgtype.caption"]} {
-						set caption " ([remove_slashes [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.caption"]]])"
-					} else {
-						set caption ""
-					}
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
@@ -281,12 +284,6 @@ proc tg2irc_pollTelegram {} {
 					set tg_duration [::libjson::getValue $msg ".$msgtype.video.duration"]
 					if {$tg_duration eq "null"} {
 						set tg_duration "0"
-					}
-
-					if {[::libjson::hasKey $msg ".$msgtype.video.caption"]} {
-						set caption " ([::libunicode::utf82ascii [remove_slashes [::libjson::getValue $msg ".$msgtype.video.caption"]]])"
-					} else {
-						set caption ""
 					}
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
@@ -340,7 +337,7 @@ proc tg2irc_pollTelegram {} {
 							}
 						}
 					} else {
-					# Not a venue, so it must be a location
+						# Not a venue, so it must be a location
 						set tg_longitude [::libjson::getValue $msg ".$msgtype.location.longitude"]
 						set tg_latitude [::libjson::getValue $msg ".$msgtype.location.latitude"]
 
