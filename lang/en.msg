@@ -13,6 +13,12 @@
 ::msgcat::mcset en MSG_IRC_TOPICCHANGE		"<i>%s@IRC</i> has changed the topic on <a href=\"%s\">%s</a> to <i>%s</i>"
 ::msgcat::mcset en MSG_IRC_KICK		"<i>%s@IRC</i> has kicked <i>%s</i> from <i>%s</i>: <b>%s</b>"
 ::msgcat::mcset en MSG_IRC_MODECHANGE		"<i>%1\$s@IRC</i> zet de modus %3\$s op %2\$s"
+::msgcat::mcset en MSG_IRC_DCCSENDFAILED  "Could not send file. Please ask the admin to take a look at the log file."
+::msgcat::mcset en MSG_IRC_DCCSENDFILE  "Starting DCC transfer for %1\$s."
+::msgcat::mcset en MSG_IRC_DCCSENDFULL  "Can't send %1\$s (too many connections). Please try again later."
+::msgcat::mcset en MSG_IRC_DCCSOCKET  "Can't open a socket for the transfer of %1\$s."
+::msgcat::mcset en MSG_IRC_DCCNOTFOUND  "File %1\$s not found."
+::msgcat::mcset en MSG_IRC_DCCQUEUED  "File %1\$s is queued for transfer.
 
 # Messages from Telegram to IRC
 ::msgcat::mcset en MSG_TG_MSGSENT			"%s@Telegram: %s"
