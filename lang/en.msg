@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - English language file v20180207            #
+# Telegram-API module for Eggdrop - English language file v20180209            #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -40,7 +40,8 @@
 ::msgcat::mcset en MSG_TG_UNIMPL			"Unknown Telegram message received: %1\$s"
 
 # Messages for user commands for your bot
-::msgcat::mcset en MSG_BOT_HELP			"I'm <i>%s</i>, your personal bartender. Start a command with <b>/</b> and I'll show you a list of commands."
+::msgcat::mcset en MSG_BOT_PUBHELP			"I'm <i>%s</i>, your personal bartender. Start a command with <b>/</b> and I'll show you a list of commands."
+::msgcat::mcset en MSG_BOT_PRVHELP			"I'm <i>%s</i>, your personal bartender. Available commands are:\n"
 ::msgcat::mcset en MSG_BOT_HELP_IRCUSER	"You haven't entered an username. Type /ircuser <username> to look up information on an IRC user."
 ::msgcat::mcset en MSG_BOT_TG_TOPIC		"The topic on <a href=\"%s\">%s</a> is: <i>%s</i>"
 ::msgcat::mcset en MSG_BOT_IRC_TOPIC		"Het onderwerp op %s is <i>%s</i>"
