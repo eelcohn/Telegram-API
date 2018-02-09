@@ -1,3 +1,12 @@
+v20180209:
+* libunicode.tcl: Removed redundant spaces and doublequotes (c6c2509 / 523f918)
+* Telegram-API.tcl: Fixed localization of private bot command help message (9062d6f)
+* en.msg: Fixed localization of private bot command help message (c42c102)
+* nl.msg: Fixed localization of private bot command help message (be85eb7)
+* Telegram-API.tcl: Added localization for DCC file transfers (8dee8c7)
+* en.msg: Added localization for DCC file transfers (3aec4ed)
+* nl.msg: Added localization for DCC file transfers (f0cfe39)
+
 v20180208:
 * Telegram-API.tcl: ASCII emoticons from IRC are now sent to Telegram as Unicode emoji's (0be4aed)
 * Telegram-API.tcl: Fixed reply_to_message and forward_from messages from channels (80e95ea / eae9912)
