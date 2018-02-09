@@ -882,7 +882,7 @@ proc irc2tg_sendFile {nick hostmask handle channel text} {
 
 			if {$file_size > $max_file_size} {
 				putlog "irc2tg_sendFile: file $file_id too big ($file_size)"
-				puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSENDFAILED]"
 				return -1
 			} else {
 				set filename [file tail $file_path]
@@ -895,44 +895,44 @@ proc irc2tg_sendFile {nick hostmask handle channel text} {
 
 						switch -- [dccsend $fullname $nick] {
 							0 {
-								puthelp "NOTICE $nick :Sending $filename to you."
+								puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSENDFILE $filename]"
 							}
 
 							1 {
-								puthelp "NOTICE $nick :dcc table is full (too many connections), try to get $filename later."
+								puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSENDFULL $filename]"
 							}
 
 							2 {
-								puthelp "NOTICE $nick :can't open a socket for the transfer of $filename."
+								puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSOCKET $filename]"
 							}
 
 							3 {
-								puthelp "NOTICE $nick :$filename doesn't exist."
+								puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCNOTFOUND $filename]"
 							}
 
 							4 {
-								puthelp "NOTICE $nick :$filename was queued for later transfer."
+								puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCQUEUED $filename]"
 							}
 
 							default {
-								putlog "irc2tg_sendFile: dccsend returned default value! This should never happen, please check your log files!"
-								puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
+								putlog "Telegram-API: irc2tg_sendFile: dccsend returned default value! This should never happen, please check your log files!"
+								puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSENDFAILED]"
 							}
 						}
 					}
 				} else {
-					putlog "irc2tg_sendFile: ::libtelegram::downloadFile failed"
-					puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
+					putlog "Telegram-API: irc2tg_sendFile: ::libtelegram::downloadFile failed"
+					puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSENDFAILED]"
 					return -2
 				}
 			}
 		} else {
-			putlog "irc2tg_sendFile: ::libtelegram::getFile failed"
-			puthelp "NOTICE $nick :Could not send file. Please ask the admin to take a look at the log file."
+			putlog "Telegram-API: irc2tg_sendFile: ::libtelegram::getFile failed"
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSENDFAILED]"
 			return -3
 		}
 #	} else {
-#		puthelp "NOTICE $nick :irc2tg_sendFile: $nick ($hostmask) attempted to download an illegal Telegram file: $file_id"
+#		putlog "Telegram-API: irc2tg_sendFile: $nick ($hostmask) attempted to download an illegal Telegram file: $file_id"
 #		return -4
 #	}
 }
@@ -944,9 +944,9 @@ proc cleanUpFiles {} {
 	foreach {filename time} [array get ::telegram::filetransfers] {
 		if {$time <= [clock seconds]} {
 			if { [catch { file delete -force $filename } error] } {
-				putlog "WARNING! Could not delete temporary file $filename!"
+				putlog "WARNING! DCC transfer timed out but could not delete temporary file $filename!"
 			} else {
-				putlog "File $filename succesfully deleted"
+				putlog "DCC transfer timed out. File $filename succesfully deleted"
 			}
 			array unset ::telegram::filetransfers $filename
 		}
