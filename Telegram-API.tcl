@@ -696,12 +696,12 @@ proc del_private_command {keyword} {
 # ---------------------------------------------------------------------------- #
 proc irc2tg_sendMessage {nick hostmask handle channel msg} {
 	# Check if this is a bot command
-	if {[string match "*[string index $msg 1]*" "/!."]} {
+	if {[string match "*[string index $msg 0]*" "/!."]} {
 		# If so, then check which bot command it is, and process it. Don't send it to the Telegram group though.
 		set parameter_start [string wordend $msg 1]
 		set command [string tolower [string range $msg 1 $parameter_start-1]]
 		if {[string match $command "tgfile"]} {
-			irc2tg_sendFile {nick hostmask handle channel [string range $msg $parameter_start end]}
+			irc2tg_sendFile $nick [string trim [string range $msg $parameter_start end]]
 			return
 		}
 	}
@@ -865,10 +865,9 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 # ---------------------------------------------------------------------------- #
 # Download a Telegram attachment and send it via DCC to an IRC user            #
 # ---------------------------------------------------------------------------- #
-proc irc2tg_sendFile {nick hostmask handle channel text} {
+proc irc2tg_sendFile {nick file_id} {
 	global xfer-timeout
 
-	set file_id $text
 	set max_file_size 20480000
 	set timeout [expr ${xfer-timeout} + 1]
 
@@ -1092,7 +1091,6 @@ bind nick - * irc2tg_nickChange
 bind topc - * irc2tg_topicChange
 bind kick - * irc2tg_nickKicked
 bind mode - * irc2tg_modeChange
-bind pub * !tgfile irc2tg_sendFile
 
 initialize
 
