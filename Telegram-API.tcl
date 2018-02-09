@@ -54,14 +54,14 @@ proc ::telegram::initialize {} {
 	# Get pinned messages and chat invite links for all Telegram groups/supergroups/channels
 	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 		# Prevent multiple polls for groups we.ve already processed
-		if {![info exist $::telegram::pinned_message($tg_chat_id)]} {
-			set result ::libtelegram::getChat $tg_chat_id
-			set ::telegram::pinned_messages($tg_chat_id) ::libjson::getValue $result ".result.pinned_message.text//empty"
-		}
-		if {![info exist $::telegram::chat_invite_link($tg_chat_id)]} {
-			set result ::libtelegram::exportChatInviteLink $tg_chat_id
-			set ::telegram::chat_invite_link($tg_chat_id) ::libjson::getValue $result ".result"
-		}
+#		if {![info exist $::telegram::pinned_messages($tg_chat_id)]} {
+			set result [::libtelegram::getChat $tg_chat_id]
+			set ::telegram::pinned_messages($tg_chat_id) [::libjson::getValue $result ".result.pinned_message.text//empty"]
+#		}
+#		if {![info exist $::telegram::chat_invite_link($tg_chat_id)]} {
+			set result [::libtelegram::exportChatInviteLink $tg_chat_id]
+			set ::telegram::chat_invite_link($tg_chat_id) [::libjson::getValue $result ".result"]
+#		}
 	}
 	return 0
 }
