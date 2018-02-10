@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Playstation Network module for Eggdrop v20180201                #
+# Telegram-API Playstation Network module for Eggdrop v20180210                #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -68,4 +68,4 @@ proc psn_getPSNInfo {chat_id msgid channel message parameter_start} {
 	}
 }
 
-add_public_command psn psn_getPSNInfo "<PSN name>: Show the public profile of an PlayStation Network user."
+::telegram::addPublicCommand psn psn_getPSNInfo "<PSN name>: Show the public profile of an PlayStation Network user."
