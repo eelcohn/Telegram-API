@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - Dutch language file v20180209              #
+# Telegram-API module for Eggdrop - Dutch language file v20180210              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -13,6 +13,9 @@
 ::msgcat::mcset nl MSG_IRC_TOPICCHANGE		"<i>%1\$s@IRC</i> heeft het onderwerp op <a href=\"%2\$s\">%3\$s</a> veranderd naar <i>%4\$s</i>"
 ::msgcat::mcset nl MSG_IRC_KICK		"<i>%1\$s@IRC</i> heeft <i>%2\$s</i> weggeschopt van <i>%3\$s</i>: <b>%4\$s</b>"
 ::msgcat::mcset nl MSG_IRC_MODECHANGE "<i>%1\$s@IRC</i> zet de modus %3\$s op %2\$s"
+
+# IRC service messages
+::msgcat::mcset nl MSG_IRC_INVITELINK "Je kunt de Telegram groep %1\$s hier vinden %2\$s"
 ::msgcat::mcset nl MSG_IRC_DCCSENDFAILED  "Kan het bestand niet verzenden. Vraag de beheerder om naar de logbestanden te kijken."
 ::msgcat::mcset nl MSG_IRC_DCCSENDFILE  "DCC overdracht van %1\$s wordt gestart."
 ::msgcat::mcset nl MSG_IRC_DCCSENDFULL  "Kan %1\$s niet verzenden (te veel connecties). Probeer het later opnieuw."
