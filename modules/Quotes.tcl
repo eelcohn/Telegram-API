@@ -82,5 +82,5 @@ proc quotes_addQuote {chat_id msgid channel message parameter_start} {
 	}
 }
 
-add_public_command quote quotes_getQuote "(keyword/id): Show a quote from the legendary quotes-database."
-add_public_command addquote quotes_addQuote "<quote>: Adds a quote to the legendary quote database."
+::telegram::addPublicCommand quote quotes_getQuote "(keyword/id): Show a quote from the legendary quotes-database."
+::telegram::addPublicCommand addquote quotes_addQuote "<quote>: Adds a quote to the legendary quote database."
