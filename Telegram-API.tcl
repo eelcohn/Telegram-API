@@ -68,7 +68,8 @@ proc ::telegram::initialize {} {
 		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
 			set result [::libtelegram::getChat $tg_chat_id]
-			if {[set ::telegram::tg_pinned_messages($tg_chat_id) [::libjson::getValue $result ".result.pinned_message.text//empty"]] eq ""} {
+			set ::telegram::tg_pinned_messages($chatid) [::telegram::getPinnedMessage $msgtype [::libjson::getValue $msg ".result.pinned_message"]]
+			if {$::telegram::tg_pinned_messages($tg_chat_id) eq ""} {
 				unset -nocomplain ::telegram::tg_pinned_messages($tg_chat_id)
 			}
 		}
@@ -158,17 +159,6 @@ proc ::telegram::pollTelegram {} {
 
 				# Get the sender's name for this message
 				set name [::telegram::getUsername $chattype [::libjson::getValue $msg ".$msgtype"]]
-#				if {$chattype eq "channel"} {
-#					# Set sender's name to the title of the channel for channel announcements
-#					set name [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.chat.title"]]
-#				} else {
-#					# Set sender's name for group or supergroup messages
-#					set name [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.from.username"]]
-#					if {$name == "null" } {
-#						set name [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
-#					}
-					putlog "[::libjson::getValue $msg ".$msgtype.from.id"] -> $name"
-#				}
 
 				# Get the caption of this message (if any)
 				if {[::libjson::hasKey $msg ".$msgtype.caption"]} {
@@ -177,32 +167,14 @@ proc ::telegram::pollTelegram {} {
 					set caption ""
 				}
 
-				# Check if this message is a reply to a previous message
+				# Get the reply-to name for this message (if available)
 				if {[::libjson::hasKey $msg ".$msgtype.reply_to_message"]} {
-					if {$chattype eq "channel"} {
-						# Set sender's name to the title of the channel for channel announcements
-						set replyname [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.reply_to_message.chat.title"]]
-					} else {
-						set replyname [::libjson::getValue $msg ".$msgtype.reply_to_message.from.username"]
-						if {$replyname == "null" } {
-							set replyname [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.reply_to_message.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.reply_to_message.from.last_name//empty"]]]
-						}
-						set replyname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.reply_to_message.from.id"]]$replyname\003"
-					}
+					set replyname [::telegram::getUsername $chattype [::libjson::getValue $msg ".$msgtype.reply_to_message"]]
 				}
 
 				# Check if this message is a forwarded message
 				if {[::libjson::hasKey $msg ".$msgtype.forward_from"]} {
-					if {$chattype eq "channel"} {
-						# Set sender's name to the title of the channel for channel announcements
-						set forwardname [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.forward_from.chat.title"]]
-					} else {
-						set forwardname [::libjson::getValue $msg ".$msgtype.forward_from.username"]
-						if {$forwardname == "null" } {
-							set forwardname [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.forward_from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.forward_from.last_name//empty"]]]
-						}
-						set forwardname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.forward_from.id"]]$forwardname\003"
-					}
+					set forwardname [::telegram::getUsername $chattype [::libjson::getValue $msg ".$msgtype.forward_from"]]
 				}
 
 				# Check if a text message has been sent to the Telegram group
@@ -244,7 +216,7 @@ proc ::telegram::pollTelegram {} {
 				if {[::libjson::hasKey $msg ".$msgtype.pinned_message"]} {
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							set ::telegram::tg_pinned_messages($chatid) [getPinnedMessage $msgtype [::libjson::getValue $msg ".$msgtype.pinned_message"]]
+							set ::telegram::tg_pinned_messages($chatid) [::telegram::getPinnedMessage $msgtype [::libjson::getValue $msg ".$msgtype.pinned_message"]]
 							putchan $irc_channel [::msgcat::mc MSG_TG_MSGSENT "$name" "$::telegram::tg_pinned_messages($chatid)"]
 						}
 					}
