@@ -223,7 +223,6 @@ proc ::libunicode::escaped2utf16 {str} {
 # Convert escaped-Unicode characters to Unicode characters                     #
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::utf162escaped {string} {
-	set result ""
 	set index -1
 
 	while {[set index [string first "\\u" $string] $index+1] ne -1} {
