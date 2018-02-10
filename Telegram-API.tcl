@@ -241,19 +241,10 @@ proc ::telegram::pollTelegram {} {
 
 				# Check if this message is a pinned message
 				if {[::libjson::hasKey $msg ".$msgtype.pinned_message"]} {
-					# Get name of the Telegram user who pinned the message
-					set pin_by [::libjson::getValue $msg ".$msgtype.from.username"]
-					if {$pin_by == "null" } {
-						set pin_by [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
-					}
-					if {$msgtype ne "channel_post"} {
-						set pin_by "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$pin_by\003"
-					}		
-
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							set ::telegram::tg_pinned_messages($chatid) [getPinnedMessage $msgtype [::libjson::getValue $msg ".$msgtype.pinned_message"]]
-							putchan $irc_channel $::telegram::tg_pinned_messages($chatid)
+							putchan $irc_channel [::msgcat::mc MSG_TG_MSGSENT "$name" "$::telegram::tg_pinned_messages($chatid)"]
 						}
 					}
 				}
@@ -744,18 +735,18 @@ proc del_private_command {keyword} {
 proc getPinnedMessage {msgtype pinned_message} {
 	# Get the name of the Telegram user who wrote the message
 	if {$msgtype ne "channel_post"} {
-		if {[set pin_name [::libjson::getValue $msg ".from.username"]] == "null" } {
-			set pin_name [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".from.first_name//empty"] [::libjson::getValue $msg ".from.last_name//empty"]]]
+		if {[set pin_name [::libjson::getValue $pinned_message ".from.username"]] == "null" } {
+			set pin_name [::libunicode::utf82ascii [concat [::libjson::getValue $pinned_message ".from.first_name//empty"] [::libjson::getValue $pinned_message ".from.last_name//empty"]]]
 		}
-		set pin_name "\003[getColorFromUserID [::libjson::getValue $msg ".from.id"]]$pin_name\003"
+		set pin_name "\003[getColorFromUserID [::libjson::getValue $pinned_message ".from.id"]]$pin_name\003"
 	} else {
-		set pin_name [::libjson::getValue $msg ".chat.username"]
+		set pin_name [::libjson::getValue $pinned_message ".chat.username"]
 	}		
 
-	set pin_date "[clock format [::libjson::getValue $msg ".date"] -format $::telegram::timeformat]"
-	set pin_txt "[::libunicode::utf82ascii [::libjson::getValue $msg ".text"]]"
+	set pin_date "[clock format [::libjson::getValue $pinned_message ".date"] -format $::telegram::timeformat]"
+	set pin_txt "[::libunicode::utf82ascii [::libjson::getValue $pinned_message ".text"]]"
 
-	return [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "[remove_slashes $pin_txt]" "$pin_by" "$pin_date"]
+	return [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "[remove_slashes $pin_txt]" "$pin_date"]
 }
 
 
