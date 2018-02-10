@@ -706,7 +706,7 @@ proc del_private_command {keyword} {
 # ---------------------------------------------------------------------------- #
 proc ::telegram::getPinnedMessage {chattype pinned_message} {
 	# Get the name of the Telegram user who wrote the message
-	if {$msgtype eq "channel"} {
+	if {$chattype eq "channel"} {
 		set pin_name [::libjson::getValue $pinned_message ".chat.username"]
 	} else {
 		if {[set pin_name [::libjson::getValue $pinned_message ".from.username"]] == "null" } {
