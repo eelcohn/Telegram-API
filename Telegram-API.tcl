@@ -68,7 +68,7 @@ proc ::telegram::initialize {} {
 		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
 			set result [::libtelegram::getChat $tg_chat_id]
-			set ::telegram::tg_pinned_messages($chatid) [::telegram::getPinnedMessage $msgtype [::libjson::getValue $msg ".result.pinned_message"]]
+			set ::telegram::tg_pinned_messages($tg_chat_id) [::telegram::getPinnedMessage $msgtype [::libjson::getValue $msg ".result.pinned_message"]]
 			if {$::telegram::tg_pinned_messages($tg_chat_id) eq ""} {
 				unset -nocomplain ::telegram::tg_pinned_messages($tg_chat_id)
 			}
