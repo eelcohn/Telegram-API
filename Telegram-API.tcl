@@ -462,7 +462,7 @@ proc ::telegram::publicCommand {chat_id msgid channel message} {
 	switch $command {
 		"help" {
 			set response "[::msgcat::mc MSG_BOT_PUBHELP "$::telegram::irc_bot_nickname"]\n\n"
-			foreach {command helpmessage} [array get ::telegram::public_commands_help] {
+			foreach {command helpmessage} [lsort -stride 2 [array get ::telegram::public_commands_help]] {
 				append response "/$command $helpmessage\n"
 			}
 			::libtelegram::sendMessage $chat_id $msgid "html" "[url_encode $response]"
@@ -547,7 +547,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 	switch $command {
 		"help" {
 			set response "[::msgcat::mc MSG_BOT_PRVHELP "$::telegram::irc_bot_nickname"]\n\n"
-			foreach {command helpmessage} [array get ::telegram::private_commands_help] {
+			foreach {command helpmessage} [lsort -stride 2 [array get ::telegram::private_commands_help]] {
 				append response "/$command $helpmessage\n"
 			}
 			::libtelegram::sendMessage $from_id $msgid "html" "$response"
