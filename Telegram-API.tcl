@@ -17,9 +17,8 @@ set		::telegram::tg_bot_nickname		""
 set		::telegram::tg_bot_realname		""
 set 		::telegram::irc_bot_nickname		""
 set		::telegram::userflags			"jlvck"
-set		::telegram::chanflags			"tms"
+set		::telegram::chanflags			"itms"
 set		::telegram::cmdmodifier			"/"
-set		::telegram::show_invite_link		true
 array set	::telegram::tg_chat_title		{}
 array set	::telegram::pinned_messages		{}
 array set	::telegram::invite_link			{}
@@ -787,9 +786,9 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 				putchan $irc_channel "$::telegram::pinned_messages($tg_chat_id)"
 			}
 			# Show the Telegram chat invite link
-			if {$::telegram::show_invite_link} {
+			if {[string match "*i*" $::telegram::chanflags]} {
 				if {[info exists ::telegram::invite_link($tg_chat_id)]} {
-					putchan $channel "[::msgcat::mc MSG_IRC_INVITELINK $::telegram::invite_link($tg_chat_id)]"
+					putchan $channel "[::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_title($tg_chat_id) $::telegram::invite_link($tg_chat_id)]"
 				}
 			}
 		}
