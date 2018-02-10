@@ -17,11 +17,12 @@ set		::telegram::tg_bot_nickname		""
 set		::telegram::tg_bot_realname		""
 set 		::telegram::irc_bot_nickname		""
 set		::telegram::userflags			"jlvck"
-set		::telegram::chanflags			"itms"
+set		::telegram::chanflags			"iptms"
 set		::telegram::cmdmodifier			"/"
 array set	::telegram::tg_chat_title		{}
-array set	::telegram::pinned_messages		{}
-array set	::telegram::invite_link			{}
+array set	::telegram::tg_chat_description		{}
+array set	::telegram::tg_pinned_messages		{}
+array set	::telegram::tg_invite_link			{}
 array set	::telegram::public_commands		{}
 array set	::telegram::public_commands_help	{}
 array set	::telegram::private_commands		{}
@@ -59,20 +60,26 @@ proc ::telegram::initialize {} {
 			set result [::libtelegram::getChat $tg_chat_id]
 			set ::telegram::tg_chat_title($tg_chat_id) [::libjson::getValue $result ".result.title//empty"]
 		}
-		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
-		if {![info exists ::telegram::pinned_messages($tg_chat_id)]} {
+		# Chat descriptions: Only get chat descriptions for (super)groups we haven't queried yet
+		if {![info exists ::telegram::tg_chat_description($tg_chat_id)]} {
 			set result [::libtelegram::getChat $tg_chat_id]
-			if {[set ::telegram::pinned_messages($tg_chat_id) [::libjson::getValue $result ".result.pinned_message.text//empty"]] eq ""} {
-				unset -nocomplain ::telegram::pinned_messages($tg_chat_id)
+			set ::telegram::tg_chat_description($tg_chat_id) [::libjson::getValue $result ".result.description//empty"]
+		}
+		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
+		if {![info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
+			set result [::libtelegram::getChat $tg_chat_id]
+			if {[set ::telegram::tg_pinned_messages($tg_chat_id) [::libjson::getValue $result ".result.pinned_message.text//empty"]] eq ""} {
+				unset -nocomplain ::telegram::tg_pinned_messages($tg_chat_id)
 			}
 		}
 		# Invite links: Only get invite links for (super)groups we haven't queried yet
-		if {![info exists ::telegram::invite_link($tg_chat_id)]} {
-			set ::telegram::invite_link($tg_chat_id) [::libjson::getValue $result ".result.invite_link//empty"]
-			if {$::telegram::invite_link($tg_chat_id) eq ""} {
+		if {![info exists ::telegram::tg_invite_link($tg_chat_id)]} {
+			# Check if an invite link is already available in the chat object
+			if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $result ".result.invite_link//empty"]] eq ""} {
+				# If not, then create a new one
 				set result [::libtelegram::exportChatInviteLink $tg_chat_id]
-				if {[set ::telegram::invite_link($tg_chat_id) [::libjson::getValue $result ".result//empty"]] eq ""} {
-					unset -nocomplain ::telegram::invite_link($tg_chat_id)
+				if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $result ".result//empty"]] eq ""} {
+					unset -nocomplain ::telegram::tg_invite_link($tg_chat_id)
 				}
 			}
 		}
@@ -256,8 +263,8 @@ proc ::telegram::pollTelegram {} {
 
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							set ::telegram::pinned_messages($chatid) [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "[remove_slashes $pin_txt]" "$pin_by" "$pin_date"]
-							putchan $irc_channel $::telegram::pinned_messages($chatid)
+							set ::telegram::tg_pinned_messages($chatid) [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "[remove_slashes $pin_txt]" "$pin_by" "$pin_date"]
+							putchan $irc_channel $::telegram::tg_pinned_messages($chatid)
 						}
 					}
 				}
@@ -781,14 +788,18 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 	# Show the invite link for all Telegram groups connected to this IRC channel
 	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 		if {$channel eq $irc_channel} {
-			# Show pinned messages (if any) as a notice to the new user on IRC
-			if {[info exists ::telegram::pinned_messages($tg_chat_id)]} {
-				putchan $irc_channel "$::telegram::pinned_messages($tg_chat_id)"
-			}
-			# Show the Telegram chat invite link
+			# Check if we want to show a pinned message on this IRC channel
+			if {[string match "*p*" $::telegram::chanflags]} {
+				# Show pinned messages (if any) as a notice to the new user on IRC
+				if {[info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
+					putchan $irc_channel "$::telegram::tg_pinned_messages($tg_chat_id)"
+				}
+
+			# Check if we want to show an invite link on this IRC channel
 			if {[string match "*i*" $::telegram::chanflags]} {
-				if {[info exists ::telegram::invite_link($tg_chat_id)]} {
-					putchan $channel "[::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_title($tg_chat_id) $::telegram::invite_link($tg_chat_id)]"
+				# Show the Telegram chat invite link
+				if {[info exists ::telegram::tg_invite_link($tg_chat_id)]} {
+					putchan $channel "[::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_title($tg_chat_id) $::telegram::tg_invite_link($tg_chat_id)]"
 				}
 			}
 		}
