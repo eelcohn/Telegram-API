@@ -748,7 +748,6 @@ proc getPinnedMessage {msgtype pinned_message} {
 			set pin_name [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".from.first_name//empty"] [::libjson::getValue $msg ".from.last_name//empty"]]]
 		}
 		set pin_name "\003[getColorFromUserID [::libjson::getValue $msg ".from.id"]]$pin_name\003"
-		}
 	} else {
 		set pin_name [::libjson::getValue $msg ".chat.username"]
 	}		
