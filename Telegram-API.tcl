@@ -707,9 +707,9 @@ proc del_private_command {keyword} {
 proc ::telegram::getPinnedMessage {chattype pinned_message} {
 	# Get the name of the Telegram user who wrote the message
 	if {$chattype eq "channel"} {
-		set pin_name [::libjson::getValue $pinned_message ".chat.username"]
+		set pin_name [::libunicode::utf82ascii [::libjson::getValue $pinned_message ".chat.username"]]
 	} else {
-		if {[set pin_name [::libjson::getValue $pinned_message ".from.username"]] == "null" } {
+		if {[set pin_name [::libunicode::utf82ascii [::libjson::getValue $pinned_message ".from.username"]]] == "null" } {
 			set pin_name [::libunicode::utf82ascii [concat [::libjson::getValue $pinned_message ".from.first_name//empty"] [::libjson::getValue $pinned_message ".from.last_name//empty"]]]
 		}
 		set pin_name "\003[getColorFromUserID [::libjson::getValue $pinned_message ".from.id"]]$pin_name\003"
