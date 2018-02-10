@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Image Search module for Eggdrop with the Telegram-API module v20180124       #
+# Image Search module for Eggdrop with the Telegram-API module v20180210       #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -44,4 +44,4 @@ proc imagesearch_getImage {chat_id msgid channel message parameter_start} {
 	}
 }
 
-add_public_command get imagesearch_getImage "<keyword>: Search for an image matching <keyword>."
+::telegram::addPublicCommand get imagesearch_getImage "<keyword>: Search for an image matching <keyword>."
