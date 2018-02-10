@@ -1508,13 +1508,13 @@ array set ::libunicode::escapedtable {
 	{\\ud83c\\udf3d}		{:corn:}
 	{\\ud83c\\udf3e}		{:ear_of_rice:}
 	{\\ud83c\\udf3f}		{:herb:}
-	{\\ud83c\\udf40}		{:clover_four:}
+	{\\ud83c\\udf40}		{:four_leaf_clover:}
 	{\\ud83c\\udf41}		{:maple_leaf:}
-	{\\ud83c\\udf42}		{:fallen_leaves:}
+	{\\ud83c\\udf42}		{:fallen_leaf:}
 	{\\ud83c\\udf43}		{:leaves:}
 	{\\ud83c\\udf44}		{:mushroom:}
 	{\\ud83c\\udf45}		{:tomato:}
-	{\\ud83c\\udf46}		{:aubergine:}
+	{\\ud83c\\udf46}		{:eggplant:}
 	{\\ud83c\\udf47}		{:grapes:}
 	{\\ud83c\\udf48}		{:melon:}
 	{\\ud83c\\udf49}		{:watermelon:}
@@ -1522,14 +1522,14 @@ array set ::libunicode::escapedtable {
 	{\\ud83c\\udf4b}		{:lemon:}
 	{\\ud83c\\udf4c}		{:banana:}
 	{\\ud83c\\udf4d}		{:pineapple:}
-	{\\ud83c\\udf4e}		{:red_apple:}
+	{\\ud83c\\udf4e}		{:apple:}
 	{\\ud83c\\udf4f}		{:green_apple:}
 	{\\ud83c\\udf50}		{:pear:}
 	{\\ud83c\\udf51}		{:peach:}
 	{\\ud83c\\udf52}		{:cherries:}
 	{\\ud83c\\udf53}		{:strawberry:}
 	{\\ud83c\\udf54}		{:hamburger:}
-	{\\ud83c\\udf55}		{:pizza_slice:}
+	{\\ud83c\\udf55}		{:pizza:}
 	{\\ud83c\\udf56}		{:meat_on_bone:}
 	{\\ud83c\\udf57}		{:poultry_leg:}
 	{\\ud83c\\udf58}		{:rice_cracker:}
