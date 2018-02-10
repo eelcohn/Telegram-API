@@ -781,7 +781,7 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 			if {[string match "*p*" $::telegram::chanflags]} {
 				# Show pinned messages (if any) as a notice to the new user on IRC
 				if {[info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
-					putserv "PRIVMSG $channel :$::telegram::tg_pinned_messages($tg_chat_id)"
+					putchan $channel "\001ACTION $::telegram::tg_pinned_messages($tg_chat_id)\001"
 				}
 			}
 
@@ -789,7 +789,7 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 			if {[string match "*i*" $::telegram::chanflags]} {
 				# Show the Telegram chat invite link
 				if {[info exists ::telegram::tg_invite_link($tg_chat_id)]} {
-					putserv "PRIVMSG $channel :[::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_title($tg_chat_id) $::telegram::tg_invite_link($tg_chat_id)]"
+					putchan $channel "\001ACTION [::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_title($tg_chat_id) $::telegram::tg_invite_link($tg_chat_id)]\001"
 				}
 			}
 		}
