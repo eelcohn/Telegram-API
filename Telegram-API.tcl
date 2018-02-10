@@ -97,8 +97,8 @@ proc ::telegram::initialize {} {
 proc ::telegram::pollTelegram {} {
 	# Check if the bot has already joined a channel
 	if { [botonchan] != 1 } {
+		# Eggdrop hasn't joined all channels yet, so don't start polling Telegram yet
 		putlog "Telegram-API: Not connected to IRC, skipping"
-		# Dont go into the function but plan the next one
 		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
 		return -1
 	}
@@ -108,21 +108,22 @@ proc ::telegram::pollTelegram {} {
 
 	# Check if we got a result
 	if {$result == -1} {
-		# Dont go into the parsing process but plan the next polling
+		# Network is probably down, so schedule the next poll
 		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
  		return -2
 	}
 
 	# Check if the result was valid
 	if {[::libjson::getValue $result ".ok"] ne "true"} {
-		# Dont go into the parsing process but plan the next polling
 		if {[::libjson::getValue $result ".ok"] eq "false"} {
 			if {[::libjson::getValue $result ".parameters.migrate_to_chat_id"] ne "null"} {
+				# A chat group has been migrated to a supergroup, but the conf file still got the chat_id for the old group
 				set errormessage "[::libjson::getValue $result ".description"] - Please edit your conf file with your new chat_id: [::libjson::getValue $result ".parameters.migrate_to_chat_id"]"
 			} else {
 				set errormessage "[::libjson::getValue $result ".description"] - [::libjson::getValue $result ".parameters"]"
 			}
 		} else {
+			# The Telegram servers are probably down
 			set errormessage "Got a result, but not formatted as JSON. Server is probably down."
 		}
 		putlog "Telegram-API: bad result from getUpdates method: $errormessage"
@@ -155,17 +156,25 @@ proc ::telegram::pollTelegram {} {
 				# Record is a group, supergroup or channel record
 				set chatid [::libjson::getValue $msg ".$msgtype.chat.id"]
 
-				if {$chattype eq "channel"} {
-					# Set sender's name to the title of the channel for channel announcements
-					set name [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.chat.title"]]
-				} else {
-					# Set sender's name for group or supergroup messages
-					set name [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.from.username"]]
-					if {$name == "null" } {
-						set name [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
-					}
+				# Get the sender's name for this message
+				set name [::telegram::getUsername $chattype [::libjson::getValue $msg ".$msgtype"]]
+#				if {$chattype eq "channel"} {
+#					# Set sender's name to the title of the channel for channel announcements
+#					set name [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.chat.title"]]
+#				} else {
+#					# Set sender's name for group or supergroup messages
+#					set name [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.from.username"]]
+#					if {$name == "null" } {
+#						set name [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".$msgtype.from.first_name//empty"] [::libjson::getValue $msg ".$msgtype.from.last_name//empty"]]]
+#					}
 					putlog "[::libjson::getValue $msg ".$msgtype.from.id"] -> $name"
-					set name "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.from.id"]]$name\003"
+#				}
+
+				# Get the caption of this message (if any)
+				if {[::libjson::hasKey $msg ".$msgtype.caption"]} {
+					set caption " ([remove_slashes [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.caption//empty"]]])"
+				} else {
+					set caption ""
 				}
 
 				# Check if this message is a reply to a previous message
@@ -195,14 +204,6 @@ proc ::telegram::pollTelegram {} {
 						set forwardname "\003[getColorFromUserID [::libjson::getValue $msg ".$msgtype.forward_from.id"]]$forwardname\003"
 					}
 				}
-
-				# Get the caption of this message (if any)
-				if {[::libjson::hasKey $msg ".$msgtype.caption"]} {
-					set caption " ([remove_slashes [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.caption//empty"]]])"
-				} else {
-					set caption ""
-				}
-
 
 				# Check if a text message has been sent to the Telegram group
 				if {[::libjson::hasKey $msg ".$msgtype.text"]} {
@@ -732,7 +733,7 @@ proc del_private_command {keyword} {
 # ---------------------------------------------------------------------------- #
 # Format the pinned message to a message readable by IRC users                 #
 # ---------------------------------------------------------------------------- #
-proc getPinnedMessage {msgtype pinned_message} {
+proc ::telegram::getPinnedMessage {msgtype pinned_message} {
 	# Get the name of the Telegram user who wrote the message
 	if {$msgtype ne "channel_post"} {
 		if {[set pin_name [::libjson::getValue $pinned_message ".from.username"]] == "null" } {
@@ -747,6 +748,24 @@ proc getPinnedMessage {msgtype pinned_message} {
 	set pin_txt "[::libunicode::utf82ascii [::libjson::getValue $pinned_message ".text"]]"
 
 	return [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "[remove_slashes $pin_txt]" "$pin_date"]
+}
+
+# ---------------------------------------------------------------------------- #
+# Get the username or realname for a Telegram message                          #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::getUsername {chattype msg} {
+	if {$chattype eq "channel"} {
+		# Set sender's name to the title of the channel for channel announcements
+		set name [::libunicode::utf82ascii [::libjson::getValue $msg ".chat.title"]]
+	} else {
+		# Set sender's name for group or supergroup messages
+		set name [::libunicode::utf82ascii [::libjson::getValue $msg ".from.username"]]
+		if {$name == "null" } {
+			set name [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".from.first_name//empty"] [::libjson::getValue $msg ".from.last_name//empty"]]]
+		}
+		putlog "[::libjson::getValue $msg ".from.id"] -> $name"
+		set name "\003[getColorFromUserID [::libjson::getValue $msg ".from.id"]]$name\003"
+	}
 }
 
 
