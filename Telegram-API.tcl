@@ -146,7 +146,7 @@ proc ::telegram::pollTelegram {} {
 					set msgid [::libjson::getValue $msg ".message.message_id"]
 					set fromid [::libjson::getValue $msg ".message.from.id"]
 
-					tg2irc_privateCommands "$fromid" "$msgid" "$txt"
+					::telegram::privateCommand "$fromid" "$msgid" "$txt"
 				}
 			}
 
@@ -205,7 +205,7 @@ proc ::telegram::pollTelegram {} {
 							# Check if it was a public bot command
 							if {[string index $txt 0] eq $::telegram::cmdmodifier} {
 								set msgid [::libjson::getValue $msg ".$msgtype.message_id"]
-								tg2irc_botCommands "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
+								::telegram::publicCommand "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
 							}
 						}
 					}
@@ -439,7 +439,7 @@ proc ::telegram::pollTelegram {} {
 # ---------------------------------------------------------------------------- #
 # Respond to group commands send by Telegram users                             #
 # ---------------------------------------------------------------------------- #
-proc tg2irc_botCommands {chat_id msgid channel message} {
+proc ::telegram::publicCommand {chat_id msgid channel message} {
 	global serveraddress
 
 	set parameter_start [string wordend $message 1]
@@ -517,7 +517,7 @@ proc tg2irc_botCommands {chat_id msgid channel message} {
 # ---------------------------------------------------------------------------- #
 # Add a bot command to the dynamic bot command list                            #
 # ---------------------------------------------------------------------------- #
-proc add_public_command {keyword procedure helpmessage} {
+proc ::telegram::addPublicCommand {keyword procedure helpmessage} {
 	set ::telegram::public_commands($keyword) $procedure
 	set ::telegram::public_commands_help($keyword) $helpmessage
 }
@@ -525,7 +525,7 @@ proc add_public_command {keyword procedure helpmessage} {
 # ---------------------------------------------------------------------------- #
 # Remove a bot command from the dynamic bot command list                       #
 # ---------------------------------------------------------------------------- #
-proc del_public_command {keyword} {
+proc ::telegram::delPublicCommand {keyword} {
 	if {[info exists $::telegram::public_commands($keyword)]} {
 		unset -nocomplain ::telegram::public_commands($keyword)
 		unset -nocomplain ::telegram::public_commands_help($keyword)
@@ -538,7 +538,7 @@ proc del_public_command {keyword} {
 # ---------------------------------------------------------------------------- #
 # Respond to private commands send by Telegram users                           #
 # ---------------------------------------------------------------------------- #
-proc tg2irc_privateCommands {from_id msgid message} {
+proc ::telegram::privateCommand {from_id msgid message} {
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
 
@@ -672,7 +672,7 @@ proc tg2irc_privateCommands {from_id msgid message} {
 # ---------------------------------------------------------------------------- #
 # Add a bot command to the dynamic bot command list                            #
 # ---------------------------------------------------------------------------- #
-proc add_private_command {keyword procedure helpmessage} {
+proc ::telegram::addPrivateCommand {keyword procedure helpmessage} {
 	set ::telegram::private_commands($keyword) $procedure
 	set ::telegram::private_commands_help($keyword) $procedure
 }
@@ -680,7 +680,7 @@ proc add_private_command {keyword procedure helpmessage} {
 # ---------------------------------------------------------------------------- #
 # Remove a bot command from the dynamic bot command list                       #
 # ---------------------------------------------------------------------------- #
-proc del_private_command {keyword} {
+proc ::telegram::delPrivateCommand {keyword} {
 	if {[info exists $::telegram::private_commands($keyword)]} {
 		unset -nocomplain ::telegram::private_commands($keyword)
 		unset -nocomplain ::telegram::private_commands_help($keyword)
@@ -734,14 +734,14 @@ proc ::telegram::getUsername {chattype msg} {
 # ---------------------------------------------------------------------------- #
 # Send a message from IRC to Telegram                                          #
 # ---------------------------------------------------------------------------- #
-proc irc2tg_sendMessage {nick hostmask handle channel msg} {
+proc ::telegram::ircSendMessage {nick hostmask handle channel msg} {
 	# Check if this is a bot command
 	if {[string match "*[string index $msg 0]*" "/!."]} {
 		# If so, then check which bot command it is, and process it. Don't send it to the Telegram group though.
 		set parameter_start [string wordend $msg 1]
 		set command [string tolower [string range $msg 1 $parameter_start-1]]
 		if {[string match $command "tgfile"]} {
-			irc2tg_sendFile $nick [string trim [string range $msg $parameter_start end]]
+			::telegram::ircSendFile $nick [string trim [string range $msg $parameter_start end]]
 			return 0
 		}
 	}
@@ -760,7 +760,7 @@ proc irc2tg_sendMessage {nick hostmask handle channel msg} {
 # ---------------------------------------------------------------------------- #
 # Inform the Telegram group(s) that someone joined an IRC channel              #
 # ---------------------------------------------------------------------------- #
-proc irc2tg_nickJoined {nick uhost handle channel} {
+proc ::telegram::ircNickJoined {nick uhost handle channel} {
 	global serveraddress
 
 	# Show the invite link for all Telegram groups connected to this IRC channel
@@ -803,7 +803,7 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 # ---------------------------------------------------------------------------- #
 # Inform the Telegram group(s) that someone has left an IRC channel            #
 # ---------------------------------------------------------------------------- #
-proc irc2tg_nickLeft {nick uhost handle channel message} {
+proc ::telegram::ircNickLeft {nick uhost handle channel message} {
 	global  serveraddress
 
 	# Don't notify the Telegram users when the bot joins an IRC channel
@@ -827,7 +827,7 @@ proc irc2tg_nickLeft {nick uhost handle channel message} {
 # ---------------------------------------------------------------------------- #
 # Send an action from an IRC user to Telegram                                  #
 # ---------------------------------------------------------------------------- #
-proc irc2tg_nickAction {nick uhost handle dest keyword message} {
+proc ::telegram::ircNickAction {nick uhost handle dest keyword message} {
 	# Only send an action message to the Telegram group if the 'voice'-flag is set in the user flags variable
 	if {[string match "*v*" $::telegram::userflags]} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
@@ -842,7 +842,7 @@ proc irc2tg_nickAction {nick uhost handle dest keyword message} {
 # ---------------------------------------------------------------------------- #
 # Inform the Telegram group(s) that an IRC nickname has been changed           #
 # ---------------------------------------------------------------------------- #
-proc irc2tg_nickChange {nick uhost handle channel newnick} {
+proc ::telegram::ircNickChange {nick uhost handle channel newnick} {
 	# Only send a nick change message to the Telegram group if the 'change'-flag is set in the user flags variable
 	if {[string match "*c*" $::telegram::userflags]} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
@@ -857,7 +857,7 @@ proc irc2tg_nickChange {nick uhost handle channel newnick} {
 # ---------------------------------------------------------------------------- #
 # Inform the Telegram group(s) that the topic of an IRC channel has changed    #
 # ---------------------------------------------------------------------------- #
-proc irc2tg_topicChange {nick uhost handle channel topic} {
+proc ::telegram::ircTopicChange {nick uhost handle channel topic} {
 	global serveraddress
 
 	if {[string match "*t*" $::telegram::chanflags]} {
@@ -878,7 +878,7 @@ proc irc2tg_topicChange {nick uhost handle channel topic} {
 # ---------------------------------------------------------------------------- #
 # Inform the Telegram group(s) that someone has been kicked from the channel   #
 # ---------------------------------------------------------------------------- #
-proc irc2tg_nickKicked {nick uhost handle channel target reason} {
+proc ::telegram::ircNickKicked {nick uhost handle channel target reason} {
 	# Only send a kick message to the Telegram group if the 'kick'-flag is set in the user flags variable
 	if {[string match "*k*" $::telegram::userflags]} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
@@ -893,7 +893,7 @@ proc irc2tg_nickKicked {nick uhost handle channel target reason} {
 # ---------------------------------------------------------------------------- #
 # Inform the Telegram group(s) that a channel's mode has changed               #
 # ---------------------------------------------------------------------------- #
-proc irc2tg_modeChange {nick uhost hand channel mode target} {
+proc ::telegram::ircModeChange {nick uhost hand channel mode target} {
 	if {$target == ""} {
 		# Mode change target was a channel
 		if {[string match "*m*" $::telegram::chanflags]} {
@@ -919,7 +919,7 @@ proc irc2tg_modeChange {nick uhost hand channel mode target} {
 # ---------------------------------------------------------------------------- #
 # Download a Telegram attachment and send it via DCC to an IRC user            #
 # ---------------------------------------------------------------------------- #
-proc irc2tg_sendFile {nick file_id} {
+proc ::telegram::ircSendFile {nick file_id} {
 	global xfer-timeout
 
 	set max_file_size 20480000
@@ -942,7 +942,7 @@ proc irc2tg_sendFile {nick file_id} {
 					if {[file exists $fullname]} {
 						# To prevent our temp folder filling up with downloaded Telegram files, we'll set a timeout on the filetransfer
 						set ::telegram::filetransfers($fullname) [expr [clock seconds] + $timeout]
-						utimer $timeout cleanUpFiles
+						utimer $timeout ::telegram::cleanUpFiles
 
 						switch -- [dccsend $fullname $nick] {
 							0 {
@@ -991,7 +991,7 @@ proc irc2tg_sendFile {nick file_id} {
 # ---------------------------------------------------------------------------- #
 # Delete the downloaded Telegram attachments after use                         #
 # ---------------------------------------------------------------------------- #
-proc cleanUpFiles {} {
+proc ::telegram::cleanUpFiles {} {
 	foreach {filename time} [array get ::telegram::filetransfers] {
 		if {$time <= [clock seconds]} {
 			if { [catch { file delete -force $filename } error] } {
@@ -1011,7 +1011,7 @@ proc cleanUpFiles {} {
 # ---------------------------------------------------------------------------- #
 # Get the userflags for a specific user                                        #
 # ---------------------------------------------------------------------------- #
-proc getUserFlags {irchandle} {
+proc ::telegram::getUserFlags {irchandle} {
 	set irchandle ""
 
 	# Look up the IRC handle for the Telegram user
@@ -1136,15 +1136,15 @@ foreach module [glob -nocomplain -dir "[file join $scriptdir modules]" *.tcl] {
 }
 
 # Bind this script to IRC events
-bind pubm - * irc2tg_sendMessage
-bind join - * irc2tg_nickJoined
-bind part - * irc2tg_nickLeft
-bind sign - * irc2tg_nickLeft
-bind ctcp - "ACTION" irc2tg_nickAction
-bind nick - * irc2tg_nickChange
-bind topc - * irc2tg_topicChange
-bind kick - * irc2tg_nickKicked
-bind mode - * irc2tg_modeChange
+bind pubm - * ::telegram::ircSendMessage
+bind join - * ::telegram::ircNickJoined
+bind part - * ::telegram::ircNickLeft
+bind sign - * ::telegram::ircNickLeft
+bind ctcp - "ACTION" ::telegram::ircNickAction
+bind nick - * ::telegram::ircNickChange
+bind topc - * ::telegram::ircTopicChange
+bind kick - * ::telegram::ircNickKicked
+bind mode - * ::telegram::ircModeChange
 
 ::telegram::initialize
 
