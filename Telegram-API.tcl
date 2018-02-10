@@ -58,7 +58,7 @@ proc ::telegram::initialize {} {
 		# Chat titles: Only get chat titles for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_chat_title($tg_chat_id)]} {
 			set result [::libtelegram::getChat $tg_chat_id]
-			set ::telegram::tg_chat_title($tg_chat_id) [::libjson::getValue $result ".result.title//empty"]
+			set ::telegram::tg_chat_title($tg_chat_id) [::libunicode::utf82ascii [::libjson::getValue $result ".result.title//empty"]]
 		}
 		# Chat descriptions: Only get chat descriptions for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_chat_description($tg_chat_id)]} {
@@ -389,13 +389,12 @@ proc ::telegram::pollTelegram {} {
 				}
 
 				# Check if the title of the Telegram group chat has changed
-				if {[::libjson::hasKey $msg ".$msgtype.new_chat_title"]} {
-					set chat_title [::libjson::getValue $msg ".$msgtype.new_chat_title"]
-
+				if {[set chat_title [::libjson::getValue $msg ".$msgtype.new_chat_title"]] ne "null"} {
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_CHATTITLE "[::libunicode::utf82ascii $name]" "[::libunicode::utf82ascii $chat_title]"]
+							set ::telegram::tg_chat_title($tg_chat_id) [::libunicode::utf82ascii $chat_title]
+							putchan $irc_channel [::msgcat::mc MSG_TG_CHATTITLE "[::libunicode::utf82ascii $name]" "$::telegram::tg_chat_title($tg_chat_id)"]
 						}
 					}
 				}
@@ -709,11 +708,11 @@ proc ::telegram::getPinnedMessage {chattype pinned_message} {
 	if {$chattype eq "channel"} {
 		set pin_name [::libunicode::utf82ascii [::libjson::getValue $pinned_message ".chat.username"]]
 	} else {
-		if {[set pin_name [::libunicode::utf82ascii [::libjson::getValue $pinned_message ".from.username"]]] == "null" } {
-			set pin_name [::libunicode::utf82ascii [concat [::libjson::getValue $pinned_message ".from.first_name//empty"] [::libjson::getValue $pinned_message ".from.last_name//empty"]]]
+		if {[set pin_name [::libjson::getValue $pinned_message ".from.username"]] == "null" } {
+			set pin_name [concat [::libjson::getValue $pinned_message ".from.first_name//empty"] [::libjson::getValue $pinned_message ".from.last_name//empty"]]
 		}
-		set pin_name "\003[getColorFromUserID [::libjson::getValue $pinned_message ".from.id"]]$pin_name\003"
-	}		
+		set pin_name "\003[getColorFromUserID [::libjson::getValue $pinned_message ".from.id"]][::libunicode::utf82ascii $pin_name]\003"
+	}
 
 	set pin_date "[clock format [::libjson::getValue $pinned_message ".date"] -format $::telegram::timeformat]"
 	set pin_txt "[::libunicode::utf82ascii [::libjson::getValue $pinned_message ".text"]]"
@@ -730,12 +729,12 @@ proc ::telegram::getUsername {chattype msg} {
 		set name [::libunicode::utf82ascii [::libjson::getValue $msg ".chat.username"]]
 	} else {
 		# Set sender's name for group or supergroup messages
-		set name [::libunicode::utf82ascii [::libjson::getValue $msg ".from.username"]]
+		set name [::libjson::getValue $msg ".from.username"]
 		if {$name == "null" } {
-			set name [::libunicode::utf82ascii [concat [::libjson::getValue $msg ".from.first_name//empty"] [::libjson::getValue $msg ".from.last_name//empty"]]]
+			set name [concat [::libjson::getValue $msg ".from.first_name//empty"] [::libjson::getValue $msg ".from.last_name//empty"]]
 		}
 		putlog "[::libjson::getValue $msg ".from.id"] -> $name"
-		set name "\003[getColorFromUserID [::libjson::getValue $msg ".from.id"]]$name\003"
+		set name "\003[getColorFromUserID [::libjson::getValue $msg ".from.id"]][::libunicode::utf82ascii $name]\003"
 	}
 }
 
