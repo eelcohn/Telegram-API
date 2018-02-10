@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180209 for Eggdrop                                    #
+# Telegram-API module v20180210 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -20,8 +20,9 @@ set		::telegram::userflags			"jlvck"
 set		::telegram::chanflags			"tms"
 set		::telegram::cmdmodifier			"/"
 set		::telegram::show_invite_link		true
+array set	::telegram::tg_chat_title		{}
 array set	::telegram::pinned_messages		{}
-array set	::telegram::chat_invite_link		{}
+array set	::telegram::invite_link			{}
 array set	::telegram::public_commands		{}
 array set	::telegram::public_commands_help	{}
 array set	::telegram::private_commands		{}
@@ -52,16 +53,25 @@ proc ::telegram::initialize {} {
 	set ::telegram::tg_bot_realname [concat [::libjson::getValue $result ".result.first_name//empty"] [::libjson::getValue $result ".result.last_name//empty"]]
 	set ::telegram::irc_bot_nickname "$nick"
 
-	# Get pinned messages and chat invite links for all Telegram groups/supergroups/channels
+	# Get up to date information on all Telegram groups/supergroups/channels
 	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
-		# Prevent multiple polls for groups we've already processed
-		if {![info exists $::telegram::pinned_messages($tg_chat_id)]} {
+		# Chat titles: Only get chat titles for (super)groups we haven't queried yet
+		if {![info exists ::telegram::tg_chat_title($tg_chat_id)]} {
+			set result [::libtelegram::getChat $tg_chat_id]
+			set ::telegram::tg_chat_title($tg_chat_id) [::libjson::getValue $result ".result.title//empty"]
+		}
+		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
+		if {![info exists ::telegram::pinned_messages($tg_chat_id)]} {
 			set result [::libtelegram::getChat $tg_chat_id]
 			set ::telegram::pinned_messages($tg_chat_id) [::libjson::getValue $result ".result.pinned_message.text//empty"]
 		}
-		if {![info exists $::telegram::chat_invite_link($tg_chat_id)]} {
-			set result [::libtelegram::exportChatInviteLink $tg_chat_id]
-			set ::telegram::chat_invite_link($tg_chat_id) [::libjson::getValue $result ".result"]
+		# Invite links: Only get invite links for (super)groups we haven't queried yet
+		if {![info exists ::telegram::invite_link($tg_chat_id)]} {
+			set ::telegram::invite_link($tg_chat_id) [::libjson::getValue $result ".result.invite_link//empty"]
+			if {$::telegram::invite_link($tg_chat_id) eq ""} {
+				set result [::libtelegram::exportChatInviteLink $tg_chat_id]
+				set ::telegram::invite_link($tg_chat_id) [::libjson::getValue $result ".result//empty"]
+			}
 		}
 	}
 	return 0
@@ -769,29 +779,27 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 		if {$channel eq $irc_channel} {
 			# Show pinned messages (if any) as a notice to the new user on IRC
-			if {[info exists $::telegram::pinned_messages($tg_chat_id)]} {
+			if {[info exists ::telegram::pinned_messages($tg_chat_id)]} {
 				putchan $irc_channel "$::telegram::pinned_messages($tg_chat_id)"
 			}
 			# Show the Telegram chat invite link
 			if {$::telegram::show_invite_link} {
-				if {[info exists $::telegram::chat_invite_link($tg_chat_id)]} {
-					putchan $irc_channel "[::msgcat::mc MSG_IRC_INVITELINK $::telegram::chat_invite_link($tg_chat_id)]"
+				if {[info exists ::telegram::invite_link($tg_chat_id)]} {
+					putchan $channel "[::msgcat::mc MSG_IRC_INVITELINK $::telegram::invite_link($tg_chat_id)]"
 				}
 			}
 		}
 	}
 
 	# Don't notify the Telegram users when the bot joins an IRC channel
-	if {$nick eq $::telegram::irc_bot_nickname} {
-		return 0
-	}
-
-	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-		if {$channel eq $tg_channel} {
-			# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
-			if {[string match "*j*" $::telegram::userflags]} {
-				if {![validuser $nick]} {
-					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
+	if {$nick ne $::telegram::irc_bot_nickname} {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$channel eq $tg_channel} {
+				# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
+				if {[string match "*j*" $::telegram::userflags]} {
+					if {![validuser $nick]} {
+						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
+					}
 				}
 			}
 		}
