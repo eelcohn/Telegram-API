@@ -22,7 +22,7 @@ set		::telegram::cmdmodifier			"/"
 array set	::telegram::tg_chat_title		{}
 array set	::telegram::tg_chat_description		{}
 array set	::telegram::tg_pinned_messages		{}
-array set	::telegram::tg_invite_link			{}
+array set	::telegram::tg_invite_link		{}
 array set	::telegram::public_commands		{}
 array set	::telegram::public_commands_help	{}
 array set	::telegram::private_commands		{}
