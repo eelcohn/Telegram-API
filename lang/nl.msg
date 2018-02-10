@@ -54,7 +54,7 @@
 ::msgcat::mcset nl MSG_BOT_HELP_IRCUSER	"Je hebt geen gebruikersnaam opgegeven. Type /ircuser <gebruikersnaam> om informatie over een IRC gebruiker te laten zien."
 ::msgcat::mcset nl MSG_BOT_TG_TOPIC		"Het onderwerp op <a href=\"%s\">%s</a> is: <i>%s</i>"
 ::msgcat::mcset nl MSG_BOT_IRC_TOPIC		"Het onderwerp op %s is <i>%s</i>"
-::msgcat::mcset nl MSG_BOT_IRCUSERS		"Op <a href=\"%s\">%s\</a> zijn de volgende gebruikers bekend:\n\n"
+::msgcat::mcset nl MSG_BOT_IRCUSERS		"Op <a href=\"%s\">%s\</a> zijn de volgende gebruikers bekend:<br><br>"
 ::msgcat::mcset nl MSG_BOT_IRCUSER		"<i>%s@IRC</i> is sinds %s op <a href=\"%s\">%s</a> bekend als <i>%s</i>"
 ::msgcat::mcset nl MSG_BOT_TG_UNKNOWNUSER	"<i>%s@IRC</i> is niet bekend op <a href=\"%s\">%s</a>"
 ::msgcat::mcset nl MSG_BOT_UNKNOWNCMD		"Dat snap ik niet. Type /help om een overzicht van alle commando's te bekijken."
