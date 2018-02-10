@@ -63,14 +63,18 @@ proc ::telegram::initialize {} {
 		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
 		if {![info exists ::telegram::pinned_messages($tg_chat_id)]} {
 			set result [::libtelegram::getChat $tg_chat_id]
-			set ::telegram::pinned_messages($tg_chat_id) [::libjson::getValue $result ".result.pinned_message.text//empty"]
+			if {[set ::telegram::pinned_messages($tg_chat_id) [::libjson::getValue $result ".result.pinned_message.text//empty"]] eq ""} {
+				unset -nocomplain ::telegram::pinned_messages($tg_chat_id)
+			}
 		}
 		# Invite links: Only get invite links for (super)groups we haven't queried yet
 		if {![info exists ::telegram::invite_link($tg_chat_id)]} {
 			set ::telegram::invite_link($tg_chat_id) [::libjson::getValue $result ".result.invite_link//empty"]
 			if {$::telegram::invite_link($tg_chat_id) eq ""} {
 				set result [::libtelegram::exportChatInviteLink $tg_chat_id]
-				set ::telegram::invite_link($tg_chat_id) [::libjson::getValue $result ".result//empty"]
+				if {[set ::telegram::invite_link($tg_chat_id) [::libjson::getValue $result ".result//empty"]] eq ""} {
+					unset -nocomplain ::telegram::invite_link($tg_chat_id)
+				}
 			}
 		}
 	}
