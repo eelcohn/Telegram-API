@@ -794,6 +794,7 @@ proc irc2tg_nickJoined {nick uhost handle channel} {
 				if {[info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
 					putchan $irc_channel "$::telegram::tg_pinned_messages($tg_chat_id)"
 				}
+			}
 
 			# Check if we want to show an invite link on this IRC channel
 			if {[string match "*i*" $::telegram::chanflags]} {
