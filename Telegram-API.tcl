@@ -68,9 +68,11 @@ proc ::telegram::initialize {} {
 		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
 			set result [::libtelegram::getChat $tg_chat_id]
-			set ::telegram::tg_pinned_messages($tg_chat_id) [::telegram::getPinnedMessage [::libjson::getValue $msg ".result.pinned_message.chat.type"] [::libjson::getValue $msg ".result.pinned_message"]]
-			if {$::telegram::tg_pinned_messages($tg_chat_id) eq ""} {
-				unset -nocomplain ::telegram::tg_pinned_messages($tg_chat_id)
+			if {[set chattype [::libjson::getValue $result ".result.pinned_message.chat.type"]] ne "null"} {
+				set ::telegram::tg_pinned_messages($tg_chat_id) [::telegram::getPinnedMessage $chattype [::libjson::getValue $result ".result.pinned_message"]]
+				if {$::telegram::tg_pinned_messages($tg_chat_id) eq ""} {
+					unset -nocomplain ::telegram::tg_pinned_messages($tg_chat_id)
+				}
 			}
 		}
 		# Invite links: Only get invite links for (super)groups we haven't queried yet
@@ -104,11 +106,8 @@ proc ::telegram::pollTelegram {} {
 		return -1
 	}
 
-	# Poll the Telegram API for updates
-	set result [::libtelegram::getUpdates $::telegram::tg_update_id]
-
-	# Check if we got a result
-	if {$result == -1} {
+	# Poll the Telegram API for updates and check if we got a result
+	if {[set result [::libtelegram::getUpdates $::telegram::tg_update_id]] == -1} {
 		# Network is probably down, so schedule the next poll
 		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
  		return -2
@@ -216,7 +215,7 @@ proc ::telegram::pollTelegram {} {
 				if {[::libjson::hasKey $msg ".$msgtype.pinned_message"]} {
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							set ::telegram::tg_pinned_messages($chatid) [::telegram::getPinnedMessage $msgtype [::libjson::getValue $msg ".$msgtype.pinned_message"]]
+							set ::telegram::tg_pinned_messages($chatid) [::telegram::getPinnedMessage $chattype [::libjson::getValue $msg ".$msgtype.pinned_message"]]
 							putchan $irc_channel [::msgcat::mc MSG_TG_MSGSENT "$name" "$::telegram::tg_pinned_messages($chatid)"]
 						}
 					}
@@ -705,15 +704,15 @@ proc del_private_command {keyword} {
 # ---------------------------------------------------------------------------- #
 # Format the pinned message to a message readable by IRC users                 #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::getPinnedMessage {msgtype pinned_message} {
+proc ::telegram::getPinnedMessage {chattype pinned_message} {
 	# Get the name of the Telegram user who wrote the message
-	if {$msgtype ne "channel_post"} {
+	if {$msgtype eq "channel"} {
+		set pin_name [::libjson::getValue $pinned_message ".chat.username"]
+	} else {
 		if {[set pin_name [::libjson::getValue $pinned_message ".from.username"]] == "null" } {
 			set pin_name [::libunicode::utf82ascii [concat [::libjson::getValue $pinned_message ".from.first_name//empty"] [::libjson::getValue $pinned_message ".from.last_name//empty"]]]
 		}
 		set pin_name "\003[getColorFromUserID [::libjson::getValue $pinned_message ".from.id"]]$pin_name\003"
-	} else {
-		set pin_name [::libjson::getValue $pinned_message ".chat.username"]
 	}		
 
 	set pin_date "[clock format [::libjson::getValue $pinned_message ".date"] -format $::telegram::timeformat]"
@@ -728,7 +727,7 @@ proc ::telegram::getPinnedMessage {msgtype pinned_message} {
 proc ::telegram::getUsername {chattype msg} {
 	if {$chattype eq "channel"} {
 		# Set sender's name to the title of the channel for channel announcements
-		set name [::libunicode::utf82ascii [::libjson::getValue $msg ".chat.title"]]
+		set name [::libunicode::utf82ascii [::libjson::getValue $msg ".chat.username"]]
 	} else {
 		# Set sender's name for group or supergroup messages
 		set name [::libunicode::utf82ascii [::libjson::getValue $msg ".from.username"]]
