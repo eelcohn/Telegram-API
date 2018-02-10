@@ -27,7 +27,7 @@
 ::msgcat::mcset nl MSG_TG_MSGSENT		"%1\$s@Telegram: %2\$s"
 ::msgcat::mcset nl MSG_TG_MSGREPLYTOSENT "%1\$s (antwoord op %2\$s@Telegram: %3\$s)"
 ::msgcat::mcset nl MSG_TG_MSGFORWARDED "%1\$s (doorgestuurd van %2\$s)"
-::msgcat::mcset nl MSG_TG_PINNEDMESSAGE "%1\$s@Telegram: %2\$s (vastgezet door %3\$s op %4\$s)"
+::msgcat::mcset nl MSG_TG_PINNEDMESSAGE "%1\$s@Telegram: %2\$s (vastgezet op %3\$s)"
 ::msgcat::mcset nl MSG_TG_AUDIOSENT		"%1\$s@Telegram heeft een audiobestand verstuurd: %2\$s - %3\$s (%4\$s s). Gebruik !tgfile %5\$s om het bestand te downloaden."
 ::msgcat::mcset nl MSG_TG_DOCSENT		"%1\$s@Telegram heeft een document verstuurd%2\$s: %3\$s (%4\$s bytes). Gebruik !tgfile %5\$s om het bestand te downloaden."
 ::msgcat::mcset nl MSG_TG_PHOTOSENT		"%1\$s@Telegram heeft een foto verstuurd%2\$s (%3\$s bytes). Gebruik !tgfile %4\$s om het bestand te downloaden."
