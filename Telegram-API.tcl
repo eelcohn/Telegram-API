@@ -434,6 +434,8 @@ proc ::telegram::pollTelegram {} {
 
 	# ...and set a timer so it triggers the next poll
 	utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
+
+	return 0
 }
 
 # ---------------------------------------------------------------------------- #
@@ -725,6 +727,8 @@ proc ::telegram::getUsername {chattype msg} {
 		putlog "[::libjson::getValue $msg ".from.id"] -> $name"
 		set name "\003[getColorFromUserID [::libjson::getValue $msg ".from.id"]][::libunicode::utf82ascii $name]\003"
 	}
+
+	return $name
 }
 
 
@@ -806,17 +810,15 @@ proc ::telegram::ircNickJoined {nick uhost handle channel} {
 proc ::telegram::ircNickLeft {nick uhost handle channel message} {
 	global  serveraddress
 
-	# Don't notify the Telegram users when the bot joins an IRC channel
-	if {$nick eq $::telegram::irc_bot_nickname} {
-		return 0
-	}
-
-	# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
-	if {[string match "*l*" $::telegram::userflags]} {
-		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-			if {$channel eq $tg_channel} {
-				if {![validuser $nick]} {
-#					::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
+	# Don't notify the Telegram users when the bot leaves an IRC channel
+	if {$nick ne $::telegram::irc_bot_nickname} {
+		# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
+		if {[string match "*l*" $::telegram::userflags]} {
+			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+				if {$channel eq $tg_channel} {
+					if {![validuser $nick]} {
+#						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
+					}
 				}
 			}
 		}
@@ -986,6 +988,7 @@ proc ::telegram::ircSendFile {nick file_id} {
 #		putlog "Telegram-API: irc2tg_sendFile: $nick ($hostmask) attempted to download an illegal Telegram file: $file_id"
 #		return -4
 #	}
+	return 0
 }
 
 # ---------------------------------------------------------------------------- #
