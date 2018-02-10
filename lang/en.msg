@@ -13,6 +13,9 @@
 ::msgcat::mcset en MSG_IRC_TOPICCHANGE		"<i>%s@IRC</i> has changed the topic on <a href=\"%s\">%s</a> to <i>%s</i>"
 ::msgcat::mcset en MSG_IRC_KICK		"<i>%s@IRC</i> has kicked <i>%s</i> from <i>%s</i>: <b>%s</b>"
 ::msgcat::mcset en MSG_IRC_MODECHANGE		"<i>%1\$s@IRC</i> zet de modus %3\$s op %2\$s"
+
+# IRC service messages
+::msgcat::mcset en MSG_IRC_INVITELINK "Join the Telegram group %1\$s here %2\$s"
 ::msgcat::mcset en MSG_IRC_DCCSENDFAILED  "Could not send file. Please ask the admin to take a look at the log file."
 ::msgcat::mcset en MSG_IRC_DCCSENDFILE  "Starting DCC transfer for %1\$s."
 ::msgcat::mcset en MSG_IRC_DCCSENDFULL  "Can't send %1\$s (too many connections). Please try again later."
