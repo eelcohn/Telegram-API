@@ -164,7 +164,11 @@ proc ::telegram::pollTelegram {} {
 				set chatid [::libjson::getValue $msg ".$msgtype.chat.id"]
 
 				# Get the sender's name for this message
-				set name [::telegram::getUsername [::libjson::getValue $msg ".$msgtype.from"]]
+				if {$chattype eq "channel"} {
+					set name [::telegram::getUsername [::libjson::getValue $msg ".channel_post.chat"]]
+				} else {
+					set name [::telegram::getUsername [::libjson::getValue $msg ".$msgtype.from"]]
+				}
 
 				# Get the caption of this message (if any)
 				if {[::libjson::hasKey $msg ".$msgtype.caption"]} {
