@@ -18,7 +18,7 @@ set		::telegram::tg_bot_realname		""
 set 		::telegram::irc_bot_nickname		""
 set		::telegram::userflags			"jlvck"
 set		::telegram::chanflags			"iptms"
-set		::telegram::cmdmodifier			"/"
+set		::telegram::cmdmodifier			"/!."
 array set	::telegram::tg_chat_title		{}
 array set	::telegram::tg_chat_description		{}
 array set	::telegram::tg_pinned_messages		{}
@@ -186,7 +186,7 @@ proc ::telegram::pollTelegram {} {
 					set txt [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.text"]]
 
 					# Modify text if it is a reply-to or forwarded from
-					if {[::libjson::hasKey $msg ".$msgtype.reply_to_message"]} {
+					if {[info exists replyname]} {
 						set replytomsg [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.reply_to_message.text"]]
 						set txt "[::msgcat::mc MSG_TG_MSGREPLYTOSENT "$txt" "$replyname" "$replytomsg"]"
 					} elseif {[info exists forwardname]} {
@@ -208,7 +208,7 @@ proc ::telegram::pollTelegram {} {
 							}
 		
 							# Check if it was a public bot command
-							if {[string index $txt 0] eq $::telegram::cmdmodifier} {
+							if {[string match "*[string index $txt 0]*" "$::telegram::cmdmodifier"]} {
 								set msgid [::libjson::getValue $msg ".$msgtype.message_id"]
 								::telegram::publicCommand "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
 							}
@@ -716,7 +716,7 @@ proc ::telegram::getUsername {userobject} {
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircSendMessage {nick hostmask handle channel msg} {
 	# Check if this is a bot command
-	if {[string match "*[string index $msg 0]*" "/!."]} {
+	if {[string match "*[string index $msg 0]*" "$::telegram::cmdmodifier"]} {
 		# If so, then check which bot command it is, and process it. Don't send it to the Telegram group though.
 		set parameter_start [string wordend $msg 1]
 		set command [string tolower [string range $msg 1 $parameter_start-1]]
