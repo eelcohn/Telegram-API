@@ -189,7 +189,7 @@ proc ::telegram::pollTelegram {} {
 					if {[::libjson::hasKey $msg ".$msgtype.reply_to_message"]} {
 						set replytomsg [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.reply_to_message.text"]]
 						set txt "[::msgcat::mc MSG_TG_MSGREPLYTOSENT "$txt" "$replyname" "$replytomsg"]"
-					} elseif {[::libjson::hasKey $msg ".$msgtype.forward_from"]} {
+					} elseif {[info exists forwardname]} {
 						set txt "[::msgcat::mc MSG_TG_MSGFORWARDED "$txt" "$forwardname"]"
 					} 
 
@@ -509,7 +509,7 @@ proc ::telegram::addPublicCommand {keyword procedure helpmessage} {
 # Remove a bot command from the dynamic bot command list                       #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::delPublicCommand {keyword} {
-	if {[info exists $::telegram::public_commands($keyword)]} {
+	if {[info exists ::telegram::public_commands($keyword)]} {
 		unset -nocomplain ::telegram::public_commands($keyword)
 		unset -nocomplain ::telegram::public_commands_help($keyword)
 		return true
@@ -664,7 +664,7 @@ proc ::telegram::addPrivateCommand {keyword procedure helpmessage} {
 # Remove a bot command from the dynamic bot command list                       #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::delPrivateCommand {keyword} {
-	if {[info exists $::telegram::private_commands($keyword)]} {
+	if {[info exists ::telegram::private_commands($keyword)]} {
 		unset -nocomplain ::telegram::private_commands($keyword)
 		unset -nocomplain ::telegram::private_commands_help($keyword)
 		return true
