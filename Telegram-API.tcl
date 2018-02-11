@@ -157,7 +157,7 @@ proc ::telegram::pollTelegram {} {
 				set chatid [::libjson::getValue $msg ".$msgtype.chat.id"]
 
 				# Get the sender's name for this message
-				set name [::telegram::getUsername $chattype [::libjson::getValue $msg ".$msgtype"]]
+				set name [::telegram::getUsername [::libjson::getValue $msg ".$msgtype.from"]]
 
 				# Get the caption of this message (if any)
 				if {[::libjson::hasKey $msg ".$msgtype.caption"]} {
@@ -168,12 +168,17 @@ proc ::telegram::pollTelegram {} {
 
 				# Get the reply-to name for this message (if available)
 				if {[::libjson::hasKey $msg ".$msgtype.reply_to_message"]} {
-					set replyname [::telegram::getUsername $chattype [::libjson::getValue $msg ".$msgtype.reply_to_message"]]
+					set replyname [::telegram::getUsername [::libjson::getValue $msg ".$msgtype.reply_to_message.from"]]
 				}
 
 				# Check if this message is a forwarded message
 				if {[::libjson::hasKey $msg ".$msgtype.forward_from"]} {
-					set forwardname [::telegram::getUsername $chattype [::libjson::getValue $msg ".$msgtype.forward_from"]]
+					set forwardname [::telegram::getUsername [::libjson::getValue $msg ".$msgtype.forward_from"]]
+				}
+
+				# Check if this message is a forwarded channelmessage
+				if {[::libjson::hasKey $msg ".$msgtype.forward_from_chat"]} {
+					set forwardname [::telegram::getUsername [::libjson::getValue $msg ".$msgtype.forward_from_chat"]]
 				}
 
 				# Check if a text message has been sent to the Telegram group
@@ -691,18 +696,13 @@ proc ::telegram::getPinnedMessage {chattype pinned_message} {
 # ---------------------------------------------------------------------------- #
 # Get the username or realname for a Telegram message                          #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::getUsername {chattype msg} {
-	if {$chattype eq "channel"} {
-		# Set sender's name to the title of the channel for channel announcements
-		set name [::libunicode::utf82ascii [::libjson::getValue $msg ".chat.username"]]
-	} else {
-		# Set sender's name for group or supergroup messages
-		if {[set name [::libjson::getValue $msg ".from.username"]] == "null" } {
-			set name [concat [::libjson::getValue $msg ".from.first_name//empty"] [::libjson::getValue $msg ".from.last_name//empty"]]
-		}
-		putlog "[::libjson::getValue $msg ".from.id"] -> $name"
-		set name "\003[getColorFromUserID [::libjson::getValue $msg ".from.id"]][::libunicode::utf82ascii $name]\003"
+proc ::telegram::getUsername {userobject} {
+	# Set sender's name for group or supergroup messages
+	if {[set name [::libjson::getValue $userobject ".username"]] == "null" } {
+		set name [concat [::libjson::getValue $userobject ".first_name//empty"] [::libjson::getValue $userobject ".last_name//empty"]]
 	}
+	putlog "[::libjson::getValue $userobject ".id"] -> $name"
+	set name "\003[getColorFromUserID [::libjson::getValue $msg ".id"]][::libunicode::utf82ascii $name]\003"
 
 	return $name
 }
