@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API configuration v20180128 for Eggdrop                             #
+# Telegram-API configuration v20180211 for Eggdrop                             #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -15,8 +15,8 @@ set ::telegram::locale			"en"
 set ::telegram::timeformat		"%Y-%m-%d %H:%M:%S"
 set ::telegram::colorize_nicknames	7
 set ::telegram::userflags		"jlvckm"
-set ::telegram::chanflags		"tms"
-set ::telegram::cmdmodifier		"/"
+set ::telegram::chanflags		"iptms"
+set ::telegram::cmdmodifier		"/!."
 array set	::telegram::usercolors	{	0	4
 						1	7
 						2	6
