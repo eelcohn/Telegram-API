@@ -31,7 +31,7 @@ proc ::telegram::ircuser {chat_id msgid channel message parameter_start} {
 			set response "[::msgcat::mc MSG_BOT_IRCUSERUNKNOWN "$handle" "$serveraddress/$channel" "$channel"]"
 		}
 	} else {
-		set response [::msgcat::mc MSG_BOT_IRCUSER_HELP]
+		set response "/$::telegram::public_commands(ircuser) $::telegram::public_commands_help(ircuser)"
 	}
 	::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 	putchan $channel "[strip_html $response]"
@@ -49,5 +49,5 @@ proc ::telegram::ircusers {chat_id msgid channel message parameter_start} {
 }
 
 ::telegram::addPublicCommand irctopic ::telegram::irctopic ": Show the topic for the IRC channel(s) linked to this Telegram group."
-::telegram::addPublicCommand ircuser ::telegram::ircuser " <nickname>: Show info about an user on IRC."
+::telegram::addPublicCommand ircuser ::telegram::ircuser "[::msgcat::mc MSG_BOT_IRCUSER_HELP]"
 ::telegram::addPublicCommand ircusers ::telegram::ircusers ": Show all users on the IRC channel(s) linked to this Telegram group."
