@@ -8,7 +8,7 @@
 # Configuration settings                                                       #
 # ---------------------------------------------------------------------------- #
 
-source "[file join [file dirname [info script]] SoundCloud.conf]"
+source "[file join [file dirname [info script]] Soundcloud.conf]"
 
 # ---------------------------------------------------------------------------- #
 # Soundcloud procedures                                                        #
