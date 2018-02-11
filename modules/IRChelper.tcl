@@ -28,7 +28,7 @@ proc ::telegram::ircuser {chat_id msgid channel message parameter_start} {
 			set online_since [getchanjoin $handle $channel]
 			set response "[::msgcat::mc MSG_BOT_IRCUSER "$handle" "$online_since" "$serveraddress/$channel" "$channel" "[getchanhost $handle $channel]"]"
 		} else {
-			set response "[::msgcat::mc MSG_BOT_TG_UNKNOWNUSER "$handle" "$serveraddress/$channel" "channel"]"
+			set response "[::msgcat::mc MSG_BOT_IRCUSERUNKNOW "$handle" "$serveraddress/$channel" "channel"]"
 		}
 	} else {
 		set response [::msgcat::mc MSG_BOT_HELP_IRCUSER]
