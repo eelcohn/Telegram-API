@@ -11,14 +11,21 @@
 # Create a namespace for the Telegram-API script
 namespace eval ::telegram {}
 
-# Declare global variables
+# Declare global variables and set default variables
+set		::telegram::tg_poll_freq		5
+set		::telegram::tg_web_page_preview		false
+set		::telegram::locale			"en"
+set		::telegram::timeformat			"%Y-%m-%d %H:%M:%S"
+set		::telegram::colorize_nicknames		0
+set		::telegram::userflags			"jlvck"
+set		::telegram::chanflags			"iptms"
+set		::telegram::cmdmodifier			"/!."
+
+# Declare global internal variables; not user-configurable
 set		::telegram::tg_update_id		0
 set		::telegram::tg_bot_nickname		""
 set		::telegram::tg_bot_realname		""
 set 		::telegram::irc_bot_nickname		""
-set		::telegram::userflags			"jlvck"
-set		::telegram::chanflags			"iptms"
-set		::telegram::cmdmodifier			"/!."
 array set	::telegram::tg_chat_title		{}
 array set	::telegram::tg_chat_description		{}
 array set	::telegram::tg_pinned_messages		{}
