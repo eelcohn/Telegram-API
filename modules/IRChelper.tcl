@@ -4,6 +4,9 @@
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
+# ---------------------------------------------------------------------------- #
+# Shows the topic of an IRC channel                                            #
+# ---------------------------------------------------------------------------- #
 proc ::telegram::irctopic {chat_id msgid channel message parameter_start} {
 	global serveraddress
 
@@ -12,6 +15,9 @@ proc ::telegram::irctopic {chat_id msgid channel message parameter_start} {
 	putchan $channel "[strip_html $response]"
 }
 
+# ---------------------------------------------------------------------------- #
+# Shows detailed information about an user on IRC                              #
+# ---------------------------------------------------------------------------- #
 proc ::telegram::ircuser {chat_id msgid channel message parameter_start} {
 	global serveraddress
 
@@ -31,6 +37,9 @@ proc ::telegram::ircuser {chat_id msgid channel message parameter_start} {
 	putchan $channel "[strip_html $response]"
 }
 
+# ---------------------------------------------------------------------------- #
+# Shows all users on an IRC channel                                            #
+# ---------------------------------------------------------------------------- #
 proc ::telegram::ircusers {chat_id msgid channel message parameter_start} {
 	global serveraddress
 
@@ -40,5 +49,5 @@ proc ::telegram::ircusers {chat_id msgid channel message parameter_start} {
 }
 
 ::telegram::addPublicCommand irctopic ::telegram::irctopic ": Show the topic for the IRC channel(s) linked to this Telegram group."
-::telegram::addPublicCommand ircuser ::telegram::ircuser ": Show info about an user on IRC."
+::telegram::addPublicCommand ircuser ::telegram::ircuser " <nickname>: Show info about an user on IRC."
 ::telegram::addPublicCommand ircusers ::telegram::ircusers ": Show all users on the IRC channel(s) linked to this Telegram group."
