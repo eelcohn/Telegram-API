@@ -7,16 +7,17 @@
 # ---------------------------------------------------------------------------- #
 # Configuration settings                                                       #
 # ---------------------------------------------------------------------------- #
-set ::libtelegram::bot_id		123456789
-set ::libtelegram::bot_token		AABCD-EfGhIj_KlMn_OpQrStUvWxYz12345
-set ::telegram::tg_poll_freq		5
-set ::telegram::tg_web_page_preview	false
-set ::telegram::locale			"en"
-set ::telegram::timeformat		"%Y-%m-%d %H:%M:%S"
-set ::telegram::colorize_nicknames	7
-set ::telegram::userflags		"jlvckm"
-set ::telegram::chanflags		"iptms"
-set ::telegram::cmdmodifier		"/!."
+set	::libtelegram::bot_id		123456789
+set	::libtelegram::bot_token	AABCD-EfGhIj_KlMn_OpQrStUvWxYz12345
+set	::telegram::tg_poll_freq	5
+set	::telegram::tg_web_page_preview	false
+set	::telegram::tg_prefer_usernames true
+set	::telegram::locale		"en"
+set	::telegram::timeformat		"%Y-%m-%d %H:%M:%S"
+set	::telegram::colorize_nicknames	7
+set	::telegram::userflags		"jlvckm"
+set	::telegram::chanflags		"iptms"
+set	::telegram::cmdmodifier		"/!."
 array set	::telegram::usercolors	{	0	4
 						1	7
 						2	6
