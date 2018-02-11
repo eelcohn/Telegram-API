@@ -702,7 +702,7 @@ proc ::telegram::getUsername {userobject} {
 		set name [concat [::libjson::getValue $userobject ".first_name//empty"] [::libjson::getValue $userobject ".last_name//empty"]]
 	}
 	putlog "[::libjson::getValue $userobject ".id"] -> $name"
-	set name "\003[getColorFromUserID [::libjson::getValue $msg ".id"]][::libunicode::utf82ascii $name]\003"
+	set name "\003[getColorFromUserID [::libjson::getValue $userobject ".id"]][::libunicode::utf82ascii $name]\003"
 
 	return $name
 }
