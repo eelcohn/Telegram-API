@@ -219,7 +219,7 @@ proc ::telegram::pollTelegram {} {
 		
 								# If the line contains an URL, get the title of the website
 								if {[string match -nocase "*http://?*" $line] || [string match -nocase "*https://?*" $line] || [string match -nocase "*www.?*" $line]} {
-									putchan $irc_channel [getWebsiteTitle $line]
+									putchan $irc_channel [::telegram::getWebsiteTitle $line]
 								}
 							}
 		
@@ -717,7 +717,7 @@ proc ::telegram::getUsername {userobject} {
 		set name [concat [::libjson::getValue $userobject ".first_name//empty"] [::libjson::getValue $userobject ".last_name//empty"]]
 	}
 	putlog "[::libjson::getValue $userobject ".id"] -> $name"
-	set name "\003[getColorFromUserID [::libjson::getValue $userobject ".id"]][::libunicode::utf82ascii $name]\003"
+	set name "\003[::telegram::getColorFromUserID [::libjson::getValue $userobject ".id"]][::libunicode::utf82ascii $name]\003"
 
 	return $name
 }
@@ -1026,21 +1026,6 @@ proc ::telegram::getUserFlags {irchandle} {
 }	
 
 # ---------------------------------------------------------------------------- #
-# Replace sticker code with ASCII code                                         #
-# ---------------------------------------------------------------------------- #
-proc sticker2ascii {file_id} {
-	global stickertable
-
-	foreach {filedesc stickerdesc} [array get stickertable] {
-		if {$file_id == $filedesc} {
-			return $stickerdesc
-		}
-	}
-
-	return [::msgcat::mc MSG_TG_UNKNOWNSTICKER]
-}
-
-# ---------------------------------------------------------------------------- #
 # Remove HTML tags from a string                                               #
 # ---------------------------------------------------------------------------- #
 proc strip_html {htmlText} {
@@ -1071,7 +1056,7 @@ proc url_encode {str} {
 # ---------------------------------------------------------------------------- #
 # Calculate an IRC color code for a user ID                                    #
 # ---------------------------------------------------------------------------- #
-proc getColorFromUserID {user_id} {
+proc ::telegram::getColorFromUserID {user_id} {
 	if {($::telegram::colorize_nicknames == 0) || ($::telegram::colorize_nicknames > 15)} {
 		# Default color is black for no colorization
 		return 1
@@ -1084,15 +1069,14 @@ proc getColorFromUserID {user_id} {
 # ---------------------------------------------------------------------------- #
 # Get the title of a website for website previews on IRC                       #
 # ---------------------------------------------------------------------------- #
-proc getWebsiteTitle {url} {
+proc ::telegram::getWebsiteTitle {url} {
 	if { [ catch {
 		set result [exec curl --tlsv1.2 --location -s -X GET $url]
 	} ] } {
-		return "No preview available"
+		return "[::msgcat::mc MSG_WEBPREVIEW_UNAVAILABLE]"
 	}
 
-	set titlestart [string first "<title>" $result]
-	if {$titlestart eq -1} {
+	if {[set titlestart [string first "<title" $result]] eq -1} {
 		return "No title available"
 	} else {
 		set titlestart [string first ">" $result $titlestart]
@@ -1109,9 +1093,9 @@ proc getWebsiteTitle {url} {
 # Start bot by loading Telegram modules, bind actions and do a Telegram poll   #
 # ---------------------------------------------------------------------------- #
 
-set scriptdir [file dirname [info script]]
-
 package require msgcat
+
+set scriptdir [file dirname [info script]]
 
 source "[file join $scriptdir lib libjson.tcl]"
 source "[file join $scriptdir lib libtelegram.tcl]"
