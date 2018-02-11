@@ -472,7 +472,7 @@ proc ::telegram::publicCommand {chat_id msgid channel message} {
 		}
 
 		"irctopic" {
-			set response "[::msgcat::mc MSG_BOT_TG_TOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
+			set response "[::msgcat::mc MSG_BOT_IRCTOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
 			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 		}
