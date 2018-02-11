@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Quote module for Eggdrop v20180207                              #
+# Telegram-API Quote module for Eggdrop v20180211                              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -77,10 +77,12 @@ proc quotes_addQuote {chat_id msgid channel message parameter_start} {
 
 		::libtelegram::sendMessage $chat_id $msgid "html" "[::msgcat::mc MSG_QUOTE_QUOTEADDED]"
 		putchan $channel "[::msgcat::mc MSG_QUOTE_QUOTEADDED]"
+
+		return 0
 	} else {
-		::libtelegram::sendMessage $chat_id $msgid "html" "[::msgcat::mc MSG_QUOTE_ADDHELP]"
+		return -1
 	}
 }
 
-::telegram::addPublicCommand quote quotes_getQuote "(keyword/id): Show a quote from the legendary quotes-database."
-::telegram::addPublicCommand addquote quotes_addQuote "<quote>: Adds a quote to the legendary quote database."
+::telegram::addPublicCommand quote quotes_getQuote "[::msgcat::mc MSG_QUOTE_HELP]"
+::telegram::addPublicCommand addquote quotes_addQuote "[::msgcat::mc MSG_QUOTE_ADDHELP]"
