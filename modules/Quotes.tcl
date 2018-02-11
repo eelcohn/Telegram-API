@@ -58,6 +58,8 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 
 	::libtelegram::sendMessage $chat_id $msgid "html" "[url_encode $qot_sel]"
 	putchan $channel "[::libunicode::utf82ascii $qot_sel]"
+
+	return 0
 }
 
 # ---------------------------------------------------------------------------- #
