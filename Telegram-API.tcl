@@ -471,35 +471,6 @@ proc ::telegram::publicCommand {chat_id msgid channel message} {
 			putchan $channel "[strip_html $response]"
 		}
 
-		"irctopic" {
-			set response "[::msgcat::mc MSG_BOT_IRCTOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
-			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
-			putchan $channel "[strip_html $response]"
-		}
-
-		"ircuser" {
-			set handle [string trim [string range $message $parameter_start end]]
-
-			if {$handle != ""} {
-				if {[onchan $handle $channel]} {
-					set online_since [getchanjoin $handle $channel]
-					set response "[::msgcat::mc MSG_BOT_IRCUSER "$handle" "$online_since" "$serveraddress/$channel" "$channel" "[getchanhost $handle $channel]"]"
-				} else {
-					set response "[::msgcat::mc MSG_BOT_TG_UNKNOWNUSER "$handle" "$serveraddress/$channel" "channel"]"
-				}
-			} else {
-				set response [::msgcat::mc MSG_BOT_HELP_IRCUSER]
-			}
-			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
-			putchan $channel "[strip_html $response]"
-		}
-
-		"ircusers" {
-			set response "[::msgcat::mc MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[string map {" " "\n"} [chanlist $channel]]"]"
-			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
-			putchan $channel "[strip_html $response]"
-		}
-
 		default {
 			# Not one of the standard bot commands, so check if the bot command is in our dynamic command list
 			foreach {cmd prc} [array get ::telegram::public_commands] {
