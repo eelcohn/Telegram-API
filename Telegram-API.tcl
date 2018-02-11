@@ -709,7 +709,11 @@ proc ::telegram::getPinnedMessage {chattype pinned_message} {
 # ---------------------------------------------------------------------------- #
 proc ::telegram::getUsername {userobject} {
 	# Set sender's name for group or supergroup messages
-	if {([set name [::libjson::getValue $userobject ".username"]] == "null") || (!$::telegram::tg_prefer_usernames)} {
+	if {$::telegram::tg_prefer_usernames} {
+		if {[set name [::libjson::getValue $userobject ".username"]] == "null"} {
+			set name [concat [::libjson::getValue $userobject ".first_name//empty"] [::libjson::getValue $userobject ".last_name//empty"]]
+		}
+	} else {
 		set name [concat [::libjson::getValue $userobject ".first_name//empty"] [::libjson::getValue $userobject ".last_name//empty"]]
 	}
 	putlog "[::libjson::getValue $userobject ".id"] -> $name"
