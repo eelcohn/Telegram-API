@@ -259,8 +259,7 @@ proc ::telegram::pollTelegram {} {
 				if {[set tg_file_id [::libjson::getValue $msg ".$msgtype.audio.file_id"]] ne "null"} {
 					set tg_performer [::libjson::getValue $msg ".$msgtype.audio.performer"]
 					set tg_title [::libjson::getValue $msg ".$msgtype.audio.title"]
-					set tg_duration [::libjson::getValue $msg ".$msgtype.audio.duration"]
-					if {$tg_duration eq ""} {
+					if {[set tg_duration [::libjson::getValue $msg ".$msgtype.audio.duration"]] eq ""} {
 						set tg_duration "0"
 					}
 
@@ -299,8 +298,7 @@ proc ::telegram::pollTelegram {} {
 
 				# Check if a video has been sent to the Telegram group
 				if {[set tg_file_id [::libjson::getValue $msg ".$msgtype.video.file_id"]] ne "null"} {
-					set tg_duration [::libjson::getValue $msg ".$msgtype.video.duration"]
-					if {$tg_duration eq "null"} {
+					if {[set tg_duration [::libjson::getValue $msg ".$msgtype.video.duration"]] eq "null"} {
 						set tg_duration "0"
 					}
 
@@ -314,9 +312,8 @@ proc ::telegram::pollTelegram {} {
 
 				# Check if a voice object has been sent to the Telegram group
 				if {[set tg_file_id [::libjson::getValue $msg ".$msgtype.voice.file_id"]] ne "null"} {
-					set tg_duration [::libjson::getValue $msg ".$msgtype.voice.duration"]
 					set tg_file_size [::libjson::getValue $msg ".$msgtype.voice.file_size"]
-					if {$tg_duration eq ""} {
+					if {[set tg_duration [::libjson::getValue $msg ".$msgtype.voice.duration"]] eq ""} {
 						set tg_duration "0"
 					}
 
