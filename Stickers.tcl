@@ -1,3 +1,28 @@
+# ---------------------------------------------------------------------------- #
+# Telegram-API Sticker module for Eggdrop v20180211                            #
+#                                                                              #
+# written by Eelco Huininga 2016-2018                                          #
+# ---------------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------------- #
+# Replace sticker code with ASCII code                                         #
+# ---------------------------------------------------------------------------- #
+proc sticker2ascii {file_id} {
+	global stickertable
+
+	foreach {filedesc stickerdesc} [array get stickertable] {
+		if {$file_id == $filedesc} {
+			return $stickerdesc
+		}
+	}
+
+	return [::msgcat::mc MSG_TG_UNKNOWNSTICKER]
+}
+
+# ---------------------------------------------------------------------------- #
+# Sticker set definitions                                                      #
+# ---------------------------------------------------------------------------- #
+
 array set stickersets {
 	{TelegramGreatMinds}	{"Great Minds"}
 	{EvilMinds}		{"Evil Minds"}
