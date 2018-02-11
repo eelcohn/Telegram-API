@@ -17,7 +17,7 @@ source "[file join [file dirname [info script]] Locate.conf]"
 # ---------------------------------------------------------------------------- #
 
 proc openstreetmaps_getLocation {chat_id msgid channel message parameter_start} {
-	if {[set locationquery [string map {" " "%20"} [string trim [string range $message $parameter_start end]]]]} {
+	if {[set locationquery [string map {" " "%20"} [string trim [string range $message $parameter_start end]]]] ne ""} {
 		if { [ catch {
 			set result [exec curl --tlsv1.2 -s -X GET "https://nominatim.openstreetmap.org/search?q=$locationquery&format=json&polygon=0&addressdetails=0"]
 		} ] } {
@@ -26,10 +26,11 @@ proc openstreetmaps_getLocation {chat_id msgid channel message parameter_start} 
 		}
 
 		set result [string map {" : " ":"} $result]
-		set display_name [::libjson::getValue $result ".\[0\].display_name"]
+		set display_name [::libjson::getValue $result ".\[0\].display_name//empty"]
 		if {$display_name eq ""} {
-			libtelegram::sendReplyToMessage $chat_id $msgid "html" "Nothing found."
-			putchan $channel "Nothing found."
+			set result "[::msgcat::mc MSG_LOCATE_NOTFOUND]"
+			libtelegram::sendReplyToMessage $chat_id $msgid "html" "$result"
+			putchan $channel "$result"
 		} else {
 			set lat [::libjson::getValue $result ".\[0\].lat"]
 			set lon [::libjson::getValue $result ".\[0\].lon"]
