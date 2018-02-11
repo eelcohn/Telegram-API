@@ -47,12 +47,16 @@ proc ::telegram::initialize {} {
 	global nick
 
 	# Get some basic info about the Telegram bot
-	set result [::libtelegram::getMe]
+	if {[set result [::libtelegram::getMe]] == -1} {
+		# Network is probably down, so schedule the next initialize
+		utimer $::telegram::tg_poll_freq ::telegram::initialize
+ 		return -1
+	}
 
 	if {[::libjson::getValue $result ".ok"] ne "true"} {
 		putlog "Telegram-API: bad result from getMe method: [::libjson::getValue $result ".description"]"
 		utimer $::telegram::tg_poll_freq tg2irc_pollTelegram
-		return -1
+		return -2
 	}
 
 	# Get the Telegram bot's nickname and realname
@@ -138,7 +142,7 @@ proc ::telegram::pollTelegram {} {
 		return -3
 	}
 
-	# Iterate through each status update
+	# Cycle through each status update
 	foreach msg [split [::libjson::getValue $result ".result\[\]"] "\n"] {
 		set ::telegram::tg_update_id [::libjson::getValue $msg ".update_id"]
 #		set msgtype [::libjson::getValue $msg ". | keys\[\] | select(. != \"update_id\")"]
@@ -566,8 +570,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 #				setuser $irchandle XTRA "IRL" "[string range $first_name 0 159] [string range $last_name 0 159]"
 
 				# Lookup the last login time
-				set lastlogin [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"]
-				if {$lastlogin == ""} {
+				if {[set lastlogin [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"]] == ""} {
 					# First login of this user, so set LASTLOGOUT and LASTUSERID to defaults
 					set lastlogin "[::msgcat::mc MSG_BOT_FIRSTLOGIN "$::telegram::tg_bot_nickname"]"
 					setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "0"
@@ -912,8 +915,7 @@ proc ::telegram::ircSendFile {nick file_id} {
 	set timeout [expr ${xfer-timeout} + 1]
 
 #	if {[regexp {"/[^A-Za-z0-9\-_]/"} $file_id]} {
-		set result [::libtelegram::getFile $file_id]
-		if {$result ne -1} {
+		if {[set result [::libtelegram::getFile $file_id]] ne -1} {
 			set file_path [::libjson::getValue $result ".result.file_path"]
 			set file_size [::libjson::getValue $result ".result.file_size"]
 
