@@ -31,7 +31,7 @@ proc ::telegram::ircuser {chat_id msgid channel message parameter_start} {
 			set response "[::msgcat::mc MSG_BOT_IRCUSERUNKNOWN "$handle" "$serveraddress/$channel" "$channel"]"
 		}
 	} else {
-		set response [::msgcat::mc MSG_BOT_HELP_IRCUSER]
+		set response [::msgcat::mc MSG_BOT_IRCUSER_HELP]
 	}
 	::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 	putchan $channel "[strip_html $response]"
