@@ -14,6 +14,7 @@ namespace eval ::telegram {}
 # Declare global variables and set default variables
 set		::telegram::tg_poll_freq		5
 set		::telegram::tg_web_page_preview		false
+set		::telegram::tg_prefer_usernames		true
 set		::telegram::locale			"en"
 set		::telegram::timeformat			"%Y-%m-%d %H:%M:%S"
 set		::telegram::colorize_nicknames		0
@@ -370,7 +371,7 @@ proc ::telegram::pollTelegram {} {
 
 				# Check if someone has been added to the Telegram group
 				if {[::libjson::hasKey $msg ".$msgtype.new_chat_member"]} {
-					set new_chat_member [concat [::libjson::getValue $msg ".$msgtype.new_chat_member.first_name"] [::libjson::getValue $msg ".$msgtype.new_chat_member.last_name"]]
+					set new_chat_member [::telegram::getUsername [::libjson::getValue $msg ".$msgtype.new_chat_member"]]
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
@@ -386,7 +387,7 @@ proc ::telegram::pollTelegram {} {
 
 				# Check if someone has been removed from the Telegram group
 				if {[::libjson::hasKey $msg ".$msgtype.left_chat_member"]} {
-					set left_chat_member [concat [::libjson::getValue $msg ".$msgtype.left_chat_member.first_name"] [::libjson::getValue $msg ".$msgtype.left_chat_member.last_name"]]
+					set left_chat_member [::telegram::getUsername [::libjson::getValue $msg ".$msgtype.left_chat_member"]]
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
@@ -432,7 +433,6 @@ proc ::telegram::pollTelegram {} {
 				}
 
 				# Check if the group is migrated to a supergroup
-				
 				if {[set newchatid [::libjson::getValue $msg ".$msgtype.migrate_to_chat_id"]] ne "null"} {
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
@@ -709,7 +709,7 @@ proc ::telegram::getPinnedMessage {chattype pinned_message} {
 # ---------------------------------------------------------------------------- #
 proc ::telegram::getUsername {userobject} {
 	# Set sender's name for group or supergroup messages
-	if {[set name [::libjson::getValue $userobject ".username"]] == "null" } {
+	if {([set name [::libjson::getValue $userobject ".username"]] == "null") || (!$::telegram::tg_prefer_usernames)} {
 		set name [concat [::libjson::getValue $userobject ".first_name//empty"] [::libjson::getValue $userobject ".last_name//empty"]]
 	}
 	putlog "[::libjson::getValue $userobject ".id"] -> $name"
