@@ -5,17 +5,17 @@
 # ---------------------------------------------------------------------------- #
 
 proc ::telegram::irctopic {chat_id msgid channel message parameter_start} {
-  global serveraddress
+	global serveraddress
 
-  set response "[::msgcat::mc MSG_BOT_TG_TOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
+	set response "[::msgcat::mc MSG_BOT_IRCTOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
 	::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 	putchan $channel "[strip_html $response]"
 }
 
 proc ::telegram::ircuser {chat_id msgid channel message parameter_start} {
-  set handle [string trim [string range $message $parameter_start end]]
+	set handle [string trim [string range $message $parameter_start end]]
 
-  if {$handle != ""} {
+	if {$handle != ""} {
   	if {[onchan $handle $channel]} {
 			set online_since [getchanjoin $handle $channel]
 			set response "[::msgcat::mc MSG_BOT_IRCUSER "$handle" "$online_since" "$serveraddress/$channel" "$channel" "[getchanhost $handle $channel]"]"
@@ -30,7 +30,7 @@ proc ::telegram::ircuser {chat_id msgid channel message parameter_start} {
 }
 
 proc ::telegram::ircusers {chat_id msgid channel message parameter_start} {
-  set response "[::msgcat::mc MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[string map {" " "\n"} [chanlist $channel]]"]"
+	set response "[::msgcat::mc MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[string map {" " "\n"} [chanlist $channel]]"]"
 	::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 	putchan $channel "[strip_html $response]"
 }
