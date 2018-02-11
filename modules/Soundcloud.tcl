@@ -28,7 +28,7 @@ proc soundcloud_getTrack {chat_id msgid channel message parameter_start} {
 		if {[::libjson::getValue $result "total"] eq "0"} {
 			set url "[::msgcat::mc MSG_SOUNDCLOUD_NOTFOUND]"
 		} else {
-			if {[set url [::libjson::getValue $result "permalink_url"]} eq -1} {
+			if {[set url [::libjson::getValue $result "permalink_url"]] eq -1} {
 				set url "[::msgcat::mc MSG_SOUNDCLOUD_NOVALID]"
 			}
 		}
