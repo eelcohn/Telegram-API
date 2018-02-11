@@ -13,6 +13,9 @@ proc ::telegram::irctopic {chat_id msgid channel message parameter_start} {
 	set response "[::msgcat::mc MSG_BOT_IRCTOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
 	::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 	putchan $channel "[strip_html $response]"
+
+	# Return success
+	return 0
 }
 
 # ---------------------------------------------------------------------------- #
@@ -24,17 +27,21 @@ proc ::telegram::ircuser {chat_id msgid channel message parameter_start} {
 	set handle [string trim [string range $message $parameter_start end]]
 
 	if {$handle != ""} {
-  	if {[onchan $handle $channel]} {
-			set online_since [getchanjoin $handle $channel]
+  		if {[onchan $handle $channel]} {
+			set online_since [clock format [getchanjoin $handle $channel] -format $::telegram::timeformat]
 			set response "[::msgcat::mc MSG_BOT_IRCUSER "$handle" "$online_since" "$serveraddress/$channel" "$channel" "[getchanhost $handle $channel]"]"
 		} else {
 			set response "[::msgcat::mc MSG_BOT_IRCUSERUNKNOWN "$handle" "$serveraddress/$channel" "$channel"]"
 		}
+		::libtelegram::sendMessage $chat_id $msgid "html" "$response"
+		putchan $channel "[strip_html $response]"
+
+		# Return success
+		return 0
 	} else {
-		set response "/ircuser $::telegram::public_commands_help(ircuser)"
+		# Return an error, so the help message will be shown
+		return -1
 	}
-	::libtelegram::sendMessage $chat_id $msgid "html" "$response"
-	putchan $channel "[strip_html $response]"
 }
 
 # ---------------------------------------------------------------------------- #
@@ -46,6 +53,9 @@ proc ::telegram::ircusers {chat_id msgid channel message parameter_start} {
 	set response "[::msgcat::mc MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[string map {" " "\n"} [chanlist $channel]]"]"
 	::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 	putchan $channel "[strip_html $response]"
+
+	# Return success
+	return 0
 }
 
 ::telegram::addPublicCommand irctopic ::telegram::irctopic "[::msgcat::mc MSG_BOT_IRCTOPIC_HELP]"
