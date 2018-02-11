@@ -56,6 +56,7 @@
 ::msgcat::mcset nl MSG_BOT_IRCUSERS		"Op <a href=\"%1\$s\">%2\$s\</a> zijn de volgende gebruikers bekend:\n\n%3\$s"
 ::msgcat::mcset nl MSG_BOT_IRCUSER		"<i>%1\$s@IRC</i> is sinds %2\$s op <a href=\"%3\$s\">%4\$s</a> bekend als <i>%5\$s</i>"
 ::msgcat::mcset nl MSG_BOT_IRCUSERUNKNOWN	"<i>%1\$s@IRC</i> is niet bekend op <a href=\"%2\$s\">%3\$s</a>"
+::msgcat::mcset en MSG_BOT_IRCUSER_HELP " <nickname>: Laat gedetailleerde informatie zien over een gebruiker op IRC."
 ::msgcat::mcset nl MSG_BOT_UNKNOWNCMD		"Dat snap ik niet. Type /help om een overzicht van alle commando's te bekijken."
 
 # Messages for admins controlling your bot
