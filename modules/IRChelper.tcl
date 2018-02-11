@@ -13,6 +13,8 @@ proc ::telegram::irctopic {chat_id msgid channel message parameter_start} {
 }
 
 proc ::telegram::ircuser {chat_id msgid channel message parameter_start} {
+	global serveraddress
+
 	set handle [string trim [string range $message $parameter_start end]]
 
 	if {$handle != ""} {
@@ -30,6 +32,8 @@ proc ::telegram::ircuser {chat_id msgid channel message parameter_start} {
 }
 
 proc ::telegram::ircusers {chat_id msgid channel message parameter_start} {
+	global serveraddress
+
 	set response "[::msgcat::mc MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[string map {" " "\n"} [chanlist $channel]]"]"
 	::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 	putchan $channel "[strip_html $response]"
