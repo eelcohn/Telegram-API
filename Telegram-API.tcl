@@ -829,11 +829,11 @@ proc ::telegram::ircNickLeft {nick uhost handle channel message} {
 # ---------------------------------------------------------------------------- #
 # Send an action from an IRC user to Telegram                                  #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::ircNickAction {nick uhost handle dest keyword message} {
+proc ::telegram::ircNickAction {nick uhost handle channel keyword message} {
 	# Only send an action message to the Telegram group if the 'voice'-flag is set in the user flags variable
 	if {[string match "*v*" $::telegram::userflags]} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-			if {$dest eq $tg_channel} {
+			if {$channel eq $tg_channel} {
 				::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKACTION "$nick" "$nick" "$message"]
 			}
 		}
