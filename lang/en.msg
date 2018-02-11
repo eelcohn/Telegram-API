@@ -56,6 +56,7 @@
 ::msgcat::mcset en MSG_BOT_IRCUSERS		"The following users are known on <a href=\"%1\$s\">%2\$s\</a>:\n\n%3\$s"
 ::msgcat::mcset en MSG_BOT_IRCUSER			"<i>%1\$s@IRC</i> is since %2\$s on <a href=\"%3\$s\">%4\$s</a> known as <i>%5\$s</i>"
 ::msgcat::mcset en MSG_BOT_IRCUSERUNKNOWN	"<i>%1\$s@IRC</i> is not known on <a href=\"%2\$s\">%3\$s</a>"
+::msgcat::mcset en MSG_BOT_IRCUSER_HELP " <nickname>: Show detailed information about an user on IRC."
 ::msgcat::mcset en MSG_BOT_UNKNOWNCMD		"I don't get that. Type /help to see a list of all commands."
 
 # Messages for admins controlling your bot
