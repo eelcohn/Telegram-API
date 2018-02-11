@@ -688,10 +688,7 @@ proc ::telegram::getPinnedMessage {chattype pinned_message} {
 	if {$chattype eq "channel"} {
 		set pin_name [::libunicode::utf82ascii [::libjson::getValue $pinned_message ".chat.username"]]
 	} else {
-		if {[set pin_name [::libjson::getValue $pinned_message ".from.username"]] == "null" } {
-			set pin_name [concat [::libjson::getValue $pinned_message ".from.first_name//empty"] [::libjson::getValue $pinned_message ".from.last_name//empty"]]
-		}
-		set pin_name "\003[getColorFromUserID [::libjson::getValue $pinned_message ".from.id"]][::libunicode::utf82ascii $pin_name]\003"
+		set pin_name [::telegram::getUsername [::libjson::getValue $pinned_message ".from"]]
 	}
 
 	set pin_date "[clock format [::libjson::getValue $pinned_message ".date"] -format $::telegram::timeformat]"
