@@ -1013,9 +1013,9 @@ proc ::telegram::tgGetUserInfo {channel nick user_id} {
 				set is_bot [::libjson::getValue $result ".result.user.is_bot"]
 				set language_code [::libjson::getValue $result ".result.user.language_code"]
 				set status [::libjson::getValue $result ".result.status"]
-				putchan $channel "[::msgcat::mc MSG_TG_USERINFO $user_id $username $first_name $last_name $is_bot $language_code $status]"
+				putchan $channel "[::msgcat::mc MSG_BOT_USERINFO $user_id $username $first_name $last_name $is_bot $language_code $status]"
 			} else {
-				putchan $channel "[::msgcat::mc MSG_TG_USERNOTVALID]"
+				putchan $channel "[::msgcat::mc MSG_BOT_USERNOTVALID $user_id]"
 			}
 		}
 	}
