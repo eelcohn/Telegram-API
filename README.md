@@ -18,7 +18,7 @@ This script requires `tcl`, `eggdrop`, `curl` and `jq`:
 * Seamless translation of Unicode emoji's to ASCII variants and vice-versa
 * Support for Telegram Stickers
 * Download Telegram attachments using DCC on your favourite IRC client (a PHP-script on your webserver is available as an alternative)
-* Multi-language support (currently English and Dutch are available)
+* Multi-language support (currently English, Dutch and German are available)
 * Global and per-user settings for allowing/denying notifications for joins/leaves/kicks/bans etc.
 * You can login/logout to your Eggdrop bot from your Telegram client
 * Linking your Eggdrop user profile to your Telegram account
