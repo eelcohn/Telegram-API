@@ -734,6 +734,10 @@ proc ::telegram::ircSendMessage {nick hostmask handle channel msg} {
 			::telegram::ircSendFile $nick [string trim [string range $msg $parameter_start end]]
 			return 0
 		}
+		if {[string match $command "tguser"]} {
+			::telegram::tgGetUserInfo $channel $nick [string trim [string range $msg $parameter_start end]]
+			return 0
+		}
 	}
 
 	# Only send a message to the Telegram group if the 'voice'-flag is set in the user flags variable
@@ -988,6 +992,28 @@ proc ::telegram::cleanUpFiles {} {
 				putlog "DCC transfer timed out. File $filename succesfully deleted"
 			}
 			array unset ::telegram::filetransfers $filename
+		}
+	}
+}
+
+# ---------------------------------------------------------------------------- #
+# Show information about a Telegram user                                       #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::tgGetUserInfo {channel nick user_id} {
+	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+		if {$channel eq $tg_channel} {
+			set result [::libtelegram::getChatMember $chat_id $user_id]
+			if {[set username [::libjson::getValue $result ".result.user.username"]] eq "null"} {
+				set username "N/A"
+			}
+			set first_name [::libjson::getValue $result ".result.user.first_name"]
+			if {[set last_name [::libjson::getValue $result ".result.user.last_name"]] eq "null"} {
+				set last_name "N/A"
+			}
+			set is_bot [::libjson::getValue $result ".result.user.is_bot"]
+			set language_code [::libjson::getValue $result ".result.user.language_code"]
+			set status [::libjson::getValue $result ".result.status"]
+			putchan $channel "[::msgcat::mc MSG_TG_USERINFO $user_id $username $first_name $last_name $is_bot $language_code $status]"
 		}
 	}
 }
