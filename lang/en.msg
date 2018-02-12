@@ -63,9 +63,11 @@
 ::msgcat::mcset en MSG_BOT_IRCKICK_HELP " <nickname>: Kick an IRC user from the IRC channel."
 ::msgcat::mcset en MSG_BOT_IRCBAN_HELP " <nickname>: Ban an IRC user from the IRC channel."
 ::msgcat::mcset en MSG_BOT_IRCUNBAN_HELP " <nickname>: Unban an IRC user from the IRC channel."
-::msgcat::mcset en MSG_BOT_USERINFO  "Telegram ID %1\$s is a %2\$s, has a real name of %3\$s, has a nickname of %4\$s and has the status of %5\$s."
-::msgcat::mcset en MSG_BOT_USERNOTVALID  "Can't get information on Telegram ID %1\$s on this channel."
-::msgcat::mcset en MSG_BOT_UNKNOWNCMD		"I don't get that. Type /help to see a list of all commands."
+::msgcat::mcset en MSG_BOT_TGUSERINFO  "Telegram ID %1\$s is a %2\$s, has a first name of %3\$s, has a last name of %4\$s, has a nickname of %5\$s, has a language %6\$s and has the status of %7\$s."
+::msgcat::mcset en MSG_BOT_TGUSERNOTVALID  "Can't get information on Telegram ID %1\$s on this channel."
+::msgcat::mcset en MSG_BOT_TGUSER "user"
+::msgcat::mcset en MSG_BOT_TGBOT "bot"
+::msgcat::mcset en MSG_BOT_TGUSERNOTVALID  "Can't get information on Telegram ID %1\$s on this channel."
 
 # Messages for admins controlling your bot
 ::msgcat::mcset en MSG_BOT_PASSWORDSET	"Welcome to %1\$s! Your password has been set."
