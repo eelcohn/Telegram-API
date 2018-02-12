@@ -1021,6 +1021,7 @@ proc ::telegram::tgGetUserInfo {channel nick user_id} {
 					putchan $channel "[::msgcat::mc MSG_BOT_TGUSERINFO $user_id $usertype $first_name $last_name $username $language_code $status]"
 				} else {
 					putchan $channel "[::msgcat::mc MSG_BOT_TGUSERNOTVALID $user_id]"
+				}
 			} else {
 				putchan $channel "[::msgcat::mc MSG_TG_NOCONNECTION $user_id]"
 			}
