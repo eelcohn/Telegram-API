@@ -410,7 +410,7 @@ proc ::telegram::pollTelegram {} {
 				}
 
 				# Check if the photo of the Telegram group chat has changed
-				if {[set file_id [::libjson::getValue $msg ".$msgtype.new_chat_photo\[3\].file_id"]] ne "null"} {
+				if {[set file_id [::libjson::getValue $msg ".$msgtype.new_chat_photo\[-1\].file_id"]] ne "null"} {
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
