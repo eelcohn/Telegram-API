@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - English language file v20180211            #
+# Telegram-API module for Eggdrop - English language file v20180212            #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -51,7 +51,6 @@
 # Messages for user commands for your bot
 ::msgcat::mcset en MSG_BOT_PUBHELP			"I'm <i>%1\$s</i>, your personal bartender. Available commands are:\n"
 ::msgcat::mcset en MSG_BOT_PRVHELP			"I'm <i>%1\$s</i>, your personal bartender. Available commands are:\n"
-::msgcat::mcset en MSG_BOT_HELP_IRCUSER	"You haven't entered an username. Type /ircuser <username> to look up information on an IRC user."
 ::msgcat::mcset en MSG_BOT_IRCTOPIC		"The topic on <a href=\"%1\$s\">%2\$s</a> is: <i>%3\$s</i>"
 ::msgcat::mcset en MSG_BOT_IRCTOPIC_HELP		": Show the topic for the IRC channel(s) linked to this Telegram group."
 ::msgcat::mcset en MSG_BOT_IRCUSERS		"The following users are known on <a href=\"%1\$s\">%2\$s\</a>:\n\n%3\$s"
@@ -69,7 +68,7 @@
 ::msgcat::mcset en MSG_BOT_UNKNOWNCMD		"I don't get that. Type /help to see a list of all commands."
 
 # Messages for admins controlling your bot
-::msgcat::mcset en MSG_BOT_PASSWORDSET	"Welcme to %1\$s! Your password has been set."
+::msgcat::mcset en MSG_BOT_PASSWORDSET	"Welcome to %1\$s! Your password has been set."
 ::msgcat::mcset en MSG_BOT_USERLOGIN		"Welcome to %1\$s! You're now logged in as %2\$s."
 ::msgcat::mcset en MSG_BOT_USERLOGOUT		"You are now logged out as %1\$s."
 ::msgcat::mcset en MSG_BOT_FIRSTLOGIN	"This is your first Telegram-login to %1\$s."
