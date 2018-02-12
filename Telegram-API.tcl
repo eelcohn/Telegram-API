@@ -500,7 +500,7 @@ proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 		}
 
 		# Not in our dynamic command list either, so respond with an unknown command message
-		::libtelegram::sendMessage $chat_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
+		::libtelegram::sendMessage $chat_id $msgid "html" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 		putchan $channel "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 		return -1
 	}
@@ -556,7 +556,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 			# Set the password if this is the first time this user logs in
 #			if {[getuser $irchandle PASS] == ""} {
 #				setuser $irchandle PASS "$ircpassword"
-#				::libtelegram::sendMessage $from_id $msgid "markdown" "[::msgcat::mc MSG_BOT_PASSWORDSET "$::telegram::tg_bot_nickname"]"
+#				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_PASSWORDSET "$::telegram::tg_bot_nickname"]"
 #			}
 
 			# Check if the password matches
@@ -638,7 +638,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 			}
 
 			# Not in our dynamic command list either, so respond with an unknown command message
-			::libtelegram::sendMessage $from_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
+			::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 		}
 	}
 }
