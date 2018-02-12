@@ -108,7 +108,7 @@ proc ::telegram::ircBan {from_id chat_id msgid channel message parameter_start} 
 			if {[botisop $channel] || [botishalfop $channel]} {
 				foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
 					if {$chat_id eq $tg_chat_id} {
-						newchanban $tg_channel $handle $::telegram::irc_bot_nickname [::msgcat::mc MSG_IRCBANUSER]
+						newchanban $tg_channel [getchanhost $handle $channel] $::telegram::irc_bot_nickname [::msgcat::mc MSG_IRCBANUSER]
 					}
 				}
 				# Return success
