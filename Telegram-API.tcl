@@ -1010,12 +1010,16 @@ proc ::telegram::tgGetUserInfo {channel nick user_id} {
 				if {[set last_name [::libjson::getValue $result ".result.user.last_name"]] eq "null"} {
 					set last_name "N/A"
 				}
-				set is_bot [::libjson::getValue $result ".result.user.is_bot"]
+				if {[::libjson::getValue $result ".result.user.is_bot"] eq "true"} {
+					set usertype [::msgcat::mc MSG_BOT_TGBOT]
+				} else {
+					set usertype [::msgcat::mc MSG_BOT_TGUSER]
+				}
 				set language_code [::libjson::getValue $result ".result.user.language_code"]
 				set status [::libjson::getValue $result ".result.status"]
-				putchan $channel "[::msgcat::mc MSG_BOT_USERINFO $user_id $username $first_name $last_name $is_bot $language_code $status]"
+				putchan $channel "[::msgcat::mc MSG_BOT_TGUSERINFO $user_id $usertype $first_name $last_name $username $language_code $status]"
 			} else {
-				putchan $channel "[::msgcat::mc MSG_BOT_USERNOTVALID $user_id]"
+				putchan $channel "[::msgcat::mc MSG_BOT_TGUSERNOTVALID $user_id]"
 			}
 		}
 	}
