@@ -198,12 +198,10 @@ proc ::telegram::pollTelegram {} {
 				}
 
 				# Check if a text message has been sent to the Telegram group
-				if {[::libjson::hasKey $msg ".$msgtype.text"]} {
-					set txt [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.text"]]
-
+				if {[set txt [::libjson::getValue $msg ".$msgtype.text"]] ne "null"} {
 					# Modify text if it is a reply-to or forwarded from
 					if {[info exists replyname]} {
-						set replytomsg [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.reply_to_message.text"]]
+						set replytomsg [::libjson::getValue $msg ".$msgtype.reply_to_message.text"]
 						set txt "[::msgcat::mc MSG_TG_MSGREPLYTOSENT "$txt" "$replyname" "$replytomsg"]"
 					} elseif {[info exists forwardname]} {
 						set txt "[::msgcat::mc MSG_TG_MSGFORWARDED "$txt" "$forwardname"]"
@@ -214,7 +212,7 @@ proc ::telegram::pollTelegram {} {
 						# Send the text message if it matches
 						if {$chatid eq $tg_chat_id} {
 							# Treat each line seperate
-							foreach line [split [string map {\\n \n} $txt] "\n"] {
+							foreach line [split [string map {\\n \n} [::libunicode::utf82ascii $txt]] "\n"] {
 								putchan $irc_channel [::msgcat::mc MSG_TG_MSGSENT "$name" "[remove_slashes $line]"]
 		
 								# If the line contains an URL, get the title of the website
