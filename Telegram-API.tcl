@@ -171,8 +171,10 @@ proc ::telegram::pollTelegram {} {
 				# Get the sender's name for this message
 				if {$chattype eq "channel"} {
 					set name [::telegram::getUsername [::libjson::getValue $msg ".channel_post.chat"]]
+					set from_id [::libjson::getValue $msg ".channel_post.chat.id"]
 				} else {
 					set name [::telegram::getUsername [::libjson::getValue $msg ".$msgtype.from"]]
+					set from_id [::libjson::getValue $msg ".$msgtype.from.id"]
 				}
 
 				# Get the caption of this message (if any)
@@ -223,7 +225,6 @@ proc ::telegram::pollTelegram {} {
 		
 							# Check if it was a public bot command
 							if {[string match "*[string index $txt 0]*" "$::telegram::cmdmodifier"]} {
-								set from_id [::libjson::getValue $msg ".$msgtype.from.id"]
 								set msgid [::libjson::getValue $msg ".$msgtype.message_id"]
 								::telegram::publicCommand $from_id "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
 							}
