@@ -11,7 +11,7 @@
 # Create a namespace for the Telegram-API script
 namespace eval ::telegram {}
 
-# Declare global variables and set default variables
+# Declare global variables and set default values
 set		::telegram::tg_poll_freq		5
 set		::telegram::tg_web_page_preview		false
 set		::telegram::tg_prefer_usernames		true
