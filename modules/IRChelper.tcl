@@ -67,7 +67,7 @@ proc ::telegram::ircKick {from_id chat_id msgid channel message parameter_start}
 	# Check if the Telegram user requesting the unban is logged in
 	if {[set irchandle [::telegram::getIRCNickFromTelegramID $from_id]] != -1} {
 		# Check if the bot has enough privileges to perform the kick
-		if {[botisop] || [botishalfop]} {
+		if {[botisop $channel] || [botishalfop $channel]} {
 			foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
 				if {$chat_id eq $tg_chat_id} {
 					putkick $tg_channel $handle [::msgcat::mc MSG_IRCKICKUSER]
@@ -100,7 +100,7 @@ proc ::telegram::ircBan {from_id chat_id msgid channel message parameter_start} 
 	# Check if the Telegram user requesting the unban is logged in
 	if {[set irchandle [::telegram::getIRCNickFromTelegramID $from_id]] != -1} {
 		# Check if the bot has enough privileges to perform the ban
-		if {[botisop] || [botishalfop]} {
+		if {[botisop $channel] || [botishalfop $channel]} {
 			foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
 				if {$chat_id eq $tg_chat_id} {
 					newchanban $tg_channel $handle $::telegram::irc_bot_nickname [::msgcat::mc MSG_IRCBANUSER]
@@ -134,7 +134,7 @@ proc ::telegram::ircUnban {from_id chat_id msgid channel message parameter_start
 	# Check if the Telegram user requesting the unban is logged in
 	if {[set irchandle [::telegram::getIRCNickFromTelegramID $from_id]] != -1} {
 		# Check if the bot has enough privileges to perform the unban
-		if {[botisop] || [botishalfop]} {
+		if {[botisop $channel] || [botishalfop $channel]} {
 			foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
 				if {$chat_id eq $tg_chat_id} {
 					if {[killchanban $tg_channel $handle] eq 0} {
