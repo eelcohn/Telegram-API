@@ -59,6 +59,13 @@
 ::msgcat::mcset en MSG_BOT_IRCUSER			"<i>%1\$s@IRC</i> is since %2\$s on <a href=\"%3\$s\">%4\$s</a> known as <i>%5\$s</i>"
 ::msgcat::mcset en MSG_BOT_IRCUSERUNKNOWN	"<i>%1\$s@IRC</i> is not known on <a href=\"%2\$s\">%3\$s</a>"
 ::msgcat::mcset en MSG_BOT_IRCUSER_HELP " <nickname>: Show detailed information about an user on IRC."
+::msgcat::mcset en MSG_IRCKICKUSER "You've been kicked from this channel by a Telegram user."
+::msgcat::mcset en MSG_IRCBANUSER "You've been banned from this channel by a Telegram user."
+::msgcat::mcset en MSG_BOT_IRCKICK_HELP " <nickname>: Kick an IRC user from the IRC channel."
+::msgcat::mcset en MSG_BOT_IRCBAN_HELP " <nickname>: Ban an IRC user from the IRC channel."
+::msgcat::mcset en MSG_BOT_IRCUNBAN_HELP " <nickname>: Unban an IRC user from the IRC channel."
+::msgcat::mcset en MSG_BOT_USERINFO  "Telegram ID %1\$s is a %2\$s, has a real name of %3\$s, has a nickname of %4\$s and has the status of %5\$s."
+::msgcat::mcset en MSG_BOT_USERNOTVALID  "Can't get information on Telegram ID %1\$s on this channel."
 ::msgcat::mcset en MSG_BOT_UNKNOWNCMD		"I don't get that. Type /help to see a list of all commands."
 
 # Messages for admins controlling your bot
