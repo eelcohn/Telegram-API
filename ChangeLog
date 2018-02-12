@@ -1,7 +1,8 @@
 v20180212:
 * Added German translation
-* Added /irckick, /ircban and /ircunban commands for Telegram users (
+* Added /irckick, /ircban and /ircunban commands for Telegram users
 * Fixed issue where a txt message starting with ? is interpreted as a bot command
+* Fixed an issue where changing the Telegram group picture wasn't handled correctly
 
 v20180211:
 * Fixed getting website title on certain websites
