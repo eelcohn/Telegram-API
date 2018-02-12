@@ -49,7 +49,7 @@
 ::msgcat::mcset nl MSG_TG_UNIMPL		"Onbekend Telegram bericht ontvangen: %1\$s"
 
 # Messages for user commands for your bot
-::msgcat::mcset nl MSG_BOT_PUBHELP		"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. Begin een commando met <b>/</b> en je krijgt een lijst van mogelijkheden te zien."
+::msgcat::mcset nl MSG_BOT_PUBHELP		"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. De beschikbare commando's zijn:"
 ::msgcat::mcset nl MSG_BOT_PRVHELP			"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. De beschikbare commando's zijn:\n"
 ::msgcat::mcset nl MSG_BOT_IRCTOPIC		  "Het onderwerp op <a href=\"%1\$s\">%2\$s</a> is: <i>%3\$s</i>"
 ::msgcat::mcset nl MSG_BOT_IRCTOPIC_HELP		": Geef het onderwerp weer op het IRC kanaal."
