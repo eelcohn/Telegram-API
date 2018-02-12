@@ -1034,23 +1034,24 @@ proc ::telegram::tgGetUserInfo {channel nick user_id} {
 # ---------------------------------------------------------------------------- #
 # Some general usage procedures
 # ---------------------------------------------------------------------------- #
-# Get the userflags for a specific user                                        #
+# Look up the IRC handle for an Telegram user ID                               #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::getUserFlags {irchandle} {
-	set irchandle ""
-
-	# Look up the IRC handle for the Telegram user
+proc ::telegram::getIRCNickFromTelegramID {telegram_id} {
 	foreach user [userlist] {
-		if {[getuser $user XTRA "TELEGRAM_USERID"] == "$from_id"} {
-			set irchandle $user
+		if {[getuser $user XTRA "TELEGRAM_USERID"] == "$telegram_id"} {
+			return $user
 		}
 	}
+	return -1
+}
 
+# ---------------------------------------------------------------------------- #
+# Get the userflags for a specific user                                        #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::getUserFlags {telegram_id} {
 	# Get the userflags for this user, or return the global userflags if the user doesn't have them
-	if {$irchandle != ""} {
-		if {[getuser $irchandle XTRA "TELEGRAM_USERFLAGS"] == ""} {
-			return $::telegram::userflags
-		} else {
+	if {[set irchandle [::telegram::getIRCNickFromTelegramID $telegram_id]] ne -1} {
+		if {[getuser $irchandle XTRA "TELEGRAM_USERFLAGS"] ne ""} {
 			return [getuser $irchandle XTRA "TELEGRAM_USERFLAGS"]
 		}
 	}
