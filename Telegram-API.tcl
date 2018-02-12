@@ -223,8 +223,9 @@ proc ::telegram::pollTelegram {} {
 		
 							# Check if it was a public bot command
 							if {[string match "*[string index $txt 0]*" "$::telegram::cmdmodifier"]} {
+								set from_id [::libjson::getValue $msg ".$msgtype.from.id"]
 								set msgid [::libjson::getValue $msg ".$msgtype.message_id"]
-								::telegram::publicCommand "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
+								::telegram::publicCommand $from_id "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
 							}
 						}
 					}
@@ -456,7 +457,7 @@ proc ::telegram::pollTelegram {} {
 # ---------------------------------------------------------------------------- #
 # Respond to group commands send by Telegram users                             #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::publicCommand {chat_id msgid channel message} {
+proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 	global serveraddress
 
 	set parameter_start [string wordend $message 1]
@@ -490,7 +491,7 @@ proc ::telegram::publicCommand {chat_id msgid channel message} {
 			# Not one of the standard bot commands, so check if the bot command is in our dynamic command list
 			foreach {cmd prc} [array get ::telegram::public_commands] {
 				if {$command == $cmd} {
-					if {[$prc $chat_id $msgid $channel $message $parameter_start] ne 0} {
+					if {[$prc $from_id $chat_id $msgid $channel $message $parameter_start] ne 0} {
 						# The module returned an error, so show the help message for the specified command
 						set response "/$command $::telegram::public_commands_help($command)"
 						::libtelegram::sendMessage $chat_id $msgid "html" "[url_encode $response]"
