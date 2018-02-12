@@ -224,7 +224,7 @@ proc ::telegram::pollTelegram {} {
 							}
 		
 							# Check if it was a public bot command
-							if {[string match "*[string index $txt 0]*" "$::telegram::cmdmodifier"]} {
+							if {[string match "*\\[string index $txt 0]*" "$::telegram::cmdmodifier"]} {
 								set msgid [::libjson::getValue $msg ".$msgtype.message_id"]
 								::telegram::publicCommand $from_id "$tg_chat_id" "$msgid" "$irc_channel" "$txt"
 							}
@@ -707,7 +707,7 @@ proc ::telegram::getUsername {userobject} {
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircSendMessage {nick hostmask handle channel msg} {
 	# Check if this is a bot command
-	if {[string match "*[string index $msg 0]*" "$::telegram::cmdmodifier"]} {
+	if {[string match "*\\[string index $msg 0]*" "$::telegram::cmdmodifier"]} {
 		# If so, then check which bot command it is, and process it. Don't send it to the Telegram group though.
 		set parameter_start [string wordend $msg 1]
 		set command [string tolower [string range $msg 1 $parameter_start-1]]
