@@ -63,8 +63,10 @@
 ::msgcat::mcset nl MSG_BOT_IRCKICK_HELP " <nickname>: Trap een gebruiker op IRC van het IRC kanaal af."
 ::msgcat::mcset nl MSG_BOT_IRCBAN_HELP " <nickname>: Verbant een gebruiker op IRC van het IRC kanaal."
 ::msgcat::mcset nl MSG_BOT_IRCUNBAN_HELP " <nickname>: Hef een verbanning van een gebruiker op IRC op het IRC kanaal op."
-::msgcat::mcset nl MSG_BOT_USERINFO  "Telegram ID %1\$s is een %2\$s, heeft als echte naam %3\$s, heeft als bijnaam %4\$s en heeft de status %5\$s."
-::msgcat::mcset nl MSG_BOT_USERNOTVALID  "Kan op dit kanaal geen informatie ophalen over Telegram ID %1\$s."
+::msgcat::mcset nl MSG_BOT_TGUSERINFO  "Telegram ID %1\$s is een %2\$s, heeft als voornaam %3\$s, heeft als achternaam %4\$s, heeft als bijnaam %5\$s, heeft als taalcode %6\$s en heeft de status %7\$s."
+::msgcat::mcset nl MSG_BOT_TGUSERNOTVALID  "Kan op dit kanaal geen informatie ophalen over Telegram ID %1\$s."
+::msgcat::mcset en MSG_BOT_TGUSER "gebruiker"
+::msgcat::mcset en MSG_BOT_TGBOT "bot"
 ::msgcat::mcset nl MSG_BOT_UNKNOWNCMD		"Dat snap ik niet. Type /help om een overzicht van alle commando's te bekijken."
 
 # Messages for admins controlling your bot
