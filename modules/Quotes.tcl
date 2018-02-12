@@ -13,7 +13,7 @@ source "[file join [file dirname [info script]] Quotes.conf]"
 # Get a quote from the quote-database                                          #
 # ---------------------------------------------------------------------------- #
 
-proc quotes_getQuote {chat_id msgid channel message parameter_start} {
+proc quotes_getQuote {from_id chat_id msgid channel message parameter_start} {
 	global quote_database
 
 	set quote_id [string trim [string range $message $parameter_start end]]
@@ -66,7 +66,7 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 # Add a quote to the quote-database                                            #
 # ---------------------------------------------------------------------------- #
 
-proc quotes_addQuote {chat_id msgid channel message parameter_start} {
+proc quotes_addQuote {from_id chat_id msgid channel message parameter_start} {
 	global quote_database
 
 	set quote [remove_slashes [string trim [string range $message $parameter_start end]]]
