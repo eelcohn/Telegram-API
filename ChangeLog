@@ -1,3 +1,19 @@
+v20180212:
+* Added German translation
+* Added /irckick, /ircban and /ircunban commands for Telegram users (
+* Fixed issue where a txt message starting with ? is interpreted as a bot command
+
+v20180211:
+* Fixed getting website title on certain websites
+* Moved sticker2ascii proc to Sticker.tcl
+* Added tg_prefer_usernames so you can choose if Telegram users are shown by their real names or by their usernames
+* Added localizations for all modules
+* Added chat title to invite link on IRC
+
+v20180210:
+* Fixed translation of UTF8 characters in chat title
+* Changed Telegram notifications to IRC channels when user joins
+
 v20180209:
 * libunicode.tcl: Removed redundant spaces and doublequotes (c6c2509 / 523f918)
 * Telegram-API.tcl: Fixed localization of private bot command help message (9062d6f)
