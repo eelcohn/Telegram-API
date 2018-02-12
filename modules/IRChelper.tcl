@@ -64,14 +64,21 @@ proc ::telegram::ircusers {chat_id msgid channel message parameter_start} {
 proc ::telegram::ircKick {chat_id msgid channel message parameter_start} {
 	set handle [string trim [string range $message $parameter_start end]]
 
-	foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
-		if {$chat_id eq $tg_chat_id} {
-			putkick $tg_channel $handle [::msgcat::mc MSG_IRCKICKUSER]
+	if {[botisop] || [botishalfop]} {
+		foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$chat_id eq $tg_chat_id} {
+				putkick $tg_channel $handle [::msgcat::mc MSG_IRCKICKUSER]
+			}
 		}
-	}
+		# Return success
+		return 0
+	} else {
+		set response "[::msgcat::mc MSG_BOT_IRCKICKNOPRIV]"
+		::libtelegram::sendMessage $chat_id $msgid "html" "$response"
+		putchan $channel "[strip_html $response]"
 
-	# Return success
-	return 0
+		return 0
+	}
 }
 
 # ---------------------------------------------------------------------------- #
@@ -80,14 +87,21 @@ proc ::telegram::ircKick {chat_id msgid channel message parameter_start} {
 proc ::telegram::ircBan {chat_id msgid channel message parameter_start} {
 	set handle [string trim [string range $message $parameter_start end]]
 
-	foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
-		if {$chat_id eq $tg_chat_id} {
-			newchanban $tg_channel $handle $::telegram::irc_bot_nickname [::msgcat::mc MSG_IRCBANUSER]
+	if {[botisop] || [botishalfop]} {
+		foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$chat_id eq $tg_chat_id} {
+				newchanban $tg_channel $handle $::telegram::irc_bot_nickname [::msgcat::mc MSG_IRCBANUSER]
+			}
 		}
-	}
+		# Return success
+		return 0
+	} else {
+		set response "[::msgcat::mc MSG_BOT_IRCBANNOPRIV]"
+		::libtelegram::sendMessage $chat_id $msgid "html" "$response"
+		putchan $channel "[strip_html $response]"
 
-	# Return success
-	return 0
+		return 0
+	}
 }
 
 # ---------------------------------------------------------------------------- #
@@ -97,16 +111,23 @@ proc ::telegram::ircUnban {chat_id msgid channel message parameter_start} {
 	set result 0
 	set handle [string trim [string range $message $parameter_start end]]
 
-	foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
-		if {$chat_id eq $tg_chat_id} {
-			if {[killchanban $tg_channel $handle] eq 0} {
-				set result -1
+	if {[botisop] || [botishalfop]} {
+		foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$chat_id eq $tg_chat_id} {
+				if {[killchanban $tg_channel $handle] eq 0} {
+					set result -1
+				}
 			}
 		}
-	}
+		# Return success
+		return 0
+	} else {
+		set response "[::msgcat::mc MSG_BOT_IRCUNBANNOPRIV]"
+		::libtelegram::sendMessage $chat_id $msgid "html" "$response"
+		putchan $channel "[strip_html $response]"
 
-	# Return success
-	return $result
+		return 0
+	}
 }
 
 ::telegram::addPublicCommand irctopic ::telegram::irctopic "[::msgcat::mc MSG_BOT_IRCTOPIC_HELP]"
