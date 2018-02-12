@@ -68,6 +68,7 @@
 ::msgcat::mcset nl MSG_BOT_TGUSER "gebruiker"
 ::msgcat::mcset nl MSG_BOT_TGBOT "bot"
 ::msgcat::mcset nl MSG_BOT_UNKNOWNCMD		"Dat snap ik niet. Type /help om een overzicht van alle commando's te bekijken."
+::msgcat::mcset nl MSG_BOT_GOTNOPRIVS "%1\$s heeft niet voldoende rechten om dat te doen."
 
 # Messages for admins controlling your bot
 ::msgcat::mcset nl MSG_BOT_PASSWORDSET	"Welkom op %1\$s! Je wachtwoord is nu ingesteld."
