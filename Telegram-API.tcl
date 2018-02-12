@@ -1003,7 +1003,7 @@ proc ::telegram::tgGetUserInfo {channel nick user_id} {
 	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {[set result [::libtelegram::getChatMember $chat_id $user_id]] ne -1} {
-				if {[::libjson::getValue $result ".ok"]] eq "true"} {
+				if {[::libjson::getValue $result ".ok"] eq "true"} {
 					if {[set username [::libjson::getValue $result ".result.user.username"]] eq "null"} {
 						set username "N/A"
 					}
