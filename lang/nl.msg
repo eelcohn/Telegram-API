@@ -59,6 +59,13 @@
 ::msgcat::mcset nl MSG_BOT_IRCUSER		"<i>%1\$s@IRC</i> is sinds %2\$s op <a href=\"%3\$s\">%4\$s</a> bekend als <i>%5\$s</i>"
 ::msgcat::mcset nl MSG_BOT_IRCUSERUNKNOWN	"<i>%1\$s@IRC</i> is niet bekend op <a href=\"%2\$s\">%3\$s</a>"
 ::msgcat::mcset nl MSG_BOT_IRCUSER_HELP " <nickname>: Laat gedetailleerde informatie zien over een gebruiker op IRC."
+::msgcat::mcset nl MSG_IRCKICKUSER "Je bent door een Telegram gebruiker van dit kanaal getrapt."
+::msgcat::mcset nl MSG_IRCBANUSER "Je bent door een Telegram gebruiker van dit kanaal verbannen."
+::msgcat::mcset nl MSG_BOT_IRCKICK_HELP " <nickname>: Trap een gebruiker op IRC van het IRC kanaal af."
+::msgcat::mcset nl MSG_BOT_IRCBAN_HELP " <nickname>: Verbant een gebruiker op IRC van het IRC kanaal."
+::msgcat::mcset nl MSG_BOT_IRCUNBAN_HELP " <nickname>: Hef een verbanning van een gebruiker op IRC op het IRC kanaal op."
+::msgcat::mcset nl MSG_BOT_USERINFO  "Telegram ID %1\$s is een %2\$s, heeft als echte naam %3\$s, heeft als bijnaam %4\$s en heeft de status %5\$s."
+::msgcat::mcset nl MSG_BOT_USERNOTVALID  "Kan op dit kanaal geen informatie ophalen over Telegram ID %1\$s."
 ::msgcat::mcset nl MSG_BOT_UNKNOWNCMD		"Dat snap ik niet. Type /help om een overzicht van alle commando's te bekijken."
 
 # Messages for admins controlling your bot
