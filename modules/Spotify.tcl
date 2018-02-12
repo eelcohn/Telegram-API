@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Spotify module for Eggdrop with the Telegram-API module v20180210            #
+# Spotify module for Eggdrop with the Telegram-API module v20180212            #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -16,7 +16,7 @@ source "[file join [file dirname [info script]] Spotify.conf]"
 # Search a track on Spotify                                                    #
 # ---------------------------------------------------------------------------- #
 
-proc spotify_getTrack {chat_id msgid channel message parameter_start} {
+proc spotify_getTrack {from_id chat_id msgid channel message parameter_start} {
 	if {[set spotifyquery [string map {" " "%20"} [string trim [string range $message $parameter_start end]]]] ne ""} {
 		if { [ catch {
 			set result [exec curl --tlsv1.2 -s -X GET https://api.spotify.com/v1/search?q=$spotifyquery&type=track&limit=1]
