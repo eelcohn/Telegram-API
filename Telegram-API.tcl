@@ -598,7 +598,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 		}
 
 		"logout" {
-			if {[set irchandle [::telegram::getIRCNickFromTelegramID]] != -1} {
+			if {[set irchandle [::telegram::getIRCNickFromTelegramID $from_id]] != -1} {
 				setuser $irchandle XTRA "TELEGRAM_USERID" ""
 				setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "$from_id"
 				setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "[clock seconds]"
@@ -611,7 +611,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 
 		# Show user information
 		"myinfo" {
-			if {[set irchandle [::telegram::getIRCNickFromTelegramID]] != -1} {
+			if {[set irchandle [::telegram::getIRCNickFromTelegramID $from_id]] != -1} {
 				set tg_lastlogin [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"] -format $::telegram::timeformat]
 				set tg_lastlogout [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGOUT"] -format $::telegram::timeformat]
 				set tg_lastuserid [getuser $irchandle XTRA "TELEGRAM_LASTUSERID"]
