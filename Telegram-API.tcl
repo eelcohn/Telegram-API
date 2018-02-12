@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180211 for Eggdrop                                    #
+# Telegram-API module v20180212 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -1002,18 +1002,21 @@ proc ::telegram::cleanUpFiles {} {
 proc ::telegram::tgGetUserInfo {channel nick user_id} {
 	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 		if {$channel eq $tg_channel} {
-			set result [::libtelegram::getChatMember $chat_id $user_id]
-			if {[set username [::libjson::getValue $result ".result.user.username"]] eq "null"} {
-				set username "N/A"
+			if {[set result [::libtelegram::getChatMember $chat_id $user_id]] ne -1} {
+				if {[set username [::libjson::getValue $result ".result.user.username"]] eq "null"} {
+					set username "N/A"
+				}
+				set first_name [::libjson::getValue $result ".result.user.first_name"]
+				if {[set last_name [::libjson::getValue $result ".result.user.last_name"]] eq "null"} {
+					set last_name "N/A"
+				}
+				set is_bot [::libjson::getValue $result ".result.user.is_bot"]
+				set language_code [::libjson::getValue $result ".result.user.language_code"]
+				set status [::libjson::getValue $result ".result.status"]
+				putchan $channel "[::msgcat::mc MSG_TG_USERINFO $user_id $username $first_name $last_name $is_bot $language_code $status]"
+			} else {
+				putchan $channel "[::msgcat::mc MSG_TG_USERNOTVALID]"
 			}
-			set first_name [::libjson::getValue $result ".result.user.first_name"]
-			if {[set last_name [::libjson::getValue $result ".result.user.last_name"]] eq "null"} {
-				set last_name "N/A"
-			}
-			set is_bot [::libjson::getValue $result ".result.user.is_bot"]
-			set language_code [::libjson::getValue $result ".result.user.language_code"]
-			set status [::libjson::getValue $result ".result.status"]
-			putchan $channel "[::msgcat::mc MSG_TG_USERINFO $user_id $username $first_name $last_name $is_bot $language_code $status]"
 		}
 	}
 }
