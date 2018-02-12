@@ -16,7 +16,7 @@ source "[file join [file dirname [info script]] Locate.conf]"
 # Search a location on OpenStreetMaps                                          #
 # ---------------------------------------------------------------------------- #
 
-proc openstreetmaps_getLocation {chat_id msgid channel message parameter_start} {
+proc openstreetmaps_getLocation {from_id chat_id msgid channel message parameter_start} {
 	if {[set locationquery [string map {" " "%20"} [string trim [string range $message $parameter_start end]]]] ne ""} {
 		if { [ catch {
 			set result [exec curl --tlsv1.2 -s -X GET "https://nominatim.openstreetmap.org/search?q=$locationquery&format=json&polygon=0&addressdetails=0"]
