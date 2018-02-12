@@ -483,7 +483,7 @@ proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 		foreach {command helpmessage} [lsort -stride 2 [array get ::telegram::public_commands_help]] {
 			append response "/$command $helpmessage\n"
 		}
-		::libtelegram::sendMessage $chat_id $msgid "html" "[url_encode $response]"
+		::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 		putchan $channel "[strip_html $response]"
 	} else {
 		# Not one of the standard bot commands, so check if the bot command is in our dynamic command list
@@ -492,7 +492,7 @@ proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 				if {[$prc $from_id $chat_id $msgid $channel $message $parameter_start] ne 0} {
 					# The module returned an error, so show the help message for the specified command
 					set response "/$command $::telegram::public_commands_help($command)"
-					::libtelegram::sendMessage $chat_id $msgid "html" "[url_encode $response]"
+					::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 					putchan $channel "[strip_html $response]"
 				}	
 				return 0
