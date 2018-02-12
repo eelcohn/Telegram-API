@@ -17,7 +17,7 @@ source "[file join [file dirname [info script]] ImageSearch.conf]"
 # Search an image on DuckDuckGo                                                #
 # ---------------------------------------------------------------------------- #
 
-proc imagesearch_getImage {chat_id msgid channel message parameter_start} {
+proc imagesearch_getImage {from_id chat_id msgid channel message parameter_start} {
 #	set s_region nl_nl
 #	set s_language nl_NL
 #	set s_safesearch -2
