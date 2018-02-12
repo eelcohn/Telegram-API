@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Soundcloud module for Eggdrop with the Telegram-API module v20180211         #
+# Soundcloud module for Eggdrop with the Telegram-API module v20180212         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -16,7 +16,7 @@ source "[file join [file dirname [info script]] Soundcloud.conf]"
 # Search a track on Soundcloud                                                 #
 # ---------------------------------------------------------------------------- #
 
-proc soundcloud_getTrack {chat_id msgid channel message parameter_start} {
+proc soundcloud_getTrack {from_id chat_id msgid channel message parameter_start} {
 	if {[set query [string map {" " "%20"} [string trim [string range $message $parameter_start end]]]] ne ""} {
 		if { [ catch {
 			set result [exec curl --tlsv1.2 -s -X GET https://api.soundcloud.com/tracks.json?client_id=4346c8125f4f5c40ad666bacd8e96498&q=$query&limit=1]
