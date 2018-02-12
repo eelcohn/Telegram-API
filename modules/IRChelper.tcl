@@ -76,7 +76,7 @@ proc ::telegram::ircKick {from_id chat_id msgid channel message parameter_start}
 			# Return success
 			return 0
 		} else {
-			set response "[::msgcat::mc MSG_BOT_GOTNOPRIVS]"
+			set response "[::msgcat::mc MSG_BOT_GOTNOPRIVS $::telegram::irc_bot_nickname]"
 			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 
@@ -109,7 +109,7 @@ proc ::telegram::ircBan {from_id chat_id msgid channel message parameter_start} 
 			# Return success
 			return 0
 		} else {
-			set response "[::msgcat::mc MSG_BOT_GOTNOPRIVS]"
+			set response "[::msgcat::mc MSG_BOT_GOTNOPRIVS $::telegram::irc_bot_nickname]"
 			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 
@@ -145,7 +145,7 @@ proc ::telegram::ircUnban {from_id chat_id msgid channel message parameter_start
 			# Return success
 			return $result
 		} else {
-			set response "[::msgcat::mc MSG_BOT_GOTNOPRIVS]"
+			set response "[::msgcat::mc MSG_BOT_GOTNOPRIVS $::telegram::irc_bot_nickname]"
 			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
 			putchan $channel "[strip_html $response]"
 
