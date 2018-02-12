@@ -65,8 +65,9 @@
 ::msgcat::mcset de MSG_BOT_IRCBAN_HELP		" <Spitzname>: Verbanne einen IRC-Benutzer vom IRC-Kanal."
 ::msgcat::mcset de MSG_BOT_IRCUNBAN_HELP	" <Spitzname>: Entarre einen IRC-Benutzer vom IRC-Kanal."
 ::msgcat::mcset de MSG_BOT_USERINFO		"Telegram ID %1\$s ist ein %2\$s, hast einen Namen von %3\$s, hast einen Spitsname von %4\$s und hat der status %5\$s."
-::msgcat::mcset de MSG_BOT_USERNOTVALID		"Informationen zu Telegramm ID %1\$s auf diesem Kanal können nicht abgerufen werden."
+::msgcat::mcset de MSG_BOT_USERNOTVALID		"Informationen zu Telegram ID %1\$s auf diesem Kanal können nicht abgerufen werden."
 ::msgcat::mcset de MSG_BOT_UNKNOWNCMD		"Ich verstehe das nicht. Geben Sie /help ein, um eine Liste aller Befehle anzuzeigen."
+::msgcat::mcset de MSG_BOT_GOTNOPRIVS "%1\$s ist dazu nicht berechtigt."
 
 # Messages for admins controlling your bot
 ::msgcat::mcset de MSG_BOT_PASSWORDSET		"Willkommen bei %1\$s! Ihr Passwort wurde festgelegt."
