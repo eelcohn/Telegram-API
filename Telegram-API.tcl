@@ -589,7 +589,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 				}
 
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERLOGIN "$::telegram::tg_bot_nickname" "$irchandle"]\n\n $lastlogin"
-				putlog "Telegram-API: Succesfull login from $from_id, username $irchandle"
+				putlog "Telegram-API: Succesful login from $from_id, username $irchandle"
 			} else {
 				# Username/password combo doesn't match
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERPASSWRONG]"
@@ -598,21 +598,12 @@ proc ::telegram::privateCommand {from_id msgid message} {
 		}
 
 		"logout" {
-			set irchandle ""
-
-			# Look up the IRC handle for the Telegram user
-			foreach user [userlist] {
-				if {[getuser $user XTRA "TELEGRAM_USERID"] == "$from_id"} {
-					set irchandle $user
-				}
-			}
-
-			if {$irchandle != ""} {
+			if {[set irchandle [::telegram::getIRCNickFromTelegramID]] != -1} {
 				setuser $irchandle XTRA "TELEGRAM_USERID" ""
 				setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "$from_id"
 				setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "[clock seconds]"
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]"
-				putlog "Telegram-API: Succesfull logout from $from_id, username $irchandle"
+				putlog "Telegram-API: Succesful logout from $from_id, username $irchandle"
 			} else {
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
 			}
@@ -620,16 +611,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 
 		# Show user information
 		"myinfo" {
-			set irchandle ""
-
-			# Look up the IRC handle for the Telegram user
-			foreach user [userlist] {
-				if {[getuser $user XTRA "TELEGRAM_USERID"] == "$from_id"} {
-					set irchandle $user
-				}
-			}
-
-			if {$irchandle != ""} {
+			if {[set irchandle [::telegram::getIRCNickFromTelegramID]] != -1} {
 				set tg_lastlogin [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGIN"] -format $::telegram::timeformat]
 				set tg_lastlogout [clock format [getuser $irchandle XTRA "TELEGRAM_LASTLOGOUT"] -format $::telegram::timeformat]
 				set tg_lastuserid [getuser $irchandle XTRA "TELEGRAM_LASTUSERID"]
@@ -640,7 +622,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 				set irc_hosts [getuser $irchandle HOSTS]
 				set irc_info [getuser $irchandle INFO]
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_USERINFO "$irchandle" "$from_id" "$tg_lastlogin" "$tg_lastlogout" "$tg_lastuserid" "$tg_created" "$irc_created" "$irc_laston" "irc_hosts" "$irc_info"]"
-				putlog "Telegram-API: My informatio accessed by $from_id, username $irchandle"
+				putlog "Telegram-API: My information accessed by $from_id, username $irchandle"
 			} else {
 				::libtelegram::sendMessage $from_id $msgid "html" "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
 			}
@@ -700,7 +682,7 @@ proc ::telegram::getPinnedMessage {chattype pinned_message} {
 }
 
 # ---------------------------------------------------------------------------- #
-# Get the username or realname for a Telegram message                          #
+# Get the username or realname for a Telegram user object                      #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::getUsername {userobject} {
 	# Set sender's name for group or supergroup messages
