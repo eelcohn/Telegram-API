@@ -7,7 +7,7 @@
 # ---------------------------------------------------------------------------- #
 # Shows the topic of an IRC channel                                            #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::irctopic {chat_id msgid channel message parameter_start} {
+proc ::telegram::irctopic {from_id chat_id msgid channel message parameter_start} {
 	global serveraddress
 
 	set response "[::msgcat::mc MSG_BOT_IRCTOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
@@ -21,7 +21,7 @@ proc ::telegram::irctopic {chat_id msgid channel message parameter_start} {
 # ---------------------------------------------------------------------------- #
 # Shows detailed information about an user on IRC                              #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::ircuser {chat_id msgid channel message parameter_start} {
+proc ::telegram::ircuser {from_id chat_id msgid channel message parameter_start} {
 	global serveraddress
 
 	set handle [string trim [string range $message $parameter_start end]]
@@ -47,7 +47,7 @@ proc ::telegram::ircuser {chat_id msgid channel message parameter_start} {
 # ---------------------------------------------------------------------------- #
 # Shows all users on an IRC channel                                            #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::ircusers {chat_id msgid channel message parameter_start} {
+proc ::telegram::ircusers {from_id chat_id msgid channel message parameter_start} {
 	global serveraddress
 
 	set response "[::msgcat::mc MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[string map {" " "\n"} [chanlist $channel]]"]"
@@ -61,7 +61,7 @@ proc ::telegram::ircusers {chat_id msgid channel message parameter_start} {
 # ---------------------------------------------------------------------------- #
 # Kicks an user on an IRC channel                                              #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::ircKick {chat_id msgid channel message parameter_start} {
+proc ::telegram::ircKick {from_id chat_id msgid channel message parameter_start} {
 	set handle [string trim [string range $message $parameter_start end]]
 
 	# Check if the Telegram user requesting the unban is logged in
@@ -94,7 +94,7 @@ proc ::telegram::ircKick {chat_id msgid channel message parameter_start} {
 # ---------------------------------------------------------------------------- #
 # Bans an user on an IRC channel                                               #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::ircBan {chat_id msgid channel message parameter_start} {
+proc ::telegram::ircBan {from_id chat_id msgid channel message parameter_start} {
 	set handle [string trim [string range $message $parameter_start end]]
 
 	# Check if the Telegram user requesting the unban is logged in
@@ -127,7 +127,7 @@ proc ::telegram::ircBan {chat_id msgid channel message parameter_start} {
 # ---------------------------------------------------------------------------- #
 # Unbans an user on an IRC channel                                             #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::ircUnban {chat_id msgid channel message parameter_start} {
+proc ::telegram::ircUnban {from_id chat_id msgid channel message parameter_start} {
 	set result 0
 	set handle [string trim [string range $message $parameter_start end]]
 
