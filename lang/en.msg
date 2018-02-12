@@ -68,6 +68,7 @@
 ::msgcat::mcset en MSG_BOT_TGUSER "user"
 ::msgcat::mcset en MSG_BOT_TGBOT "bot"
 ::msgcat::mcset en MSG_BOT_TGUSERNOTVALID  "Can't get information on Telegram ID %1\$s on this channel."
+::msgcat::mcset en MSG_BOT_GOTNOPRIVS "%1\$s isn't authorized to do that."
 
 # Messages for admins controlling your bot
 ::msgcat::mcset en MSG_BOT_PASSWORDSET	"Welcome to %1\$s! Your password has been set."
