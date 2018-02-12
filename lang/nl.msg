@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - Dutch language file v20180210              #
+# Telegram-API module for Eggdrop - Dutch language file v20180212              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -51,7 +51,6 @@
 # Messages for user commands for your bot
 ::msgcat::mcset nl MSG_BOT_PUBHELP		"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. Begin een commando met <b>/</b> en je krijgt een lijst van mogelijkheden te zien."
 ::msgcat::mcset nl MSG_BOT_PRVHELP			"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. De beschikbare commando's zijn:\n"
-::msgcat::mcset nl MSG_BOT_HELP_IRCUSER	"Je hebt geen gebruikersnaam opgegeven. Type /ircuser <gebruikersnaam> om informatie over een IRC gebruiker te laten zien."
 ::msgcat::mcset nl MSG_BOT_IRCTOPIC		  "Het onderwerp op <a href=\"%1\$s\">%2\$s</a> is: <i>%3\$s</i>"
 ::msgcat::mcset nl MSG_BOT_IRCTOPIC_HELP		": Geef het onderwerp weer op het IRC kanaal."
 ::msgcat::mcset nl MSG_BOT_IRCUSERS		"Op <a href=\"%1\$s\">%2\$s\</a> zijn de volgende gebruikers bekend:\n\n%3\$s"
