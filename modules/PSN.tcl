@@ -16,7 +16,7 @@ source "[file join [file dirname [info script]] PSN.conf]"
 # Get player information from the PlayStation Network site                     #
 # ---------------------------------------------------------------------------- #
 
-proc psn_getPSNInfo {chat_id msgid channel message parameter_start} {
+proc psn_getPSNInfo {from_id chat_id msgid channel message parameter_start} {
 	if {[set query [string map {" " "%20"} [string trim [string range $message $parameter_start end]]]] ne ""} {
 		if { [ catch {
 			set result [exec curl --tlsv1.2 -s -X GET https://my.playstation.com/$query]
