@@ -478,35 +478,33 @@ proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 	# Let the Telegram users know that we've received the bot command, and we're preparing an answer
 	::libtelegram::sendChatAction $chat_id "typing"
 
-	switch $command {
-		"help" {
-			set response "[::msgcat::mc MSG_BOT_PUBHELP "$::telegram::irc_bot_nickname"]\n\n"
-			foreach {command helpmessage} [lsort -stride 2 [array get ::telegram::public_commands_help]] {
-				append response "/$command $helpmessage\n"
+	if {$command eq "help"} {
+		set response "[::msgcat::mc MSG_BOT_PUBHELP "$::telegram::irc_bot_nickname"]\n\n"
+		foreach {command helpmessage} [lsort -stride 2 [array get ::telegram::public_commands_help]] {
+			append response "/$command $helpmessage\n"
+		}
+		::libtelegram::sendMessage $chat_id $msgid "html" "[url_encode $response]"
+		putchan $channel "[strip_html $response]"
+	} else {
+		# Not one of the standard bot commands, so check if the bot command is in our dynamic command list
+		foreach {cmd prc} [array get ::telegram::public_commands] {
+			if {$command == $cmd} {
+				if {[$prc $from_id $chat_id $msgid $channel $message $parameter_start] ne 0} {
+					# The module returned an error, so show the help message for the specified command
+					set response "/$command $::telegram::public_commands_help($command)"
+					::libtelegram::sendMessage $chat_id $msgid "html" "[url_encode $response]"
+					putchan $channel "[strip_html $response]"
+				}	
+				return 0
 			}
-			::libtelegram::sendMessage $chat_id $msgid "html" "[url_encode $response]"
-			putchan $channel "[strip_html $response]"
 		}
 
-		default {
-			# Not one of the standard bot commands, so check if the bot command is in our dynamic command list
-			foreach {cmd prc} [array get ::telegram::public_commands] {
-				if {$command == $cmd} {
-					if {[$prc $from_id $chat_id $msgid $channel $message $parameter_start] ne 0} {
-						# The module returned an error, so show the help message for the specified command
-						set response "/$command $::telegram::public_commands_help($command)"
-						::libtelegram::sendMessage $chat_id $msgid "html" "[url_encode $response]"
-						putchan $channel "[strip_html $response]"
-					}	
-					return
-				}
-			}
-
-			# Not in our dynamic command list either, so respond with an unknown command message
-			::libtelegram::sendMessage $chat_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
-			putchan $channel "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
-		}
+		# Not in our dynamic command list either, so respond with an unknown command message
+		::libtelegram::sendMessage $chat_id $msgid "markdown" "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
+		putchan $channel "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
+		return -1
 	}
+	return 0
 }
 
 # ---------------------------------------------------------------------------- #
