@@ -154,7 +154,7 @@ proc ::telegram::pollTelegram {} {
 			"private" {
 				# Record is a private chat record
 				if {[::libjson::hasKey $msg ".message.text"]} {
-					set txt [remove_slashes [::libunicode::utf82ascii [::libjson::getValue $msg ".message.text"]]]
+					set txt [::libunicode::utf82ascii [::libjson::getValue $msg ".message.text"]]
 					set msgid [::libjson::getValue $msg ".message.message_id"]
 					set fromid [::libjson::getValue $msg ".message.from.id"]
 
@@ -179,7 +179,7 @@ proc ::telegram::pollTelegram {} {
 
 				# Get the caption of this message (if any)
 				if {[::libjson::hasKey $msg ".$msgtype.caption"]} {
-					set caption " ([remove_slashes [::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.caption//empty"]]])"
+					set caption " ([::libunicode::utf82ascii [::libjson::getValue $msg ".$msgtype.caption//empty"]])"
 				} else {
 					set caption ""
 				}
@@ -215,7 +215,7 @@ proc ::telegram::pollTelegram {} {
 						if {$chatid eq $tg_chat_id} {
 							# Treat each line seperate
 							foreach line [split [string map {\\n \n} [::libunicode::utf82ascii $txt]] "\n"] {
-								putchan $irc_channel [::msgcat::mc MSG_TG_MSGSENT "$name" "[remove_slashes $line]"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_MSGSENT "$name" "$line"]
 		
 								# If the line contains an URL, get the title of the website
 								if {[string match -nocase "*http://?*" $line] || [string match -nocase "*https://?*" $line] || [string match -nocase "*www.?*" $line]} {
@@ -678,7 +678,7 @@ proc ::telegram::getPinnedMessage {chattype pinned_message} {
 	set pin_date "[clock format [::libjson::getValue $pinned_message ".date"] -format $::telegram::timeformat]"
 	set pin_txt "[::libunicode::utf82ascii [::libjson::getValue $pinned_message ".text"]]"
 
-	return [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "[remove_slashes $pin_txt]" "$pin_date"]
+	return [::msgcat::mc MSG_TG_PINNEDMESSAGE "$pin_name" "$pin_txt" "$pin_date"]
 }
 
 # ---------------------------------------------------------------------------- #
@@ -1045,14 +1045,6 @@ proc ::telegram::getUserFlags {telegram_id} {
 proc strip_html {htmlText} {
 	regsub -all {<[^>]+>} $htmlText "" newText
 	return $newText
-}
-
-# ---------------------------------------------------------------------------- #
-# Remove double slashes from a string                                          #
-# ---------------------------------------------------------------------------- #
-proc remove_slashes {txt} {
-	regsub -all {\\} $txt {} txt
-	return $txt
 }
 
 # ---------------------------------------------------------------------------- #
