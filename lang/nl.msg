@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - Dutch language file v20180212              #
+# Telegram-API module for Eggdrop - Dutch language file v20180213              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -37,6 +37,7 @@
 ::msgcat::mcset nl MSG_TG_CONTACTSENT		"%1\$s@Telegram heeft een contact verstuurd: %2\$s (%3\$s %4\$s)."
 ::msgcat::mcset nl MSG_TG_LOCATIONSENT		"%1\$s@Telegram heeft een locatie verstuurd: https://www.openstreetmap.org/#map=19/%3\$s/%2\$s"
 ::msgcat::mcset nl MSG_TG_VENUESENT		"%1\$s@Telegram heeft een venue verstuurd: location=%2\$s title=%3\$s address=%4\$s foursquare_id=%5\$s."
+::msgcat::mcset nl MSG_TG_WELCOME "Welkom bij %1\$s! Ik ben %2\$s, de barkeeper in deze Telegram groep. Ik ben verbonden het het IRC kanaal <a href=\"%3\$s\">%4\$s</a> zodat je ook met de gebruikers op dat kanaal kunt praten."
 ::msgcat::mcset nl MSG_TG_USERJOINED		"%1\$s@Telegram is nu lid van de Telegram groep."
 ::msgcat::mcset nl MSG_TG_USERADD		"%1\$s@Telegram heeft %2\$s aan de Telegram groep toegevoegd."
 ::msgcat::mcset nl MSG_TG_USERLEFT		"%1\$s@Telegram heeft de Telegram groep verlaten."
