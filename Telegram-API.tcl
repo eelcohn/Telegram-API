@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180212 for Eggdrop                                    #
+# Telegram-API module v20180213 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -19,7 +19,7 @@ set		::telegram::locale			"en"
 set		::telegram::timeformat			"%Y-%m-%d %H:%M:%S"
 set		::telegram::colorize_nicknames		0
 set		::telegram::userflags			"jlvck"
-set		::telegram::chanflags			"iptms"
+set		::telegram::chanflags			"iptmsw"
 set		::telegram::cmdmodifier			"/!."
 
 # Declare global internal variables; not user-configurable
@@ -367,8 +367,18 @@ proc ::telegram::pollTelegram {} {
 				}
 
 				# Check if someone has been added to the Telegram group
-				if {[::libjson::hasKey $msg ".$msgtype.new_chat_member"]} {
+				if {[set new_member_id [::libjson::getValue $msg ".$msgtype.new_chat_member.id"]] ne "null"} {
 					set new_chat_member [::telegram::getUsername [::libjson::getValue $msg ".$msgtype.new_chat_member"]]
+
+					# Check if we want to send a public welcome message to the new participant
+					if {[string match "*w*" $::telegram::chanflags]} {
+						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"]
+					}
+
+					# Check if we want to send a private welcome message to the new participant
+					if {[string match "*W*" $::telegram::chanflags]} {
+						::libtelegram::sendMessage $new_member_id "" "html" [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"]
+					}
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
