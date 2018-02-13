@@ -1,3 +1,6 @@
+v20180213:
+* Added option to send a welcome message to new participants of a Telegram chat
+
 v20180212:
 * Added German translation
 * Added /irckick, /ircban and /ircunban commands for Telegram users
