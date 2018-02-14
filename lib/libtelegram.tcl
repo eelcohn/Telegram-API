@@ -33,7 +33,7 @@ proc ::libtelegram::getUpdates {offset} {
 		return $::libtelegram::errorNumber
 	} else {
 		if {![::libtelegram::checkValidResult]} {
-			set ::libtelegram::errorMessage "libtelegram::getUpdates: $::libtelegram::errornumber - $::libtelegram::errormessage"
+			set ::libtelegram::errorMessage "libtelegram::getUpdates: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
 
 			putlog $::libtelegram::errorMessage
 			return $::libtelegram::errorNumber
@@ -122,7 +122,7 @@ proc ::libtelegram::getMe {} {
 		return [set ::libtelegram::errorNumber -1]
 	} else {
 		if {![::libtelegram::checkValidResult]} {
-			set ::libtelegram::errorMessage "libtelegram::getMe: $::libtelegram::errornumber - $::libtelegram::errormessage"
+			set ::libtelegram::errorMessage "libtelegram::getMe: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
 			return $::libtelegram::errorNumber
 		}
 	}
@@ -148,7 +148,7 @@ proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
 		return $::libtelegram::errorNumber
 	} else {
 		if {![::libtelegram::checkValidResult]} {
-			set ::libtelegram::errorMessage "libtelegram::sendMessage: $::libtelegram::errornumber - $::libtelegram::errormessage"
+			set ::libtelegram::errorMessage "libtelegram::sendMessage: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
 
 			putlog $::libtelegram::errorMessage
 			return $::libtelegram::errorNumber
@@ -555,7 +555,7 @@ proc ::libtelegram::exportChatInviteLink {chat_id} {
 		return $::libtelegram::errorNumber
 	} else {
 		if {![::libtelegram::checkValidResult]} {
-			set ::libtelegram::errorMessage "libtelegram::exportChatInviteLink: $::libtelegram::errornumber - $::libtelegram::errormessage"
+			set ::libtelegram::errorMessage "libtelegram::exportChatInviteLink: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
 
 			putlog $::libtelegram::errorMessage
 			return $::libtelegram::errorNumber
@@ -731,7 +731,7 @@ proc ::libtelegram::getChat {chat_id} {
 		return $::libtelegram::errorNumber
 	} else {
 		if {![::libtelegram::checkValidResult]} {
-			set ::libtelegram::errorMessage "libtelegram::getChat: $::libtelegram::errornumber - $::libtelegram::errormessage"
+			set ::libtelegram::errorMessage "libtelegram::getChat: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
 
 			putlog $::libtelegram::errorMessage
 			return $::libtelegram::errorNumber
