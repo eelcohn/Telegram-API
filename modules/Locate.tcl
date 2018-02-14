@@ -28,12 +28,11 @@ proc openstreetmaps_getLocation {from_id chat_id msgid channel message parameter
 			return -1
 		}
 
-		set result [string map {" : " ":"} $result]
-		set display_name [::libjson::getValue $result ".\[0\].display_name//empty"]
-		if {$display_name eq ""} {
+		if {[set display_name [::libjson::getValue $result ".\[0\].display_name//empty"]] eq ""} {
 			set result "[::msgcat::mc MSG_LOCATE_NOTFOUND]"
 			libtelegram::sendMessage $chat_id $msgid "html" "$result"
 			putchan $channel "$result"
+			return 0
 		} else {
 			set lat [::libjson::getValue $result ".\[0\].lat"]
 			set lon [::libjson::getValue $result ".\[0\].lon"]
