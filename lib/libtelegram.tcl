@@ -23,7 +23,6 @@ namespace eval libtelegram {
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getUpdates {offset} {
 	if { [ catch {
-#		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]	} ] } {
 		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]
 	} ] } {
 		set ::libtelegram::errormessage "libtelegram: cannot connect to api.telegram.com using getUpdates method."
@@ -859,7 +858,7 @@ proc ::libtelegram::checkValidResult {} {
 		set ::libtelegram::errormessage [::libjson::getValue $::libtelegram::result ".description"]
 		return false
 	} else {
-		if {[jsonGetValue $::libtelegram::result ".ok"] ne "true"} {
+		if {[::libjson::getValue $::libtelegram::result ".ok"] ne "true"} {
 			# Probably got a HTML response, like 502 Bad Gateway
 			if {[set titlestart [string first "<title" $result]] eq -1} {
 				set ::libtelegram::errornumber -1
