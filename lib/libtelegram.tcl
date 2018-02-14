@@ -854,10 +854,27 @@ proc ::libtelegram::downloadFile {file_path filename} {
 
 proc ::libtelegram::checkValidResult {} {
 	if {[jsonGetValue $::libtelegram::result "" "ok"] eq "false"} {
+		# Set error number and message to the values received from the API servers
 		set ::libtelegram::errornumber [jsonGetValue $::libtelegram::result "" "error_code"]
 		set ::libtelegram::errormessage [jsonGetValue $::libtelegram::result "" "description"]
 		return false
 	} else {
-		return true
+		if {[jsonGetValue $::libtelegram::result "" "ok"] ne "true"} {
+			# Probably got a HTML response, like 502 Bad Gateway
+			if {[set titlestart [string first "<title" $result]] eq -1} {
+				set ::libtelegram::errornumber -1
+				set ::libtelegram::errormessage "Unknown response received"
+				return false
+			} else {
+				# Set the error number and message to the HTML title (most likely 502 Bad Gateway)
+				set titlestart [string first ">" $result $titlestart]
+				set titleend [string first "</title>" $result $titlestart]
+				set ::libtelegram::errornumber -1
+				set ::libtelegram::errormessage [string range $result $titlestart+1 $titleend-1]
+				return false
+			}
+		} else {
+			return true
+		}
 	}
 }
