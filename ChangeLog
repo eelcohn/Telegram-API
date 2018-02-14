@@ -1,5 +1,5 @@
 v20180214:
-* Removed old referenced to remove_slashes()
+* Removed old referenced to remove_slashes() 
 * libtelegram.tcl: Added validity check to all API methods (a4b6e58)
 
 v20180213:
