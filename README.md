@@ -1,6 +1,6 @@
 # Telegram-API
 
-A gateway between IRC chat channels and Telegram groups, supergroups and channels.
+A gateway between [IRC](https://en.wikipedia.org/wiki/Internet_Relay_Chat) chat channels and [Telegram](https://telegram.org/) groups, supergroups and channels.
 
 ## Pre-requisites
 
