@@ -535,15 +535,22 @@ proc ::libtelegram::exportChatInviteLink {chat_id} {
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/exportChatInviteLink -d chat_id=$chat_id]
 	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using exportChatInviteLink method."
-		return -1
+		set ::libtelegram::errormessage "libtelegram::exportChatInviteLink: cannot connect to api.telegram.com."
+		set ::libtelegram::errornumber -1
+
+		putlog $::libtelegram::errormessage
+		return $::libtelegram::errornumber
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errormessage "libtelegram::exportChatInviteLink: $::libtelegram::errornumber - $::libtelegram::errormessage"
+			set ::libtelegram::errornumber -1
+
+			putlog $::libtelegram::errormessage
+			return $::libtelegram::errornumber
+		}
 	}
 
-	if {[::libjson::getValue $result ".ok"] eq "false"} {
-		putlog "Telegram-API: bad result from exportChatInviteLink method: [::libjson::getValue $result ".description"]"
-	}
-
-	return $result
+	return $::libtelegram::result
 }
 
 # ---------------------------------------------------------------------------- #
