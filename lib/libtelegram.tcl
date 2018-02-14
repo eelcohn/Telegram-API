@@ -8,8 +8,10 @@
 namespace eval libtelegram {
 	variable ::libtelegram::bot_id
 	variable ::libtelegram::bot_token
-	variable errormessage
-	variable errornumber
+	variable ::libtelegram::result
+	variable ::libtelegram::errormessage
+	variable ::libtelegram::errornumber
+	variable ::libtelegram::errorproc
 	set ::libtelegram::max_file_size 20480000
 }
 
@@ -21,16 +23,26 @@ namespace eval libtelegram {
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getUpdates {offset} {
 	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using getUpdates method."
-		return -1
+#		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]	} ] } {
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]	} ] } {
+	} ] } {
+		set ::libtelegram::errormessage "libtelegram: cannot connect to api.telegram.com using getUpdates method."
+		set ::libtelegram::errornumber -1
+		set ::libtelegram::errorproc $procname
+
+		putlog $::libtelegram::errormessage
+		return $::libtelegram::errornumber
+	} else {
+		if {![::libtelegram::checkValidResult "getUpdates"} {
+			set ::libtelegram::errormessage "libtelegram: bad result from $::libtelegram::errorproc: $::libtelegram::errornumber - $::libtelegram::errormessage"
+			set ::libtelegram::errornumber -1
+			set ::libtelegram::errorproc $procname
+
+			putlog $::libtelegram::errormessage
+		}
 	}
 
-	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getUpdates method: [jsonGetValue $result "" "description"]"
-	}
-
-	return $result
+	return $::libtelegram::result
 }
 
 # ---------------------------------------------------------------------------- #
@@ -838,4 +850,14 @@ proc ::libtelegram::downloadFile {file_path filename} {
 	}
 	close $fo
 	return 0
+}
+
+proc ::libtelegram::checkValidResult {} {
+	if {[jsonGetValue $::libtelegram::result "" "ok"] eq "false"} {
+		set ::libtelegram::errornumber [jsonGetValue $::libtelegram::result "" "error_code"]
+		set ::libtelegram::errormessage [jsonGetValue $::libtelegram::result "" "description"]
+		return false
+	} else {
+		return true
+	}
 }
