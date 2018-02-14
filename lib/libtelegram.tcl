@@ -113,7 +113,7 @@ proc ::libtelegram::getWebHookInfo {} {
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getMe {} {
 	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getMe]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getMe]
 	} ] } {
 		set ::libtelegram::errormessage "libtelegram::getMe: cannot connect to api.telegram.com."
 		set ::libtelegram::errornumber -1
@@ -141,7 +141,7 @@ proc ::libtelegram::getMe {} {
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
 	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMessage -d disable_web_page_preview=$::telegram::tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d reply_to_message_id=$msg_id -d text=$message]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMessage -d disable_web_page_preview=$::telegram::tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d reply_to_message_id=$msg_id -d text=$message]
 	} ] } {
 		set ::libtelegram::errormessage "libtelegram::sendMessage: cannot connect to api.telegram.com."
 		set ::libtelegram::errornumber -1
@@ -547,7 +547,7 @@ proc ::libtelegram::restrictChatMember {chat_id user_id can_change_info can_post
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::exportChatInviteLink {chat_id} {
 	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/exportChatInviteLink -d chat_id=$chat_id]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/exportChatInviteLink -d chat_id=$chat_id]
 	} ] } {
 		set ::libtelegram::errormessage "libtelegram::exportChatInviteLink: cannot connect to api.telegram.com."
 		set ::libtelegram::errornumber -1
