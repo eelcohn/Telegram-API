@@ -24,7 +24,7 @@ namespace eval libtelegram {
 proc ::libtelegram::getUpdates {offset} {
 	if { [ catch {
 #		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]	} ] } {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]	} ] } {
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]
 	} ] } {
 		set ::libtelegram::errormessage "libtelegram: cannot connect to api.telegram.com using getUpdates method."
 		set ::libtelegram::errornumber -1
@@ -123,7 +123,7 @@ proc ::libtelegram::getMe {} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getMe method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from getMe method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -144,7 +144,7 @@ proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendMessage method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from sendMessage method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -165,7 +165,7 @@ proc ::libtelegram::forwardMessage {chat_id from_chat_id disable_notification me
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from forwardMessage method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from forwardMessage method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -186,7 +186,7 @@ proc ::libtelegram::sendPhoto {chat_id msg_id photo caption} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendPhoto method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from sendPhoto method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -207,7 +207,7 @@ proc ::libtelegram::sendAudio {chat_id msg_id audio caption} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendAudio method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from sendAudio method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -228,7 +228,7 @@ proc ::libtelegram::sendDocument {chat_id msg_id document caption} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendDocument method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from sendDocument method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -249,7 +249,7 @@ proc ::libtelegram::sendVideo {chat_id msg_id video caption} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendVideo method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from sendVideo method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -270,7 +270,7 @@ proc ::libtelegram::sendVoice {chat_id msg_id voice caption} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendVoice method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from sendVoice method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -291,7 +291,7 @@ proc ::libtelegram::sendVideoNote {chat_id msg_id video_note} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendVideoNote method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from sendVideoNote method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -312,7 +312,7 @@ proc ::libtelegram::sendMediaGroup {chat_id media disable_notification reply_to_
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendMediaGroup method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from sendMediaGroup method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -333,7 +333,7 @@ proc ::libtelegram::sendLocation {chat_id msg_id latitude longitude} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendLocation method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from sendLocation method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -354,7 +354,7 @@ proc ::libtelegram::sendVenue {chat_id msg_id latitude longitude title address} 
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendVenue method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from sendVenue method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -375,7 +375,7 @@ proc ::libtelegram::sendContact {chat_id msg_id phone_number first_name last_nam
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendContact method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from sendContact method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -396,7 +396,7 @@ proc ::libtelegram::sendChatAction {chat_id action} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendChatAction method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from sendChatAction method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -417,7 +417,7 @@ proc ::libtelegram::getUserProfilePhotos {user_id offset limit} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getUserProfilePhotos method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from getUserProfilePhotos method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -438,7 +438,7 @@ proc ::libtelegram::getFile {file_id} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getFile method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from getFile method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -459,7 +459,7 @@ proc ::libtelegram::kickChatMember {chat_id user_id until_date} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from kickChatMember method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from kickChatMember method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -480,7 +480,7 @@ proc ::libtelegram::unbanChatMember {chat_id user_id} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from unbanChatMember method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from unbanChatMember method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -501,7 +501,7 @@ proc ::libtelegram::restrictChatMember {chat_id user_id until_date can_send_mess
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from restrictChatMember method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from restrictChatMember method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -522,7 +522,7 @@ proc ::libtelegram::restrictChatMember {chat_id user_id can_change_info can_post
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from promoteChatMemberCount method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from promoteChatMemberCount method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -543,7 +543,7 @@ proc ::libtelegram::exportChatInviteLink {chat_id} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from exportChatInviteLink method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from exportChatInviteLink method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -564,7 +564,7 @@ proc ::libtelegram::setChatPhoto {chat_id photo} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from setChatPhoto method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from setChatPhoto method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -585,7 +585,7 @@ proc ::libtelegram::setChatPhoto {chat_id} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from deleteChatPhoto method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from deleteChatPhoto method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -606,7 +606,7 @@ proc ::libtelegram::setChatTitle {chat_id title} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from setChatTitle method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from setChatTitle method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -627,7 +627,7 @@ proc ::libtelegram::setChatDescription {chat_id description} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from setChatDescription method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from setChatDescription method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -648,7 +648,7 @@ proc ::libtelegram::pinChatMessage {chat_id message_id disable_notification} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from pinChatMessage method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from pinChatMessage method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -669,7 +669,7 @@ proc ::libtelegram::pinChatMessage {chat_id} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from unpinChatMessage method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from unpinChatMessage method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -690,7 +690,7 @@ proc ::libtelegram::leaveChat {chat_id} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from leaveChat method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from leaveChat method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -712,7 +712,7 @@ proc ::libtelegram::getChat {chat_id} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getChat method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from getChat method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -733,7 +733,7 @@ proc ::libtelegram::getChatAdministrators {chat_id} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getChatAdministrators method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from getChatAdministrators method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -754,7 +754,7 @@ proc ::libtelegram::getChatMembersCount {chat_id} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getChatMemberCount method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from getChatMemberCount method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -775,7 +775,7 @@ proc ::libtelegram::getChatMember {chat_id user_id} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getChatMember method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from getChatMember method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -796,7 +796,7 @@ proc ::libtelegram::setChatStickerSet {chat_id sticker_set_name} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getChatStickerSet method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from getChatStickerSet method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -817,7 +817,7 @@ proc ::libtelegram::deleteChatStickerSet {chat_id sticker_set_name} {
 	}
 
 	if {[jsonGetValue $result "" "ok"] eq "false"} {
-		putlog "Telegram-API: bad result from deleteChatStickerSet method: [jsonGetValue $result "" "description"]"
+		putlog "Telegram-API: bad result from deleteChatStickerSet method: [::libjson::getValue $result "" "description"]"
 	}
 
 	return $result
@@ -853,10 +853,10 @@ proc ::libtelegram::downloadFile {file_path filename} {
 }
 
 proc ::libtelegram::checkValidResult {} {
-	if {[jsonGetValue $::libtelegram::result "" "ok"] eq "false"} {
+	if {[::libjson::getValue $::libtelegram::result "" "ok"] eq "false"} {
 		# Set error number and message to the values received from the API servers
-		set ::libtelegram::errornumber [jsonGetValue $::libtelegram::result "" "error_code"]
-		set ::libtelegram::errormessage [jsonGetValue $::libtelegram::result "" "description"]
+		set ::libtelegram::errornumber [::libjson::getValue $::libtelegram::result "" "error_code"]
+		set ::libtelegram::errormessage [::libjson::getValue $::libtelegram::result "" "description"]
 		return false
 	} else {
 		if {[jsonGetValue $::libtelegram::result "" "ok"] ne "true"} {
