@@ -9,8 +9,8 @@ namespace eval libtelegram {
 	variable	::libtelegram::bot_id
 	variable	::libtelegram::bot_token
 	variable	::libtelegram::result
-	variable	::libtelegram::errormessage
-	variable	::libtelegram::errornumber
+	variable	::libtelegram::errorMessage
+	variable	::libtelegram::errorNumber
 	set		::libtelegram::max_file_size	20480000
 }
 
@@ -21,21 +21,22 @@ namespace eval libtelegram {
 # https://core.telegram.org/bots/api#getUpdates                                #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getUpdates {offset} {
-	if { [ catch {
+	set ::libtelegram::errornumber 0
+
+	if { [catch {
 		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]
 	} ] } {
-		set ::libtelegram::errormessage "libtelegram::getUpdates: cannot connect to api.telegram.com."
-		set ::libtelegram::errornumber -1
+		set ::libtelegram::errorMessage "libtelegram::getUpdates: cannot connect to api.telegram.com."
+		set ::libtelegram::errorNumber -1
 
-		putlog $::libtelegram::errormessage
-		return $::libtelegram::errornumber
+		putlog $::libtelegram::errorMessage
+		return $::libtelegram::errorNumber
 	} else {
 		if {![::libtelegram::checkValidResult]} {
-			set ::libtelegram::errormessage "libtelegram::getUpdates: $::libtelegram::errornumber - $::libtelegram::errormessage"
-			set ::libtelegram::errornumber -1
+			set ::libtelegram::errorMessage "libtelegram::getUpdates: $::libtelegram::errornumber - $::libtelegram::errormessage"
 
-			putlog $::libtelegram::errormessage
-			return $::libtelegram::errornumber
+			putlog $::libtelegram::errorMessage
+			return $::libtelegram::errorNumber
 		}
 	}
 
@@ -112,25 +113,20 @@ proc ::libtelegram::getWebHookInfo {} {
 # https://core.telegram.org/bots/api#getMe                                     #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getMe {} {
+	set ::libtelegram::errornumber 0
+
 	if { [ catch {
 		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getMe]
 	} ] } {
-		set ::libtelegram::errormessage "libtelegram::getMe: cannot connect to api.telegram.com."
-		set ::libtelegram::errornumber -1
-
-		putlog $::libtelegram::errormessage
-		return $::libtelegram::errornumber
+		set ::libtelegram::errorMessage "libtelegram::getMe: cannot connect to api.telegram.com."
+		return [set ::libtelegram::errorNumber -1]
 	} else {
 		if {![::libtelegram::checkValidResult]} {
-			set ::libtelegram::errormessage "libtelegram::getMe: $::libtelegram::errornumber - $::libtelegram::errormessage"
-			set ::libtelegram::errornumber -1
-
-			putlog $::libtelegram::errormessage
-			return $::libtelegram::errornumber
+			set ::libtelegram::errorMessage "libtelegram::getMe: $::libtelegram::errornumber - $::libtelegram::errormessage"
+			return $::libtelegram::errorNumber
 		}
 	}
-
-	return $::libtelegram::result
+	return 0
 }
 
 # ---------------------------------------------------------------------------- #
@@ -140,21 +136,22 @@ proc ::libtelegram::getMe {} {
 # https://core.telegram.org/bots/api#sendmessage                               #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
+	set ::libtelegram::errornumber 0
+
 	if { [ catch {
 		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMessage -d disable_web_page_preview=$::telegram::tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d reply_to_message_id=$msg_id -d text=$message]
 	} ] } {
-		set ::libtelegram::errormessage "libtelegram::sendMessage: cannot connect to api.telegram.com."
-		set ::libtelegram::errornumber -1
+		set ::libtelegram::errorMessage "libtelegram::sendMessage: cannot connect to api.telegram.com."
+		set ::libtelegram::errorNumber -1
 
-		putlog $::libtelegram::errormessage
-		return $::libtelegram::errornumber
+		putlog $::libtelegram::errorMessage
+		return $::libtelegram::errorNumber
 	} else {
 		if {![::libtelegram::checkValidResult]} {
-			set ::libtelegram::errormessage "libtelegram::sendMessage: $::libtelegram::errornumber - $::libtelegram::errormessage"
-			set ::libtelegram::errornumber -1
+			set ::libtelegram::errorMessage "libtelegram::sendMessage: $::libtelegram::errornumber - $::libtelegram::errormessage"
 
-			putlog $::libtelegram::errormessage
-			return $::libtelegram::errornumber
+			putlog $::libtelegram::errorMessage
+			return $::libtelegram::errorNumber
 		}
 	}
 
@@ -546,21 +543,22 @@ proc ::libtelegram::restrictChatMember {chat_id user_id can_change_info can_post
 # https://core.telegram.org/bots/api#exportchatinvitelink                      #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::exportChatInviteLink {chat_id} {
+	set ::libtelegram::errornumber 0
+
 	if { [ catch {
 		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/exportChatInviteLink -d chat_id=$chat_id]
 	} ] } {
-		set ::libtelegram::errormessage "libtelegram::exportChatInviteLink: cannot connect to api.telegram.com."
-		set ::libtelegram::errornumber -1
+		set ::libtelegram::errorMessage "libtelegram::exportChatInviteLink: cannot connect to api.telegram.com."
+		set ::libtelegram::errorNumber -1
 
-		putlog $::libtelegram::errormessage
-		return $::libtelegram::errornumber
+		putlog $::libtelegram::errorMessage
+		return $::libtelegram::errorNumber
 	} else {
 		if {![::libtelegram::checkValidResult]} {
-			set ::libtelegram::errormessage "libtelegram::exportChatInviteLink: $::libtelegram::errornumber - $::libtelegram::errormessage"
-			set ::libtelegram::errornumber -1
+			set ::libtelegram::errorMessage "libtelegram::exportChatInviteLink: $::libtelegram::errornumber - $::libtelegram::errormessage"
 
-			putlog $::libtelegram::errormessage
-			return $::libtelegram::errornumber
+			putlog $::libtelegram::errorMessage
+			return $::libtelegram::errorNumber
 		}
 	}
 
@@ -721,19 +719,26 @@ proc ::libtelegram::leaveChat {chat_id} {
 # https://core.telegram.org/bots/api#getchat                                   #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getChat {chat_id} {
+	set ::libtelegram::errornumber 0
 
 	if { [ catch {
-		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getChat -d chat_id=$chat_id]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getChat -d chat_id=$chat_id]
 	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using getChat method."
-		return -1
+		set ::libtelegram::errorMessage "libtelegram::getChat: cannot connect to api.telegram.com."
+		set ::libtelegram::errorNumber -1
+
+		putlog $::libtelegram::errorMessage
+		return $::libtelegram::errorNumber
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errorMessage "libtelegram::getChat: $::libtelegram::errornumber - $::libtelegram::errormessage"
+
+			putlog $::libtelegram::errorMessage
+			return $::libtelegram::errorNumber
+		}
 	}
 
-	if {[::libjson::getValue $result ".ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getChat method: [::libjson::getValue $result ".description"]"
-	}
-
-	return $result
+	return $::libtelegram::result
 }
 
 # ---------------------------------------------------------------------------- #
@@ -873,22 +878,22 @@ proc ::libtelegram::downloadFile {file_path filename} {
 proc ::libtelegram::checkValidResult {} {
 	if {[::libjson::getValue $::libtelegram::result ".ok"] eq "false"} {
 		# Set error number and message to the values received from the API servers
-		set ::libtelegram::errornumber [::libjson::getValue $::libtelegram::result ".error_code"]
-		set ::libtelegram::errormessage [::libjson::getValue $::libtelegram::result ".description"]
+		set ::libtelegram::errorNumber [::libjson::getValue $::libtelegram::result ".error_code"]
+		set ::libtelegram::errorMessage [::libjson::getValue $::libtelegram::result ".description"]
 		return false
 	} else {
 		if {[::libjson::getValue $::libtelegram::result ".ok"] ne "true"} {
 			# Probably got a HTML response, like 502 Bad Gateway
 			if {[set titlestart [string first "<title" $result]] eq -1} {
-				set ::libtelegram::errornumber -1
-				set ::libtelegram::errormessage "Unknown response received"
+				set ::libtelegram::errorNumber -1
+				set ::libtelegram::errorMessage "Unknown response received"
 				return false
 			} else {
 				# Set the error number and message to the HTML title (most likely 502 Bad Gateway)
 				set titlestart [string first ">" $result $titlestart]
 				set titleend [string first "</title>" $result $titlestart]
-				set ::libtelegram::errornumber -1
-				set ::libtelegram::errormessage [string range $result $titlestart+1 $titleend-1]
+				set ::libtelegram::errorNumber -1
+				set ::libtelegram::errorMessage [string range $result $titlestart+1 $titleend-1]
 				return false
 			}
 		} else {
