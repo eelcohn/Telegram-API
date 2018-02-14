@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram API library for Tcl - v20180128                                     #
+# Telegram API library for Tcl - v20180214                                     #
 # This library has functions for interacting with the Telegram servers         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
@@ -8,6 +8,8 @@
 namespace eval libtelegram {
 	variable ::libtelegram::bot_id
 	variable ::libtelegram::bot_token
+	variable errormessage
+	variable errornumber
 	set ::libtelegram::max_file_size 20480000
 }
 
@@ -23,6 +25,11 @@ proc ::libtelegram::getUpdates {offset} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using getUpdates method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from getUpdates method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -39,6 +46,11 @@ proc ::libtelegram::setWebHook {url certificate max_connections allowed_updates}
 		putlog "Telegram-API: cannot connect to api.telegram.com using setWebHook method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from setWebHook method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -55,6 +67,11 @@ proc ::libtelegram::deleteWebHook {} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using deleteWebHook method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from deleteWebHook method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -71,6 +88,11 @@ proc ::libtelegram::getWebHookInfo {} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using getWebHookInfo method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from getWebHookInfo method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -87,6 +109,11 @@ proc ::libtelegram::getMe {} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using getMe method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from getMe method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -103,6 +130,11 @@ proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendMessage reply method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from sendMessage method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -119,6 +151,11 @@ proc ::libtelegram::forwardMessage {chat_id from_chat_id disable_notification me
 		putlog "Telegram-API: cannot connect to api.telegram.com using forwardMessage reply method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from forwardMessage method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -135,6 +172,11 @@ proc ::libtelegram::sendPhoto {chat_id msg_id photo caption} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendPhoto method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from sendPhoto method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -151,6 +193,11 @@ proc ::libtelegram::sendAudio {chat_id msg_id audio caption} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendAudio method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from sendAudio method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -167,6 +214,11 @@ proc ::libtelegram::sendDocument {chat_id msg_id document caption} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendDocument method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from sendDocument method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -183,6 +235,11 @@ proc ::libtelegram::sendVideo {chat_id msg_id video caption} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendVideo method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from sendVideo method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -199,6 +256,11 @@ proc ::libtelegram::sendVoice {chat_id msg_id voice caption} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendVoice method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from sendVoice method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -215,6 +277,11 @@ proc ::libtelegram::sendVideoNote {chat_id msg_id video_note} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendVideoNote method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from sendVideoNote method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -231,6 +298,11 @@ proc ::libtelegram::sendMediaGroup {chat_id media disable_notification reply_to_
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendMediaGroup method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from sendMediaGroup method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -247,6 +319,11 @@ proc ::libtelegram::sendLocation {chat_id msg_id latitude longitude} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendLocation method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from sendLocation method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -263,6 +340,11 @@ proc ::libtelegram::sendVenue {chat_id msg_id latitude longitude title address} 
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendVenue method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from sendVenue method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -279,6 +361,11 @@ proc ::libtelegram::sendContact {chat_id msg_id phone_number first_name last_nam
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendContact method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from sendContact method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -295,6 +382,11 @@ proc ::libtelegram::sendChatAction {chat_id action} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using sendChatAction method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from sendChatAction method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -311,6 +403,11 @@ proc ::libtelegram::getUserProfilePhotos {user_id offset limit} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using getUserProfilePhotos method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from getUserProfilePhotos method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -327,6 +424,11 @@ proc ::libtelegram::getFile {file_id} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using getFile method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from getFile method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -343,6 +445,11 @@ proc ::libtelegram::kickChatMember {chat_id user_id until_date} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using kickChatMember method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from kickChatMember method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -359,6 +466,11 @@ proc ::libtelegram::unbanChatMember {chat_id user_id} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using unbanChatMember method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from unbanChatMember method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -375,6 +487,11 @@ proc ::libtelegram::restrictChatMember {chat_id user_id until_date can_send_mess
 		putlog "Telegram-API: cannot connect to api.telegram.com using restrictChatMember method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from restrictChatMember method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -391,6 +508,11 @@ proc ::libtelegram::restrictChatMember {chat_id user_id can_change_info can_post
 		putlog "Telegram-API: cannot connect to api.telegram.com using promoteChatMember method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from promoteChatMemberCount method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -407,6 +529,11 @@ proc ::libtelegram::exportChatInviteLink {chat_id} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using exportChatInviteLink method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from exportChatInviteLink method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -571,6 +698,11 @@ proc ::libtelegram::getChat {chat_id} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using getChat method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from getChat method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -587,6 +719,11 @@ proc ::libtelegram::getChatAdministrators {chat_id} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using getChatAdministrators method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from getChatAdministrators method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -603,6 +740,11 @@ proc ::libtelegram::getChatMembersCount {chat_id} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using getChatMembersCount method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from getChatMemberCount method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -619,6 +761,11 @@ proc ::libtelegram::getChatMember {chat_id user_id} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using getChatMember method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from getChatMember method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -635,6 +782,11 @@ proc ::libtelegram::setChatStickerSet {chat_id sticker_set_name} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using setChatStickerSet method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from getChatStickerSet method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
@@ -651,6 +803,11 @@ proc ::libtelegram::deleteChatStickerSet {chat_id sticker_set_name} {
 		putlog "Telegram-API: cannot connect to api.telegram.com using deleteChatStickerSet method."
 		return -1
 	}
+
+	if {[jsonGetValue $result "" "ok"] eq "false"} {
+		putlog "Telegram-API: bad result from deleteChatStickerSet method: [jsonGetValue $result "" "description"]"
+	}
+
 	return $result
 }
 
