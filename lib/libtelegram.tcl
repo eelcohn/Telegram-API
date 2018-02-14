@@ -11,7 +11,6 @@ namespace eval libtelegram {
 	variable ::libtelegram::result
 	variable ::libtelegram::errormessage
 	variable ::libtelegram::errornumber
-	variable ::libtelegram::errorproc
 	set ::libtelegram::max_file_size 20480000
 }
 
@@ -25,19 +24,18 @@ proc ::libtelegram::getUpdates {offset} {
 	if { [ catch {
 		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]
 	} ] } {
-		set ::libtelegram::errormessage "libtelegram: cannot connect to api.telegram.com using getUpdates method."
+		set ::libtelegram::errormessage "libtelegram::getUpdates: cannot connect to api.telegram.com."
 		set ::libtelegram::errornumber -1
-		set ::libtelegram::errorproc $procname
 
 		putlog $::libtelegram::errormessage
 		return $::libtelegram::errornumber
 	} else {
 		if {![::libtelegram::checkValidResult]} {
-			set ::libtelegram::errormessage "libtelegram: bad result from $::libtelegram::errorproc: $::libtelegram::errornumber - $::libtelegram::errormessage"
+			set ::libtelegram::errormessage "libtelegram::getUpdates: $::libtelegram::errornumber - $::libtelegram::errormessage"
 			set ::libtelegram::errornumber -1
-			set ::libtelegram::errorproc $procname
 
 			putlog $::libtelegram::errormessage
+			return $::libtelegram::errornumber
 		}
 	}
 
