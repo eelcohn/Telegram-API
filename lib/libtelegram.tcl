@@ -21,7 +21,7 @@ namespace eval libtelegram {
 # https://core.telegram.org/bots/api#getUpdates                                #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getUpdates {offset} {
-	set ::libtelegram::errornumber 0
+	set ::libtelegram::errorNumber 0
 
 	if { [catch {
 		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]
@@ -113,8 +113,6 @@ proc ::libtelegram::getWebHookInfo {} {
 # https://core.telegram.org/bots/api#getMe                                     #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getMe {} {
-	set ::libtelegram::errornumber 0
-
 	if { [ catch {
 		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getMe]
 	} ] } {
@@ -126,7 +124,8 @@ proc ::libtelegram::getMe {} {
 			return $::libtelegram::errorNumber
 		}
 	}
-	return 0
+
+	return [set ::libtelegram::errornumber 0]
 }
 
 # ---------------------------------------------------------------------------- #
@@ -543,26 +542,19 @@ proc ::libtelegram::restrictChatMember {chat_id user_id can_change_info can_post
 # https://core.telegram.org/bots/api#exportchatinvitelink                      #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::exportChatInviteLink {chat_id} {
-	set ::libtelegram::errornumber 0
-
 	if { [ catch {
 		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/exportChatInviteLink -d chat_id=$chat_id]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::exportChatInviteLink: cannot connect to api.telegram.com."
-		set ::libtelegram::errorNumber -1
-
-		putlog $::libtelegram::errorMessage
-		return $::libtelegram::errorNumber
+		return [set ::libtelegram::errorNumber -1]
 	} else {
 		if {![::libtelegram::checkValidResult]} {
 			set ::libtelegram::errorMessage "libtelegram::exportChatInviteLink: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
-
-			putlog $::libtelegram::errorMessage
 			return $::libtelegram::errorNumber
 		}
 	}
 
-	return $::libtelegram::result
+	return [set ::libtelegram::errornumber 0]
 }
 
 # ---------------------------------------------------------------------------- #
@@ -719,26 +711,19 @@ proc ::libtelegram::leaveChat {chat_id} {
 # https://core.telegram.org/bots/api#getchat                                   #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getChat {chat_id} {
-	set ::libtelegram::errornumber 0
-
 	if { [ catch {
 		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getChat -d chat_id=$chat_id]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::getChat: cannot connect to api.telegram.com."
-		set ::libtelegram::errorNumber -1
-
-		putlog $::libtelegram::errorMessage
-		return $::libtelegram::errorNumber
+		return [set ::libtelegram::errorNumber -1]
 	} else {
 		if {![::libtelegram::checkValidResult]} {
 			set ::libtelegram::errorMessage "libtelegram::getChat: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
-
-			putlog $::libtelegram::errorMessage
 			return $::libtelegram::errorNumber
 		}
 	}
 
-	return $::libtelegram::result
+	return [set ::libtelegram::errornumber 0]
 }
 
 # ---------------------------------------------------------------------------- #
