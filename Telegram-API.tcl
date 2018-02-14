@@ -85,12 +85,12 @@ proc ::telegram::initialize {} {
 		# Invite links: Only get invite links for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_invite_link($tg_chat_id)]} {
 			# Check if an invite link is already available in the chat object
-			if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $result ".result.invite_link//empty"]] eq ""} {
+			if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result.invite_link//empty"]] eq ""} {
 				# If not, then create a new one
 				if {[::libtelegram::exportChatInviteLink $tg_chat_id] ne 0} {
 					putlog $::libtelegram::errorMessage
 				}
-				if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $result ".result//empty"]] eq ""} {
+				if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result//empty"]] eq ""} {
 					unset -nocomplain ::telegram::tg_invite_link($tg_chat_id)
 				}
 			}
