@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180213 for Eggdrop                                    #
+# Telegram-API module v20180214 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -63,20 +63,20 @@ proc ::telegram::initialize {} {
 	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 		# Chat titles: Only get chat titles for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_chat_title($tg_chat_id)]} {
-			if {[set result [::libtelegram::getChat $tg_chat_id]] eq -1} {
+			if {[::libtelegram::getChat $tg_chat_id] ne 0} {
 				putlog $::libtelegram::errorMessage
 #				return $::libtelegram::errorNumber
 			}
-			set ::telegram::tg_chat_title($tg_chat_id) [::libunicode::utf82ascii [::libjson::getValue $result ".result.title//empty"]]
+			set ::telegram::tg_chat_title($tg_chat_id) [::libunicode::utf82ascii [::libjson::getValue $::libtelegram::result ".result.title//empty"]]
 		}
 		# Chat descriptions: Only get chat descriptions for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_chat_description($tg_chat_id)]} {
-			set ::telegram::tg_chat_description($tg_chat_id) [::libjson::getValue $result ".result.description//empty"]
+			set ::telegram::tg_chat_description($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result.description//empty"]
 		}
 		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
-			if {[set chattype [::libjson::getValue $result ".result.pinned_message.chat.type"]] ne "null"} {
-				set ::telegram::tg_pinned_messages($tg_chat_id) [::telegram::getPinnedMessage $chattype [::libjson::getValue $result ".result.pinned_message"]]
+			if {[set chattype [::libjson::getValue $::libtelegram::result ".result.pinned_message.chat.type"]] ne "null"} {
+				set ::telegram::tg_pinned_messages($tg_chat_id) [::telegram::getPinnedMessage $chattype [::libjson::getValue $::libtelegram::result ".result.pinned_message"]]
 				if {$::telegram::tg_pinned_messages($tg_chat_id) eq ""} {
 					unset -nocomplain ::telegram::tg_pinned_messages($tg_chat_id)
 				}
@@ -87,7 +87,7 @@ proc ::telegram::initialize {} {
 			# Check if an invite link is already available in the chat object
 			if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $result ".result.invite_link//empty"]] eq ""} {
 				# If not, then create a new one
-				if {[set result [::libtelegram::exportChatInviteLink $tg_chat_id]] eq -1} {
+				if {[::libtelegram::exportChatInviteLink $tg_chat_id] ne 0} {
 					putlog $::libtelegram::errorMessage
 				}
 				if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $result ".result//empty"]] eq ""} {
