@@ -61,18 +61,16 @@ proc ::telegram::initialize {} {
 
 	# Get up to date information on all Telegram groups/supergroups/channels
 	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
-		# Chat titles: Only get chat titles for (super)groups we haven't queried yet
+		# Chat titles: Only get chat titles and descriptions for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_chat_title($tg_chat_id)]} {
 			if {[::libtelegram::getChat $tg_chat_id] ne 0} {
 				putlog $::libtelegram::errorMessage
 #				return $::libtelegram::errorNumber
 			}
 			set ::telegram::tg_chat_title($tg_chat_id) [::libunicode::utf82ascii [::libjson::getValue $::libtelegram::result ".result.title//empty"]]
-		}
-		# Chat descriptions: Only get chat descriptions for (super)groups we haven't queried yet
-		if {![info exists ::telegram::tg_chat_description($tg_chat_id)]} {
 			set ::telegram::tg_chat_description($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result.description//empty"]
 		}
+
 		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
 			if {[set chattype [::libjson::getValue $::libtelegram::result ".result.pinned_message.chat.type"]] ne "null"} {
@@ -82,18 +80,19 @@ proc ::telegram::initialize {} {
 				}
 			}
 		}
+
 		# Invite links: Only get invite links for supergroups and channels we haven't queried yet
-		if {[::libjson::getValue $::libtelegram::result ".result.type"] != "group"} {
-			if {![info exists ::telegram::tg_invite_link($tg_chat_id)]} {
-				# Check if an invite link is already available in the chat object
-				if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result.invite_link//empty"]] eq ""} {
-					# If not, then create a new one
+		if {![info exists ::telegram::tg_invite_link($tg_chat_id)]} {
+			# Check if an invite link is already available in the chat object
+			if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result.invite_link//empty"]] eq ""} {
+				# If not, then create a new one (for supergroups and channels only)
+				if {[::libjson::getValue $::libtelegram::result ".result.type"] != "group"} {
 					if {[::libtelegram::exportChatInviteLink $tg_chat_id] ne 0} {
 						putlog $::libtelegram::errorMessage
 					}
-					if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result//empty"]] eq ""} {
-						unset -nocomplain ::telegram::tg_invite_link($tg_chat_id)
-					}
+				}
+				if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result//empty"]] eq ""} {
+					unset -nocomplain ::telegram::tg_invite_link($tg_chat_id)
 				}
 			}
 		}
