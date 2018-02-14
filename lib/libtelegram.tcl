@@ -21,26 +21,19 @@ namespace eval libtelegram {
 # https://core.telegram.org/bots/api#getUpdates                                #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::getUpdates {offset} {
-	set ::libtelegram::errorNumber 0
-
 	if { [catch {
 		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getUpdates -d offset=$offset]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::getUpdates: cannot connect to api.telegram.com."
-		set ::libtelegram::errorNumber -1
-
-		putlog $::libtelegram::errorMessage
-		return $::libtelegram::errorNumber
+		return [set ::libtelegram::errorNumber -1]
 	} else {
 		if {![::libtelegram::checkValidResult]} {
 			set ::libtelegram::errorMessage "libtelegram::getUpdates: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
-
-			putlog $::libtelegram::errorMessage
 			return $::libtelegram::errorNumber
 		}
 	}
 
-	return $::libtelegram::result
+	return [set ::libtelegram::errorNumber 0]
 }
 
 # ---------------------------------------------------------------------------- #
