@@ -897,9 +897,9 @@ proc ::telegram::ircSendFile {nick file_id} {
 	set timeout [expr ${xfer-timeout} + 1]
 
 #	if {[regexp {"/[^A-Za-z0-9\-_]/"} $file_id]} {
-		if {[set result [::libtelegram::getFile $file_id]] ne -1} {
-			set file_path [::libjson::getValue $result ".result.file_path"]
-			set file_size [::libjson::getValue $result ".result.file_size"]
+		if {[::libtelegram::getFile $file_id] ne 0} {
+			set file_path [::libjson::getValue $::libtelegram::result ".result.file_path"]
+			set file_size [::libjson::getValue $::libtelegram::result ".result.file_size"]
 
 			if {$file_size > $max_file_size} {
 				putlog "irc2tg_sendFile: file $file_id too big ($file_size)"
