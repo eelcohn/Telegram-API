@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Quote module for Eggdrop v20180126                              #
+# Telegram-API Quote module for Eggdrop v20180214                              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -13,7 +13,7 @@ source "[file join [file dirname [info script]] Quotes.conf]"
 # Get a quote from the quote-database                                          #
 # ---------------------------------------------------------------------------- #
 
-proc quotes_getQuote {chat_id msgid channel message parameter_start} {
+proc quotes_getQuote {from_id chat_id msgid channel message parameter_start} {
 	global quote_database
 
 	set quote_id [string trim [string range $message $parameter_start end]]
@@ -57,17 +57,19 @@ proc quotes_getQuote {chat_id msgid channel message parameter_start} {
 	}
 
 	::libtelegram::sendMessage $chat_id $msgid "html" "[url_encode $qot_sel]"
-	putchan $channel "$qot_sel"
+	putchan $channel "[::libunicode::utf82ascii $qot_sel]"
+
+	return 0
 }
 
 # ---------------------------------------------------------------------------- #
 # Add a quote to the quote-database                                            #
 # ---------------------------------------------------------------------------- #
 
-proc quotes_addQuote {chat_id msgid channel message parameter_start} {
+proc quotes_addQuote {from_id chat_id msgid channel message parameter_start} {
 	global quote_database
 
-	set quote [remove_slashes [string trim [string range $message $parameter_start end]]]
+	set quote [string trim [string range $message $parameter_start end]]
 
 	if {$quote ne ""} {
 		file copy -force "$::Quotes::quote_database" "$::Quotes::quote_database~"
@@ -77,10 +79,12 @@ proc quotes_addQuote {chat_id msgid channel message parameter_start} {
 
 		::libtelegram::sendMessage $chat_id $msgid "html" "[::msgcat::mc MSG_QUOTE_QUOTEADDED]"
 		putchan $channel "[::msgcat::mc MSG_QUOTE_QUOTEADDED]"
+
+		return 0
 	} else {
-		::libtelegram::sendMessage $chat_id $msgid "html" "[::msgcat::mc MSG_QUOTE_ADDHELP]"
+		return -1
 	}
 }
 
-add_public_command quote quotes_getQuote
-add_public_command addquote quotes_addQuote
+::telegram::addPublicCommand quote quotes_getQuote "[::msgcat::mc MSG_QUOTE_HELP]"
+::telegram::addPublicCommand addquote quotes_addQuote "[::msgcat::mc MSG_QUOTE_ADDHELP]"

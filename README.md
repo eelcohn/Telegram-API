@@ -1,9 +1,28 @@
 # Telegram-API
-A gateway between IRC chat channels and Telegram groups
+
+A gateway between IRC chat channels and Telegram groups, supergroups and channels.
 
 ## Pre-requisites
 
-This script requires `tcl`, `eggdrop`, `curl` and `jq`.
+This script requires `tcl`, `eggdrop`, `curl` and `jq`:
+* [Tcl](https://www.tcl.tk/) - The language this script is programmed in
+* [Eggdrop](https://www.eggheads.org/) - The IRC bot used for connecting to your favourite IRC channels
+* [cURL](https://curl.haxx.se/) - Used for querying the Telegram servers
+* [jq](https://stedolan.github.io/jq/) - Used for processing the JSON data
+
+## Features
+
+* Bi-directional chats between IRC and Telegram
+* Support for Telegram groups, supergroups, channels and private messages
+* 1-to-1, 1-to-many and many-to-many linking IRC channels to Telegram groups/supergroups/channels
+* Seamless translation of Unicode emoji's to ASCII variants and vice-versa
+* Support for Telegram Stickers
+* Download Telegram attachments using DCC on your favourite IRC client (a PHP-script on your webserver is available as an alternative)
+* Multi-language support (currently English, Dutch and German are available)
+* Global and per-user settings for allowing/denying notifications for joins/leaves/kicks/bans etc.
+* You can login/logout to your Eggdrop bot from your Telegram client
+* Linking your Eggdrop user profile to your Telegram account
+* Modular support for public and private Telegram bot commands
 
 ## Quick start guide
 
@@ -50,3 +69,7 @@ source /path/to/your/scripts/Telegram-API.tcl
 | `lib/libtelegram.tcl` | Generic Telegram library for Tcl. All functions which call the Telegram API methods are defined here. See https://core.telegram.org/bots/api#available-methods for a list of all available Telegram API methods. |
 | `modules/*.tcl` | All publically available Telegram bot commands are defined here. Optional, not needed for basic operation. |
 | `web/tg.php` | PHP script which allow IRC users to download images, video's and other attachments posted in the Telegram group. |
+
+## Feedback
+
+Please let me know if you use this script, if you run into bugs or problems, and of course if you like it!

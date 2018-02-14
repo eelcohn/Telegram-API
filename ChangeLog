@@ -1,3 +1,102 @@
+v20180214:
+* Removed old referenced to remove_slashes()
+* libtelegram.tcl: Added validity check to all API methods (a4b6e58)
+
+v20180213:
+* Added option to send a welcome message to new participants of a Telegram chat (7cd8cb9 / aaf7295 / d2a8fd6 / 85d56dd / fe19880)
+
+v20180212:
+* Added German translation
+* Added /irckick, /ircban and /ircunban commands for Telegram users
+* Fixed issue where a txt message starting with ? is interpreted as a bot command
+* Fixed an issue where changing the Telegram group picture wasn't handled correctly
+
+v20180211:
+* Fixed getting website title on certain websites
+* Moved sticker2ascii proc to Sticker.tcl
+* Added tg_prefer_usernames so you can choose if Telegram users are shown by their real names or by their usernames
+* Added localizations for all modules
+* Added chat title to invite link on IRC
+
+v20180210:
+* Fixed translation of UTF8 characters in chat title
+* Changed Telegram notifications to IRC channels when user joins
+
+v20180209:
+* libunicode.tcl: Removed redundant spaces and doublequotes (c6c2509 / 523f918)
+* Telegram-API.tcl: Fixed localization of private bot command help message (9062d6f)
+* en.msg: Fixed localization of private bot command help message (c42c102)
+* nl.msg: Fixed localization of private bot command help message (be85eb7)
+* Telegram-API.tcl: Added localization for DCC file transfers (8dee8c7)
+* en.msg: Added localization for DCC file transfers (3aec4ed)
+* nl.msg: Added localization for DCC file transfers (f0cfe39)
+* Fixed adding caption-texts for photo's & videos, added caption-texts for documents (91fcf89 / a4ea254 / 01a5812)
+* Added filesize to IRC notifications for photo attachments (67fd43a / 912e463 / ffa78ff)
+* Added old and new chat_id's to MSG_TG_GROUPMIGRATED (180ea1e)
+
+v20180208:
+* Telegram-API.tcl: ASCII emoticons from IRC are now sent to Telegram as Unicode emoji's (0be4aed)
+* Telegram-API.tcl: Fixed reply_to_message and forward_from messages from channels (80e95ea / eae9912)
+* Telegram-API.tcl: Replaced all utf2ascii calls with ::libunicode::utf82ascii (6b173bb)
+* Telegram-API.tcl: Removed utf2ascii and ascii2utf procedures (moved to libunicode.tcl) (28b51e2)
+* Telegram-API.tcl: Added verbose error handling when trying to access old chat_id's for groups which have been migrated to supergroups (f5dc9e8)
+* libunicode.tcl: Added more moji's and pictograms (bddbaf4 / 02e0bf0 / 710585b / f3406b4 / 0fbc7cf)
+* libunicode.tcl: Optimized code (75845d3)
+
+v20180207:
+* Telegram-API.tcl: Fixed displaying pinned messages on IRC (1c1d5c5 / cd3c75d)
+* libunicode.tcl: Fixed correct naming of ASCII translation tables (f952b1d / 540384f / 137134a / 12f4314)
+* libunicode.tcl: Fixed escaped2utf8 (5400f7b / 5acac10 / 346ec83)
+* libunicode.tcl: Added more emoji's and pictograms (915571d / 763f028 / b0a54d2 / 9dcb44c / cdac4c4 / cb78092 / 8546bbc / a9c501c / 2a2e0c6 / 7500945 / 0f1eed6)
+* en.msg: Fixed downloading attachments with !tgfile (b6a9a4c / 6d54682)
+* nl.msg: Fixed downloading attachments with !tgfile (95650a7)
+* Telegram-API.tcl: Fixed downloading attachments with !tgfile (b4b5d06)
+
+v20180202:
+* Telegram-API.tcl: Added support for pinned messages (5e22d32 / 6d7f897 / 9830897 / d1a1cb9 / a488d03 / 404400d / f6b8ea4)
+* Telegram-API.tcl: Timeout's for auto-removal of DCC-sent attachments now uses xfer-timeout (9830897)
+* utftable.tcl: Removed (replaced by libunicode.tcl) (c778c74)
+
+v20180201:
+* Telegram-API.tcl: Don't send IRC bot commands directly to the Telegram group (68059d3)
+* Telegram-API.tcl: Moved some code around to make the sourcecode more readable (ef43f7e)
+* Telegram-API.tcl: Added help messages for dynamic bot command modules (53f82fd / 2fdc271 / 32b1631 / b71c005 / 4af6152 / 215c9fc / 2d8c19a / e2583bd)
+
+v20180131:
+* Telegram-API.tcl: Fixed auto-removal of downloaded Telegram attachments (8886599 /6de1485)
+* libunicode.tcl: Moved all Unicode-related procedures and data to this file (a8d2cf9 / 9e930b2)
+
+v20180130:
+* Telegram-API.tcl: Userflags can now be added on a per-user base to the userfile (b654f29)
+* Telegram-API.tcl: Added getUserFlags (04942c8)
+* Telegram-API.tcl: Added downloading Telegram attachments by DCC (1664ccf / 83c4644 / 7de10b2 / 5cf4ec9 / 8f03d96 / 73df4d6)
+* libtelegram.tcl: Added until_date parameter to ::libtelegram::kickChatMember (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::unbanChatMember method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::restrictChatMember method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::promoteChatMember method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::exportChatInviteLink method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::deleteChatPhoto method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::setChatDescription method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::pinChatMessage method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::unpinChatMessage method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::leaveChat method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::setChatStickerSet method (9124a6e)
+* libtelegram.tcl: Added ::libtelegram::deleteChatStickerSet method (9124a6e)
+
+v20180129:
+* libtelegram.tcl: Added ::libtelegram::downloadFile for downloading attachments (361b0be)
+
+v20180128:
+* Added channel flags for user configurable notification of topic/mode changes of IRC channels (3a977af / fe60c51)
+* Moved sticker definitions from utftable.tcl to Stickers.tcl (1c9c665 / 16e4524 / e5b374f)
+* Telegram-API.tcl: Fixed translating stickers to ASCII code (03cc7ec)
+* Telegram-API.tcl: Updated handling stickers (3f0d4bd)
+* en.msg: Updated handling stickers (dedafa2)
+* nl.msg: Updated handling stickers (2752840)
+* Telegram-API.tcl: Removed debug code from irc2tg_modeChange (336ba26)
+* Telegram-API.tcl: Updated colorization of nicknames to match colors in the Telegram-desktop (6845dfc)
+* Telegram-API-config.tcl: Updated colorization of nicknames to match colors in the Telegram-desktop (809b6c5)
+
 v20180126:
 * Telegram-API.tcl: Moved all config settings to the ::telegram namespace (f009e31 / e097100 / 47fade3 / d5c8dad)
 * Telegram-API.tcl: Added support for dynamic private bot commands (b26e9c2 / e908296)
@@ -100,7 +199,7 @@ v20180105:
 * utftable.tcl: Added \ud83d\udd90 :hand_raised:
 
 v20171220:
-* modules/Quotes.tcl: Fixed sending quotes to Telegram with cpecial characters [ and ]
+* modules/Quotes.tcl: Fixed sending quotes to Telegram with special characters [ and ]
 * Fixed modules/Spotify.tcl
 
 v20171219:
