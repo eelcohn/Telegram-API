@@ -6,12 +6,12 @@
 # ---------------------------------------------------------------------------- #
 
 namespace eval libtelegram {
-	variable ::libtelegram::bot_id
-	variable ::libtelegram::bot_token
-	variable ::libtelegram::result
-	variable ::libtelegram::errormessage
-	variable ::libtelegram::errornumber
-	set ::libtelegram::max_file_size 20480000
+	variable	::libtelegram::bot_id
+	variable	::libtelegram::bot_token
+	variable	::libtelegram::result
+	variable	::libtelegram::errormessage
+	variable	::libtelegram::errornumber
+	set		::libtelegram::max_file_size	20480000
 }
 
 # ---------------------------------------------------------------------------- #
@@ -115,15 +115,22 @@ proc ::libtelegram::getMe {} {
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getMe]
 	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using getMe method."
-		return -1
+		set ::libtelegram::errormessage "libtelegram::getMe: cannot connect to api.telegram.com."
+		set ::libtelegram::errornumber -1
+
+		putlog $::libtelegram::errormessage
+		return $::libtelegram::errornumber
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errormessage "libtelegram::getMe: $::libtelegram::errornumber - $::libtelegram::errormessage"
+			set ::libtelegram::errornumber -1
+
+			putlog $::libtelegram::errormessage
+			return $::libtelegram::errornumber
+		}
 	}
 
-	if {[::libjson::getValue $result ".ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getMe method: [::libjson::getValue $result ".description"]"
-	}
-
-	return $result
+	return $::libtelegram::result
 }
 
 # ---------------------------------------------------------------------------- #
@@ -136,15 +143,22 @@ proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMessage -d disable_web_page_preview=$::telegram::tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d reply_to_message_id=$msg_id -d text=$message]
 	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using sendMessage reply method."
-		return -1
+		set ::libtelegram::errormessage "libtelegram::sendMessage: cannot connect to api.telegram.com."
+		set ::libtelegram::errornumber -1
+
+		putlog $::libtelegram::errormessage
+		return $::libtelegram::errornumber
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errormessage "libtelegram::sendMessage: $::libtelegram::errornumber - $::libtelegram::errormessage"
+			set ::libtelegram::errornumber -1
+
+			putlog $::libtelegram::errormessage
+			return $::libtelegram::errornumber
+		}
 	}
 
-	if {[::libjson::getValue $result ".ok"] eq "false"} {
-		putlog "Telegram-API: bad result from sendMessage method: [::libjson::getValue $result ".description"]"
-	}
-
-	return $result
+	return $::libtelegram::result
 }
 
 # ---------------------------------------------------------------------------- #
