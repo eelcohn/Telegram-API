@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Quote module for Eggdrop v20180211                              #
+# Telegram-API Quote module for Eggdrop v20180214                              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -69,7 +69,7 @@ proc quotes_getQuote {from_id chat_id msgid channel message parameter_start} {
 proc quotes_addQuote {from_id chat_id msgid channel message parameter_start} {
 	global quote_database
 
-	set quote [remove_slashes [string trim [string range $message $parameter_start end]]]
+	set quote [string trim [string range $message $parameter_start end]]
 
 	if {$quote ne ""} {
 		file copy -force "$::Quotes::quote_database" "$::Quotes::quote_database~"
