@@ -713,7 +713,7 @@ proc ::telegram::ircSendMessage {nick hostmask handle channel msg} {
 			::telegram::ircSendFile $nick [string trim [string range $msg $parameter_start end]]
 			return 0
 		}
-		if {[string match $command "tguser"]} {
+		if {[string match $command "tgwhois"]} {
 			::telegram::tgGetUserInfo $channel $nick [string trim [string range $msg $parameter_start end]]
 			return 0
 		}
@@ -981,28 +981,28 @@ proc ::telegram::cleanUpFiles {} {
 proc ::telegram::tgGetUserInfo {channel nick user_id} {
 	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 		if {$channel eq $tg_channel} {
-			if {[set result [::libtelegram::getChatMember $chat_id $user_id]] ne -1} {
-				if {[::libjson::getValue $result ".ok"] eq "true"} {
-					if {[set username [::libjson::getValue $result ".result.user.username"]] eq "null"} {
-						set username "N/A"
-					}
-					set first_name [::libjson::getValue $result ".result.user.first_name"]
-					if {[set last_name [::libjson::getValue $result ".result.user.last_name"]] eq "null"} {
-						set last_name "N/A"
-					}
-					if {[::libjson::getValue $result ".result.user.is_bot"] eq "true"} {
-						set usertype [::msgcat::mc MSG_BOT_TGBOT]
-					} else {
-						set usertype [::msgcat::mc MSG_BOT_TGUSER]
-					}
-					set language_code [::libjson::getValue $result ".result.user.language_code"]
-					set status [::libjson::getValue $result ".result.status"]
-					putchan $channel "[::msgcat::mc MSG_BOT_TGUSERINFO $user_id $usertype $first_name $last_name $username $language_code $status]"
+			if {[::libtelegram::getChatMember $chat_id $user_id] eq 0} {
+				if {[set username [::libjson::getValue $::libtelegram::result ".result.user.username"]] eq "null"} {
+					set username "N/A"
+				}
+				set first_name [::libjson::getValue $::libtelegram::result ".result.user.first_name"]
+				if {[set last_name [::libjson::getValue $::libtelegram::result ".result.user.last_name"]] eq "null"} {
+					set last_name "N/A"
+				}
+				if {[::libjson::getValue $::libtelegram::result ".result.user.is_bot"] eq "true"} {
+					set usertype [::msgcat::mc MSG_BOT_TGBOT]
+				} else {
+					set usertype [::msgcat::mc MSG_BOT_TGUSER]
+				}
+				set language_code [::libjson::getValue $::libtelegram::result ".result.user.language_code"]
+				set status [::libjson::getValue $::libtelegram::result ".result.status"]
+				putchan $channel "[::msgcat::mc MSG_BOT_TGUSERINFO $user_id $usertype $first_name $last_name $username $language_code $status]"
+			} else {
+				if {$::libtelegram::errorNumber == -1} {
+					putchan $channel "[::msgcat::mc MSG_TG_NOCONNECTION $user_id]"
 				} else {
 					putchan $channel "[::msgcat::mc MSG_BOT_TGUSERNOTVALID $user_id]"
 				}
-			} else {
-				putchan $channel "[::msgcat::mc MSG_TG_NOCONNECTION $user_id]"
 			}
 		}
 	}
