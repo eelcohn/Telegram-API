@@ -116,32 +116,23 @@ proc ::telegram::pollTelegram {} {
 	}
 
 	# Poll the Telegram API for updates and check if we got a result
-	if {[set result [::libtelegram::getUpdates $::telegram::tg_update_id]] == -1} {
+	if {[::libtelegram::getUpdates $::telegram::tg_update_id] ne 0} {
 		# Network is probably down, so schedule the next poll
-		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
- 		return -2
-	}
-
-	# Check if the result was valid
-	if {[::libjson::getValue $result ".ok"] ne "true"} {
-		if {[::libjson::getValue $result ".ok"] eq "false"} {
-			if {[::libjson::getValue $result ".parameters.migrate_to_chat_id"] ne "null"} {
+		putlog $::libtelegram::errorMessage
+		if {[::libjson::getValue $::libtelegram::result ".parameters"] ne "null"} {
+			if {[::libjson::getValue $::libtelegram::result ".parameters.migrate_to_chat_id"] ne "null"} {
 				# A chat group has been migrated to a supergroup, but the conf file still got the chat_id for the old group
-				set errormessage "[::libjson::getValue $result ".description"] - Please edit your conf file with your new chat_id: [::libjson::getValue $result ".parameters.migrate_to_chat_id"]"
+				putlog "Telegram-API: Please edit your conf file with your new chat_id: [::libjson::getValue $result ".parameters.migrate_to_chat_id"]"
 			} else {
-				set errormessage "[::libjson::getValue $result ".description"] - [::libjson::getValue $result ".parameters"]"
+				putlog "Telegram-API: [::libjson::getValue $result ".parameters"]"
 			}
-		} else {
-			# The Telegram servers are probably down
-			set errormessage "Got a result, but not formatted as JSON. Server is probably down."
 		}
-		putlog "Telegram-API: bad result from getUpdates method: $errormessage"
 		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
-		return -3
+ 		return $::libtelegram::errorNumber
 	}
 
 	# Cycle through each status update
-	foreach msg [split [::libjson::getValue $result ".result\[\]"] "\n"] {
+	foreach msg [split [::libjson::getValue $::libtelegram::result ".result\[\]"] "\n"] {
 		set ::telegram::tg_update_id [::libjson::getValue $msg ".update_id"]
 #		set msgtype [::libjson::getValue $msg ". | keys\[\] | select(. != \"update_id\")"]
 		set msgtype [::libjson::getValue $msg "keys_unsorted\[1\]"]
