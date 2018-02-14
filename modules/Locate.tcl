@@ -18,6 +18,9 @@ source "[file join [file dirname [info script]] Locate.conf]"
 
 proc openstreetmaps_getLocation {from_id chat_id msgid channel message parameter_start} {
 	if {[set locationquery [string map {" " "%20"} [string trim [string range $message $parameter_start end]]]] ne ""} {
+		# Let the Telegram users know that we've received the bot command, and we're preparing an answer
+		::libtelegram::sendChatAction $chat_id "find_location"
+
 		if { [ catch {
 			set result [exec curl --tlsv1.2 -s -X GET "https://nominatim.openstreetmap.org/search?q=$locationquery&format=json&polygon=0&addressdetails=0"]
 		} ] } {
