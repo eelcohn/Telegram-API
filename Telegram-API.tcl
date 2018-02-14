@@ -460,7 +460,9 @@ proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 	global serveraddress
 
 	set parameter_start [string wordend $message 1]
-	if {[set command [string tolower [string range $message 1 $parameter_start-1]]] eq ""} {
+
+	# Only process is command is in range a...z
+	if {![string is alpha [set command [string tolower [string range $message 1 $parameter_start-1]]]]} {
 		return 0
 	}
 
