@@ -46,15 +46,16 @@ proc ::libtelegram::setWebHook {url certificate max_connections allowed_updates}
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/setWebHook -d url=$url -d certificate=$certificate -d max_connections=$max_connections -d allowed_updates=$allowed_updates]
 	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using setWebHook method."
-		return -1
+		set ::libtelegram::errorMessage "libtelegram::setWebHook: cannot connect to api.telegram.com."
+		return [set ::libtelegram::errorNumber -1]
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errorMessage "libtelegram::setWebHook: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
+			return $::libtelegram::errorNumber
+		}
 	}
 
-	if {[::libjson::getValue $result ".ok"] eq "false"} {
-		putlog "Telegram-API: bad result from setWebHook method: [::libjson::getValue $result ".description"]"
-	}
-
-	return $result
+	return [set ::libtelegram::errorNumber 0]
 }
 
 # ---------------------------------------------------------------------------- #
@@ -67,15 +68,16 @@ proc ::libtelegram::deleteWebHook {} {
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/deleteWebHook]
 	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using deleteWebHook method."
-		return -1
+		set ::libtelegram::errorMessage "libtelegram::deleteWebHook: cannot connect to api.telegram.com."
+		return [set ::libtelegram::errorNumber -1]
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errorMessage "libtelegram::deleteWebHook: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
+			return $::libtelegram::errorNumber
+		}
 	}
 
-	if {[::libjson::getValue $result ".ok"] eq "false"} {
-		putlog "Telegram-API: bad result from deleteWebHook method: [::libjson::getValue $result ".description"]"
-	}
-
-	return $result
+	return [set ::libtelegram::errorNumber 0]
 }
 
 # ---------------------------------------------------------------------------- #
@@ -88,15 +90,16 @@ proc ::libtelegram::getWebHookInfo {} {
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getWebHookInfo]
 	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using getWebHookInfo method."
-		return -1
+		set ::libtelegram::errorMessage "libtelegram::getWebHookInfo: cannot connect to api.telegram.com."
+		return [set ::libtelegram::errorNumber -1]
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errorMessage "libtelegram::getWebHookInfo: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
+			return $::libtelegram::errorNumber
+		}
 	}
 
-	if {[::libjson::getValue $result ".ok"] eq "false"} {
-		putlog "Telegram-API: bad result from getWebHookInfo method: [::libjson::getValue $result ".description"]"
-	}
-
-	return $result
+	return [set ::libtelegram::errorNumber 0]
 }
 
 # ---------------------------------------------------------------------------- #
@@ -128,26 +131,19 @@ proc ::libtelegram::getMe {} {
 # https://core.telegram.org/bots/api#sendmessage                               #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
-	set ::libtelegram::errornumber 0
-
 	if { [ catch {
 		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMessage -d disable_web_page_preview=$::telegram::tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d reply_to_message_id=$msg_id -d text=$message]
 	} ] } {
-		set ::libtelegram::errorMessage "libtelegram::sendMessage: cannot connect to api.telegram.com."
-		set ::libtelegram::errorNumber -1
-
-		putlog $::libtelegram::errorMessage
-		return $::libtelegram::errorNumber
+		putlog "[set ::libtelegram::errorMessage "libtelegram::sendMessage: cannot connect to api.telegram.com."]"
+		return [set ::libtelegram::errorNumber -1]
 	} else {
 		if {![::libtelegram::checkValidResult]} {
-			set ::libtelegram::errorMessage "libtelegram::sendMessage: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
-
-			putlog $::libtelegram::errorMessage
+			putlog "[set ::libtelegram::errorMessage "libtelegram::sendMessage: $::libtelegram::errorNumber - $::libtelegram::errorMessage"]"
 			return $::libtelegram::errorNumber
 		}
 	}
 
-	return $::libtelegram::result
+	return [set ::libtelegram::errornumber 0]
 }
 
 # ---------------------------------------------------------------------------- #
@@ -159,16 +155,18 @@ proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
 proc ::libtelegram::forwardMessage {chat_id from_chat_id disable_notification message_id} {
 	if { [ catch {
 		set result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/forwardMessage -d chat_id=$chat_id -d from_chat_id=$from_chat_id -d disable_notification=$disable_notification -d message_id=$message_id]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/getMe]
 	} ] } {
-		putlog "Telegram-API: cannot connect to api.telegram.com using forwardMessage reply method."
-		return -1
+		set ::libtelegram::errorMessage "libtelegram::forwardMessage: cannot connect to api.telegram.com."
+		return [set ::libtelegram::errorNumber -1]
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errorMessage "libtelegram::forwardMessage: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
+			return $::libtelegram::errorNumber
+		}
 	}
 
-	if {[::libjson::getValue $result ".ok"] eq "false"} {
-		putlog "Telegram-API: bad result from forwardMessage method: [::libjson::getValue $result ".description"]"
-	}
-
-	return $result
+	return [set ::libtelegram::errornumber 0]
 }
 
 # ---------------------------------------------------------------------------- #
