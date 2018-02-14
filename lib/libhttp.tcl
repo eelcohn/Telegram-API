@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# HTTP web request library for Tcl - v20180209                                 #
+# HTTP web request library for Tcl - v20180214                                 #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -15,13 +15,22 @@ namespace eval libhttp {
 # Make a HTTP GET request and return the response                              #
 # ---------------------------------------------------------------------------- #
 proc ::libhttp::get {url {parameters ""}} {
+	variable urldata ""
+ 
 	switch $::libjson::processor {
 		"http_pkg" {
-#			set errormessage "Tcllib::http processor not supported"
-#			set errornumber -1
+			if {![catch {package present http}] || ![catch {package present tls}]} {
+				set errormessage "::libhttp::get: Tcllib::http processor not supported"
+				set errornumber -1
+				return -1
+			}
+
+			foreach data value [list $parameters] {
+				append urldata "$data=$value&"
+			}
 
 			::http::register https 443 [list ::tls::socket -tls1 1 -ssl2 0 -ssl3 0]
-			set token [::http::geturl $url]
+			set token [::http::geturl "$url?$urldata"]
 			set status [::http::status $token]
 			set result [::http::data $token]
 			::http::cleanup $token
@@ -29,14 +38,12 @@ proc ::libhttp::get {url {parameters ""}} {
 		}
 
 		"curl" {
-			set curldata ""
- 
 			foreach data value [list $parameters] {
-				lappend " -d $data=$value" $curldata
+				append urldata " -d $data=$value"
 			}
 
 			if { [ catch {
-				set result [exec curl --tlsv1.2 -s -X GET $url $curldata]
+				set result [exec curl --tlsv1.2 -s -X GET $url $urldata]
 			} ] } {
 				set errormessage "::libhttp::get: cannot connect to $url"
 				set errornumber -2
@@ -57,11 +64,15 @@ proc ::libhttp::get {url {parameters ""}} {
 # Make a HTTP POST request and return the response                             #
 # ---------------------------------------------------------------------------- #
 proc ::libhttp::post {url parameters} {
+	variable urldata ""
+
 	switch $::libjson::processor {
 		"http_pkg" {
-			set errormessage "Tcllib::http processor not supported"
-			set errornumber -1
-			return -1
+			if {![catch {package present http}] || ![catch {package present tls}]} {
+				set errormessage "::libhttp::post: Tcllib::http processor not supported"
+				set errornumber -1
+				return -1
+			}
 
 			::http::register https 443 [list ::tls::socket -tls1 1 -ssl2 0 -ssl3 0]
 			set token [::http::geturl $url -query [::http::formatQuery [list $parameters]]]
@@ -72,14 +83,12 @@ proc ::libhttp::post {url parameters} {
 		}
 
 		"curl" {
-			set curldata ""
- 
 			foreach data value [list $parameters] {
-				lappend " -d $data=$value" $curldata
+				append urldata " -d $data=$value"
 			}
 
 			if { [ catch {
-				set result [exec curl --tlsv1.2 -s -X POST $url $curldata]
+				set result [exec curl --tlsv1.2 -s -X POST $url $urldata]
 			} ] } {
 				set errormessage "::libhttp::post: cannot connect to $url"
 				set errornumber -2
