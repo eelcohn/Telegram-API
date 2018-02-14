@@ -48,38 +48,33 @@ proc ::telegram::initialize {} {
 	global nick
 
 	# Get some basic info about the Telegram bot
-	if {[set result [::libtelegram::getMe]] == -1} {
-		# Network is probably down, so schedule the next initialize
+	if {[::libtelegram::getMe] ne 0} {
+		putlog $::libtelegram::errorMessage
 		utimer $::telegram::tg_poll_freq ::telegram::initialize
- 		return -1
-	}
-
-	if {[::libjson::getValue $result ".ok"] ne "true"} {
-		putlog "Telegram-API: bad result from getMe method: [::libjson::getValue $result ".description"]"
-		utimer $::telegram::tg_poll_freq tg2irc_pollTelegram
-		return -2
+		return $::libtelegram::errorNumber
 	}
 
 	# Get the Telegram bot's nickname and realname
-	set ::telegram::tg_bot_nickname [::libjson::getValue $result ".result.username"]
-	set ::telegram::tg_bot_realname [concat [::libjson::getValue $result ".result.first_name//empty"] [::libjson::getValue $result ".result.last_name//empty"]]
+	set ::telegram::tg_bot_nickname [::libjson::getValue $::libtelegram::result ".result.username"]
+	set ::telegram::tg_bot_realname [concat [::libjson::getValue $::libtelegram::result ".result.first_name//empty"] [::libjson::getValue $::libtelegram::result ".result.last_name//empty"]]
 	set ::telegram::irc_bot_nickname "$nick"
 
 	# Get up to date information on all Telegram groups/supergroups/channels
 	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 		# Chat titles: Only get chat titles for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_chat_title($tg_chat_id)]} {
-			set result [::libtelegram::getChat $tg_chat_id]
+			if {[set result [::libtelegram::getChat $tg_chat_id]] eq -1} {
+				putlog $::libtelegram::errorMessage
+#				return $::libtelegram::errorNumber
+			}
 			set ::telegram::tg_chat_title($tg_chat_id) [::libunicode::utf82ascii [::libjson::getValue $result ".result.title//empty"]]
 		}
 		# Chat descriptions: Only get chat descriptions for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_chat_description($tg_chat_id)]} {
-			set result [::libtelegram::getChat $tg_chat_id]
 			set ::telegram::tg_chat_description($tg_chat_id) [::libjson::getValue $result ".result.description//empty"]
 		}
 		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
-			set result [::libtelegram::getChat $tg_chat_id]
 			if {[set chattype [::libjson::getValue $result ".result.pinned_message.chat.type"]] ne "null"} {
 				set ::telegram::tg_pinned_messages($tg_chat_id) [::telegram::getPinnedMessage $chattype [::libjson::getValue $result ".result.pinned_message"]]
 				if {$::telegram::tg_pinned_messages($tg_chat_id) eq ""} {
@@ -92,7 +87,9 @@ proc ::telegram::initialize {} {
 			# Check if an invite link is already available in the chat object
 			if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $result ".result.invite_link//empty"]] eq ""} {
 				# If not, then create a new one
-				set result [::libtelegram::exportChatInviteLink $tg_chat_id]
+				if {[set result [::libtelegram::exportChatInviteLink $tg_chat_id]] eq -1} {
+					putlog $::libtelegram::errorMessage
+				}
 				if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $result ".result//empty"]] eq ""} {
 					unset -nocomplain ::telegram::tg_invite_link($tg_chat_id)
 				}
