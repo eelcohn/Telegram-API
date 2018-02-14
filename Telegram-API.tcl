@@ -460,14 +460,16 @@ proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 	global serveraddress
 
 	set parameter_start [string wordend $message 1]
-	set command [string tolower [string range $message 1 $parameter_start-1]]
+	if {[set command [string tolower [string range $message 1 $parameter_start-1]]] eq ""} {
+		return 0
+	}
 
 	# Check if this command has a bot identifier in it (/command@BotIdentifier)
 	if {[string match -nocase "@*" [string range $message $parameter_start end]]} {
 		# If so, then check if the identifier matches our bot
 		if {![string match -nocase "@$::telegram::tg_bot_realname*" [string range $message $parameter_start end]]} {
 			# If not, then stop processing the command
-			return
+			return 0
 		} else {
 			set parameter_start [string wordend $message $parameter_start+1]
 		}
