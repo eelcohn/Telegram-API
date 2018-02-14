@@ -32,8 +32,8 @@ proc imagesearch_getImage {from_id chat_id msgid channel message parameter_start
 			set imgresult ""
 		}
 
-		set url [remove_slashes [::libjson::getValue $imgresult ".data.result.items\[0\].media//empty"]]
-		set title [remove_slashes [::libjson::getValue $imgresult ".data.result.items\[0\].url//empty"]]
+		set url [::libjson::getValue $imgresult ".data.result.items\[0\].media//empty"]
+		set title [::libjson::getValue $imgresult ".data.result.items\[0\].url//empty"]
 
 		if {$url == ""} {
 			::libtelegram::sendMessage $chat_id "$msgid" "html" "[::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]"
