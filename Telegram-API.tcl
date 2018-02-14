@@ -533,7 +533,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 	set parameter_start [string wordend $message 1]
 	set command [string tolower [string range $message 1 $parameter_start-1]]
 
-	libtelegram::sendChatAction $from_id "typing"
+	::libtelegram::sendChatAction $from_id "typing"
 
 	switch $command {
 		"help" {
