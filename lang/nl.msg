@@ -66,7 +66,7 @@
 ::msgcat::mcset nl MSG_BOT_IRCUNBAN_HELP " <nickname>: Hef een verbanning van een gebruiker op IRC op het IRC kanaal op."
 ::msgcat::mcset nl MSG_BOT_TGWHOISNAME "Telegram ID %1\$s is %2\$s en is bekend als %3\$s%4\$s."
 ::msgcat::mcset nl MSG_BOT_TGWHOISSTATUS "Telegram ID %1\$s heeft als status %2\$s."
-::msgcat::mcset nl MSG_BOT_TGWHOISLANG "Telegram ID %1\$s heeft als status %2\$s."
+::msgcat::mcset nl MSG_BOT_TGWHOISLANG "Telegram ID %1\$s heeft als taalcode %2\$s."
 ::msgcat::mcset nl MSG_BOT_TGWHOISPHOTO "Telegram ID %1\$s heeft een gebruikersfoto ingesteld: !tgfile %2\$s"
 ::msgcat::mcset nl MSG_BOT_TGUSERNOTVALID  "Kan op dit kanaal geen informatie ophalen over Telegram ID %1\$s."
 ::msgcat::mcset nl MSG_BOT_TGUSER "een gebruiker"
