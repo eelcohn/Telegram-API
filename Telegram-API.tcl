@@ -762,7 +762,7 @@ proc ::telegram::ircNickJoined {nick uhost handle channel} {
 			if {[string match "*i*" $::telegram::chanflags]} {
 				# Show the Telegram chat invite link
 				if {[info exists ::telegram::tg_invite_link($tg_chat_id)]} {
-					putchan $channel "\001ACTION [::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_title($tg_chat_id) $::telegram::tg_invite_link($tg_chat_id)]\001"
+					putchan $channel "\001ACTION [::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_type($tg_chat_id) $::telegram::tg_chat_title($tg_chat_id) $::telegram::tg_invite_link($tg_chat_id)]\001"
 				}
 			}
 		}
