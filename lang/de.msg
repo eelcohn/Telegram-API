@@ -15,7 +15,7 @@
 ::msgcat::mcset de MSG_IRC_MODECHANGE		"<i>%1\$s@IRC</i> setzt den Modus auf %2\$s auf %3\$s"
 
 # IRC service messages
-::msgcat::mcset de MSG_IRC_INVITELINK		"Schließe dich der Telegrammgruppe %1\$s hier %2\$s an."
+::msgcat::mcset de MSG_IRC_INVITELINK		"Schließe dich der Telegramm%1\$s %2\$s hier %3\$s an."
 ::msgcat::mcset de MSG_IRC_DCCSENDFAILED	"Datei konnte nicht gesendet werden. Kontakt den Administrator, sich die Protokolldatei anzusehen."
 ::msgcat::mcset de MSG_IRC_DCCSENDFILE		"Start DCC Übertragung %1\$s."
 ::msgcat::mcset de MSG_IRC_DCCSENDFULL		"Kann %1\$s nicht senden (zu viele DCC Verbindungen). Bitte versuche es später noch einmal."
