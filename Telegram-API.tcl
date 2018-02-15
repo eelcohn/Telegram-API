@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180214 for Eggdrop                                    #
+# Telegram-API module v20180215 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -61,18 +61,16 @@ proc ::telegram::initialize {} {
 
 	# Get up to date information on all Telegram groups/supergroups/channels
 	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
-		# Chat titles: Only get chat titles for (super)groups we haven't queried yet
+		# Chat titles: Only get chat titles and descriptions for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_chat_title($tg_chat_id)]} {
 			if {[::libtelegram::getChat $tg_chat_id] ne 0} {
 				putlog $::libtelegram::errorMessage
 #				return $::libtelegram::errorNumber
 			}
 			set ::telegram::tg_chat_title($tg_chat_id) [::libunicode::utf82ascii [::libjson::getValue $::libtelegram::result ".result.title//empty"]]
-		}
-		# Chat descriptions: Only get chat descriptions for (super)groups we haven't queried yet
-		if {![info exists ::telegram::tg_chat_description($tg_chat_id)]} {
 			set ::telegram::tg_chat_description($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result.description//empty"]
 		}
+
 		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
 		if {![info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
 			if {[set chattype [::libjson::getValue $::libtelegram::result ".result.pinned_message.chat.type"]] ne "null"} {
@@ -82,13 +80,16 @@ proc ::telegram::initialize {} {
 				}
 			}
 		}
-		# Invite links: Only get invite links for (super)groups we haven't queried yet
+
+		# Invite links: Only get invite links for supergroups and channels we haven't queried yet
 		if {![info exists ::telegram::tg_invite_link($tg_chat_id)]} {
 			# Check if an invite link is already available in the chat object
 			if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result.invite_link//empty"]] eq ""} {
-				# If not, then create a new one
-				if {[::libtelegram::exportChatInviteLink $tg_chat_id] ne 0} {
-					putlog $::libtelegram::errorMessage
+				# If not, then create a new one (for supergroups and channels only)
+				if {[::libjson::getValue $::libtelegram::result ".result.type"] != "group"} {
+					if {[::libtelegram::exportChatInviteLink $tg_chat_id] ne 0} {
+						putlog $::libtelegram::errorMessage
+					}
 				}
 				if {[set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result//empty"]] eq ""} {
 					unset -nocomplain ::telegram::tg_invite_link($tg_chat_id)
@@ -122,9 +123,9 @@ proc ::telegram::pollTelegram {} {
 		if {[::libjson::getValue $::libtelegram::result ".parameters"] ne "null"} {
 			if {[::libjson::getValue $::libtelegram::result ".parameters.migrate_to_chat_id"] ne "null"} {
 				# A chat group has been migrated to a supergroup, but the conf file still got the chat_id for the old group
-				putlog "Telegram-API: Please edit your conf file with your new chat_id: [::libjson::getValue $result ".parameters.migrate_to_chat_id"]"
+				putlog "Telegram-API: Please edit your conf file with your new chat_id: [::libjson::getValue $::libtelegram::result ".parameters.migrate_to_chat_id"]"
 			} else {
-				putlog "Telegram-API: [::libjson::getValue $result ".parameters"]"
+				putlog "Telegram-API: [::libjson::getValue $::libtelegram::result ".parameters"]"
 			}
 		}
 		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
@@ -459,15 +460,22 @@ proc ::telegram::pollTelegram {} {
 proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 	global serveraddress
 
-	set parameter_start [string wordend $message 1]
-	set command [string tolower [string range $message 1 $parameter_start-1]]
+	# Don't process single character commands
+	if {[set parameter_start [string wordend $message 1]] == 1} {
+		return 0
+	}
+
+	# Only process is command is in range a...z
+	if {![string is alpha [set command [string tolower [string range $message 1 $parameter_start-1]]]]} {
+		return 0
+	}
 
 	# Check if this command has a bot identifier in it (/command@BotIdentifier)
 	if {[string match -nocase "@*" [string range $message $parameter_start end]]} {
 		# If so, then check if the identifier matches our bot
 		if {![string match -nocase "@$::telegram::tg_bot_realname*" [string range $message $parameter_start end]]} {
 			# If not, then stop processing the command
-			return
+			return 0
 		} else {
 			set parameter_start [string wordend $message $parameter_start+1]
 		}
@@ -996,6 +1004,10 @@ proc ::telegram::tgGetUserInfo {channel nick user_id} {
 				}
 				set language_code [::libjson::getValue $::libtelegram::result ".result.user.language_code"]
 				set status [::libjson::getValue $::libtelegram::result ".result.status"]
+				if {[::libtelegram::getUserProfilePhotos $user_id 0 1] eq 0} {
+					set userphoto [::libjson::getValue $::libtelegram::result ".result.photos\[0\].file_id"]
+					puthelp "NOTICE $nick :[::msgcat::mc MSG_BOT_TGUSERPHOTO $userphoto]
+				}
 				putchan $channel "[::msgcat::mc MSG_BOT_TGUSERINFO $user_id $usertype $first_name $last_name $username $language_code $status]"
 			} else {
 				if {$::libtelegram::errorNumber == -1} {
