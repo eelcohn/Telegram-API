@@ -123,9 +123,9 @@ proc ::telegram::pollTelegram {} {
 		if {[::libjson::getValue $::libtelegram::result ".parameters"] ne "null"} {
 			if {[::libjson::getValue $::libtelegram::result ".parameters.migrate_to_chat_id"] ne "null"} {
 				# A chat group has been migrated to a supergroup, but the conf file still got the chat_id for the old group
-				putlog "Telegram-API: Please edit your conf file with your new chat_id: [::libjson::getValue $result ".parameters.migrate_to_chat_id"]"
+				putlog "Telegram-API: Please edit your conf file with your new chat_id: [::libjson::getValue $::libtelegram::result ".parameters.migrate_to_chat_id"]"
 			} else {
-				putlog "Telegram-API: [::libjson::getValue $result ".parameters"]"
+				putlog "Telegram-API: [::libjson::getValue $::libtelegram::result ".parameters"]"
 			}
 		}
 		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
