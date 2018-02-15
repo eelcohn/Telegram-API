@@ -64,7 +64,7 @@
 ::msgcat::mcset nl MSG_BOT_IRCKICK_HELP " <nickname>: Trap een gebruiker op IRC van het IRC kanaal af."
 ::msgcat::mcset nl MSG_BOT_IRCBAN_HELP " <nickname>: Verbant een gebruiker op IRC van het IRC kanaal."
 ::msgcat::mcset nl MSG_BOT_IRCUNBAN_HELP " <nickname>: Hef een verbanning van een gebruiker op IRC op het IRC kanaal op."
-::msgcat::mcset nl MSG_BOT_TGWHOISNAME "Telegram ID %1\$s is een %2\$s en is bekend als %3\$s%4\$s."
+::msgcat::mcset nl MSG_BOT_TGWHOISNAME "Telegram ID %1\$s is %2\$s en is bekend als %3\$s%4\$s."
 ::msgcat::mcset nl MSG_BOT_TGWHOISSTATUS "Telegram ID %1\$s heeft als status %2\$s."
 ::msgcat::mcset nl MSG_BOT_TGWHOISLANG "Telegram ID %1\$s heeft als status %2\$s."
 ::msgcat::mcset nl MSG_BOT_TGWHOISPHOTO "Telegram ID %1\$s heeft een gebruikersfoto ingesteld: !tgfile %2\$s"
