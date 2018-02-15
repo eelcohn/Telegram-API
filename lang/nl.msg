@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - Dutch language file v20180213              #
+# Telegram-API module for Eggdrop - Dutch language file v20180215              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -67,7 +67,7 @@
 ::msgcat::mcset nl MSG_BOT_TGWHOISNAME "Telegram ID %1\$s is een %2\$s en is bekend als %3\$s%4\$s."
 ::msgcat::mcset nl MSG_BOT_TGWHOISSTATUS "Telegram ID %1\$s heeft als status %2\$s."
 ::msgcat::mcset nl MSG_BOT_TGWHOISLANG "Telegram ID %1\$s heeft als status %2\$s."
-::msgcat::mcset nl MSG_BOT_TGWHOISPHOTO "Telegram ID %1\$s heeft een gebruikersfoto ingesteld: %2\$s"
+::msgcat::mcset nl MSG_BOT_TGWHOISPHOTO "Telegram ID %1\$s heeft een gebruikersfoto ingesteld: !tgfile %2\$s"
 ::msgcat::mcset nl MSG_BOT_TGUSERNOTVALID  "Kan op dit kanaal geen informatie ophalen over Telegram ID %1\$s."
 ::msgcat::mcset nl MSG_BOT_TGUSER "een gebruiker"
 ::msgcat::mcset nl MSG_BOT_TGBOT "een bot"
