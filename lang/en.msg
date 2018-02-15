@@ -15,7 +15,7 @@
 ::msgcat::mcset en MSG_IRC_MODECHANGE		"<i>%1\$s@IRC</i> sets mode %2\$s on %3\$s"
 
 # IRC service messages
-::msgcat::mcset en MSG_IRC_INVITELINK "Join the Telegram group %1\$s here %2\$s"
+::msgcat::mcset en MSG_IRC_INVITELINK "Join the Telegram %1\$s %2\$s here %3\$s"
 ::msgcat::mcset en MSG_IRC_DCCSENDFAILED  "Could not send file. Please ask the admin to take a look at the log file."
 ::msgcat::mcset en MSG_IRC_DCCSENDFILE  "Starting DCC transfer for %1\$s."
 ::msgcat::mcset en MSG_IRC_DCCSENDFULL  "Can't send %1\$s (too many connections). Please try again later."
