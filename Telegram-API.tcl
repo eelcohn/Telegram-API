@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180214 for Eggdrop                                    #
+# Telegram-API module v20180215 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -1004,6 +1004,10 @@ proc ::telegram::tgGetUserInfo {channel nick user_id} {
 				}
 				set language_code [::libjson::getValue $::libtelegram::result ".result.user.language_code"]
 				set status [::libjson::getValue $::libtelegram::result ".result.status"]
+				if {[::libtelegram::getUserProfilePhotos $user_id 0 1] eq 0} {
+					set userphoto [::libjson::getValue $::libtelegram::result ".result.photos\[0\].file_id"]
+					puthelp "NOTICE $nick :[::msgcat::mc MSG_BOT_TGUSERPHOTO $userphoto]
+				}
 				putchan $channel "[::msgcat::mc MSG_BOT_TGUSERINFO $user_id $usertype $first_name $last_name $username $language_code $status]"
 			} else {
 				if {$::libtelegram::errorNumber == -1} {
