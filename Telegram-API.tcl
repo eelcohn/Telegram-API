@@ -990,12 +990,11 @@ proc ::telegram::tgGetUserInfo {channel nick user_id} {
 	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {[::libtelegram::getChatMember $chat_id $user_id] eq 0} {
+				set realname [concat [::libjson::getValue $::libtelegram::result ".result.user.first_name//empty"] [::libjson::getValue $::libtelegram::result ".result.user.last_name//empty"]]
 				if {[set username [::libjson::getValue $::libtelegram::result ".result.user.username"]] eq "null"} {
-					set username "N/A"
-				}
-				set first_name [::libjson::getValue $::libtelegram::result ".result.user.first_name"]
-				if {[set last_name [::libjson::getValue $::libtelegram::result ".result.user.last_name"]] eq "null"} {
-					set last_name "N/A"
+					set username ""
+				} else {
+					set username " ($username)"
 				}
 				if {[::libjson::getValue $::libtelegram::result ".result.user.is_bot"] eq "true"} {
 					set usertype [::msgcat::mc MSG_BOT_TGBOT]
@@ -1004,11 +1003,14 @@ proc ::telegram::tgGetUserInfo {channel nick user_id} {
 				}
 				set language_code [::libjson::getValue $::libtelegram::result ".result.user.language_code"]
 				set status [::libjson::getValue $::libtelegram::result ".result.status"]
+
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_BOT_TGWHOISNAME $usertype $realname $username]"
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_BOT_TGWHOISSTATUS $status]"
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_BOT_TGWHOISLANG $language_code]"
 				if {[::libtelegram::getUserProfilePhotos $user_id 0 1] eq 0} {
 					set userphoto [::libjson::getValue $::libtelegram::result ".result.photos\[0\].file_id"]
-					puthelp "NOTICE $nick :[::msgcat::mc MSG_BOT_TGUSERPHOTO $userphoto]
+					puthelp "NOTICE $nick :[::msgcat::mc MSG_BOT_TGWHOISPHOTO $userphoto]"
 				}
-				putchan $channel "[::msgcat::mc MSG_BOT_TGUSERINFO $user_id $usertype $first_name $last_name $username $language_code $status]"
 			} else {
 				if {$::libtelegram::errorNumber == -1} {
 					putchan $channel "[::msgcat::mc MSG_TG_NOCONNECTION $user_id]"
