@@ -94,7 +94,7 @@ proc ::telegram::initialize {} {
 					}
 					set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result//empty"]
 				}
-				if {::telegram::tg_invite_link($tg_chat_id) eq ""} {
+				if {$::telegram::tg_invite_link($tg_chat_id) eq ""} {
 					unset -nocomplain ::telegram::tg_invite_link($tg_chat_id)
 				}
 			}
