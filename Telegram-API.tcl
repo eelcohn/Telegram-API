@@ -1008,7 +1008,7 @@ proc ::telegram::tgGetUserInfo {channel nick user_id} {
 				puthelp "NOTICE $nick :[::msgcat::mc MSG_BOT_TGWHOISSTATUS $user_id $status]"
 				puthelp "NOTICE $nick :[::msgcat::mc MSG_BOT_TGWHOISLANG $user_id $language_code]"
 				if {[::libtelegram::getUserProfilePhotos $user_id 0 1] eq 0} {
-					set userphoto [::libjson::getValue $::libtelegram::result ".result.photos\[0\].file_id"]
+					set userphoto [::libjson::getValue $::libtelegram::result ".result.photos\[\]\[-1\].file_id"]
 					puthelp "NOTICE $nick :[::msgcat::mc MSG_BOT_TGWHOISPHOTO $user_id $userphoto]"
 				}
 			} else {
