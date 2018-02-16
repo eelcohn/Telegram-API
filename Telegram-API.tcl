@@ -406,7 +406,7 @@ proc ::telegram::pollTelegram {} {
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							set ::telegram::tg_chat_title($tg_chat_id) [::libunicode::utf82ascii $chat_title]
-							putchan $irc_channel [::msgcat::mc MSG_TG_CHATTITLE "[::libunicode::utf82ascii $name]" "$::telegram::tg_chat_title($tg_chat_id)"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_TITLECHANGE "[::libunicode::utf82ascii $name]" "$::telegram::tg_chat_title($tg_chat_id)"]
 						}
 					}
 				}
@@ -1002,13 +1002,18 @@ proc ::telegram::tgInfo {channel nick argc} {
 			} else {
 				set ::telegram::tg_chat_membercount($chat_id) -1
 			}
-			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_TITLE $::telegram::tg_chat_title($chat_id)]"
-			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_DESC $::telegram::tg_chat_description($chat_id)]"
-			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_MEMBERCOUNT $::telegram::tg_chat_membercount($chat_id)]"
-			if {[info exists ::telegram::tg_invite_link($tg_chat_id)]} {
-				puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_INVITELINK $::telegram::tg_invite_link($chat_id)]"
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATTITLE $chat_id $::telegram::tg_chat_type($chat_id) $::telegram::tg_chat_title($chat_id)]"
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATDESC $::telegram::tg_chat_description($chat_id)]"
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATMEMBERCOUNT $::telegram::tg_chat_membercount($chat_id)]"
+			if {[info exists ::telegram::tg_chat_photo($tg_chat_id)]} {
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_PHOTO $::telegram::tg_chat_photo($chat_id)]"
 			}
-			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGPINNEDMESSAGE $::telegram::tg_pinned_messages($chat_id)]"
+			if {[info exists ::telegram::tg_invite_link($tg_chat_id)]} {
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_type($tg_chat_id) $::telegram::tg_chat_title($tg_chat_id) $::telegram::tg_invite_link($tg_chat_id)]"
+			}
+			if {[info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
+				puthelp "NOTICE $nick :$::telegram::tg_pinned_messages($tg_chat_id)"
+			}
 	}
 }
 
