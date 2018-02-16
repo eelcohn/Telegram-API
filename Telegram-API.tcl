@@ -1014,6 +1014,7 @@ proc ::telegram::tgInfo {channel nick argc} {
 			if {[info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
 				puthelp "NOTICE $nick :$::telegram::tg_pinned_messages($tg_chat_id)"
 			}
+		}
 	}
 }
 
