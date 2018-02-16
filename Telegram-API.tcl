@@ -998,16 +998,17 @@ proc ::telegram::tgInfo {channel nick argc} {
 		if {$channel eq $tg_channel} {
 			# Get the number of members in the group, supergroup or channel
 			if {[::libtelegram::getChatMembersCount $chat_id] eq 0} {
-				set $::telegram::tg_chat_membercount($chat_id) [::libjson::getValue $::libtelegram::result ".result"]
+				set ::telegram::tg_chat_membercount($chat_id) [::libjson::getValue $::libtelegram::result ".result"]
 			} else {
-				set $::telegram::tg_chat_membercount($chat_id) -1
+				set ::telegram::tg_chat_membercount($chat_id) -1
 			}
-			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_TITLE $::telegram::tg_chat_title($chat_id)]
-			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_DESC $::telegram::tg_chat_description($chat_id)]
-			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_INVITELINK $::telegram::tg_invite_link($chat_id)]
-			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGPINNEDMESSAGE $::telegram::tg_pinned_messages($chat_id)]
-			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_MEMBERCOUNT $::telegram::tg_chat_membercount($chat_id)]
-		}
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_TITLE $::telegram::tg_chat_title($chat_id)]"
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_DESC $::telegram::tg_chat_description($chat_id)]"
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_MEMBERCOUNT $::telegram::tg_chat_membercount($chat_id)]"
+			if {[info exists ::telegram::tg_invite_link($tg_chat_id)]} {
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_INVITELINK $::telegram::tg_invite_link($chat_id)]"
+			}
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGPINNEDMESSAGE $::telegram::tg_pinned_messages($chat_id)]"
 	}
 }
 
