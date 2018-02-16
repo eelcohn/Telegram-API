@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - Dutch language file v20180215              #
+# Telegram-API module for Eggdrop - Dutch language file v20180216              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -42,12 +42,16 @@
 ::msgcat::mcset nl MSG_TG_USERADD		"%1\$s@Telegram heeft %2\$s aan de Telegram groep toegevoegd."
 ::msgcat::mcset nl MSG_TG_USERLEFT		"%1\$s@Telegram heeft de Telegram groep verlaten."
 ::msgcat::mcset nl MSG_TG_USERREMOVED		"%1\$s@Telegram heeft %2\$s uit de Telegram groep verwijderd."
-::msgcat::mcset nl MSG_TG_CHATTITLE		"%1\$s@Telegram heeft het onderwerp van de Telegram groep gewijzigd naar %2\$s."
+::msgcat::mcset nl MSG_TG_TITLECHANGE		"%1\$s@Telegram heeft het onderwerp van de Telegram groep gewijzigd naar %2\$s."
 ::msgcat::mcset nl MSG_TG_PICCHANGE		"%1\$s@Telegram heeft de afbeelding van de Telegram groep gewijzigd. Gebruik !tgfile %2\$s om het bestand te downloaden."
 ::msgcat::mcset nl MSG_TG_PICDELETE		"%1\$s@Telegram heeft de afbeelding van de Telegram groep verwijderd."
 ::msgcat::mcset nl MSG_TG_GROUPMIGRATED  "%1$\s@Telegram heeft de Telegram groep gemigreerd naar een supergroep."
-::msgcat::mcset nl MSG_TG_UNKNOWNSTICKER	"Onbekende sticker."
+::msgcat::mcset nl MSG_TG_CHATTITLE "%1\$s is een %2\$s en heet %3\$s"
+::msgcat::mcset nl MSG_TG_CHATDESC "%1\$s heeft als beschrijving: %2\$s"
+::msgcat::mcset nl MSG_TG_CHATMEMBERCOUNT "%1\$s heeft %2\$s leden"
+::msgcat::mcset nl MSG_TG_CHATPHOTO "%1\$s heeft een groepsfoto ingesteld: !tgfile %2\$s"::msgcat::mcset nl MSG_TG_UNKNOWNSTICKER	"Onbekende sticker."
 ::msgcat::mcset nl MSG_TG_UNIMPL		"Onbekend Telegram bericht ontvangen: %1\$s"
+
 
 # Messages for user commands for your bot
 ::msgcat::mcset nl MSG_BOT_PUBHELP		"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. De beschikbare commando's zijn:"
