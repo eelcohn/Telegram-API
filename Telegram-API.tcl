@@ -779,7 +779,10 @@ proc ::telegram::ircNickJoined {nick uhost handle channel} {
 				# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
 				if {[string match "*j*" $::telegram::userflags]} {
 					if {![validuser $nick]} {
-						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
+						putlog "$nick joined with hostmask $uhost as an invalid user"
+#						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
+					} else {
+						putlog "$nick joined with hostmask $uhost as an valid user"
 					}
 				}
 			}
