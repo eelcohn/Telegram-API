@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - German language file v20180215             #
+# Telegram-API module for Eggdrop - German language file v20180216             #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -42,10 +42,14 @@
 ::msgcat::mcset de MSG_TG_USERADD		"%1\$s@Telegram hat %2\$s zur Telegrammgruppe hinzugefügt."
 ::msgcat::mcset de MSG_TG_USERLEFT		"%1\$s@Telegram hat die Telegrammgruppe verlassen."
 ::msgcat::mcset de MSG_TG_USERREMOVED		"%1\$s@Telegram hat %2\$s aus der Telegrammgruppe entfernt."
-::msgcat::mcset de MSG_TG_CHATTITLE		"%1\$s@Telegram hat das Thema auf die Telegramgruppe in %2\$s geändert."
+::msgcat::mcset de MSG_TG_TITLECHANGE		"%1\$s@Telegram hat das Thema auf die Telegramgruppe in %2\$s geändert."
 ::msgcat::mcset de MSG_TG_PICCHANGE		"%1\$s@Telegram hat das Telegramm Gruppenbild geändert. Du kannst es mit !tgfile %2\$s herunterladen."
 ::msgcat::mcset de MSG_TG_PICDELETE		"%1\$s@Telegram has removed the Telegram group picture."
 ::msgcat::mcset de MSG_TG_GROUPMIGRATED		"%1$\s@Telegram hat das Telegramm Gruppenbild entfernt."
+::msgcat::mcset de MSG_TG_CHATTITLE "%1\$s ist ein %2\$s und trägt den Titel %3\$s"
+::msgcat::mcset de MSG_TG_CHATDESC "%1\$s hat eine Beschreibung: %2\$s"
+::msgcat::mcset de MSG_TG_CHATMEMBERCOUNT "%1\$s hat %2\$s Mitglieder"
+::msgcat::mcset de MSG_TG_CHATPHOTO "%1\$s hat ein Gruppenbild: !tgfile %2\$s"
 ::msgcat::mcset de MSG_TG_UNKNOWNSTICKER	"Unbekannter Aufkleber."
 ::msgcat::mcset de MSG_TG_UNIMPL		"Unbekannte Telegrammnachricht empfangen: %1\$s"
 
