@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180215 for Eggdrop                                    #
+# Telegram-API module v20180216 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -993,7 +993,7 @@ proc ::telegram::cleanUpFiles {} {
 # ---------------------------------------------------------------------------- #
 # Show information about a Telegram group, supergroup or channel               #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::tgInfo {nick chat_id} {
+proc ::telegram::tgInfo {channel nick argc} {
 	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 		if {$channel eq $tg_channel} {
 			# Get the number of members in the group, supergroup or channel
