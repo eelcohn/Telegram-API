@@ -763,7 +763,7 @@ proc ::libtelegram::getChatAdministrators {chat_id} {
 }
 
 # ---------------------------------------------------------------------------- #
-# ::libtelegram::getChatMemberCount                                            #
+# ::libtelegram::getChatMembersCount                                           #
 # ---------------------------------------------------------------------------- #
 # Get the number of members in a chat group in Telegram                        #
 # https://core.telegram.org/bots/api#getchatmemberscount                       #
