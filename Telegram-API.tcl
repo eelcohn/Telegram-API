@@ -1003,10 +1003,10 @@ proc ::telegram::tgInfo {channel nick argc} {
 				set ::telegram::tg_chat_membercount($chat_id) -1
 			}
 			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATTITLE $chat_id $::telegram::tg_chat_type($chat_id) $::telegram::tg_chat_title($chat_id)]"
-			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATDESC $::telegram::tg_chat_description($chat_id)]"
-			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATMEMBERCOUNT $::telegram::tg_chat_membercount($chat_id)]"
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATDESC $chat_id $::telegram::tg_chat_description($chat_id)]"
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATMEMBERCOUNT $chat_id $::telegram::tg_chat_membercount($chat_id)]"
 			if {[info exists ::telegram::tg_chat_photo($tg_chat_id)]} {
-				puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_PHOTO $::telegram::tg_chat_photo($chat_id)]"
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_PHOTO $chat_id $::telegram::tg_chat_photo($chat_id)]"
 			}
 			if {[info exists ::telegram::tg_invite_link($tg_chat_id)]} {
 				puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_type($tg_chat_id) $::telegram::tg_chat_title($tg_chat_id) $::telegram::tg_invite_link($tg_chat_id)]"
