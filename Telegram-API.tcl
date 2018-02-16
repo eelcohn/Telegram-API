@@ -724,8 +724,12 @@ proc ::telegram::ircSendMessage {nick hostmask handle channel msg} {
 			::telegram::ircSendFile $nick [string trim [string range $msg $parameter_start end]]
 			return 0
 		}
+		if {[string match $command "tginfo"]} {
+			::telegram::tgWhoIs $channel $nick [string trim [string range $msg $parameter_start end]]
+			return 0
+		}
 		if {[string match $command "tgwhois"]} {
-			::telegram::tgGetUserInfo $channel $nick [string trim [string range $msg $parameter_start end]]
+			::telegram::tgWhoIs $channel $nick [string trim [string range $msg $parameter_start end]]
 			return 0
 		}
 	}
@@ -987,9 +991,30 @@ proc ::telegram::cleanUpFiles {} {
 }
 
 # ---------------------------------------------------------------------------- #
+# Show information about a Telegram group, supergroup or channel               #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::tgInfo {nick chat_id} {
+	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+		if {$channel eq $tg_channel} {
+			# Get the number of members in the group, supergroup or channel
+			if {[::libtelegram::getChatMemberCount $chat_id] eq 0} {
+				set $::telegram::tg_chat_membercount($chat_id) [::libjson::getValue $::libtelegram::result ".result"]
+			} else {
+				set $::telegram::tg_chat_membercount($chat_id) -1
+			}
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_TITLE $::telegram::tg_chat_title($chat_id)]
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_DESC $::telegram::tg_chat_description($chat_id)]
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_INVITELINK $::telegram::tg_invite_link($chat_id)]
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGPINNEDMESSAGE $::telegram::tg_pinned_messages($chat_id)]
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_MEMBERCOUNT $::telegram::tg_chat_membercount($chat_id)]
+		}
+	}
+}
+
+# ---------------------------------------------------------------------------- #
 # Show information about a Telegram user                                       #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::tgGetUserInfo {channel nick user_id} {
+proc ::telegram::tgWhoIs {channel nick user_id} {
 	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {[::libtelegram::getChatMember $chat_id $user_id] eq 0} {
