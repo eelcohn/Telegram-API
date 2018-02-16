@@ -1009,10 +1009,10 @@ proc ::telegram::tgInfo {channel nick argc} {
 				puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_PHOTO $chat_id $::telegram::tg_chat_photo($chat_id)]"
 			}
 			if {[info exists ::telegram::tg_invite_link($tg_chat_id)]} {
-				puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_type($tg_chat_id) $::telegram::tg_chat_title($tg_chat_id) $::telegram::tg_invite_link($tg_chat_id)]"
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_type($chat_id) $::telegram::tg_chat_title($chat_id) $::telegram::tg_invite_link($chat_id)]"
 			}
 			if {[info exists ::telegram::tg_pinned_messages($tg_chat_id)]} {
-				puthelp "NOTICE $nick :$::telegram::tg_pinned_messages($tg_chat_id)"
+				puthelp "NOTICE $nick :$::telegram::tg_pinned_messages($chat_id)"
 			}
 		}
 	}
