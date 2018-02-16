@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram API library for Tcl - v20180214                                     #
+# Telegram API library for Tcl - v20180216                                     #
 # This library has functions for interacting with the Telegram servers         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
@@ -888,16 +888,16 @@ proc ::libtelegram::checkValidResult {} {
 	} else {
 		if {[::libjson::getValue $::libtelegram::result ".ok"] ne "true"} {
 			# Probably got a HTML response, like 502 Bad Gateway
-			if {[set titlestart [string first "<title" $result]] eq -1} {
+			if {[set titlestart [string first "<title" $::libtelegram::result]] eq -1} {
 				set ::libtelegram::errorNumber -1
 				set ::libtelegram::errorMessage "Unknown response received"
 				return false
 			} else {
 				# Set the error number and message to the HTML title (most likely 502 Bad Gateway)
-				set titlestart [string first ">" $result $titlestart]
-				set titleend [string first "</title>" $result $titlestart]
+				set titlestart [string first ">" $::libtelegram::result $titlestart]
+				set titleend [string first "</title>" $::libtelegram::result $titlestart]
 				set ::libtelegram::errorNumber -1
-				set ::libtelegram::errorMessage [string range $result $titlestart+1 $titleend-1]
+				set ::libtelegram::errorMessage [string range $::libtelegram::result $titlestart+1 $titleend-1]
 				return false
 			}
 		} else {
