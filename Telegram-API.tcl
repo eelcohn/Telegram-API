@@ -997,7 +997,7 @@ proc ::telegram::tgInfo {channel nick argc} {
 	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 		if {$channel eq $tg_channel} {
 			# Get the number of members in the group, supergroup or channel
-			if {[::libtelegram::getChatMemberCount $chat_id] eq 0} {
+			if {[::libtelegram::getChatMembersCount $chat_id] eq 0} {
 				set $::telegram::tg_chat_membercount($chat_id) [::libjson::getValue $::libtelegram::result ".result"]
 			} else {
 				set $::telegram::tg_chat_membercount($chat_id) -1
