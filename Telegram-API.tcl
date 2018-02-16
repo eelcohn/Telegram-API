@@ -1006,7 +1006,7 @@ proc ::telegram::tgInfo {channel nick argc} {
 			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATDESC $chat_id $::telegram::tg_chat_description($chat_id)]"
 			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATMEMBERCOUNT $chat_id $::telegram::tg_chat_membercount($chat_id)]"
 			if {[info exists ::telegram::tg_chat_photo($chat_id)]} {
-				puthelp "NOTICE $nick :[::msgcat::mc MSG_TGCHAT_PHOTO $chat_id $::telegram::tg_chat_photo($chat_id)]"
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATPHOTO $chat_id $::telegram::tg_chat_photo($chat_id)]"
 			}
 			if {[info exists ::telegram::tg_invite_link($chat_id)]} {
 				puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_type($chat_id) $::telegram::tg_chat_title($chat_id) $::telegram::tg_invite_link($chat_id)]"
