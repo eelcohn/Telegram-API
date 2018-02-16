@@ -725,7 +725,7 @@ proc ::telegram::ircSendMessage {nick hostmask handle channel msg} {
 			return 0
 		}
 		if {[string match $command "tginfo"]} {
-			::telegram::tgWhoIs $channel $nick [string trim [string range $msg $parameter_start end]]
+			::telegram::tgInfo $channel $nick [string trim [string range $msg $parameter_start end]]
 			return 0
 		}
 		if {[string match $command "tgwhois"]} {
