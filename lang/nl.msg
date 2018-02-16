@@ -49,7 +49,8 @@
 ::msgcat::mcset nl MSG_TG_CHATTITLE "%1\$s is een %2\$s en heet %3\$s"
 ::msgcat::mcset nl MSG_TG_CHATDESC "%1\$s heeft als beschrijving: %2\$s"
 ::msgcat::mcset nl MSG_TG_CHATMEMBERCOUNT "%1\$s heeft %2\$s leden"
-::msgcat::mcset nl MSG_TG_CHATPHOTO "%1\$s heeft een groepsfoto ingesteld: !tgfile %2\$s"::msgcat::mcset nl MSG_TG_UNKNOWNSTICKER	"Onbekende sticker."
+::msgcat::mcset nl MSG_TG_CHATPHOTO "%1\$s heeft een groepsfoto ingesteld: !tgfile %2\$s"
+::msgcat::mcset nl MSG_TG_UNKNOWNSTICKER	"Onbekende sticker."
 ::msgcat::mcset nl MSG_TG_UNIMPL		"Onbekend Telegram bericht ontvangen: %1\$s"
 
 
