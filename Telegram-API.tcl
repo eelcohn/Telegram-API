@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180216 for Eggdrop                                    #
+# Telegram-API module v20180217 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -1055,6 +1055,75 @@ proc ::telegram::tgWhoIs {channel nick user_id} {
 				} else {
 					putchan $channel "[::msgcat::mc MSG_BOT_TGUSERNOTVALID $user_id]"
 				}
+			}
+		}
+	}
+}
+
+# ---------------------------------------------------------------------------- #
+# Show administrators in a Telegram group, supergroup or channel               #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::tgGetAdminsInfo {nick chat_id} {
+	set permissions [list can_be_edited can_change_info can_post_messages can_edit_messages can_delete_messages can_invite_users can_restrict_members can_pin_messages can_promote_members can_send_messages can_send_media_messages can_send_other_messages can_add_web_page_previews]
+
+	# Get info on the administrators
+	if {[::libtelegram::getChatAdministrators $chat_id] eq 0} {
+		set administrators [::libjson::getValue $::libtelegram::result ".result"]
+
+		foreach administrator [split [::libjson::getValue $::libtelegram::result ".result\[\]"] "\n"] {
+			if {[set username [::libjson::getValue $::libtelegram::result ".user.username"]] eq "null"} {
+				set username "N/A"
+			}
+			set first_name [::libjson::getValue $::libtelegram::result ".user.first_name"]
+			if {[set last_name [::libjson::getValue $::libtelegram::result ".user.last_name"]] eq "null"} {
+				set last_name "N/A"
+			}
+			if {[::libjson::getValue $::libtelegram::result ".user.is_bot"] eq "true"} {
+				set usertype [::msgcat::mc MSG_BOT_TGBOT]
+			} else {
+				set usertype [::msgcat::mc MSG_BOT_TGUSER]
+			}
+			set language_code [::libjson::getValue $::libtelegram::result ".user.language_code"]
+			set until_date 0
+			switch [::libjson::getValue $::libtelegram::result ".status"] {
+				"creator" {
+					set userstatus [::msgcat::mc MSG_CREATOR]
+				}
+
+				"administrator" {
+					set userstatus [::msgcat::mc MSG_ADMINISTRATOR]
+				}
+
+				"member" {
+					set userstatus [::msgcat::mc MSG_MEMBER]
+				}
+
+				"restricted" {
+					set userstatus [::msgcat::mc MSG_RESTRICTED]
+					set until_date [::libjson::getValue $::libtelegram::result ".user.until_date"]
+				}
+
+				"left" {
+					set userstatus [::msgcat::mc MSG_LEFT]
+				}
+
+				"kicked" {
+					set userstatus [::msgcat::mc MSG_KICKED]
+					set until_date [::libjson::getValue $::libtelegram::result ".user.until_date"]
+				}
+
+			default {
+					set userstatus [::msgcat::mc MSG_UNKNOWN]
+				}
+			}
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_USERSTATUS $userstatus $until_date]"
+
+			# Fetch permissions
+			foreach permission $permissions {
+				if {[set $permission [::libjson::getValue $::libtelegram::result ".$permission"]] eq "null"} {
+					set $permission [::msgcat::mc MSG_NOTAVAILABLE]
+				}
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_USERPERMISSION $permission [subst $$permission]]"
 			}
 		}
 	}
