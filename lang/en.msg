@@ -52,8 +52,8 @@
 ::msgcat::mcset en MSG_TG_CHATPHOTO "%1\$s has a chat photo: !tgfile %2\$s"
 ::msgcat::mcset en MSG_TG_UNKNOWNSTICKER	"Unknown sticker."
 ::msgcat::mcset en MSG_TG_UNIMPL			"Unknown Telegram message received: %1\$s"
-::msgcat::mcset nl MSG_WEBPREVIEW_UNAVAILABLE "Website preview available."
-::msgcat::mcset nl MSG_WEBPREVIEW_NOTITLE "No title available."
+::msgcat::mcset en MSG_WEBPREVIEW_UNAVAILABLE "Website preview available."
+::msgcat::mcset en MSG_WEBPREVIEW_NOTITLE "No title available."
 
 # Messages for user commands for your bot
 ::msgcat::mcset en MSG_BOT_PUBHELP			"I'm <i>%1\$s</i>, your personal bartender. Available commands are:\n"
