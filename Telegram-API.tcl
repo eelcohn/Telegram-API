@@ -777,12 +777,12 @@ proc ::telegram::ircNickJoined {nick uhost handle channel} {
 	}
 
 	# Don't notify the Telegram users when the bot joins an IRC channel
-	if {$nick ne $::telegram::irc_bot_nickname} {
+	if {$handle ne $::telegram::irc_bot_nickname} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
 				# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
-				if {[string match "*j*" $::telegram::userflags]} {
-					if {![validuser $nick]} {
+				if {[string match "*j*" [::telegram::getUserFlags $handle]]} {
+					if {![validuser $handle]} {
 						putlog "$nick $handle joined with hostmask $uhost as an invalid user"
 #						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
 					} else {
@@ -802,12 +802,12 @@ proc ::telegram::ircNickLeft {nick uhost handle channel message} {
 	global  serveraddress
 
 	# Don't notify the Telegram users when the bot leaves an IRC channel
-	if {$nick ne $::telegram::irc_bot_nickname} {
+	if {$handle ne $::telegram::irc_bot_nickname} {
 		# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
-		if {[string match "*l*" $::telegram::userflags]} {
+		if {[string match "*l*" [::telegram::getUserFlags $handle]]} {
 			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 				if {$channel eq $tg_channel} {
-					if {![validuser $nick]} {
+					if {![validuser $handle]} {
 #						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
 					}
 				}
@@ -1155,8 +1155,8 @@ proc ::telegram::getIRCNickFromTelegramID {telegram_id} {
 proc ::telegram::getUserFlags {telegram_id} {
 	# Get the userflags for this user, or return the global userflags if the user doesn't have them
 	if {[set irchandle [::telegram::getIRCNickFromTelegramID $telegram_id]] ne -1} {
-		if {[getuser $irchandle XTRA "TELEGRAM_USERFLAGS"] ne ""} {
-			return [getuser $irchandle XTRA "TELEGRAM_USERFLAGS"]
+		if {[set result [getuser $irchandle XTRA "TELEGRAM_USERFLAGS"]] ne ""} {
+			return $result
 		}
 	}
 	return $::telegram::userflags
