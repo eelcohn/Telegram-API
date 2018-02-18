@@ -782,12 +782,12 @@ proc ::telegram::ircNickJoined {nick uhost handle channel} {
 			if {$channel eq $tg_channel} {
 				# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
 				if {[string match "*j*" [::telegram::getUserFlags $handle]]} {
-					if {![validuser $handle]} {
-						putlog "$nick $handle joined with hostmask $uhost as an invalid user"
+#					if {![validuser $handle]} {
+#						putlog "$nick $handle joined with hostmask $uhost as an invalid user"
 #						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
-					} else {
+#					} else {
 						putlog "$nick $handle joined with hostmask $uhost as an valid user"
-					}
+#					}
 				}
 			}
 		}
@@ -803,13 +803,14 @@ proc ::telegram::ircNickLeft {nick uhost handle channel message} {
 
 	# Don't notify the Telegram users when the bot leaves an IRC channel
 	if {$handle ne $::telegram::irc_bot_nickname} {
-		# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
-		if {[string match "*l*" [::telegram::getUserFlags $handle]]} {
-			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-				if {$channel eq $tg_channel} {
-					if {![validuser $handle]} {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$channel eq $tg_channel} {
+				# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
+				if {[string match "*l*" [::telegram::getUserFlags $handle]]} {
+#					if {![validuser $handle]} {
 #						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
-					}
+						putlog "$nick $handle left with hostmask $uhost as an valid user"
+#					}
 				}
 			}
 		}
