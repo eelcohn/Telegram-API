@@ -52,6 +52,8 @@
 ::msgcat::mcset de MSG_TG_CHATPHOTO "%1\$s hat ein Gruppenbild: !tgfile %2\$s"
 ::msgcat::mcset de MSG_TG_UNKNOWNSTICKER	"Unbekannter Aufkleber."
 ::msgcat::mcset de MSG_TG_UNIMPL		"Unbekannte Telegrammnachricht empfangen: %1\$s"
+::msgcat::mcset de MSG_WEBPREVIEW_UNAVAILABLE "Vorschau nicht verfügbar."
+::msgcat::mcset de MSG_WEBPREVIEW_NOTITLE "Kein titel verfügbar."
 
 # Messages for user commands for your bot
 ::msgcat::mcset de MSG_BOT_PUBHELP		"Ich bin <i>%1\$s</i>, dein persönlicher Barkeeper. Verfügbare Befehle sind:\n"
