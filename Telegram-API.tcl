@@ -720,6 +720,10 @@ proc ::telegram::ircSendMessage {nick hostmask handle channel msg} {
 		# If so, then check which bot command it is, and process it. Don't send it to the Telegram group though.
 		set parameter_start [string wordend $msg 1]
 		set command [string tolower [string range $msg 1 $parameter_start-1]]
+		if {[string match $command "tgadmins"]} {
+			::telegram::tgAdminsInfo $channel $nick [string trim [string range $msg $parameter_start end]]
+			return 0
+		}
 		if {[string match $command "tgfile"]} {
 			::telegram::ircSendFile $nick [string trim [string range $msg $parameter_start end]]
 			return 0
@@ -1063,7 +1067,7 @@ proc ::telegram::tgWhoIs {channel nick user_id} {
 # ---------------------------------------------------------------------------- #
 # Show administrators in a Telegram group, supergroup or channel               #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::tgGetAdminsInfo {nick chat_id} {
+proc ::telegram::tgAdminsInfo {nick chat_id} {
 	set permissions [list can_be_edited can_change_info can_post_messages can_edit_messages can_delete_messages can_invite_users can_restrict_members can_pin_messages can_promote_members can_send_messages can_send_media_messages can_send_other_messages can_add_web_page_previews]
 
 	# Get info on the administrators
