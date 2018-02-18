@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - Dutch language file v20180217              #
+# Telegram-API module for Eggdrop - Dutch language file v20180218              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -52,8 +52,8 @@
 ::msgcat::mcset nl MSG_TG_CHATPHOTO "%1\$s heeft een groepsfoto ingesteld: !tgfile %2\$s"
 ::msgcat::mcset nl MSG_TG_UNKNOWNSTICKER	"Onbekende sticker."
 ::msgcat::mcset nl MSG_TG_UNIMPL		"Onbekend Telegram bericht ontvangen: %1\$s"
-::msgcat::mcset nl MSG_WEBPREVIEW_UNAVAILABLE "Website preview available."
-::msgcat::mcset nl MSG_WEBPREVIEW_NOTITLE "No title available."
+::msgcat::mcset nl MSG_WEBPREVIEW_UNAVAILABLE "Website niet beschikbaar."
+::msgcat::mcset nl MSG_WEBPREVIEW_NOTITLE "Website heeft geen titel."
 
 # Messages for user commands for your bot
 ::msgcat::mcset nl MSG_BOT_PUBHELP		"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. De beschikbare commando's zijn:"
