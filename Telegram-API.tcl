@@ -777,7 +777,7 @@ proc ::telegram::ircNickJoined {nick uhost handle channel} {
 	}
 
 	# Don't notify the Telegram users when the bot joins an IRC channel
-	if {$handle ne $::telegram::irc_bot_nickname} {
+	if {$nick ne $::telegram::irc_bot_nickname} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
 				# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
@@ -802,7 +802,7 @@ proc ::telegram::ircNickLeft {nick uhost handle channel message} {
 	global  serveraddress
 
 	# Don't notify the Telegram users when the bot leaves an IRC channel
-	if {$handle ne $::telegram::irc_bot_nickname} {
+	if {$nick ne $::telegram::irc_bot_nickname} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
 				# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
