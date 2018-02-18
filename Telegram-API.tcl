@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180217 for Eggdrop                                    #
+# Telegram-API module v20180218 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -1202,7 +1202,7 @@ proc ::telegram::getWebsiteTitle {url} {
 	}
 
 	if {[set titlestart [string first "<title" $result]] eq -1} {
-		return "No title available"
+		return "[::msgcat::mc MSG_WEBPREVIEW_NOTITLE]"
 	} else {
 		set titlestart [string first ">" $result $titlestart]
 		set titleend [string first "</title>" $result $titlestart]
