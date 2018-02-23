@@ -174,9 +174,9 @@ proc ::libtelegram::forwardMessage {chat_id from_chat_id disable_notification me
 # sendPhoto: Sends a photo to a chat group in Telegram                         #
 # https://core.telegram.org/bots/api#sendphoto                                 #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendPhoto {chat_id msg_id photo caption} {
+proc ::libtelegram::sendPhoto {chat_id msg_id photo parse_mode caption} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendPhoto -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d photo=$photo -d caption=$caption]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendPhoto -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d photo=$photo -d parse_mode=$parse_mode -d caption=$caption]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendPhoto: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -196,9 +196,9 @@ proc ::libtelegram::sendPhoto {chat_id msg_id photo caption} {
 # sendAudio: Sends a audio file to a chat group in Telegram                    #
 # https://core.telegram.org/bots/api#sendaudio                                 #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendAudio {chat_id msg_id audio caption} {
+proc ::libtelegram::sendAudio {chat_id msg_id audio parse_mode caption} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAudio -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d audio=$audio -d caption=$caption]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAudio -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d audio=$audio -d parse_mode=$parse_mode -d caption=$caption]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendAudio: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -218,9 +218,9 @@ proc ::libtelegram::sendAudio {chat_id msg_id audio caption} {
 # sendDocument: Sends a document to a chat group in Telegram                   #
 # https://core.telegram.org/bots/api#senddocument                              #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendDocument {chat_id msg_id document caption} {
+proc ::libtelegram::sendDocument {chat_id msg_id document parse_mode caption} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendDocument -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d document=$document -d caption=$caption]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendDocument -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d document=$document -d parse_mode=$parse_mode -d caption=$caption]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendDocument: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -240,9 +240,9 @@ proc ::libtelegram::sendDocument {chat_id msg_id document caption} {
 # sendVideo: Sends a video to a chat group in Telegram                         #
 # https://core.telegram.org/bots/api#sendvideo                                 #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendVideo {chat_id msg_id video caption} {
+proc ::libtelegram::sendVideo {chat_id msg_id video parse_mode caption} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVideo -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video=$video -d caption=$caption]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVideo -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video=$video -d parse_mode=$parse_mode -d caption=$caption]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendVideo: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -262,9 +262,9 @@ proc ::libtelegram::sendVideo {chat_id msg_id video caption} {
 # sendVoice: Sends a playable voice message to a chat group in Telegram        #
 # https://core.telegram.org/bots/api#sendvoice                                 #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendVoice {chat_id msg_id voice caption} {
+proc ::libtelegram::sendVoice {chat_id msg_id voice parse_mode caption} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVoice -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d voice=$voice -d caption=$caption]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVoice -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d voice=$voice -d parse_mode=$parse_mode -d caption=$caption]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendVoice: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -763,7 +763,7 @@ proc ::libtelegram::getChatAdministrators {chat_id} {
 }
 
 # ---------------------------------------------------------------------------- #
-# ::libtelegram::getChatMemberCount                                            #
+# ::libtelegram::getChatMembersCount                                           #
 # ---------------------------------------------------------------------------- #
 # Get the number of members in a chat group in Telegram                        #
 # https://core.telegram.org/bots/api#getchatmemberscount                       #

@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180215 for Eggdrop                                    #
+# Telegram-API module v20180223 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -406,7 +406,7 @@ proc ::telegram::pollTelegram {} {
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							set ::telegram::tg_chat_title($tg_chat_id) [::libunicode::utf82ascii $chat_title]
-							putchan $irc_channel [::msgcat::mc MSG_TG_CHATTITLE "[::libunicode::utf82ascii $name]" "$::telegram::tg_chat_title($tg_chat_id)"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_TITLECHANGE "[::libunicode::utf82ascii $name]" "$::telegram::tg_chat_title($tg_chat_id)"]
 						}
 					}
 				}
@@ -720,12 +720,20 @@ proc ::telegram::ircSendMessage {nick hostmask handle channel msg} {
 		# If so, then check which bot command it is, and process it. Don't send it to the Telegram group though.
 		set parameter_start [string wordend $msg 1]
 		set command [string tolower [string range $msg 1 $parameter_start-1]]
+		if {[string match $command "tgadmins"]} {
+			::telegram::tgAdminsInfo $channel $nick]
+			return 0
+		}
 		if {[string match $command "tgfile"]} {
 			::telegram::ircSendFile $nick [string trim [string range $msg $parameter_start end]]
 			return 0
 		}
+		if {[string match $command "tginfo"]} {
+			::telegram::tgInfo $channel $nick [string trim [string range $msg $parameter_start end]]
+			return 0
+		}
 		if {[string match $command "tgwhois"]} {
-			::telegram::tgGetUserInfo $channel $nick [string trim [string range $msg $parameter_start end]]
+			::telegram::tgWhoIs $channel $nick [string trim [string range $msg $parameter_start end]]
 			return 0
 		}
 	}
@@ -773,9 +781,12 @@ proc ::telegram::ircNickJoined {nick uhost handle channel} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
 				# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
-				if {[string match "*j*" $::telegram::userflags]} {
-					if {![validuser $nick]} {
-						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
+				if {[string match "*j*" [::telegram::getUserFlags $handle]]} {
+					if {![validuser $handle]} {
+						putlog "$nick $handle joined with hostmask $uhost as an invalid user"
+#						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
+					} else {
+						putlog "$nick $handle joined with hostmask $uhost as an valid user"
 					}
 				}
 			}
@@ -792,12 +803,15 @@ proc ::telegram::ircNickLeft {nick uhost handle channel message} {
 
 	# Don't notify the Telegram users when the bot leaves an IRC channel
 	if {$nick ne $::telegram::irc_bot_nickname} {
-		# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
-		if {[string match "*l*" $::telegram::userflags]} {
-			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
-				if {$channel eq $tg_channel} {
-					if {![validuser $nick]} {
+		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+			if {$channel eq $tg_channel} {
+				# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
+				if {[string match "*l*" [::telegram::getUserFlags $handle]]} {
+					if {![validuser $handle]} {
 #						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
+						putlog "$nick $handle left $channel with hostmask $uhost as an invalid user"
+					} else {
+						putlog "$nick $handle joined $channel with hostmask $uhost as an valid user"
 					}
 				}
 			}
@@ -987,9 +1001,37 @@ proc ::telegram::cleanUpFiles {} {
 }
 
 # ---------------------------------------------------------------------------- #
+# Show information about a Telegram group, supergroup or channel               #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::tgInfo {channel nick argc} {
+	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+		if {$channel eq $tg_channel} {
+			# Get the number of members in the group, supergroup or channel
+			if {[::libtelegram::getChatMembersCount $chat_id] eq 0} {
+				set ::telegram::tg_chat_membercount($chat_id) [::libjson::getValue $::libtelegram::result ".result"]
+			} else {
+				set ::telegram::tg_chat_membercount($chat_id) -1
+			}
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATTITLE $chat_id $::telegram::tg_chat_type($chat_id) $::telegram::tg_chat_title($chat_id)]"
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATDESC $chat_id $::telegram::tg_chat_description($chat_id)]"
+			puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATMEMBERCOUNT $chat_id $::telegram::tg_chat_membercount($chat_id)]"
+			if {$::telegram::tg_chat_photo($chat_id) ne ""} {
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_CHATPHOTO $chat_id $::telegram::tg_chat_photo($chat_id)]"
+			}
+			if {[info exists ::telegram::tg_invite_link($chat_id)]} {
+				puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_INVITELINK $::telegram::tg_chat_type($chat_id) $::telegram::tg_chat_title($chat_id) $::telegram::tg_invite_link($chat_id)]"
+			}
+			if {[info exists ::telegram::tg_pinned_messages($chat_id)]} {
+				puthelp "NOTICE $nick :$::telegram::tg_pinned_messages($chat_id)"
+			}
+		}
+	}
+}
+
+# ---------------------------------------------------------------------------- #
 # Show information about a Telegram user                                       #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::tgGetUserInfo {channel nick user_id} {
+proc ::telegram::tgWhoIs {channel nick user_id} {
 	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 		if {$channel eq $tg_channel} {
 			if {[::libtelegram::getChatMember $chat_id $user_id] eq 0} {
@@ -1025,6 +1067,79 @@ proc ::telegram::tgGetUserInfo {channel nick user_id} {
 	}
 }
 
+# ---------------------------------------------------------------------------- #
+# Show administrators in a Telegram group, supergroup or channel               #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::tgAdminsInfo {channel nick} {
+	set permissions [list can_be_edited can_change_info can_post_messages can_edit_messages can_delete_messages can_invite_users can_restrict_members can_pin_messages can_promote_members can_send_messages can_send_media_messages can_send_other_messages can_add_web_page_previews]
+
+	foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
+		if {$channel eq $tg_channel} {
+			# Get info on the administrators
+			if {[::libtelegram::getChatAdministrators $chat_id] eq 0} {
+				set administrators [::libjson::getValue $::libtelegram::result ".result"]
+
+				foreach administrator [split [::libjson::getValue $::libtelegram::result ".result\[\]"] "\n"] {
+					if {[set username [::libjson::getValue $::libtelegram::result ".user.username"]] eq "null"} {
+						set username "N/A"
+					}
+					set first_name [::libjson::getValue $::libtelegram::result ".user.first_name"]
+					if {[set last_name [::libjson::getValue $::libtelegram::result ".user.last_name"]] eq "null"} {
+						set last_name "N/A"
+					}
+					if {[::libjson::getValue $::libtelegram::result ".user.is_bot"] eq "true"} {
+						set usertype [::msgcat::mc MSG_BOT_TGBOT]
+					} else {
+						set usertype [::msgcat::mc MSG_BOT_TGUSER]
+					}
+					set language_code [::libjson::getValue $::libtelegram::result ".user.language_code"]
+					set until_date 0
+					switch [::libjson::getValue $::libtelegram::result ".status"] {
+						"creator" {
+							set userstatus [::msgcat::mc MSG_CREATOR]
+						}
+
+						"administrator" {
+							set userstatus [::msgcat::mc MSG_ADMINISTRATOR]
+						}
+
+						"member" {
+							set userstatus [::msgcat::mc MSG_MEMBER]
+						}
+
+						"restricted" {
+							set userstatus [::msgcat::mc MSG_RESTRICTED]
+							set until_date [::libjson::getValue $::libtelegram::result ".user.until_date"]
+						}
+
+						"left" {
+							set userstatus [::msgcat::mc MSG_LEFT]
+						}
+
+						"kicked" {
+							set userstatus [::msgcat::mc MSG_KICKED]
+							set until_date [::libjson::getValue $::libtelegram::result ".user.until_date"]
+						}
+
+					default {
+							set userstatus [::msgcat::mc MSG_UNKNOWN]
+						}
+					}
+					puthelp "NOTICE $nick :[::msgcat::mc MSG_TG_USERSTATUS $userstatus $until_date]"
+
+					# Fetch permissions
+					foreach permission $permissions {
+						if {[set $permission [::libjson::getValue $::libtelegram::result ".$permission"]] eq "null"} {
+							set $permission [::msgcat::mc MSG_NOTAVAILABLE]
+						}
+						puthelp "NOTICE $nick :[::msgcat::mc MSG_USERPERMISSION $permission [subst $$permission]]"
+					}
+				}
+			}
+		}
+	}
+}
+
 
 
 # ---------------------------------------------------------------------------- #
@@ -1047,8 +1162,8 @@ proc ::telegram::getIRCNickFromTelegramID {telegram_id} {
 proc ::telegram::getUserFlags {telegram_id} {
 	# Get the userflags for this user, or return the global userflags if the user doesn't have them
 	if {[set irchandle [::telegram::getIRCNickFromTelegramID $telegram_id]] ne -1} {
-		if {[getuser $irchandle XTRA "TELEGRAM_USERFLAGS"] ne ""} {
-			return [getuser $irchandle XTRA "TELEGRAM_USERFLAGS"]
+		if {[set result [getuser $irchandle XTRA "TELEGRAM_USERFLAGS"]] ne ""} {
+			return $result
 		}
 	}
 	return $::telegram::userflags
@@ -1098,7 +1213,7 @@ proc ::telegram::getWebsiteTitle {url} {
 	}
 
 	if {[set titlestart [string first "<title" $result]] eq -1} {
-		return "No title available"
+		return "[::msgcat::mc MSG_WEBPREVIEW_NOTITLE]"
 	} else {
 		set titlestart [string first ">" $result $titlestart]
 		set titleend [string first "</title>" $result $titlestart]

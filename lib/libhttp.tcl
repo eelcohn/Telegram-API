@@ -1,14 +1,16 @@
 # ---------------------------------------------------------------------------- #
-# HTTP web request library for Tcl - v20180214                                 #
+# HTTP web request library for Tcl - v20180222                                 #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
 
 
 namespace eval libhttp {
-	variable processor	""
-	variable errormessage	""
-	variable errornumber	0
+	variable	::libhttp::processor	""
+	variable	::libhttp::status
+	variable	::libhttp::result
+	variable	::libhttp::errorMessage	""
+	variable	::libhttp::errorNumber	0
 }
 
 # ---------------------------------------------------------------------------- #
@@ -16,13 +18,13 @@ namespace eval libhttp {
 # ---------------------------------------------------------------------------- #
 proc ::libhttp::get {url {parameters ""}} {
 	variable urldata ""
+	set ::libhttp::errorNumber 0
  
 	switch $::libjson::processor {
 		"http_pkg" {
 			if {![catch {package present http}] || ![catch {package present tls}]} {
-				set errormessage "::libhttp::get: Tcllib::http processor not supported"
-				set errornumber -1
-				return -1
+				set ::libhttp::errorMessage "::libhttp::get: Tcllib::http processor not supported"
+				set ::libhttp::errorNumber -1
 			}
 
 			foreach data value [list $parameters] {
@@ -31,8 +33,8 @@ proc ::libhttp::get {url {parameters ""}} {
 
 			::http::register https 443 [list ::tls::socket -tls1 1 -ssl2 0 -ssl3 0]
 			set token [::http::geturl "$url?$urldata"]
-			set status [::http::status $token]
-			set result [::http::data $token]
+			set ::libhttp::status [::http::status $token]
+			set ::libhttp::result [::http::data $token]
 			::http::cleanup $token
 			::http::unregister https
 		}
@@ -43,21 +45,19 @@ proc ::libhttp::get {url {parameters ""}} {
 			}
 
 			if { [ catch {
-				set result [exec curl --tlsv1.2 -s -X GET $url $urldata]
+				set ::libhttp::result [exec curl --tlsv1.2 -s -X GET $url $urldata]
 			} ] } {
-				set errormessage "::libhttp::get: cannot connect to $url"
-				set errornumber -2
-				return -1
+				set ::libhttp::errorMessage "::libhttp::get: cannot connect to $url"
+				set ::libhttp::errorNumber -2
 			}
 		}
 
 		default {
-			set errormessage "::libhttp::get unknown http processor $::libhttp::processor"
-			set errornumber -3
-			return -1
+			set ::libhttp::errorMessage "::libhttp::get unknown http processor $::libhttp::processor"
+			set ::libhttp::errorNumber -3
 		}
 	}
-	return $result
+	return $::libhttp::errorNumber
 }
 
 # ---------------------------------------------------------------------------- #
@@ -65,19 +65,19 @@ proc ::libhttp::get {url {parameters ""}} {
 # ---------------------------------------------------------------------------- #
 proc ::libhttp::post {url parameters} {
 	variable urldata ""
+	set ::libhttp::errorNumber 0
 
 	switch $::libjson::processor {
 		"http_pkg" {
 			if {![catch {package present http}] || ![catch {package present tls}]} {
-				set errormessage "::libhttp::post: Tcllib::http processor not supported"
-				set errornumber -1
-				return -1
+				set ::libhttp::errormessage "::libhttp::post: Tcllib::http processor not supported"
+				set ::libhttp::errornumber -1
 			}
 
 			::http::register https 443 [list ::tls::socket -tls1 1 -ssl2 0 -ssl3 0]
 			set token [::http::geturl $url -query [::http::formatQuery [list $parameters]]]
-			set status [::http::status $token]
-			set result [::http::data $token]
+			set ::libhttp::status [::http::status $token]
+			set ::libhttp::result [::http::data $token]
 			::http::cleanup $token
 			::http::unregister https
 		}
@@ -88,21 +88,19 @@ proc ::libhttp::post {url parameters} {
 			}
 
 			if { [ catch {
-				set result [exec curl --tlsv1.2 -s -X POST $url $urldata]
+				set ::libhttp::result [exec curl --tlsv1.2 -s -X POST $url $urldata]
 			} ] } {
-				set errormessage "::libhttp::post: cannot connect to $url"
-				set errornumber -2
-				return -1
+				set ::libhttp::errorMessage "::libhttp::post: cannot connect to $url"
+				set ::libhttp::errorNumber -2
 			}
 		}
 
 		default {
-			set errormessage "::libhttp::post unknown http processor $::libhttp::processor"
-			set errornumber -3
-			return -1
+			set ::libhttp::errorMessage "::libhttp::post unknown http processor $::libhttp::processor"
+			set ::libhttp::errorNumber -3
 		}
 	}
-	return $result
+	return $::libhttp::errorNumber
 }
 
 if {$::libhttp::processor eq ""} {
