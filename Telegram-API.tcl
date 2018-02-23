@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180219 for Eggdrop                                    #
+# Telegram-API module v20180223 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -782,12 +782,12 @@ proc ::telegram::ircNickJoined {nick uhost handle channel} {
 			if {$channel eq $tg_channel} {
 				# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
 				if {[string match "*j*" [::telegram::getUserFlags $handle]]} {
-#					if {![validuser $handle]} {
-#						putlog "$nick $handle joined with hostmask $uhost as an invalid user"
+					if {![validuser $handle]} {
+						putlog "$nick $handle joined with hostmask $uhost as an invalid user"
 #						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"]
-#					} else {
+					} else {
 						putlog "$nick $handle joined with hostmask $uhost as an valid user"
-#					}
+					}
 				}
 			}
 		}
@@ -807,10 +807,12 @@ proc ::telegram::ircNickLeft {nick uhost handle channel message} {
 			if {$channel eq $tg_channel} {
 				# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
 				if {[string match "*l*" [::telegram::getUserFlags $handle]]} {
-#					if {![validuser $handle]} {
+					if {![validuser $handle]} {
 #						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"]
-						putlog "$nick $handle left with hostmask $uhost as an valid user"
-#					}
+						putlog "$nick $handle left $channel with hostmask $uhost as an invalid user"
+					} else {
+						putlog "$nick $handle joined $channel with hostmask $uhost as an valid user"
+					}
 				}
 			}
 		}
