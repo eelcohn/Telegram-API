@@ -21,7 +21,7 @@
 ::msgcat::mcset en MSG_IRC_DCCSENDFULL  "Can't send %1\$s (too many connections). Please try again later."
 ::msgcat::mcset en MSG_IRC_DCCSOCKET  "Can't open a socket for the transfer of %1\$s."
 ::msgcat::mcset en MSG_IRC_DCCNOTFOUND  "File %1\$s not found."
-::msgcat::mcset en MSG_IRC_DCCQUEUED  "File %1\$s is queued for transfer.
+::msgcat::mcset en MSG_IRC_DCCQUEUED  "File %1\$s is queued for transfer."
 
 # Messages from Telegram to IRC
 ::msgcat::mcset en MSG_TG_MSGSENT			"%2\$s@Telegram: %2\$s"
