@@ -21,7 +21,7 @@
 ::msgcat::mcset de MSG_IRC_DCCSENDFULL		"Kann %1\$s nicht senden (zu viele DCC Verbindungen). Bitte versuche es später noch einmal."
 ::msgcat::mcset de MSG_IRC_DCCSOCKET		"Kann keinen Socket für die Übertragung von %1\$s öffnen."
 ::msgcat::mcset de MSG_IRC_DCCNOTFOUND		"Datei %1\$s nicht gefunden."
-::msgcat::mcset de MSG_IRC_DCCQUEUED		"Die Datei %1\$s wird zur Übertragung in die Warteschlange gestellt.
+::msgcat::mcset de MSG_IRC_DCCQUEUED		"Die Datei %1\$s wird zur Übertragung in die Warteschlange gestellt.@
 
 # Messages from Telegram to IRC
 ::msgcat::mcset de MSG_TG_MSGSENT		"%2\$s@Telegram: %2\$s"
