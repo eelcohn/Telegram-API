@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180223 for Eggdrop                                    #
+# Telegram-API module v20180227 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -211,7 +211,7 @@ proc ::telegram::pollTelegram {} {
 		
 								# If the line contains an URL, get the title of the website
 								if {[string match -nocase "*http://?*" $line] || [string match -nocase "*https://?*" $line] || [string match -nocase "*www.?*" $line]} {
-									putchan $irc_channel [::telegram::getWebsiteTitle $line]
+									putchan $irc_channel [::libunicode::utf82ascii [::telegram::getWebsiteTitle $line]]
 								}
 							}
 		
