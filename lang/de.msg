@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - German language file v20180225             #
+# Telegram-API module for Eggdrop - German language file v20180303             #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -24,7 +24,7 @@
 ::msgcat::mcset de MSG_IRC_DCCQUEUED		"Die Datei %1\$s wird zur Übertragung in die Warteschlange gestellt."
 
 # Messages from Telegram to IRC
-::msgcat::mcset de MSG_TG_MSGSENT		"%2\$s@Telegram: %2\$s"
+::msgcat::mcset de MSG_TG_MSGSENT		"%1\$s@Telegram: %2\$s"
 ::msgcat::mcset de MSG_TG_MSGREPLYTOSENT	"%1\$s (als Antwort auf %2\$s@Telegram: %3\$s)"
 ::msgcat::mcset de MSG_TG_MSGFORWARDED		"%1\$s (weitergeleitet von %2\$s)"
 ::msgcat::mcset de MSG_TG_PINNEDMESSAGE		"%1\$s@Telegram: %2\$s (festgesteckt auf %3\$s)"
