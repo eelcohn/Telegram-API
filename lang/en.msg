@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - English language file v20180218            #
+# Telegram-API module for Eggdrop - English language file v20180303            #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -24,7 +24,7 @@
 ::msgcat::mcset en MSG_IRC_DCCQUEUED  "File %1\$s is queued for transfer."
 
 # Messages from Telegram to IRC
-::msgcat::mcset en MSG_TG_MSGSENT			"%2\$s@Telegram: %2\$s"
+::msgcat::mcset en MSG_TG_MSGSENT			"%1\$s@Telegram: %2\$s"
 ::msgcat::mcset en MSG_TG_MSGREPLYTOSENT "%1\$s (in reply to %2\$s@Telegram: %3\$s)"
 ::msgcat::mcset en MSG_TG_MSGFORWARDED "%1\$s (forwarded from %2\$s)"
 ::msgcat::mcset en MSG_TG_PINNEDMESSAGE "%1\$s@Telegram: %2\$s (pinned on %3\$s)"
