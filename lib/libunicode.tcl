@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Unicode library for Tcl - v20180210                                          #
+# Unicode library for Tcl - v20180305                                          #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -42,6 +42,8 @@ proc ::libunicode::utf82ascii {txt} {
 # Convert ASCII characters to UTF-8 encoded Unicode                            #
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::ascii2utf8 {txt} {
+	set txt [encoding convertto utf-8 $txt]
+
 	foreach {utf8 ascii} [array get ::libunicode::utf8table] {
 		set txt [string map -nocase "$ascii $utf8" $txt]
 	}
