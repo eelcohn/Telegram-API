@@ -57,6 +57,14 @@ source /path/to/your/scripts/Telegram-API.tcl
 <br>
 14. You're done! Enjoy!<br>
 
+## Upgrading to the current branch
+
+1. Back up your `Telegram-API-config.tcl` file (in fact, make a complete backup of the Telegram-API folder!)
+2. Delete the Telegram-API folder
+3. Install the new version with `git clone https://github.com/eelcohn/Telegram-API/`
+4. Restore your `Telegram-API-config.tcl` file
+5. Compare your custom `Telegram-API-config.tcl` file with the default `Telegram-API-config.tcl` file. Take note of any settings that have been added/changed/deleted, and edit your custom config file accoringly
+
 ## File descriptions
 
 | File | Description |
