@@ -1,3 +1,6 @@
+v20180305:
+* libunicode.tcl: Fixed 16-bit Unicode (BMP) translation of messages from IRC to Telegram (911abe0; thanks to TheMythPT)
+
 v20180215: 
 * Fixed reference to non-existant variable (9770150)
 
