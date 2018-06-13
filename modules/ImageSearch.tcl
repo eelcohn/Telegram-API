@@ -39,7 +39,7 @@ proc imagesearch_getImage {from_id chat_id msgid channel message parameter_start
 			::libtelegram::sendMessage $chat_id "$msgid" "html" "[::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]"
 			putchan $channel "[::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]"
 		} else {
-			::libtelegram::sendPhoto $chat_id "$msgid" "$url" "$title"
+			::libtelegram::sendPhoto $chat_id "$msgid" "$url" "html" "$title"
 			putchan $channel "[strip_html $url]"
 		}
 
