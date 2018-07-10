@@ -1,3 +1,13 @@
+v20180710:
+* lang/en.msg: Fixed several language codes
+* lang/en.msg: Fixed MSG_BOT_IRCUSERS_HELP (was MSG_BOT_IRCUSER_HELP)
+* lang/en.msg: Added MSG_BOT_UNKNOWNCMD
+* lang/de.msg: Fixed several language codes
+* lang/en.msg: Fixed MSG_BOT_IRCUSERS_HELP (was MSG_BOT_IRCUSER_HELP)
+
+v20180613:
+* modules/ImageSearch.tcl: Fixed invoking ::libtelegram::sendPhoto function
+
 v20180305:
 * libunicode.tcl: Fixed 16-bit Unicode (BMP) translation of messages from IRC to Telegram (911abe0; thanks to TheMythPT)
 
