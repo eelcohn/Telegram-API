@@ -62,7 +62,7 @@
 ::msgcat::mcset de MSG_BOT_IRCTOPIC		"Das Thema auf die Telegramgruppe <a href=\"%1\$s\">%2\$s</a> ist: <i>%3\$s</i>"
 ::msgcat::mcset de MSG_BOT_IRCTOPIC_HELP	": Zeigen Sie das Thema für die IRC-Kanäle an, die mit dieser Telegrammgruppe verbunden sind."
 ::msgcat::mcset de MSG_BOT_IRCUSERS		"Die folgenden Benutzer sind auf <a href=\"%1\$s\">%2\$s\</a> bekannt:\n\n%3\$s"
-::msgcat::mcset de MSG_BOT_IRCUSER_HELP		": Zeigen Sie alle Benutzer auf den IRC-Kanälen an, die mit dieser Telegrammgruppe verbunden sind."
+::msgcat::mcset de MSG_BOT_IRCUSERS_HELP		": Zeigen Sie alle Benutzer auf den IRC-Kanälen an, die mit dieser Telegrammgruppe verbunden sind."
 ::msgcat::mcset de MSG_BOT_IRCUSER		"<i>%1\$s@IRC</i> ist seit dem %2\$s auf <a href=\"%3\$s\">%4\$s</a> als <i>%5\$s</i> bekannt."
 ::msgcat::mcset de MSG_BOT_IRCUSERUNKNOWN	"<i>%1\$s@IRC</i> ist nicht bekannt auf <a href=\"%2\$s\">%3\$s</a>"
 ::msgcat::mcset de MSG_BOT_IRCUSER_HELP		" <Spitzname>: Zeigen Sie detaillierte Informationen zu einem IRC-Benutzer an."
