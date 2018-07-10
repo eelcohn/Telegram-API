@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - English language file v20180303            #
+# Telegram-API module for Eggdrop - English language file v20180710            #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -70,14 +70,15 @@
 ::msgcat::mcset en MSG_BOT_IRCKICK_HELP " <nickname>: Kick an IRC user from the IRC channel."
 ::msgcat::mcset en MSG_BOT_IRCBAN_HELP " <nickname>: Ban an IRC user from the IRC channel."
 ::msgcat::mcset en MSG_BOT_IRCUNBAN_HELP " <nickname>: Unban an IRC user from the IRC channel."
-::msgcat::mcset nl MSG_BOT_TGWHOISNAME "Telegram ID %1\$s is %2\$s and is known as %3\$s%4\$s."
-::msgcat::mcset nl MSG_BOT_TGWHOISSTATUS "Telegram ID %1\$s has status %2\$s."
-::msgcat::mcset nl MSG_BOT_TGWHOISLANG "Telegram ID %1\$s has language code %2\$s."
-::msgcat::mcset nl MSG_BOT_TGWHOISPHOTO "Telegram ID %1\$s has an user profile photo set: !tgfile %2\$s"
-::msgcat::mcset nl MSG_BOT_TGUSERNOTVALID  "No information available about Telegram ID %1\$s on this channel."
-::msgcat::mcset nl MSG_BOT_TGUSER "an user"
-::msgcat::mcset nl MSG_BOT_TGBOT "a bot"
+::msgcat::mcset en MSG_BOT_TGWHOISNAME "Telegram ID %1\$s is %2\$s and is known as %3\$s%4\$s."
+::msgcat::mcset en MSG_BOT_TGWHOISSTATUS "Telegram ID %1\$s has status %2\$s."
+::msgcat::mcset en MSG_BOT_TGWHOISLANG "Telegram ID %1\$s has language code %2\$s."
+::msgcat::mcset en MSG_BOT_TGWHOISPHOTO "Telegram ID %1\$s has an user profile photo set: !tgfile %2\$s"
+::msgcat::mcset en MSG_BOT_TGUSERNOTVALID  "No information available about Telegram ID %1\$s on this channel."
+::msgcat::mcset en MSG_BOT_TGUSER "an user"
+::msgcat::mcset en MSG_BOT_TGBOT "a bot"
 ::msgcat::mcset en MSG_BOT_TGUSERNOTVALID  "Can't get information on Telegram ID %1\$s on this channel."
+::msgcat::mcset en MSG_BOT_UNKNOWNCMD "I don't understand that. You can use /help to list all known commands."
 ::msgcat::mcset en MSG_BOT_GOTNOPRIVS "%1\$s isn't authorized to do that."
 
 # Messages for admins controlling your bot
