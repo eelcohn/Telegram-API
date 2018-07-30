@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Image Search module for Eggdrop with the Telegram-API module v20180211       #
+# Image Search module for Eggdrop with the Telegram-API module v20180730       #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -36,10 +36,10 @@ proc imagesearch_getImage {from_id chat_id msgid channel message parameter_start
 		set title [::libjson::getValue $imgresult ".data.result.items\[0\].url//empty"]
 
 		if {$url == ""} {
-			::libtelegram::sendMessage $chat_id "$msgid" "html" "[::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]"
+			::libtelegram::sendMessage $chat_id "[::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]" "html" $::telegram::tg_web_page_preview false $msgid "" 
 			putchan $channel "[::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]"
 		} else {
-			::libtelegram::sendPhoto $chat_id "$msgid" "$url" "html" "$title"
+			::libtelegram::sendPhoto $chat_id "$url" "$title"  "html" $::telegram::tg_web_page_preview false $msgid ""
 			putchan $channel "[strip_html $url]"
 		}
 
