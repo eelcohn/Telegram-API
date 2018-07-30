@@ -26,16 +26,16 @@ proc spotify_getTrack {from_id chat_id msgid channel message parameter_start} {
 		}
 
 		if {[::libjson::hasKey $result ".error"]} {
-			set url "Error [::libjson::getValue $result ".error.status"] [::libjson::getValue $result ".error.message"]"
+			set response "Error [::libjson::getValue $result ".error.status"] [::libjson::getValue $result ".error.message"]"
 		} else {
 			if {[::libjson::getValue $result "total"] eq "0"} {
-				set url "[::msgcat::mc MSG_SPOTIFY_NOTFOUND]"
+				set response "[::msgcat::mc MSG_SPOTIFY_NOTFOUND]"
 			} else {
-				set url [::libjson::getValue $result "spotify"]
+				set response [::libjson::getValue $result "spotify"]
 			}
 		}
 
-		::libtelegram::sendMessage $chat_id "$url" "html" $::telegram::tg_web_page_preview false $msgid ""
+		::libtelegram::sendMessage $chat_id "$url" "html" false $msgid ""
 		putchan $channel "[strip_html $url]"
 
 		return 0
