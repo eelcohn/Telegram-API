@@ -1,4 +1,11 @@
 v20180730:
+* Telegram-API.tcl: Updated sendMessage calls to v4.0 (July 26, 2018)
+* modules/IRChelper.tcl: Updated sendMessage calls to v4.0 (July 26, 2018)
+* modules/ImageSearch.tcl: Updated sendMessage and sendPhoto calls to v4.0 (July 26, 2018)
+* modules/Location.tcl: Updated sendMessage and sendVenue calls to v4.0 (July 26, 2018)
+* modules/PSN.tcl: Updated sendMessage and sendPhoto calls to v4.0 (July 26, 2018)
+* modules/Quotes.tcl: Updated sendMessage calls to v4.0 (July 26, 2018)
+* modules/Soundcloudr.tcl: Updated sendMessage calls to v4.0 (July 26, 2018)
 * lib/libtelegram.tcl: Added editMessageText method
 * lib/libtelegram.tcl: Added editMessageCaption method
 * lib/libtelegram.tcl: Added editMessageMedia method
