@@ -364,12 +364,12 @@ proc ::telegram::pollTelegram {} {
 
 					# Check if we want to send a public welcome message to the new participant
 					if {[string match "*w*" $::telegram::chanflags]} {
-						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"] "html" $::telegram::tg_web_page_preview false "" ""
+						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"] "html" false "" ""
 					}
 
 					# Check if we want to send a private welcome message to the new participant
 					if {[string match "*W*" $::telegram::chanflags]} {
-						::libtelegram::sendMessage $new_member_id [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"] "html" $::telegram::tg_web_page_preview false "" ""
+						::libtelegram::sendMessage $new_member_id [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"] "html" false "" ""
 					}
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
@@ -492,7 +492,7 @@ proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 		foreach {command helpmessage} [lsort -stride 2 [array get ::telegram::public_commands_help]] {
 			append response "/$command $helpmessage\n"
 		}
-		::libtelegram::sendMessage $chat_id "[url_encode $response]" "html" $::telegram::tg_web_page_preview false $msgid ""
+		::libtelegram::sendMessage $chat_id "[url_encode $response]" "html" false $msgid ""
 		putchan $channel "[strip_html $response]"
 	} else {
 		# Not one of the standard bot commands, so check if the bot command is in our dynamic command list
@@ -501,7 +501,7 @@ proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 				if {[$prc $from_id $chat_id $msgid $channel $message $parameter_start] ne 0} {
 					# The module returned an error, so show the help message for the specified command
 					set response "/$command $::telegram::public_commands_help($command)"
-					::libtelegram::sendMessage $chat_id "[url_encode $response]" "html" $::telegram::tg_web_page_preview false $msgid ""
+					::libtelegram::sendMessage $chat_id "[url_encode $response]" "html" false $msgid ""
 					putchan $channel "[strip_html $response]"
 				}	
 				return 0
@@ -509,7 +509,7 @@ proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 		}
 
 		# Not in our dynamic command list either, so respond with an unknown command message
-		::libtelegram::sendMessage $chat_id "[::msgcat::mc MSG_BOT_UNKNOWNCMD]" "html" $::telegram::tg_web_page_preview false $msgid ""
+		::libtelegram::sendMessage $chat_id "[::msgcat::mc MSG_BOT_UNKNOWNCMD]" "html" false $msgid ""
 		putchan $channel "[::msgcat::mc MSG_BOT_UNKNOWNCMD]"
 		return -1
 	}
@@ -552,7 +552,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 			foreach {command helpmessage} [lsort -stride 2 [array get ::telegram::private_commands_help]] {
 				append response "/$command $helpmessage\n"
 			}
-			::libtelegram::sendMessage $from_id "[url_encode $response]" "html" $::telegram::tg_web_page_preview false $msgid ""
+			::libtelegram::sendMessage $from_id "[url_encode $response]" "html" false $msgid ""
 		}
 
 		"login" {
@@ -565,7 +565,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 			# Set the password if this is the first time this user logs in
 #			if {[getuser $irchandle PASS] == ""} {
 #				setuser $irchandle PASS "$ircpassword"
-#				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_PASSWORDSET "$::telegram::tg_bot_nickname"]" "html" $::telegram::tg_web_page_preview false $msgid ""
+#				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_PASSWORDSET "$::telegram::tg_bot_nickname"]" "html" false $msgid ""
 #			}
 
 			# Check if the password matches
@@ -597,11 +597,11 @@ proc ::telegram::privateCommand {from_id msgid message} {
 					setuser $irchandle XTRA "TELEGRAM_USERFLAGS" "$::telegram::userflags"
 				}
 
-				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERLOGIN "$::telegram::tg_bot_nickname" "$irchandle"]\n\n $lastlogin" "html" $::telegram::tg_web_page_preview false $msgid ""
+				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERLOGIN "$::telegram::tg_bot_nickname" "$irchandle"]\n\n $lastlogin" "html" false $msgid ""
 				putlog "Telegram-API: Succesful login from $from_id, username $irchandle"
 			} else {
 				# Username/password combo doesn't match
-				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERPASSWRONG]" "html" $::telegram::tg_web_page_preview false $msgid ""
+				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERPASSWRONG]" "html" false $msgid ""
 				putlog "Telegram-API: Failed login attempt from $from_id, username $irchandle"
 			}
 		}
@@ -611,10 +611,10 @@ proc ::telegram::privateCommand {from_id msgid message} {
 				setuser $irchandle XTRA "TELEGRAM_USERID" ""
 				setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "$from_id"
 				setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "[clock seconds]"
-				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]" "html" $::telegram::tg_web_page_preview false $msgid ""
+				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]" "html" false $msgid ""
 				putlog "Telegram-API: Succesful logout from $from_id, username $irchandle"
 			} else {
-				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]" "html" $::telegram::tg_web_page_preview false $msgid ""
+				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]" "html" false $msgid ""
 			}
 		}
 
@@ -630,10 +630,10 @@ proc ::telegram::privateCommand {from_id msgid message} {
 				set irc_laston [clock format [lindex [split [getuser $irchandle LASTON] " "] 0] -format $::telegram::timeformat]
 				set irc_hosts [getuser $irchandle HOSTS]
 				set irc_info [getuser $irchandle INFO]
-				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERINFO "$irchandle" "$from_id" "$tg_lastlogin" "$tg_lastlogout" "$tg_lastuserid" "$tg_created" "$irc_created" "$irc_laston" "irc_hosts" "$irc_info"]" "html" $::telegram::tg_web_page_preview false $msgid ""
+				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERINFO "$irchandle" "$from_id" "$tg_lastlogin" "$tg_lastlogout" "$tg_lastuserid" "$tg_created" "$irc_created" "$irc_laston" "irc_hosts" "$irc_info"]" "html" false $msgid ""
 				putlog "Telegram-API: My information accessed by $from_id, username $irchandle"
 			} else {
-				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]" "html" $::telegram::tg_web_page_preview false $msgid ""
+				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]" "html" false $msgid ""
 			}
 		}
 
@@ -647,7 +647,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 			}
 
 			# Not in our dynamic command list either, so respond with an unknown command message
-			::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_UNKNOWNCMD]" "html" $::telegram::tg_web_page_preview false $msgid ""
+			::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_UNKNOWNCMD]" "html" false $msgid ""
 		}
 	}
 }
