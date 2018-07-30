@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram API library for Tcl - v20180730                                    #
+# Telegram API library for Tcl - v20180730                                     #
 # This library has functions for interacting with the Telegram servers         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
@@ -132,7 +132,7 @@ proc ::libtelegram::getMe {} {
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendMessage {chat_id text parse_mode disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMessage -d chat_id=$chat_id -d text=$text -d parse_mode=$parse_mode -d disable_web_page_preview=$disable_web_page_preview -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMessage -d chat_id=$chat_id -d text=$text -d parse_mode=$parse_mode -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
 	} ] } {
 		putlog "[set ::libtelegram::errorMessage "libtelegram::sendMessage: cannot connect to api.telegram.com."]"
 		return [set ::libtelegram::errorNumber -1]
