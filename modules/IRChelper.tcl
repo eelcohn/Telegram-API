@@ -11,7 +11,7 @@ proc ::telegram::irctopic {from_id chat_id msgid channel message parameter_start
 	global serveraddress
 
 	set response "[::msgcat::mc MSG_BOT_IRCTOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
-	::libtelegram::sendMessage $chat_id $msgid "html" "$response"
+	::libtelegram::sendMessage $chat_id "$response" "html" $::telegram::tg_web_page_preview false $msgid ""
 	putchan $channel "[strip_html $response]"
 
 	# Return success
@@ -33,7 +33,7 @@ proc ::telegram::ircuser {from_id chat_id msgid channel message parameter_start}
 		} else {
 			set response "[::msgcat::mc MSG_BOT_IRCUSERUNKNOWN "$handle" "$serveraddress/$channel" "$channel"]"
 		}
-		::libtelegram::sendMessage $chat_id $msgid "html" "$response"
+		::libtelegram::sendMessage $chat_id "$response" "html" $::telegram::tg_web_page_preview false $msgid ""
 		putchan $channel "[strip_html $response]"
 
 		# Return success
@@ -51,7 +51,7 @@ proc ::telegram::ircusers {from_id chat_id msgid channel message parameter_start
 	global serveraddress
 
 	set response "[::msgcat::mc MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[string map {" " "\n"} [chanlist $channel]]"]"
-	::libtelegram::sendMessage $chat_id $msgid "html" "$response"
+	::libtelegram::sendMessage $chat_id "$response" "html" $::telegram::tg_web_page_preview false $msgid ""
 	putchan $channel "[strip_html $response]"
 
 	# Return success
@@ -88,7 +88,7 @@ proc ::telegram::ircKick {from_id chat_id msgid channel message parameter_start}
 	} else {
 		set response "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
 	}
-	::libtelegram::sendMessage $chat_id $msgid "html" "$response"
+	::libtelegram::sendMessage $chat_id "$response" "html" $::telegram::tg_web_page_preview false $msgid ""
 	putchan $channel "[strip_html $response]"
 
 	return 0
@@ -124,7 +124,7 @@ proc ::telegram::ircBan {from_id chat_id msgid channel message parameter_start} 
 	} else {
 		set response "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
 	}
-	::libtelegram::sendMessage $chat_id $msgid "html" "$response"
+	::libtelegram::sendMessage $chat_id "$response" "html" $::telegram::tg_web_page_preview false $msgid ""
 	putchan $channel "[strip_html $response]"
 
 	return 0
@@ -152,14 +152,14 @@ proc ::telegram::ircUnban {from_id chat_id msgid channel message parameter_start
 			return $result
 		} else {
 			set response "[::msgcat::mc MSG_BOT_GOTNOPRIVS $::telegram::irc_bot_nickname]"
-			::libtelegram::sendMessage $chat_id $msgid "html" "$response"
+			::libtelegram::sendMessage $chat_id "$response" "html" $::telegram::tg_web_page_preview false $msgid ""
 			putchan $channel "[strip_html $response]"
 
 			return 0
 		}
 	} else {
 		set response "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
-		::libtelegram::sendMessage $chat_id $msgid "html" "$response"
+		::libtelegram::sendMessage $chat_id "$response" "html" $::telegram::tg_web_page_preview false $msgid ""
 		putchan $channel "[strip_html $response]"
 
 		return 0
