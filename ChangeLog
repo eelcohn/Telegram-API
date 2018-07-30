@@ -1,3 +1,20 @@
+v20180730:
+* lib/libtelegram.tcl: Added editMessageText method
+* lib/libtelegram.tcl: Added editMessageCaption method
+* lib/libtelegram.tcl: Added editMessageMedia method
+* lib/libtelegram.tcl: Added editMessageReplyMarkup method
+* lib/libtelegram.tcl: Added deleteMessage method
+* lib/libtelegram.tcl: Updated sendMessage to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendPhoto to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendAudio to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendDocument to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendVideo to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendVoice to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendVideoNote to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendLocation to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendVenue to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendContact to v4.0 (July 26, 2018)
+
 v20180710:
 * lang/en.msg: Fixed several language codes
 * lang/en.msg: Fixed MSG_BOT_IRCUSERS_HELP (was MSG_BOT_IRCUSER_HELP)
