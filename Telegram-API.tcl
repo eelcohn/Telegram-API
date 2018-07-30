@@ -364,12 +364,12 @@ proc ::telegram::pollTelegram {} {
 
 					# Check if we want to send a public welcome message to the new participant
 					if {[string match "*w*" $::telegram::chanflags]} {
-						::libtelegram::sendMessage $chat_id "" "html" [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"]
+						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"] "html" $::telegram::tg_web_page_preview false $msgid ""
 					}
 
 					# Check if we want to send a private welcome message to the new participant
 					if {[string match "*W*" $::telegram::chanflags]} {
-						::libtelegram::sendMessage $new_member_id "" "html" [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"]
+						::libtelegram::sendMessage $new_member_id [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"] "html" $::telegram::tg_web_page_preview false $msgid ""
 					}
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
