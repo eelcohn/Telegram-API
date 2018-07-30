@@ -30,13 +30,13 @@ proc openstreetmaps_getLocation {from_id chat_id msgid channel message parameter
 
 		if {[set display_name [::libjson::getValue $result ".\[0\].display_name//empty"]] eq ""} {
 			set result "[::msgcat::mc MSG_LOCATE_NOTFOUND]"
-			libtelegram::sendMessage $chat_id "$result" "html" $::telegram::tg_web_page_preview false $msgid ""
+			libtelegram::sendMessage $chat_id "$result" "html" false $msgid ""
 			putchan $channel "$result"
 			return 0
 		} else {
 			set lat [::libjson::getValue $result ".\[0\].lat"]
 			set lon [::libjson::getValue $result ".\[0\].lon"]
-			libtelegram::sendVenue $chat_id $lat $lon $locationquery $display_name "" "" $::telegram::tg_web_page_preview false $msgid ""
+			libtelegram::sendVenue $chat_id $lat $lon $locationquery $display_name "" "" false $msgid ""
 			putchan $channel "[strip_html [::libunicode::utf82ascii $display_name]]: https://www.openstreetmap.org/#map=20/$lat/$lon"
 		}
 		return 0
