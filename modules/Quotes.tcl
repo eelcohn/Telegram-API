@@ -56,7 +56,7 @@ proc quotes_getQuote {from_id chat_id msgid channel message parameter_start} {
 		}
 	}
 
-	::libtelegram::sendMessage $chat_id "[url_encode $qot_sel]" "html" $::telegram::tg_web_page_preview false $msgid ""
+	::libtelegram::sendMessage $chat_id "[url_encode $qot_sel]" "html" false $msgid ""
 	putchan $channel "[::libunicode::utf82ascii $qot_sel]"
 
 	return 0
@@ -77,7 +77,7 @@ proc quotes_addQuote {from_id chat_id msgid channel message parameter_start} {
 		puts $quote_fd "$quote"
 		close $quote_fd
 
-		::libtelegram::sendMessage $chat_id "[::msgcat::mc MSG_QUOTE_QUOTEADDED]" "html" $::telegram::tg_web_page_preview false $msgid ""
+		::libtelegram::sendMessage $chat_id "[::msgcat::mc MSG_QUOTE_QUOTEADDED]" "html" false $msgid ""
 		putchan $channel "[::msgcat::mc MSG_QUOTE_QUOTEADDED]"
 
 		return 0
