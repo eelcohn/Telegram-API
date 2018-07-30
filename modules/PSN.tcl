@@ -59,11 +59,11 @@ proc psn_getPSNInfo {from_id chat_id msgid channel message parameter_start} {
 				set response [::msgcat::mc MSG_PSN_RESULT "$name" "$level" "$game1" "$game2" "$game3"]
 	#			set response "Player: $name%0ALevel: $level%0ARecently seen playing:%0A1. $game1%0A2. $game2%0A3. $game3"
 			}
-			libtelegram::sendPhoto $chat_id "https:$userpic" "$response" "html" $::telegram::tg_web_page_preview false $msgid ""
+			libtelegram::sendPhoto $chat_id "https:$userpic" "$response" "html" false $msgid ""
 			putchan $channel "Player: $name https:[strip_html $userpic]"
 		} else {
 			set response "[::msgcat::mc MSG_PSN_NOTFOUND]"
-			libtelegram::sendMessage $chat_id "$response" "html" $::telegram::tg_web_page_preview false $msgid ""
+			libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
 			putchan $channel "[strip_html $response]"
 		}
 		return 0
