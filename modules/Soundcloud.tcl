@@ -33,7 +33,7 @@ proc soundcloud_getTrack {from_id chat_id msgid channel message parameter_start}
 			}
 		}
 
-		::libtelegram::sendMessage $chat_id "$response" "html" $::telegram::tg_web_page_preview false $msgid ""
+		::libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
 		putchan $channel "[strip_html $url]"
 
 		return 0
