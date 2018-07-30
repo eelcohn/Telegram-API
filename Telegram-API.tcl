@@ -364,12 +364,12 @@ proc ::telegram::pollTelegram {} {
 
 					# Check if we want to send a public welcome message to the new participant
 					if {[string match "*w*" $::telegram::chanflags]} {
-						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"] "html" $::telegram::tg_web_page_preview false $msgid ""
+						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"] "html" $::telegram::tg_web_page_preview false "" ""
 					}
 
 					# Check if we want to send a private welcome message to the new participant
 					if {[string match "*W*" $::telegram::chanflags]} {
-						::libtelegram::sendMessage $new_member_id [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"] "html" $::telegram::tg_web_page_preview false $msgid ""
+						::libtelegram::sendMessage $new_member_id [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chat_id)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"] "html" $::telegram::tg_web_page_preview false "" ""
 					}
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
@@ -742,7 +742,7 @@ proc ::telegram::ircSendMessage {nick hostmask handle channel msg} {
 	if {[string match "*v*" $::telegram::userflags]} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
-				::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_MSGSENT "$nick" "[url_encode [::libunicode::ascii2utf8 $msg]]"] "html" $::telegram::tg_web_page_preview false $msgid ""
+				::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_MSGSENT "$nick" "[url_encode [::libunicode::ascii2utf8 $msg]]"] "html" $::telegram::tg_web_page_preview false "" ""
 			}
 		}
 	}
@@ -783,7 +783,7 @@ proc ::telegram::ircNickJoined {nick uhost handle channel} {
 				# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
 				if {[string match "*j*" [::telegram::getUserFlags $handle]]} {
 					if {![validuser $handle]} {
-						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"] "html" $::telegram::tg_web_page_preview false $msgid ""
+						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"] "html" $::telegram::tg_web_page_preview false "" ""
 					}
 				}
 			}
@@ -805,7 +805,7 @@ proc ::telegram::ircNickLeft {nick uhost handle channel message} {
 				# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
 				if {[string match "*l*" [::telegram::getUserFlags $handle]]} {
 					if {![validuser $handle]} {
-						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"] "html" $::telegram::tg_web_page_preview false $msgid ""
+						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"] "html" $::telegram::tg_web_page_preview false "" ""
 					}
 				}
 			}
@@ -822,7 +822,7 @@ proc ::telegram::ircNickAction {nick uhost handle channel keyword message} {
 	if {[string match "*v*" $::telegram::userflags]} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
-				::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_NICKACTION "$nick" "$nick" "$message"] "html" $::telegram::tg_web_page_preview false $msgid ""
+				::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_NICKACTION "$nick" "$nick" "$message"] "html" $::telegram::tg_web_page_preview false "" ""
 			}
 		}
 	}
@@ -837,7 +837,7 @@ proc ::telegram::ircNickChange {nick uhost handle channel newnick} {
 	if {[string match "*c*" $::telegram::userflags]} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
-				::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_NICKCHANGE "$nick" "$newnick"] "html" $::telegram::tg_web_page_preview false $msgid ""
+				::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_NICKCHANGE "$nick" "$newnick"] "html" $::telegram::tg_web_page_preview false "" ""
 			}
 		}
 	}
@@ -854,7 +854,7 @@ proc ::telegram::ircTopicChange {nick uhost handle channel topic} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
 				if {$nick ne "*"} {
-					::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"] "html" $::telegram::tg_web_page_preview false $msgid ""
+					::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"] "html" $::telegram::tg_web_page_preview false "" ""
 					if {[string match "*s*" $::telegram::chanflags]} {
 						::libtelegram::setChatTitle $chat_id $topic
 					}
@@ -873,7 +873,7 @@ proc ::telegram::ircNickKicked {nick uhost handle channel target reason} {
 	if {[string match "*k*" $::telegram::userflags]} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
-				::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_KICK "$nick" "$target" "$channel" "$reason"] "html" $::telegram::tg_web_page_preview false $msgid ""
+				::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_KICK "$nick" "$target" "$channel" "$reason"] "html" $::telegram::tg_web_page_preview false "" ""
 			}
 		}
 	}
@@ -889,7 +889,7 @@ proc ::telegram::ircModeChange {nick uhost hand channel mode target} {
 		if {[string match "*m*" $::telegram::chanflags]} {
 			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 				if {$channel eq $tg_channel} {
-					::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"] "html" $::telegram::tg_web_page_preview false $msgid ""
+					::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"] "html" $::telegram::tg_web_page_preview false "" ""
 				}
 			}
 		}
@@ -898,7 +898,7 @@ proc ::telegram::ircModeChange {nick uhost hand channel mode target} {
 		if {[string match "*m*" $::telegram::userflags]} {
 			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 				if {$channel eq $tg_channel} {
-					::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"] "html" $::telegram::tg_web_page_preview false $msgid ""
+					::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"] "html" $::telegram::tg_web_page_preview false "" ""
 				}
 			}
 		}
