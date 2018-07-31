@@ -302,6 +302,7 @@ proc ::telegram::pollTelegram {} {
 								putchan $irc_channel [::msgcat::mc MSG_TG_DOCSENT "$name" "$caption" "$tg_file_name" "$tg_file_size" "$tg_file_id"]
 							}
 						}
+					}
 				}
 
 				# Check if a photo has been sent to the Telegram group
