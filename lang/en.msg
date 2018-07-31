@@ -12,7 +12,7 @@
 ::msgcat::mcset en MSG_IRC_NICKCHANGE		"<i>%1\$s@IRC</i> is now known as <i>%2\$s</i>"
 ::msgcat::mcset en MSG_IRC_TOPICCHANGE		"<i>%1\$s@IRC</i> has changed the topic on <a href=\"%2\$s\">%3\$s</a> to <i>%4\$s</i>"
 ::msgcat::mcset en MSG_IRC_KICK		"<i>%1\$s@IRC</i> has kicked <i>%2\$s</i> from <i>%3\$s</i>: <b>%4\$s</b>"
-::msgcat::mcset en MSG_IRC_MODECHANGE		"<i>%1\$s@IRC</i> %2\$s mode %3\$s on %4\$s"
+::msgcat::mcset en MSG_IRC_MODECHANGE		"<i>%1\$s@IRC</i> %2\$s mode <i>%3\$s</i> on %4\$s"
 
 # IRC service messages
 ::msgcat::mcset en MSG_IRC_INVITELINK "Join the Telegram %1\$s %2\$s here %3\$s"
