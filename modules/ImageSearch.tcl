@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Image Search module for Eggdrop with the Telegram-API module v20180730       #
+# Image Search module for Eggdrop with the Telegram-API module v20180731       #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -14,14 +14,10 @@ source "[file join [file dirname [info script]] ImageSearch.conf]"
 # ---------------------------------------------------------------------------- #
 # Image Search procedures                                                      #
 # ---------------------------------------------------------------------------- #
-# Search an image on DuckDuckGo                                                #
+# Search an image on Qwant                                                     #
 # ---------------------------------------------------------------------------- #
 
 proc imagesearch_getImage {from_id chat_id msgid channel message parameter_start} {
-#	set s_region nl_nl
-#	set s_language nl_NL
-#	set s_safesearch -2
-
 	if {[set imagequery [string range $message $parameter_start end]] ne ""} {
 		if { [ catch {
 #			set imgresult [exec curl --tlsv1.2 -s -X POST https://api.duckduckgo.com/ -d kah=nl-nl -d kl=$s_region -d kad=$s_language -d kp=$s_safesearch -d q=$imagequery]
@@ -32,15 +28,24 @@ proc imagesearch_getImage {from_id chat_id msgid channel message parameter_start
 			set imgresult ""
 		}
 
+		set status [::libjson::getValue $imgresult ".status//empty"]
+		set error_code [::libjson::getValue $imgresult ".data.error_code//empty"]
 		set url [::libjson::getValue $imgresult ".data.result.items\[0\].media//empty"]
 		set title [::libjson::getValue $imgresult ".data.result.items\[0\].url//empty"]
 
-		if {$url == ""} {
-			::libtelegram::sendMessage $chat_id "[::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]" "html" false $msgid "" 
-			putchan $channel "[::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]"
+		if {($status != "success") || ($error_code != 0)} {
+			set reply [::msgcat::mc MSG_IMAGESEARCH_ERROR "status=$status error_code=$error_code"]
+			::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid "" 
+			putchan $channel "$reply"
 		} else {
-			::libtelegram::sendPhoto $chat_id "$url" "$title"  "html" false $msgid ""
-			putchan $channel "[strip_html $url]"
+			if {$url == ""} {
+				set reply [::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]
+				::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid "" 
+				putchan $channel "$reply"
+			} else {
+				::libtelegram::sendPhoto $chat_id "$url" "$title" "html" false $msgid ""
+				putchan $channel "[strip_html $url]"
+			}
 		}
 
 		# Return success
