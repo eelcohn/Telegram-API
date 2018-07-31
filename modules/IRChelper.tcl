@@ -11,7 +11,7 @@ proc ::telegram::irctopic {from_id chat_id msgid channel message parameter_start
 	global serveraddress
 
 	set response "[::msgcat::mc MSG_BOT_IRCTOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
-	::libtelegram::sendMessage $chat_id "$response" "html" $::telegram::tg_web_page_preview false $msgid ""
+	::libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
 	putchan $channel "[strip_html $response]"
 
 	# Return success
