@@ -15,7 +15,7 @@
 ::msgcat::mcset en MSG_IRC_SETCHANMODE  "<i>%1\$s@IRC</i> sets the <i>%2\$s</i> mode on %3\$s"
 ::msgcat::mcset en MSG_IRC_REMCHANMODE  "<i>%1\$s@IRC</i> removes the <i>%2\$s</i> mode from %3\$s"
 ::msgcat::mcset en MSG_IRC_SETUSERMODE  "<i>%1\$s@IRC</i> gives the <i>%2\$s</i> mode to %3\$s on %4\$s"
-::msgcat::mcset en MSG_IRC_REMUSERMODE  "<i>%1\$s@IRC</i> gives the <i>%2\$s</i> mode to %3\$s on %4\$s"
+::msgcat::mcset en MSG_IRC_REMUSERMODE  "<i>%1\$s@IRC</i> takes the <i>%2\$s</i> mode from %3\$s on %4\$s"
 
 # IRC service messages
 ::msgcat::mcset en MSG_IRC_INVITELINK "Join the Telegram %1\$s %2\$s here %3\$s"
