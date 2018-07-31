@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram API library for Tcl - v20180730                                     #
+# Telegram API library for Tcl - v20180731                                     #
 # This library has functions for interacting with the Telegram servers         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
@@ -249,6 +249,28 @@ proc ::libtelegram::sendVideo {chat_id video duration width height thumb caption
 	} else {
 		if {![::libtelegram::checkValidResult]} {
 			set ::libtelegram::errorMessage "libtelegram::sendVideo: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
+			return $::libtelegram::errorNumber
+		}
+	}
+
+	return [set ::libtelegram::errornumber 0]
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::sendAnimation                                                 #
+# ---------------------------------------------------------------------------- #
+# sendAnimation: Send animation files (GIF or H.264/MPEG-4 AVC video w/o sound)#
+# https://core.telegram.org/bots/api#sendanimation                             #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::sendAnimation {chat_id animation duration width height thumb caption parse_mode supports_streaming disable_notification reply_to_message_id reply_markup} {
+	if { [ catch {
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAnimation -d chat_id=$chat_id -d animation=$animation -d duration=$duration -d width=$width -d height=$height -d thumb=$thumb -d caption=$caption -d parse_mode=$parse_mode -d supports_streaming=$supports_streaming -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
+	} ] } {
+		set ::libtelegram::errorMessage "libtelegram::sendAnimation: cannot connect to api.telegram.com."
+		return [set ::libtelegram::errorNumber -1]
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errorMessage "libtelegram::sendAnimation: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
 			return $::libtelegram::errorNumber
 		}
 	}
