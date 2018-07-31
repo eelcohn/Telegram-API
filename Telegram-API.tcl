@@ -922,6 +922,13 @@ proc ::telegram::ircNickKicked {nick uhost handle channel target reason} {
 # Inform the Telegram group(s) that a channel's mode has changed               #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircModeChange {nick uhost hand channel mode target} {
+	if {[string index $msg 0] eq "+"]} {
+		set modechange [::msgcat::mc MSG_IRC_CHANMODE_SET]
+	} else {
+		set modechange [::msgcat::mc MSG_IRC_CHANMODE_REMOVE]
+	}
+	set modemsg MSG_IRC_CHANMODE_[string index $msg 1]
+
 	if {$target == ""} {
 		# Mode change target was a channel
 		if {[string match "*m*" $::telegram::chanflags]} {
