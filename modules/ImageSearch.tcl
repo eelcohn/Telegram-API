@@ -36,15 +36,16 @@ proc imagesearch_getImage {from_id chat_id msgid channel message parameter_start
 			::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid "" 
 			putchan $channel "$reply"
 		} else {
-			set url [::libjson::getValue $imgresult ".data.result.items\[0\].data\[0\].media//empty"]
-			if {$url == ""} {
+			set media [::libjson::getValue $imgresult ".data.result.items\[0\].data\[0\].media_fullsize//empty"]
+			if {$media == ""} {
 				set reply [::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]
 				::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid "" 
 				putchan $channel "$reply"
 			} else {
 				set title [::libjson::getValue $imgresult ".data.result.items\[0\].data\[0\].title//empty"]
-				::libtelegram::sendPhoto $chat_id "$url" "$title" "html" false $msgid ""
-				putchan $channel "[strip_html $url]"
+				set url [::libjson::getValue $imgresult ".data.result.items\[0\].data\[0\].url//empty"]
+				::libtelegram::sendPhoto $chat_id "$media" "<a href=\"https:$title\">$title</a>" "html" false $msgid ""
+				putchan $channel "[strip_html $media]"
 			}
 		}
 
