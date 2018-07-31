@@ -29,12 +29,12 @@ proc imagesearch_getImage {from_id chat_id msgid channel message parameter_start
 		}
 
 		set status [::libjson::getValue $imgresult ".status//empty"]
-		set error_code [::libjson::getValue $imgresult ".data.error_code//empty"]
 		set url [::libjson::getValue $imgresult ".data.result.items\[0\].media//empty"]
 		set title [::libjson::getValue $imgresult ".data.result.items\[0\].url//empty"]
 
-		if {($status != "success") || ($error_code != 0)} {
-			set reply [::msgcat::mc MSG_IMAGESEARCH_ERROR "status=$status error_code=$error_code"]
+		if {$status != "success"} {
+			set error_code [::libjson::getValue $imgresult ".data.error_code//empty"]
+			set reply [::msgcat::mc MSG_IMAGESEARCH_ERROR "$status" "$error_code"]
 			::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid "" 
 			putchan $channel "$reply"
 		} else {
