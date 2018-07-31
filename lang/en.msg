@@ -12,7 +12,10 @@
 ::msgcat::mcset en MSG_IRC_NICKCHANGE		"<i>%1\$s@IRC</i> is now known as <i>%2\$s</i>"
 ::msgcat::mcset en MSG_IRC_TOPICCHANGE		"<i>%1\$s@IRC</i> has changed the topic on <a href=\"%2\$s\">%3\$s</a> to <i>%4\$s</i>"
 ::msgcat::mcset en MSG_IRC_KICK		"<i>%1\$s@IRC</i> has kicked <i>%2\$s</i> from <i>%3\$s</i>: <b>%4\$s</b>"
-::msgcat::mcset en MSG_IRC_MODECHANGE		"<i>%1\$s@IRC</i> %2\$s the <i>%3\$s</i> mode on %4\$s"
+::msgcat::mcset en MSG_IRC_SETCHANMODE  "<i>%1\$s@IRC</i> sets the <i>%2\$s</i> mode on %3\$s"
+::msgcat::mcset en MSG_IRC_REMCHANMODE  "<i>%1\$s@IRC</i> removes the <i>%2\$s</i> mode from %3\$s"
+::msgcat::mcset en MSG_IRC_SETUSERMODE  "<i>%1\$s@IRC</i> gives the <i>%2\$s</i> mode to %3\$s on %4\$s"
+::msgcat::mcset en MSG_IRC_REMUSERMODE  "<i>%1\$s@IRC</i> gives the <i>%2\$s</i> mode to %3\$s on %4\$s"
 
 # IRC service messages
 ::msgcat::mcset en MSG_IRC_INVITELINK "Join the Telegram %1\$s %2\$s here %3\$s"
@@ -94,8 +97,6 @@
 ::msgcat::mcset en MSG_BOT_UNAUTHORIZED	"You're not authorized to do that."
 
 # Messages for IRC mode changes
-::msgcat::mcset en MSG_IRC_CHANMODE_SET "sets"
-::msgcat::mcset en MSG_IRC_CHANMODE_REMOVE "removes"
 ::msgcat::mcset en MSG_IRC_CHANMODE_A "only admin joins allowed"
 ::msgcat::mcset en MSG_IRC_CHANMODE_a "channel admin"
 ::msgcat::mcset en MSG_IRC_CHANMODE_B "no capital-only messages allowed"
