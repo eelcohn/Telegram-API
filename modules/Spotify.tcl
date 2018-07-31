@@ -35,8 +35,8 @@ proc spotify_getTrack {from_id chat_id msgid channel message parameter_start} {
 			}
 		}
 
-		::libtelegram::sendMessage $chat_id "$url" "html" false $msgid ""
-		putchan $channel "[strip_html $url]"
+		::libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
+		putchan $channel "[strip_html $response]"
 
 		return 0
 	} else {
