@@ -923,11 +923,6 @@ proc ::telegram::ircNickKicked {nick uhost handle channel target reason} {
 # Inform the Telegram group(s) that a channel's mode has changed               #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircModeChange {nick uhost hand channel mode target} {
-	if {[string index $mode 0] eq "+"} {
-		set modechange [::msgcat::mc MSG_IRC_CHANMODE_SET]
-	} else {
-		set modechange [::msgcat::mc MSG_IRC_CHANMODE_REMOVE]
-	}
 	set modemsg MSG_IRC_CHANMODE_[string index $mode 1]
 
 	if {$target == ""} {
@@ -935,7 +930,11 @@ proc ::telegram::ircModeChange {nick uhost hand channel mode target} {
 		if {[string match "*m*" $::telegram::chanflags]} {
 			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 				if {$channel eq $tg_channel} {
-					::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$modechange" "[::msgcat::mc $modemsg]" "$channel"] "html" false "" ""
+					if {[string index $mode 0] eq "+"} {
+						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_SETCHANMODE "$nick" "[::msgcat::mc $modemsg]" "$channel"] "html" false "" ""
+					} else {
+						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_REMCHANMODE "$nick" "[::msgcat::mc $modemsg]" "$channel"] "html" false "" ""
+					}
 				}
 			}
 		}
@@ -944,7 +943,11 @@ proc ::telegram::ircModeChange {nick uhost hand channel mode target} {
 		if {[string match "*m*" $::telegram::userflags]} {
 			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 				if {$channel eq $tg_channel} {
-					::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$modechange" "[::msgcat::mc $modemsg]" "$channel"] "html" false "" ""
+					if {[string index $mode 0] eq "+"} {
+						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_SETUSERMODE "$nick" "[::msgcat::mc $modemsg]" "$target" "$channel"] "html" false "" ""
+					} else {
+						::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_REMUSERMODE "$nick" "[::msgcat::mc $modemsg]" "$target" "$channel"] "html" false "" ""
+					}
 				}
 			}
 		}
