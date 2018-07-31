@@ -1,3 +1,7 @@
+v20180731:
+* Telegram-API.tcl: Added support for v4.0 (July 26, 2018) objects
+* modules/ImageSearch.tcl: Added error handling for api.qwant.com
+
 v20180730:
 * Telegram-API.tcl: Updated sendMessage calls to v4.0 (July 26, 2018)
 * modules/IRChelper.tcl: Updated sendMessage calls to v4.0 (July 26, 2018)
