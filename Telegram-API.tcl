@@ -934,7 +934,7 @@ proc ::telegram::ircModeChange {nick uhost hand channel mode target} {
 		if {[string match "*m*" $::telegram::chanflags]} {
 			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 				if {$channel eq $tg_channel} {
-					::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"] "html" false "" ""
+					::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$modechange" "[::msgcat::mc $modemsg]" "$channel"] "html" false "" ""
 				}
 			}
 		}
@@ -943,7 +943,7 @@ proc ::telegram::ircModeChange {nick uhost hand channel mode target} {
 		if {[string match "*m*" $::telegram::userflags]} {
 			foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 				if {$channel eq $tg_channel} {
-					::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$channel" "$mode"] "html" false "" ""
+					::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_MODECHANGE "$nick" "$modechange" "[::msgcat::mc $modemsg]" "$channel"] "html" false "" ""
 				}
 			}
 		}
