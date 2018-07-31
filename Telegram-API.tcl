@@ -236,8 +236,13 @@ proc ::telegram::pollTelegram {} {
 
 				# Check if a sticker has been sent to the Telegram group
 				if {[set file_id [::libjson::getValue $msg ".$msgtype.sticker.file_id"]] ne "null"} {
-					set setname [::libjson::getValue $msg ".$msgtype.sticker.set_name"]
+#					set tg_width [::libjson::getValue $msg ".$msgtype.sticker.width"]
+#					set tg_height [::libjson::getValue $msg ".$msgtype.sticker.height"]
+#					set tg_thumb [::libjson::getValue $msg ".$msgtype.sticker.thumb"]
 					set emoji [::libjson::getValue $msg ".$msgtype.sticker.emoji"]
+					set setname [::libjson::getValue $msg ".$msgtype.sticker.set_name"]
+#					set tg_mask_position [::libjson::getValue $msg ".$msgtype.sticker.mask_position"]
+#					set tg_file_size [::libjson::getValue $msg ".$msgtype.sticker.file_size"]
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
@@ -249,11 +254,14 @@ proc ::telegram::pollTelegram {} {
 
 				# Check if audio has been sent to the Telegram group
 				if {[set tg_file_id [::libjson::getValue $msg ".$msgtype.audio.file_id"]] ne "null"} {
-					set tg_performer [::libjson::getValue $msg ".$msgtype.audio.performer"]
-					set tg_title [::libjson::getValue $msg ".$msgtype.audio.title"]
 					if {[set tg_duration [::libjson::getValue $msg ".$msgtype.audio.duration"]] eq ""} {
 						set tg_duration "0"
 					}
+					set tg_performer [::libjson::getValue $msg ".$msgtype.audio.performer"]
+					set tg_title [::libjson::getValue $msg ".$msgtype.audio.title"]
+#					set tg_mime_type [::libjson::getValue $msg ".$msgtype.audio.mime_type"]
+#					set tg_file_size [::libjson::getValue $msg ".$msgtype.audio.file_size"]
+#					set tg_thumb [::libjson::getValue $msg ".$msgtype.audio.thumb"]
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
@@ -265,19 +273,41 @@ proc ::telegram::pollTelegram {} {
 
 				# Check if a document has been sent to the Telegram group
 				if {[set tg_file_id [::libjson::getValue $msg  ".$msgtype.document.file_id"]] ne "null"} {
-					set tg_file_name [::libjson::getValue $msg ".$msgtype.document.file_name"]
-					set tg_file_size [::libjson::getValue $msg ".$msgtype.document.file_size"]
+					# Check if an animation has been sent to the Telegram group
+					if {[set tg_duration [::libjson::getValue $msg ".$msgtype.animation.duration"]] ne "null"} {
+						# An animation has been sent to the Telegram group
+#						set tg_width [::libjson::getValue $msg ".$msgtype.animation.width"]
+#						set tg_height [::libjson::getValue $msg ".$msgtype.animation.height"]
+#						set tg_thumb [::libjson::getValue $msg ".$msgtype.animation.thumb"]
+						set tg_file_name [::libjson::getValue $msg ".$msgtype.animation.file_name"]
+#						set tg_mime_type [::libjson::getValue $msg ".$msgtype.animation.mime_type"]
+						set tg_file_size [::libjson::getValue $msg ".$msgtype.animation.file_size"]
 
-					# Scan all IRC channels to check if it's connected to this Telegram group
-					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
-						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_DOCSENT "$name" "$caption" "$tg_file_name" "$tg_file_size" "$tg_file_id"]
+						# Scan all IRC channels to check if it's connected to this Telegram group
+						foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
+							if {$chatid eq $tg_chat_id} {
+								putchan $irc_channel [::msgcat::mc MSG_TG_ANIMATIONSENT "$name" "$caption" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$tg_file_id"]
+							}
 						}
-					}
+					} else {
+						# Not an animation, so it must be a document
+#						set tg_thumb [::libjson::getValue $msg ".$msgtype.document.thumb"]
+						set tg_file_name [::libjson::getValue $msg ".$msgtype.document.file_name"]
+#						set tg_mime_type [::libjson::getValue $msg ".$msgtype.animation.mime_type"]
+						set tg_file_size [::libjson::getValue $msg ".$msgtype.document.file_size"]
+
+						# Scan all IRC channels to check if it's connected to this Telegram group
+						foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
+							if {$chatid eq $tg_chat_id} {
+								putchan $irc_channel [::msgcat::mc MSG_TG_DOCSENT "$name" "$caption" "$tg_file_name" "$tg_file_size" "$tg_file_id"]
+							}
+						}
 				}
 
 				# Check if a photo has been sent to the Telegram group
 				if {[set tg_file_id [::libjson::getValue $msg ".$msgtype.photo\[-1\].file_id"]] ne "null"} {
+#					set tg_width [::libjson::getValue $msg ".$msgtype.photo\[-1\].width"]
+#					set tg_height [::libjson::getValue $msg ".$msgtype.photo\[-1\].height"]
 					set tg_file_size [::libjson::getValue $msg ".$msgtype.photo\[-1\].file_size"]
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
@@ -290,9 +320,13 @@ proc ::telegram::pollTelegram {} {
 
 				# Check if a video has been sent to the Telegram group
 				if {[set tg_file_id [::libjson::getValue $msg ".$msgtype.video.file_id"]] ne "null"} {
+#					set tg_width [::libjson::getValue $msg ".$msgtype.video.width"]
+#					set tg_height [::libjson::getValue $msg ".$msgtype.video.height"]
 					if {[set tg_duration [::libjson::getValue $msg ".$msgtype.video.duration"]] eq "null"} {
 						set tg_duration "0"
 					}
+#					set tg_thumb [::libjson::getValue $msg ".$msgtype.video.thumb"]
+#					set tg_mime_type [::libjson::getValue $msg ".$msgtype.video.mime_type"]
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
@@ -304,10 +338,11 @@ proc ::telegram::pollTelegram {} {
 
 				# Check if a voice object has been sent to the Telegram group
 				if {[set tg_file_id [::libjson::getValue $msg ".$msgtype.voice.file_id"]] ne "null"} {
-					set tg_file_size [::libjson::getValue $msg ".$msgtype.voice.file_size"]
 					if {[set tg_duration [::libjson::getValue $msg ".$msgtype.voice.duration"]] eq ""} {
 						set tg_duration "0"
 					}
+#					set tg_mime_type [::libjson::getValue $msg ".$msgtype.voice.mime_type"]
+					set tg_file_size [::libjson::getValue $msg ".$msgtype.voice.file_size"]
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
@@ -321,6 +356,8 @@ proc ::telegram::pollTelegram {} {
 				if {[set tg_phone_number [::libjson::getValue $msg ".$msgtype.contact.phone_number"]] ne "null"} {
 					set tg_first_name [::libjson::getValue $msg ".$msgtype.contact.first_name//empty"]
 					set tg_last_name [::libjson::getValue $msg ".$msgtype.contact.last_name//empty"]
+#					set tg_user_id [::libjson::getValue $msg ".$msgtype.contact.user_id//empty"]
+#					set tg_vcard [::libjson::getValue $msg ".$msgtype.contact.vcard//empty"]
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
@@ -337,6 +374,7 @@ proc ::telegram::pollTelegram {} {
 						set tg_title [::libjson::getValue $msg ".$msgtype.venue.title"]
 						set tg_address [::libjson::getValue $msg ".$msgtype.venue.address"]
 						set tg_foursquare_id [::libjson::getValue $msg ".$msgtype.venue.foursquare_id"]
+#						set tg_foursquare_type [::libjson::getValue $msg ".$msgtype.venue.foursquare_type"]
 
 						# Scan all IRC channels to check if it's connected to this Telegram group
 						foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
