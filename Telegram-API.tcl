@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180730 for Eggdrop                                    #
+# Telegram-API module v20180731 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -293,7 +293,7 @@ proc ::telegram::pollTelegram {} {
 						# Not an animation, so it must be a document
 #						set tg_thumb [::libjson::getValue $msg ".$msgtype.document.thumb"]
 						set tg_file_name [::libjson::getValue $msg ".$msgtype.document.file_name"]
-#						set tg_mime_type [::libjson::getValue $msg ".$msgtype.animation.mime_type"]
+#						set tg_mime_type [::libjson::getValue $msg ".$msgtype.document.mime_type"]
 						set tg_file_size [::libjson::getValue $msg ".$msgtype.document.file_size"]
 
 						# Scan all IRC channels to check if it's connected to this Telegram group
