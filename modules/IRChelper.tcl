@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# IRC helper module for Eggdrop with the Telegram-API module v20180730         #
+# IRC helper module for Eggdrop with the Telegram-API module v20180731         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
