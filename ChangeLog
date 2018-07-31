@@ -1,6 +1,7 @@
 v20180731:
 * Telegram-API.tcl: Added support for v4.0 (July 26, 2018) objects
 * modules/ImageSearch.tcl: Added error handling for api.qwant.com
+* modules/ImageSearch.tcl: Fixed ImageSearch due to change in Qwant API
 
 v20180730:
 * Telegram-API.tcl: Updated sendMessage calls to v4.0 (July 26, 2018)
