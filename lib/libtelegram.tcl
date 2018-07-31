@@ -198,7 +198,7 @@ proc ::libtelegram::sendPhoto {chat_id photo caption parse_mode disable_notifica
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendAudio {chat_id audio caption parse_mode duration performer title thumb disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAudio -d chat_id=$chat_id -d audio=$audio -d caption=$caption -d parse_mode=$parse_mode -d duration=$duration -d performer=$performer -d title=$title -d thumb=thumb -d disable_notification=$disable_notification -d reply_to_message_id=$msg_id -d reply_markup=$reply_markup]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAudio -d chat_id=$chat_id -d audio=$audio -d caption=$caption -d parse_mode=$parse_mode -d duration=$duration -d performer=$performer -d title=$title -d thumb=thumb -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendAudio: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -374,7 +374,7 @@ proc ::libtelegram::sendLocation {chat_id latitude longitude live_period disable
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendVenue {chat_id latitude longitude title address foursquare_id foursquare_type disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVenue -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d latitude=$latitude -d longitude=$longitude -d title=$title -d address=$address -d foursquare_id=$foursquare_id -d foursquare_type=$foursquare_type -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVenue -d chat_id=$chat_id -d latitude=$latitude -d longitude=$longitude -d title=$title -d address=$address -d foursquare_id=$foursquare_id -d foursquare_type=$foursquare_type -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendVenue: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
