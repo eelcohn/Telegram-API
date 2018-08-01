@@ -1,5 +1,5 @@
 v20180801:
-* Telegram-API.tcl: Added correct formatting for video/animation length
+* Telegram-API.tcl: Added correct formatting of length for video/animation/audio/voice messages
 * lang/de.msg: Added MSG_TG_ANIMATIONSENT and modechange messages
 * lang/en.msg: Added MSG_TG_ANIMATIONSENT
 * lang/nl.msg: Added MSG_TG_ANIMATIONSENT
