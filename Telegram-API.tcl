@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180731 for Eggdrop                                    #
+# Telegram-API module v20180801 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -286,7 +286,7 @@ proc ::telegram::pollTelegram {} {
 						# Scan all IRC channels to check if it's connected to this Telegram group
 						foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 							if {$chatid eq $tg_chat_id} {
-								putchan $irc_channel [::msgcat::mc MSG_TG_ANIMATIONSENT "$name" "$caption" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$tg_file_id"]
+								putchan $irc_channel [::msgcat::mc MSG_TG_ANIMATIONSENT "$name" "$caption" "[format "%02d" [expr {$tg_duration/60}]]:[format "%02d" [expr {$tg_duration%60}]]" "$tg_file_id"]
 							}
 						}
 					} else {
@@ -332,7 +332,7 @@ proc ::telegram::pollTelegram {} {
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_VIDEOSENT "$name" "$caption" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$tg_file_id"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_VIDEOSENT "$name" "$caption" "[format "%02d" [expr {$tg_duration/60}]]:[format "%02d" [expr {$tg_duration%60}]]" "$tg_file_id"]
 						}
 					}
 				}
