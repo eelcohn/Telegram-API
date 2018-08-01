@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - English language file v20180731            #
+# Telegram-API module for Eggdrop - English language file v20180801            #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
