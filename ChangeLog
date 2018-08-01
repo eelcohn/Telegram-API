@@ -1,3 +1,9 @@
+v20180801:
+* Telegram-API.tcl: Added correct formatting for video/animation length
+* lang/de.msg: Added MSG_TG_ANIMATIONSENT and modechange messages
+* lang/en.msg: Added MSG_TG_ANIMATIONSENT
+* lang/nl.msg: Added MSG_TG_ANIMATIONSENT
+
 v20180731:
 * Telegram-API.tcl: Added support for v4.0 (July 26, 2018) objects
 * modules/ImageSearch.tcl: Added error handling for api.qwant.com
