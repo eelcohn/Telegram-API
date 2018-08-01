@@ -266,7 +266,7 @@ proc ::telegram::pollTelegram {} {
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_AUDIOSENT "$name" "$tg_performer" "$tg_title" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$tg_file_id"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_AUDIOSENT "$name" "$tg_performer" "$tg_title" "[format "%02d" [expr {$tg_duration/60}]]:[format "%02d" [expr {$tg_duration%60}]]" "$tg_file_id"]
 						}
 					}
 				}
@@ -348,7 +348,7 @@ proc ::telegram::pollTelegram {} {
 					# Scan all IRC channels to check if it's connected to this Telegram group
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
-							putchan $irc_channel [::msgcat::mc MSG_TG_VOICESENT "$name" "[expr {$tg_duration/60}]:[expr {$tg_duration%60}]" "$tg_file_size" "$tg_file_id"]
+							putchan $irc_channel [::msgcat::mc MSG_TG_VOICESENT "$name" "[format "%02d" [expr {$tg_duration/60}]]:[format "%02d" [expr {$tg_duration%60}]]" "$tg_file_size" "$tg_file_id"]
 						}
 					}
 				}
