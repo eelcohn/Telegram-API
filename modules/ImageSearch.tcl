@@ -67,7 +67,7 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 #			set imgresult [exec curl --tlsv1.2 -s -X POST https://api.duckduckgo.com/ -d kah=nl-nl -d kl=$s_region -d kad=$s_language -d kp=$s_safesearch -d q=$imagequery]
 #			set imgresult [exec curl --tlsv1.2 -s -X GET https://api.duckduckgo.com/?kah=nl-nl&kl=$s_region&kad=$s_language&kp=$s_safesearch&q=$imagequery]
 			set imgresult [exec curl --tlsv1.2 -s --header "User-Agent: Mozilla/5.0" -X GET https://api.qwant.com/api/search/ia -d t=images -d count=1 -d offset=1 -d safesearch=$::ImageSearch::safesearch -d locale=$::ImageSearch::locale -d q=$imagequery -d t=all]
-			set imgresult [exec curl --tlsv1.2 -s -G https://api.giphy.com/v1/gifs/search -d api_key=$::ImageSearch::GiphyAPIkey -d q=imagequery -d limit=1 -d rating=r]
+			set imgresult [exec curl --tlsv1.2 -s -G https://api.giphy.com/v1/gifs/search -d api_key=$::ImageSearch::GiphyAPIkey -d q=$imagequery -d limit=1 -d rating=r]
 		} ] } {
 			putlog "::ImageSearch::getGif: cannot connect to api.giphy.com using imagesearch_getImage method."
 			set imgresult ""
