@@ -102,5 +102,5 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 	}
 }
 
-::telegram::addPublicCommand get proc ::ImageSearch::getImage "[::msgcat::mc MSG_IMAGESEARCH_HELP]"
-::telegram::addPublicCommand gif proc ::ImageSearch::getGif "[::msgcat::mc MSG_GIFSEARCH_HELP]"
+::telegram::addPublicCommand get ::ImageSearch::getImage "[::msgcat::mc MSG_IMAGESEARCH_HELP]"
+::telegram::addPublicCommand gif ::ImageSearch::getGif "[::msgcat::mc MSG_GIFSEARCH_HELP]"
