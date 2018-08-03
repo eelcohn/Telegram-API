@@ -28,9 +28,7 @@ proc ::ImageSearch::getImage {from_id chat_id msgid channel message parameter_st
 			set imgresult ""
 		}
 
-		set status [::libjson::getValue $imgresult ".status//empty"]
-
-		if {$status != "success"} {
+		if {[set status [::libjson::getValue $imgresult ".status//empty"]] != "success"} {
 			set error_code [::libjson::getValue $imgresult ".data.error_code//empty"]
 			set reply [::msgcat::mc MSG_IMAGESEARCH_ERROR "$status" "$error_code"]
 			::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid "" 
@@ -76,7 +74,6 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 			::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid ""
 			putchan $channel "$reply"
 		} else {
-			
 			if {[set count [::libjson::getValue $imgresult ".pagination.count//empty"]] ne "1"} {
 				set reply [::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]
 				::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid ""
