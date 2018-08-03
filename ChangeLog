@@ -1,3 +1,6 @@
+v20180803:
+* modules/ImageSearch.tcl: Added ::ImageSearch::getGif function
+
 v20180801:
 * Telegram-API.tcl: Added correct formatting of length for video/animation/audio/voice messages
 * lang/de.msg: Added MSG_TG_ANIMATIONSENT and modechange messages
