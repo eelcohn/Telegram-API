@@ -42,6 +42,7 @@ proc ::ImageSearch::getImage {from_id chat_id msgid channel message parameter_st
 			} else {
 				set title [::libjson::getValue $imgresult ".data.result.items\[0\].data\[0\].title//empty"]
 				set url [::libjson::getValue $imgresult ".data.result.items\[0\].data\[0\].url//empty"]
+				set title [regsub -all {&(.|\n|\r)+?;} $title "?"]
 				::libtelegram::sendPhoto $chat_id "https:$media" "<a href=\"$url\">$title</a>" "html" false $msgid ""
 				putchan $channel "https:$media ($title)"
 			}
