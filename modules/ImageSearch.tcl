@@ -18,7 +18,7 @@ source "[file join [file dirname [info script]] ImageSearch.conf]"
 # ---------------------------------------------------------------------------- #
 
 proc ::ImageSearch::getImage {from_id chat_id msgid channel message parameter_start} {
-	if {[set imagequery [string range $message $parameter_start end]] ne ""} {
+	if {[set imagequery [string trim ]string range $message $parameter_start end]]] ne ""} {
 		if { [ catch {
 #			set imgresult [exec curl --tlsv1.2 -s -X POST https://api.duckduckgo.com/ -d kah=nl-nl -d kl=$s_region -d kad=$s_language -d kp=$s_safesearch -d q=$imagequery]
 #			set imgresult [exec curl --tlsv1.2 -s -X GET https://api.duckduckgo.com/?kah=nl-nl&kl=$s_region&kad=$s_language&kp=$s_safesearch&q=$imagequery]
@@ -62,7 +62,7 @@ proc ::ImageSearch::getImage {from_id chat_id msgid channel message parameter_st
 # ---------------------------------------------------------------------------- #
 
 proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_start} {
-	if {[set imagequery [string range $message $parameter_start end]] ne ""} {
+	if {[set imagequery [string trim [string range $message $parameter_start end]]] ne ""} {
 		if { [ catch {
 			set imgresult [exec curl --tlsv1.2 -s -G https://api.giphy.com/v1/gifs/search -d api_key=$::ImageSearch::GiphyAPIkey -d q=$imagequery -d limit=1 -d rating=r]
 		} ] } {
