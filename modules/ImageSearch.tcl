@@ -92,7 +92,7 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 					return -1
 				}
 				::libtelegram::sendAnimation $chat_id "$gifurl" "" "" "" "" "<a href=\"$url\">Giphy: $title</a>" "html" false false $msgid ""
-				putchan $channel "$gif (Giphy: $title)"
+				putchan $channel "$gifurl (Giphy: $title)"
 			}
 		}
 
