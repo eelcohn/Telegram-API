@@ -17,14 +17,14 @@ source "[file join [file dirname [info script]] ImageSearch.conf]"
 # Search an image on Qwant                                                     #
 # ---------------------------------------------------------------------------- #
 
-proc imagesearch_getImage {from_id chat_id msgid channel message parameter_start} {
+proc ::ImageSearch::getImage {from_id chat_id msgid channel message parameter_start} {
 	if {[set imagequery [string range $message $parameter_start end]] ne ""} {
 		if { [ catch {
 #			set imgresult [exec curl --tlsv1.2 -s -X POST https://api.duckduckgo.com/ -d kah=nl-nl -d kl=$s_region -d kad=$s_language -d kp=$s_safesearch -d q=$imagequery]
 #			set imgresult [exec curl --tlsv1.2 -s -X GET https://api.duckduckgo.com/?kah=nl-nl&kl=$s_region&kad=$s_language&kp=$s_safesearch&q=$imagequery]
 			set imgresult [exec curl --tlsv1.2 -s --header "User-Agent: Mozilla/5.0" -X GET https://api.qwant.com/api/search/ia -d t=images -d count=1 -d offset=1 -d safesearch=$::ImageSearch::safesearch -d locale=$::ImageSearch::locale -d q=$imagequery -d t=all]
 		} ] } {
-			putlog "Telegram-API: cannot connect to api.qwant.com using imagesearch_getImage method."
+			putlog "::ImageSearch::getImage: cannot connect to api.qwant.com using imagesearch_getImage method."
 			set imgresult ""
 		}
 
@@ -57,4 +57,50 @@ proc imagesearch_getImage {from_id chat_id msgid channel message parameter_start
 	}
 }
 
-::telegram::addPublicCommand get imagesearch_getImage "[::msgcat::mc MSG_IMAGESEARCH_HELP]"
+# ---------------------------------------------------------------------------- #
+# Search an animated GIF on Giphy                                              #
+# ---------------------------------------------------------------------------- #
+
+proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_start} {
+	if {[set imagequery [string range $message $parameter_start end]] ne ""} {
+		if { [ catch {
+#			set imgresult [exec curl --tlsv1.2 -s -X POST https://api.duckduckgo.com/ -d kah=nl-nl -d kl=$s_region -d kad=$s_language -d kp=$s_safesearch -d q=$imagequery]
+#			set imgresult [exec curl --tlsv1.2 -s -X GET https://api.duckduckgo.com/?kah=nl-nl&kl=$s_region&kad=$s_language&kp=$s_safesearch&q=$imagequery]
+			set imgresult [exec curl --tlsv1.2 -s --header "User-Agent: Mozilla/5.0" -X GET https://api.qwant.com/api/search/ia -d t=images -d count=1 -d offset=1 -d safesearch=$::ImageSearch::safesearch -d locale=$::ImageSearch::locale -d q=$imagequery -d t=all]
+			set imgresult [exec curl --tlsv1.2 -s -X GET https://api.giphy.com/v1/gifs/search -d q=imagequery -d limit=1 -d rating=r -d api_key=$::ImageSearch::GiphyAPIkey]
+		} ] } {
+			putlog "::ImageSearch::getGif: cannot connect to api.giphy.com using imagesearch_getImage method."
+			set imgresult ""
+		}
+
+		set meta_status [::libjson::getValue $imgresult ".meta.status//empty"]
+
+		if {$meta_status != "200"} {
+			set meta_msg [::libjson::getValue $imgresult ".meta.msg//empty"]
+			set reply [::msgcat::mc MSG_IMAGESEARCH_ERROR "$meta_msg" "$meta_status"]
+			::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid "" 
+			putchan $channel "$reply"
+		} else {
+			set count [::libjson::getValue $imgresult ".pagination.count//empty"]
+			if {$count == ""} {
+				set reply [::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]
+				::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid "" 
+				putchan $channel "$reply"
+			} else {
+				set url [::libjson::getValue $imgresult ".data\[0\].url//empty"]
+				set gif [string map {https://giphy.com/gifs/ https://i.giphy.com/} $url]
+				::libtelegram::sendPhoto $chat_id "$gif" "<a href=\"$url\">$url</a>" "html" false $msgid ""
+				putchan $channel "$gif"
+			}
+		}
+
+		# Return success
+		return 0
+	} else {
+		# Return an error, so the help message will be shown
+		return -1
+	}
+}
+
+::telegram::addPublicCommand get proc ::ImageSearch::getImage "[::msgcat::mc MSG_IMAGESEARCH_HELP]"
+::telegram::addPublicCommand get proc ::ImageSearch::getGif "[::msgcat::mc MSG_GIFSEARCH_HELP]"
