@@ -67,7 +67,7 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 #			set imgresult [exec curl --tlsv1.2 -s -X POST https://api.duckduckgo.com/ -d kah=nl-nl -d kl=$s_region -d kad=$s_language -d kp=$s_safesearch -d q=$imagequery]
 #			set imgresult [exec curl --tlsv1.2 -s -X GET https://api.duckduckgo.com/?kah=nl-nl&kl=$s_region&kad=$s_language&kp=$s_safesearch&q=$imagequery]
 			set imgresult [exec curl --tlsv1.2 -s --header "User-Agent: Mozilla/5.0" -X GET https://api.qwant.com/api/search/ia -d t=images -d count=1 -d offset=1 -d safesearch=$::ImageSearch::safesearch -d locale=$::ImageSearch::locale -d q=$imagequery -d t=all]
-			set imgresult [exec curl --tlsv1.2 -s -X GET https://api.giphy.com/v1/gifs/search -d q=imagequery -d limit=1 -d rating=r -d api_key=$::ImageSearch::GiphyAPIkey]
+			set imgresult [exec curl --tlsv1.2 -s -G https://api.giphy.com/v1/gifs/search -d api_key=$::ImageSearch::GiphyAPIkey -d q=imagequery -d limit=1 -d rating=r]
 		} ] } {
 			putlog "::ImageSearch::getGif: cannot connect to api.giphy.com using imagesearch_getImage method."
 			set imgresult ""
@@ -77,18 +77,18 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 
 		if {$meta_status != "200"} {
 			set meta_msg [::libjson::getValue $imgresult ".meta.msg//empty"]
-			set reply [::msgcat::mc MSG_IMAGESEARCH_ERROR "$meta_msg" "$meta_status"]
+			set reply [::msgcat::mc MSG_GIFSEARCH_ERROR "$meta_msg" "$meta_status"]
 			::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid "" 
 			putchan $channel "$reply"
 		} else {
 			set count [::libjson::getValue $imgresult ".pagination.count//empty"]
-			if {$count == ""} {
+			if {$count != "1"} {
 				set reply [::msgcat::mc MSG_IMAGESEARCH_NOTFOUND]
 				::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid "" 
 				putchan $channel "$reply"
 			} else {
 				set url [::libjson::getValue $imgresult ".data\[0\].url//empty"]
-				set gif [string map {https://giphy.com/gifs/ https://i.giphy.com/} $url]
+				set gif "[string map {https://giphy.com/gifs/ https://i.giphy.com/} $url].gif"
 				::libtelegram::sendPhoto $chat_id "$gif" "<a href=\"$url\">$url</a>" "html" false $msgid ""
 				putchan $channel "$gif"
 			}
