@@ -24,7 +24,7 @@ proc ::ImageSearch::getImage {from_id chat_id msgid channel message parameter_st
 #			set imgresult [exec curl --tlsv1.2 -s -X GET https://api.duckduckgo.com/?kah=nl-nl&kl=$s_region&kad=$s_language&kp=$s_safesearch&q=$imagequery]
 			set imgresult [exec curl --tlsv1.2 -s --header "User-Agent: Mozilla/5.0" -X GET https://api.qwant.com/api/search/ia -d t=images -d count=1 -d offset=1 -d safesearch=$::ImageSearch::safesearch -d locale=$::ImageSearch::locale -d q=$imagequery -d t=all]
 		} ] } {
-			putlog "::ImageSearch::getImage: cannot connect to api.qwant.com using imagesearch_getImage method."
+			putlog "::ImageSearch::getImage: cannot connect to api.qwant.com."
 			set imgresult ""
 		}
 
@@ -45,7 +45,7 @@ proc ::ImageSearch::getImage {from_id chat_id msgid channel message parameter_st
 				set title [::libjson::getValue $imgresult ".data.result.items\[0\].data\[0\].title//empty"]
 				set url [::libjson::getValue $imgresult ".data.result.items\[0\].data\[0\].url//empty"]
 				::libtelegram::sendPhoto $chat_id "https:$media" "<a href=\"$url\">$title</a>" "html" false $msgid ""
-				putchan $channel "https:$media"
+				putchan $channel "https:$media ($title)"
 			}
 		}
 
@@ -66,7 +66,7 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 		if { [ catch {
 			set imgresult [exec curl --tlsv1.2 -s -G https://api.giphy.com/v1/gifs/search -d api_key=$::ImageSearch::GiphyAPIkey -d q=$imagequery -d limit=1 -d rating=r]
 		} ] } {
-			putlog "::ImageSearch::getGif: cannot connect to api.giphy.com using imagesearch_getImage method."
+			putlog "::ImageSearch::getGif: cannot connect to api.giphy.com."
 			return -1
 		}
 
@@ -83,9 +83,16 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 				putchan $channel "$reply"
 			} else {
 				set url [::libjson::getValue $imgresult ".data\[0\].url//empty"]
-				set gif "[string map {https://giphy.com/gifs/ https://i.giphy.com/} $url].gif"
-				::libtelegram::sendAnimation $chat_id "$gif" "" "" "" "" "<a href=\"$url\">$url</a>" "html" false false $msgid ""
-				putchan $channel "$gif"
+				set title [::libjson::getValue $imgresult ".data\[0\].title//empty"]
+				set gifurl "[string map {https://giphy.com/gifs/ https://i.giphy.com/} $url].gif"
+				if { [ catch {
+					set gif [exec curl --tlsv1.2 -s --output - -G $gifurl]
+				} ] } {
+					putlog "::ImageSearch::getGif: cannot download GIF file."
+					return -1
+				}
+				::libtelegram::sendAnimation $chat_id "$gifurl" "" "" "" "" "<a href=\"$url\">Giphy: $title</a>" "html" false false $msgid ""
+				putchan $channel "$gif (Giphy: $title)"
 			}
 		}
 
