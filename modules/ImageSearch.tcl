@@ -84,14 +84,18 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 			} else {
 				set url [::libjson::getValue $imgresult ".data\[0\].url//empty"]
 				set title [::libjson::getValue $imgresult ".data\[0\].title//empty"]
+				set thumb [::libjson::getValue $imgresult ".data\[0\].images.original_still//empty"]
+				set width [::libjson::getValue $imgresult ".data\[0\].images.original_still.width//empty"]
+				set height [::libjson::getValue $imgresult ".data\[0\].images.original_still.height//empty"]
 				set gifurl "[string map {https://giphy.com/gifs/ https://i.giphy.com/} $url].gif"
+				set thumburl "[string map {https://giphy.com/gifs/ https://i.giphy.com/media/} $url]/giphy_s.gif"
 				if { [ catch {
 					set gif [exec curl --tlsv1.2 -s --output - -G $gifurl]
 				} ] } {
 					putlog "::ImageSearch::getGif: cannot download GIF file."
 					return -1
 				}
-				::libtelegram::sendAnimation $chat_id "$gifurl" "" "" "" "" "<a href=\"$url\">Giphy: $title</a>" "html" false false $msgid ""
+				::libtelegram::sendAnimation $chat_id "$gifurl" "" "$width" "$height" "$thumburl" "<a href=\"$url\">Giphy: $title</a>" "html" false false $msgid ""
 				putchan $channel "$gifurl (Giphy: $title)"
 			}
 		}
