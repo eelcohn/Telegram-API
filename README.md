@@ -66,7 +66,25 @@ source /path/to/your/scripts/Telegram-API.tcl
 
 ## Config settings
 
-User flags:
+`::telegram::tg_poll_freq`
+The poll frequency in seconds. The Telegram-API script uses a polling technique for fetching status updates from the Telegram servers. This variable determines the wait period between each status update poll.
+
+`::telegram::tg_web_page_preview`
+Disables link previews for links in messages sent to the Telegram groups/channels. See https://core.telegram.org/bots/api for more information.
+
+`::telegram::tg_prefer_usernames`
+If this variable is set to true, the Telegram username will be used when a message is sent from the Telegram group to an IRC channel. If set to false, the Telegram first and last name will be used.
+
+`::telegram::locale`
+The locale used for translating messages. Language files (used by `::telegram::locale`) can be found in the `lang` folder.
+
+`::telegram::timeformat`
+This variable is used for formatting dates and times. See https://www.tcl.tk/man/tcl8.5/tutorial/Tcl41.html for valid settings.
+
+`::telegram::colorize_nicknames`
+If this variable is set, colors are added to the Telegram nicknames when a message is sent from a Telegram group to an IRC channel. The color is calculated by taking the modulus of the Telegram user ID and the `::telegram::colorize_nicknames` variable. Valid setting is between 1 and 15.
+
+`::telegram::userflags`
 
 | Flag | Description |
 |------|-------------|
@@ -77,7 +95,7 @@ User flags:
 |  m   | mode_change: If this flag is set, a message is sent to the Telegram group if the IRC mode for the specified user is changed |
 |  v   | voice: If this flag is set, messages by the specified user are sent to the Telegram group |
 
-Channel flags:
+`::telegram::chanflags`
 
 | Flag | Description |
 |------|-------------|
@@ -88,6 +106,9 @@ Channel flags:
 |  t   | topic: If this flag is set, and the topic of the IRC channel is changed, a message will be sent to the Telegram group |
 |  w   | welcome_pub: If this flag is set, a public message will be sent to the Telegram group if an user joins the Telegram group |
 |  W   | welcome_prv: If this flag is set, a private message will be sent to the user if the user joins the Telegram group |
+
+`::telegram::cmdmodifier`
+All Telegram messages starting with any character in the `::telegram::cmdmodifier` variable is interpreted as an bot-command.
 
 ## File descriptions
 
