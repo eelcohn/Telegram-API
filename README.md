@@ -64,6 +64,29 @@ source /path/to/your/scripts/Telegram-API.tcl
 3. Compare your backed-up custom `Telegram-API-config.tcl` file with the default `Telegram-API-config.tcl` file. Take note of any settings that have been added/changed/deleted, and edit your custom config file accordingly
 4. Restore your `Telegram-API-config.tcl` file from your backup folder
 
+## Config settings
+
+User flags:
+| Flag | Description |
+|------|-------------|
+|  c   | nick_change: If this flag is set, a nick changed message is sent to the Telegram group if the specified user changes it's nickname |
+|  j   | join: If this flag is set, a join message is sent to the Telegram group if the specified user joins the IRC channel |
+|  k   | kick: If this flag is set, a kick message is sent to the Telegram group if the specified user is kicked from the IRC channel |
+|  l   | leave: If this flag is set, a leave message is sent to the Telegram group if the specified user leaves the IRC channel |
+|  m   | mode_change: If this flag is set, a message is sent to the Telegram group if the IRC mode for the specified user is changed |
+|  v   | voice: If this flag is set, messages by the specified user are sent to the Telegram group |
+
+Channel flags:
+| Flag | Description |
+|------|-------------|
+|  i   | invite: If this flag is set, a message with an invite link to the Telegram group will be sent to the IRC channel if an user joins the IRC channel |
+|  m   | mode_change: If this flag is set, a message is sent to the Telegram group if the IRC mode of the IRC channel is changed |
+|  p   | pinned: If this flag is set, pinned messages in the Telegram group will be sent to the IRC channel if an user joins the IRC channel |
+|  s   | set_topic: If this flag is set, and the topic of the IRC channel is changed, the topic of the Telegram group is set to the new topic of the IRC channel |
+|  t   | topic: If this flag is set, and the topic of the IRC channel is changed, a message will be sent to the Telegram group |
+|  w   | welcome_pub: If this flag is set, a public message will be sent to the Telegram group if an user joins the Telegram group |
+|  W   | welcome_prv: If this flag is set, a private message will be sent to the user if the user joins the Telegram group |
+
 ## File descriptions
 
 | File | Description |
