@@ -1,3 +1,6 @@
+v20180807:
+* README.md: Added description of global variables
+
 v20180803:
 * modules/ImageSearch.tcl: Added ::ImageSearch::getGif function
 
