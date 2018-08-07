@@ -67,6 +67,7 @@ source /path/to/your/scripts/Telegram-API.tcl
 ## Config settings
 
 User flags:
+
 | Flag | Description |
 |------|-------------|
 |  c   | nick_change: If this flag is set, a nick changed message is sent to the Telegram group if the specified user changes it's nickname |
@@ -77,6 +78,7 @@ User flags:
 |  v   | voice: If this flag is set, messages by the specified user are sent to the Telegram group |
 
 Channel flags:
+
 | Flag | Description |
 |------|-------------|
 |  i   | invite: If this flag is set, a message with an invite link to the Telegram group will be sent to the IRC channel if an user joins the IRC channel |
