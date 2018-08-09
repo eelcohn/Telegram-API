@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Image Search module for Eggdrop with the Telegram-API module v20180803       #
+# Image Search module for Eggdrop with the Telegram-API module v20180809       #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -96,7 +96,7 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 					return -1
 				}
 				::libtelegram::sendAnimation $chat_id "$gifurl" "" "$width" "$height" "$thumburl" "<a href=\"$url\">Giphy: $title</a>" "html" false false $msgid ""
-				putchan $channel "$gifurl (Giphy: $title)"
+				putchan $channel "$url (Giphy: $title)"
 			}
 		}
 
