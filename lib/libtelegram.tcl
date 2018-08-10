@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram API library for Tcl - v20180731                                     #
+# Telegram API library for Tcl - v20180810                                     #
 # This library has functions for interacting with the Telegram servers         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
@@ -264,7 +264,8 @@ proc ::libtelegram::sendVideo {chat_id video duration width height thumb caption
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::sendAnimation {chat_id animation duration width height thumb caption parse_mode supports_streaming disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAnimation -d chat_id=$chat_id -d animation=$animation -d duration=$duration -d width=$width -d height=$height -d thumb=$thumb -d caption=$caption -d parse_mode=$parse_mode -d supports_streaming=$supports_streaming -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
+#		set ::libtelegram::result [exec cat $filename | curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAnimation -F chat_id=$chat_id -F animation=@-;type=image/gif;filename=$id.gif -F duration=$duration -F width=$width -F height=$height -F thumb=$thumb -F caption=$caption -F parse_mode=$parse_mode -F supports_streaming=$supports_streaming -F disable_notification=$disable_notification -F reply_to_message_id=$reply_to_message_id -F reply_markup=$reply_markup]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAnimation -F chat_id=$chat_id -F animation=@$animation;type=image/gif;filename=animation.gif -F duration=$duration -F width=$width -F height=$height -F thumb=$thumb -F caption=$caption -F parse_mode=$parse_mode -F supports_streaming=$supports_streaming -F disable_notification=$disable_notification -F reply_to_message_id=$reply_to_message_id -F reply_markup=$reply_markup]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendAnimation: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
