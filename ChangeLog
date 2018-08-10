@@ -1,3 +1,6 @@
+v20180810:
+* Telegram-API.tcl: Prevent showing website details on reply-to messages (e4c5f3d)
+
 v20180807:
 * README.md: Added description of global variables
 
