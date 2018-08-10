@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Image Search module for Eggdrop with the Telegram-API module v20180809       #
+# Image Search module for Eggdrop with the Telegram-API module v20180810       #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -63,6 +63,8 @@ proc ::ImageSearch::getImage {from_id chat_id msgid channel message parameter_st
 # ---------------------------------------------------------------------------- #
 
 proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_start} {
+	set max_file_size 20480000
+
 	if {[set imagequery [string trim [string range $message $parameter_start end]]] ne ""} {
 		if { [ catch {
 			set imgresult [exec curl --tlsv1.2 -s -G https://api.giphy.com/v1/gifs/search -d api_key=$::ImageSearch::GiphyAPIkey -d q=$imagequery -d limit=1 -d rating=r]
@@ -82,6 +84,7 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 				::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid ""
 				putchan $channel "$reply"
 			} else {
+				set tmpfile [file join /tmp [::libjson::getValue $imgresult ".data\[0\].id//empty"] .gif]
 				set url [::libjson::getValue $imgresult ".data\[0\].url//empty"]
 				set title [::libjson::getValue $imgresult ".data\[0\].title//empty"]
 				set thumb [::libjson::getValue $imgresult ".data\[0\].images.original_still//empty"]
@@ -90,12 +93,13 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 				set gifurl "[string map {https://giphy.com/gifs/ https://i.giphy.com/} $url].gif"
 				set thumburl "[string map {https://giphy.com/gifs/ https://i.giphy.com/media/} $url]/giphy_s.gif"
 				if { [ catch {
-					set gif [exec curl --tlsv1.2 -s --output - -G $gifurl]
+					set result [exec curl --tlsv1.2 --max-filesize $max_file_size --range 0-$max_file_size --silent --output $tmpfile --request GET $gifurl]
 				} ] } {
 					putlog "::ImageSearch::getGif: cannot download GIF file."
 					return -1
 				}
-				::libtelegram::sendAnimation $chat_id "$gifurl" "" "$width" "$height" "$thumburl" "<a href=\"$url\">Giphy: $title</a>" "html" false false $msgid ""
+				::libtelegram::sendAnimation $chat_id "$tmpfile" "" "$width" "$height" "$thumburl" "<a href=\"$url\">Giphy: $title</a>" "html" false false $msgid ""
+				file delete -force $filename
 				putchan $channel "$url (Giphy: $title)"
 			}
 		}
