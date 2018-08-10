@@ -209,9 +209,11 @@ proc ::telegram::pollTelegram {} {
 							foreach line [split [string map {\\n \n} [::libunicode::utf82ascii $txt]] "\n"] {
 								putchan $irc_channel [::msgcat::mc MSG_TG_MSGSENT "$name" "$line"]
 		
-								# If the line contains an URL, get the title of the website
-								if {[string match -nocase "*http://?*" $line] || [string match -nocase "*https://?*" $line] || [string match -nocase "*www.?*" $line]} {
-									putchan $irc_channel [::libunicode::utf82ascii [::telegram::getWebsiteTitle $line]]
+								# If the text contains an URL, get the title of the website
+								if {![info exists replytomsg]} {
+									if {[string match -nocase "*http://?*" $line] || [string match -nocase "*https://?*" $line] || [string match -nocase "*www.?*" $line]} {
+										putchan $irc_channel [::libunicode::utf82ascii [::telegram::getWebsiteTitle $line]]
+									}
 								}
 							}
 		
