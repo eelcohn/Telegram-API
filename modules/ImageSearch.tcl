@@ -84,7 +84,7 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 				::libtelegram::sendMessage $chat_id "$reply" "html" false $msgid ""
 				putchan $channel "$reply"
 			} else {
-				set tmpfile [file join /tmp [::libjson::getValue $imgresult ".data\[0\].id//empty"] .gif]
+				set tmpfile "[file join /tmp [::libjson::getValue $imgresult ".data\[0\].id//empty"]].gif"
 				set url [::libjson::getValue $imgresult ".data\[0\].url//empty"]
 				set title [::libjson::getValue $imgresult ".data\[0\].title//empty"]
 				set thumb [::libjson::getValue $imgresult ".data\[0\].images.original_still//empty"]
@@ -99,7 +99,7 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 					return -1
 				}
 				::libtelegram::sendAnimation $chat_id "$tmpfile" "" "$width" "$height" "$thumburl" "<a href=\"$url\">Giphy: $title</a>" "html" false false $msgid ""
-				file delete -force $filename
+				file delete -force $tmpfile
 				putchan $channel "$url (Giphy: $title)"
 			}
 		}
