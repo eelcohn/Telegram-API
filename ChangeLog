@@ -1,3 +1,6 @@
+v20180830:
+* Use hostmask if nick is not available on IRC modechange
+
 v20180810:
 * Telegram-API.tcl: Prevent showing website details on reply-to messages (e4c5f3d)
 
