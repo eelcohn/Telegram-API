@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180801 for Eggdrop                                    #
+# Telegram-API module v20180830 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -926,6 +926,11 @@ proc ::telegram::ircNickKicked {nick uhost handle channel target reason} {
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircModeChange {nick uhost hand channel mode target} {
 	set modemsg MSG_IRC_CHANMODE_[string index $mode 1]
+
+	# Use hostmask if no nick is given (ChanServ and other IRC-services sometimes don't have a nick)
+	if {$nick == ""} {
+		set nick $uhost
+	}
 
 	if {$target == ""} {
 		# Mode change target was a channel
