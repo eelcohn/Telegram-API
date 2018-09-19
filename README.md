@@ -64,6 +64,52 @@ source /path/to/your/scripts/Telegram-API.tcl
 3. Compare your backed-up custom `Telegram-API-config.tcl` file with the default `Telegram-API-config.tcl` file. Take note of any settings that have been added/changed/deleted, and edit your custom config file accordingly
 4. Restore your `Telegram-API-config.tcl` file from your backup folder
 
+## Config settings
+
+`::telegram::tg_poll_freq`
+The poll frequency in seconds. The Telegram-API script uses a polling technique for fetching status updates from the Telegram servers. This variable determines the wait period between each status update poll.
+
+`::telegram::tg_web_page_preview`
+Disables link previews for links in messages sent to the Telegram groups/channels. See https://core.telegram.org/bots/api for more information.
+
+`::telegram::tg_prefer_usernames`
+If this variable is set to true, the Telegram username will be used when a message is sent from the Telegram group to an IRC channel. If set to false, the Telegram first and last name will be used.
+
+`::telegram::locale`
+The locale used for translating messages. Language files (used by `::telegram::locale`) can be found in the `lang` folder.
+
+`::telegram::timeformat`
+This variable is used for formatting dates and times. See https://www.tcl.tk/man/tcl8.5/tutorial/Tcl41.html for valid settings.
+
+`::telegram::colorize_nicknames`
+If this variable is set, colors are added to the Telegram nicknames when a message is sent from a Telegram group to an IRC channel. The color is calculated by taking the modulus of the Telegram user ID and the `::telegram::colorize_nicknames` variable. Valid setting is between 1 and 15.
+
+`::telegram::userflags`
+
+| Flag | Description |
+|------|-------------|
+|  c   | nick_change: If this flag is set, a nick changed message is sent to the Telegram group if the specified user changes it's nickname |
+|  j   | join: If this flag is set, a join message is sent to the Telegram group if the specified user joins the IRC channel |
+|  k   | kick: If this flag is set, a kick message is sent to the Telegram group if the specified user is kicked from the IRC channel |
+|  l   | leave: If this flag is set, a leave message is sent to the Telegram group if the specified user leaves the IRC channel |
+|  m   | mode_change: If this flag is set, a message is sent to the Telegram group if the IRC mode for the specified user is changed |
+|  v   | voice: If this flag is set, messages by the specified user are sent to the Telegram group |
+
+`::telegram::chanflags`
+
+| Flag | Description |
+|------|-------------|
+|  i   | invite: If this flag is set, a message with an invite link to the Telegram group will be sent to the IRC channel if an user joins the IRC channel |
+|  m   | mode_change: If this flag is set, a message is sent to the Telegram group if the IRC mode of the IRC channel is changed |
+|  p   | pinned: If this flag is set, pinned messages in the Telegram group will be sent to the IRC channel if an user joins the IRC channel |
+|  s   | set_topic: If this flag is set, and the topic of the IRC channel is changed, the topic of the Telegram group is set to the new topic of the IRC channel |
+|  t   | topic: If this flag is set, and the topic of the IRC channel is changed, a message will be sent to the Telegram group |
+|  w   | welcome_pub: If this flag is set, a public message will be sent to the Telegram group if an user joins the Telegram group |
+|  W   | welcome_prv: If this flag is set, a private message will be sent to the user if the user joins the Telegram group |
+
+`::telegram::cmdmodifier`
+All Telegram messages starting with any character in the `::telegram::cmdmodifier` variable is interpreted as an bot-command.
+
 ## File descriptions
 
 | File | Description |

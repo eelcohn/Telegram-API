@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Playstation Network module for Eggdrop v20180211                #
+# Telegram-API Playstation Network module for Eggdrop v20180730                #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -59,11 +59,11 @@ proc psn_getPSNInfo {from_id chat_id msgid channel message parameter_start} {
 				set response [::msgcat::mc MSG_PSN_RESULT "$name" "$level" "$game1" "$game2" "$game3"]
 	#			set response "Player: $name%0ALevel: $level%0ARecently seen playing:%0A1. $game1%0A2. $game2%0A3. $game3"
 			}
-			libtelegram::sendPhoto $chat_id $msgid "https:$userpic" "$response"
+			libtelegram::sendPhoto $chat_id "https:$userpic" "$response" "html" false $msgid ""
 			putchan $channel "Player: $name https:[strip_html $userpic]"
 		} else {
 			set response "[::msgcat::mc MSG_PSN_NOTFOUND]"
-			libtelegram::sendMessage $chat_id $msgid "html" "$response"
+			libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
 			putchan $channel "[strip_html $response]"
 		}
 		return 0

@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram API library for Tcl - v20180216                                     #
+# Telegram API library for Tcl - v20180810                                     #
 # This library has functions for interacting with the Telegram servers         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
@@ -130,9 +130,9 @@ proc ::libtelegram::getMe {} {
 # Sends a message to a chat group in Telegram                                  #
 # https://core.telegram.org/bots/api#sendmessage                               #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendMessage {chat_id msg_id parse_mode message} {
+proc ::libtelegram::sendMessage {chat_id text parse_mode disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMessage -d disable_web_page_preview=$::telegram::tg_web_page_preview -d chat_id=$chat_id -d parse_mode=$parse_mode -d reply_to_message_id=$msg_id -d text=$message]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMessage -d chat_id=$chat_id -d text=$text -d parse_mode=$parse_mode -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
 	} ] } {
 		putlog "[set ::libtelegram::errorMessage "libtelegram::sendMessage: cannot connect to api.telegram.com."]"
 		return [set ::libtelegram::errorNumber -1]
@@ -174,9 +174,9 @@ proc ::libtelegram::forwardMessage {chat_id from_chat_id disable_notification me
 # sendPhoto: Sends a photo to a chat group in Telegram                         #
 # https://core.telegram.org/bots/api#sendphoto                                 #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendPhoto {chat_id msg_id photo parse_mode caption} {
+proc ::libtelegram::sendPhoto {chat_id photo caption parse_mode disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendPhoto -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d photo=$photo -d parse_mode=$parse_mode -d caption=$caption]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendPhoto -d chat_id=$chat_id -d photo=$photo -d caption=$caption -d parse_mode=$parse_mode -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendPhoto: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -196,9 +196,9 @@ proc ::libtelegram::sendPhoto {chat_id msg_id photo parse_mode caption} {
 # sendAudio: Sends a audio file to a chat group in Telegram                    #
 # https://core.telegram.org/bots/api#sendaudio                                 #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendAudio {chat_id msg_id audio parse_mode caption} {
+proc ::libtelegram::sendAudio {chat_id audio caption parse_mode duration performer title thumb disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAudio -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d audio=$audio -d parse_mode=$parse_mode -d caption=$caption]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAudio -d chat_id=$chat_id -d audio=$audio -d caption=$caption -d parse_mode=$parse_mode -d duration=$duration -d performer=$performer -d title=$title -d thumb=thumb -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendAudio: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -218,9 +218,9 @@ proc ::libtelegram::sendAudio {chat_id msg_id audio parse_mode caption} {
 # sendDocument: Sends a document to a chat group in Telegram                   #
 # https://core.telegram.org/bots/api#senddocument                              #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendDocument {chat_id msg_id document parse_mode caption} {
+proc ::libtelegram::sendDocument {chat_id document thumb caption parse_mode disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendDocument -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d document=$document -d parse_mode=$parse_mode -d caption=$caption]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendDocument -d chat_id=$chat_id -d document=$document -d thumb=$thumb -d caption=$caption -d parse_mode=$parse_mode -d disable+_notification=$disable_notification -d reply_to_message_id=$ reply_to_message_id -d reply_markup=$markup]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendDocument: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -240,9 +240,9 @@ proc ::libtelegram::sendDocument {chat_id msg_id document parse_mode caption} {
 # sendVideo: Sends a video to a chat group in Telegram                         #
 # https://core.telegram.org/bots/api#sendvideo                                 #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendVideo {chat_id msg_id video parse_mode caption} {
+proc ::libtelegram::sendVideo {chat_id video duration width height thumb caption parse_mode supports_streaming disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVideo -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video=$video -d parse_mode=$parse_mode -d caption=$caption]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVideo -d chat_id=$chat_id -d video=$video -d duration=$duration -d width=$width -d height=$height -d thumb=$thumb -d caption=$caption -d parse_mode=$parse_mode -d supports_streaming=$supports_streaming -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendVideo: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -257,14 +257,37 @@ proc ::libtelegram::sendVideo {chat_id msg_id video parse_mode caption} {
 }
 
 # ---------------------------------------------------------------------------- #
+# ::libtelegram::sendAnimation                                                 #
+# ---------------------------------------------------------------------------- #
+# sendAnimation: Send animation files (GIF or H.264/MPEG-4 AVC video w/o sound)#
+# https://core.telegram.org/bots/api#sendanimation                             #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::sendAnimation {chat_id animation duration width height thumb caption parse_mode supports_streaming disable_notification reply_to_message_id reply_markup} {
+	if { [ catch {
+#		set ::libtelegram::result [exec cat $filename | curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAnimation -F chat_id=$chat_id -F animation=@-;type=image/gif;filename=$id.gif -F duration=$duration -F width=$width -F height=$height -F thumb=$thumb -F caption=$caption -F parse_mode=$parse_mode -F supports_streaming=$supports_streaming -F disable_notification=$disable_notification -F reply_to_message_id=$reply_to_message_id -F reply_markup=$reply_markup]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendAnimation -F chat_id=$chat_id -F animation=@$animation;type=image/gif;filename=animation.gif -F duration=$duration -F width=$width -F height=$height -F thumb=$thumb -F caption=$caption -F parse_mode=$parse_mode -F supports_streaming=$supports_streaming -F disable_notification=$disable_notification -F reply_to_message_id=$reply_to_message_id -F reply_markup=$reply_markup]
+	} ] } {
+		set ::libtelegram::errorMessage "libtelegram::sendAnimation: cannot connect to api.telegram.com."
+		return [set ::libtelegram::errorNumber -1]
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errorMessage "libtelegram::sendAnimation: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
+			return $::libtelegram::errorNumber
+		}
+	}
+
+	return [set ::libtelegram::errornumber 0]
+}
+
+# ---------------------------------------------------------------------------- #
 # ::libtelegram::sendVoice                                                     #
 # ---------------------------------------------------------------------------- #
 # sendVoice: Sends a playable voice message to a chat group in Telegram        #
 # https://core.telegram.org/bots/api#sendvoice                                 #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendVoice {chat_id msg_id voice parse_mode caption} {
+proc ::libtelegram::sendVoice {chat_id voice caption parse_mode duration disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVoice -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d voice=$voice -d parse_mode=$parse_mode -d caption=$caption]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVoice -d chat_id=$chat_id -d voice=$voice -d caption=$caption -d parse_mode=$parse_mode -d duration=$duration -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendVoice: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -284,9 +307,9 @@ proc ::libtelegram::sendVoice {chat_id msg_id voice parse_mode caption} {
 # sendVideoNote: Sends a video note to a chat group in Telegram                #
 # https://core.telegram.org/bots/api#sendvideonote                             #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendVideoNote {chat_id msg_id video_note} {
+proc ::libtelegram::sendVideoNote {chat_id media disable_notification reply_to_message_id} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVideoNote -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d video_note=$video_note]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVideoNote -d chat_id=$chat_id -d media=$media -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendVideoNote: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -306,9 +329,9 @@ proc ::libtelegram::sendVideoNote {chat_id msg_id video_note} {
 # sendMediaGroup: Sends a group of photos or videos as an album                #
 # https://core.telegram.org/bots/api#sendmediagroup                            #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendMediaGroup {chat_id media disable_notification reply_to_msg_id} {
+proc ::libtelegram::sendMediaGroup {chat_id media disable_notification reply_to_message_id} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMediaGroup -d chat_id=$chat_id -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_msg_id]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendMediaGroup -d chat_id=$chat_id -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendMediaGroup: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -328,9 +351,9 @@ proc ::libtelegram::sendMediaGroup {chat_id media disable_notification reply_to_
 # sendLocation: Sends a location to a chat group in Telegram                   #
 # https://core.telegram.org/bots/api#sendlocation                              #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendLocation {chat_id msg_id latitude longitude} {
+proc ::libtelegram::sendLocation {chat_id latitude longitude live_period disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendLocation -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d latitude=$latitude -d longitude=$longitude]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendLocation -d chat_id=$chat_id -d latitude=$latitude -d longitude=$longitude -d live_period=$live_period -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendLocation: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -350,9 +373,9 @@ proc ::libtelegram::sendLocation {chat_id msg_id latitude longitude} {
 # Sends a venue to a chat group in Telegram                                    #
 # https://core.telegram.org/bots/api#sendvenue                                 #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendVenue {chat_id msg_id latitude longitude title address} {
+proc ::libtelegram::sendVenue {chat_id latitude longitude title address foursquare_id foursquare_type disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVenue -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d latitude=$latitude -d longitude=$longitude -d title=$title -d address=$address]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendVenue -d chat_id=$chat_id -d latitude=$latitude -d longitude=$longitude -d title=$title -d address=$address -d foursquare_id=$foursquare_id -d foursquare_type=$foursquare_type -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendVenue: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -372,9 +395,9 @@ proc ::libtelegram::sendVenue {chat_id msg_id latitude longitude title address} 
 # Sends a contact to a chat group in Telegram                                  #
 # https://core.telegram.org/bots/api#sendcontact                               #
 # ---------------------------------------------------------------------------- #
-proc ::libtelegram::sendContact {chat_id msg_id phone_number first_name last_name} {
+proc ::libtelegram::sendContact {chat_id phone_number first_name last_name vcard disable_notification reply_to_message_id reply_markup} {
 	if { [ catch {
-		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendContact -d chat_id=$chat_id -d reply_to_message_id=$msg_id -d phone_number=$phone_number -d first_name=$first_name -d last_name=$last_name]
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/sendContact -d chat_id=$chat_id -d phone_number=$phone_number -d first_name=$first_name -d last_name=$last_name -d vcard=$vcard -d disable_notification=$disable_notification -d reply_to_message_id=$reply_to_message_id -d reply_markup=$reply_markup]
 	} ] } {
 		set ::libtelegram::errorMessage "libtelegram::sendContact: cannot connect to api.telegram.com."
 		return [set ::libtelegram::errorNumber -1]
@@ -843,6 +866,116 @@ proc ::libtelegram::deleteChatStickerSet {chat_id sticker_set_name} {
 	} else {
 		if {![::libtelegram::checkValidResult]} {
 			set ::libtelegram::errorMessage "libtelegram::deleteChatStickerSet: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
+			return $::libtelegram::errorNumber
+		}
+	}
+
+	return [set ::libtelegram::errornumber 0]
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::editMessageText                                               #
+# ---------------------------------------------------------------------------- #
+# Edit text and game messages sent by the bot or via the bot (for inline bots) #
+# https://core.telegram.org/bots/api#editMessageText                           #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::editMessageText {chat_id message_id inline_message_id text parse_mode disable_web_page_preview reply_markup} {
+	if { [ catch {
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/pinChatMessage -d chat_id=$chat_id -d message_id=$message_id -d inline_message_id=$inline_message_id -d text=$text -d parse_mode=$parse_mode -d disable_web_page_preview=$disable_web_page_preview -d reply_markup=$reply_markup]
+	} ] } {
+		set ::libtelegram::errorMessage "libtelegram::editMessageText: cannot connect to api.telegram.com."
+		return [set ::libtelegram::errorNumber -1]
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errorMessage "libtelegram::editMessageText: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
+			return $::libtelegram::errorNumber
+		}
+	}
+
+	return [set ::libtelegram::errornumber 0]
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::editMessageCaption                                            #
+# ---------------------------------------------------------------------------- #
+# Edit captions of messages sent by the bot or via the bot (for inline bots)   #
+# https://core.telegram.org/bots/api#editMessageCaption                        #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::editMessageCaption {chat_id message_id inline_message_id caption parse_mode reply_markup} {
+	if { [ catch {
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/pinChatMessage -d chat_id=$chat_id -d message_id=$message_id -d inline_message_id=$inline_message_id -d caption=$caption -d parse_mode=$parse_mode -d reply_markup=$reply_markup]
+	} ] } {
+		set ::libtelegram::errorMessage "libtelegram::editMessageCaption: cannot connect to api.telegram.com."
+		return [set ::libtelegram::errorNumber -1]
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errorMessage "libtelegram::editMessageCaption: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
+			return $::libtelegram::errorNumber
+		}
+	}
+
+	return [set ::libtelegram::errornumber 0]
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::editMessageMedia                                              #
+# ---------------------------------------------------------------------------- #
+# Edit audio, document, photo, or video messages                               #
+# https://core.telegram.org/bots/api#editMessageMedia                          #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::editMessageMedia {chat_id message_id inline_message_id media reply_markup} {
+	if { [ catch {
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/editMessageMedia -d chat_id=$chat_id -d message_id=$message_id -d inline_message_id=$inline_message_id -d media=$media -d reply_markup=$reply_markup]
+	} ] } {
+		set ::libtelegram::errorMessage "libtelegram::editMessageMedia: cannot connect to api.telegram.com."
+		return [set ::libtelegram::errorNumber -1]
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errorMessage "libtelegram::editMessageMedia: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
+			return $::libtelegram::errorNumber
+		}
+	}
+
+	return [set ::libtelegram::errornumber 0]
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::editMessageReplyMarkup                                        #
+# ---------------------------------------------------------------------------- #
+# Edit only the reply markup of messages sent by the bot or via the bot        #
+# https://core.telegram.org/bots/api#editMessageReplyMarkup                    #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::editMessageReplyMarkup {chat_id message_id inline_message_id reply_markup} {
+	if { [ catch {
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/editMessageReplyMarkup -d chat_id=$chat_id -d message_id=$message_id -d inline_message_id=$inline_message_id -d reply_markup=$reply_markup]
+	} ] } {
+		set ::libtelegram::errorMessage "libtelegram::editMessageReplyMarkup: cannot connect to api.telegram.com."
+		return [set ::libtelegram::errorNumber -1]
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errorMessage "libtelegram::editMessageReplyMarkup: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
+			return $::libtelegram::errorNumber
+		}
+	}
+
+	return [set ::libtelegram::errornumber 0]
+}
+
+# ---------------------------------------------------------------------------- #
+# ::libtelegram::deleteMessage                                                 #
+# ---------------------------------------------------------------------------- #
+# Deletes a message, including service messages.                               #
+# https://core.telegram.org/bots/api#deleteMessage                             #
+# ---------------------------------------------------------------------------- #
+proc ::libtelegram::deleteMessage {chat_id message_id} {
+	if { [ catch {
+		set ::libtelegram::result [exec curl --tlsv1.2 -s -X POST https://api.telegram.org/bot$::libtelegram::bot_id:$::libtelegram::bot_token/deleteMessage -d chat_id=$chat_id -d message_id=$message_id]
+	} ] } {
+		set ::libtelegram::errorMessage "libtelegram::deleteMessage: cannot connect to api.telegram.com."
+		return [set ::libtelegram::errorNumber -1]
+	} else {
+		if {![::libtelegram::checkValidResult]} {
+			set ::libtelegram::errorMessage "libtelegram::deleteMessage: $::libtelegram::errorNumber - $::libtelegram::errorMessage"
 			return $::libtelegram::errorNumber
 		}
 	}

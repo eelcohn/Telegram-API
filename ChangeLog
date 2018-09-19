@@ -1,3 +1,53 @@
+v20180919:
+* Fixed typo in ::telegram::ircNickChange
+
+v20180830:
+* Use hostmask if nick is not available on IRC modechange
+
+v20180810:
+* Telegram-API.tcl: Prevent showing website details on reply-to messages (e4c5f3d)
+
+v20180807:
+* README.md: Added description of global variables
+
+v20180803:
+* modules/ImageSearch.tcl: Added ::ImageSearch::getGif function
+
+v20180801:
+* Telegram-API.tcl: Added correct formatting of length for video/animation/audio/voice messages
+* lang/de.msg: Added MSG_TG_ANIMATIONSENT and modechange messages
+* lang/en.msg: Added MSG_TG_ANIMATIONSENT
+* lang/nl.msg: Added MSG_TG_ANIMATIONSENT
+
+v20180731:
+* Telegram-API.tcl: Added support for v4.0 (July 26, 2018) objects
+* modules/ImageSearch.tcl: Added error handling for api.qwant.com
+* modules/ImageSearch.tcl: Fixed ImageSearch due to change in Qwant API
+
+v20180730:
+* Telegram-API.tcl: Updated sendMessage calls to v4.0 (July 26, 2018)
+* modules/IRChelper.tcl: Updated sendMessage calls to v4.0 (July 26, 2018)
+* modules/ImageSearch.tcl: Updated sendMessage and sendPhoto calls to v4.0 (July 26, 2018)
+* modules/Location.tcl: Updated sendMessage and sendVenue calls to v4.0 (July 26, 2018)
+* modules/PSN.tcl: Updated sendMessage and sendPhoto calls to v4.0 (July 26, 2018)
+* modules/Quotes.tcl: Updated sendMessage calls to v4.0 (July 26, 2018)
+* modules/Soundcloudr.tcl: Updated sendMessage calls to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Added editMessageText method
+* lib/libtelegram.tcl: Added editMessageCaption method
+* lib/libtelegram.tcl: Added editMessageMedia method
+* lib/libtelegram.tcl: Added editMessageReplyMarkup method
+* lib/libtelegram.tcl: Added deleteMessage method
+* lib/libtelegram.tcl: Updated sendMessage to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendPhoto to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendAudio to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendDocument to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendVideo to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendVoice to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendVideoNote to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendLocation to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendVenue to v4.0 (July 26, 2018)
+* lib/libtelegram.tcl: Updated sendContact to v4.0 (July 26, 2018)
+
 v20180710:
 * lang/en.msg: Fixed several language codes
 * lang/en.msg: Fixed MSG_BOT_IRCUSERS_HELP (was MSG_BOT_IRCUSER_HELP)
