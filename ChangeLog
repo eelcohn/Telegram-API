@@ -1,3 +1,6 @@
+v20180919:
+* Fixed typo in ::telegram::ircNickChange
+
 v20180830:
 * Use hostmask if nick is not available on IRC modechange
 
