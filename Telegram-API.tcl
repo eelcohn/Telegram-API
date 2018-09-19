@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180830 for Eggdrop                                    #
+# Telegram-API module v20180919 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -878,7 +878,7 @@ proc ::telegram::ircNickChange {nick uhost handle channel newnick} {
 	if {[string match "*c*" $::telegram::userflags]} {
 		foreach {chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
-				::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_NICKCHANGE "$nick" "$newnick"] "htmll" false "" ""
+				::libtelegram::sendMessage $chat_id [::msgcat::mc MSG_IRC_NICKCHANGE "$nick" "$newnick"] "html" false "" ""
 			}
 		}
 	}
