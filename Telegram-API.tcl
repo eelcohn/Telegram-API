@@ -1271,7 +1271,7 @@ proc ::telegram::getWebsiteTitle {url} {
 			return [string range $result $titlestart+1 $titleend-1]
 		}
 	} else {
-		set titleend [string first "\"" $result $ogtitlestart]
+		set ogtitleend [string first "\"" $result $ogtitlestart]
 		set ogdescstart [string first "<meta property=\"og:description\" content=\"" $result]
 		set ogdescend [string first "\"" $result $ogdescstart]
 		return "\002[string range $result $ogtitlestart+1 $ogtitleend-1]\002 [string range $result $ogdescstart+1 $ogdescend-1]"
