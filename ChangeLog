@@ -1,3 +1,6 @@
+v20180922:
+* Added og:title and og:description tags for ::telegram::getWebsiteTitle (c8dc15a 82ff903 9dbe3f2)
+
 v20180919:
 * Fixed typo in ::telegram::ircNickChange
 
