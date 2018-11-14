@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180919 for Eggdrop                                    #
+# Telegram-API module v20181114 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -12,15 +12,17 @@
 namespace eval ::telegram {}
 
 # Declare global variables and set default values
+set		::telegram::chanflags			"iptmsw"
+set		::telegram::cmdmodifier			"/!."
+set		::telegram::colorize_nicknames		0
+set		::telegram::debuglog			false
+set		::telegram::msglogfile			"telegram-messages.json"
+set		::telegram::locale			"en"
 set		::telegram::tg_poll_freq		5
 set		::telegram::tg_web_page_preview		false
 set		::telegram::tg_prefer_usernames		true
-set		::telegram::locale			"en"
 set		::telegram::timeformat			"%Y-%m-%d %H:%M:%S"
-set		::telegram::colorize_nicknames		0
 set		::telegram::userflags			"jlvck"
-set		::telegram::chanflags			"iptmsw"
-set		::telegram::cmdmodifier			"/!."
 
 # Declare global internal variables; not user-configurable
 set		::telegram::tg_update_id		0
@@ -46,6 +48,11 @@ array set	::telegram::filetransfers		{}
 # ---------------------------------------------------------------------------- #
 proc ::telegram::initialize {} {
 	global nick
+
+	# Output some debug info
+	::telegram::putdebuglog "::telegram::debug: ::telegram::initialize"
+	::telegram::putdebuglog "::telegram::debug: encodingSystem=[encoding system]"
+	::telegram::putdebuglog "::telegram::debug: parray env=[parray env]"
 
 	# Get some basic info about the Telegram bot
 	if {[::libtelegram::getMe] ne 0} {
@@ -134,6 +141,9 @@ proc ::telegram::pollTelegram {} {
 		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
  		return $::libtelegram::errorNumber
 	}
+
+	# Output raw json data received from the Telegram servers to the logfile
+	::telegram::putdebuglogfile {$::libtelegram::result}
 
 	# Cycle through each status update
 	foreach msg [split [::libjson::getValue $::libtelegram::result ".result\[\]"] "\n"] {
@@ -1277,6 +1287,26 @@ proc ::telegram::getWebsiteTitle {url} {
 		set ogdescstart [string first "\"" $result $ogtitlestart]
 		set ogdescend [string first "\"" $result $ogdescstart]
 		return "\002[string range $result $ogtitlestart+1 $ogtitleend-1]\002 [string range $result $ogdescstart+1 $ogdescend-1]"
+	}
+}
+
+# ---------------------------------------------------------------------------- #
+# Output debug information to the Eggdrop log                                  #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::putdebuglog {message} {
+	if {$::telegram::debuglog} {
+		putlog $message
+	}
+}
+
+# ---------------------------------------------------------------------------- #
+# Output received Telegram messages to the debug logfile                       #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::putdebuglogfile {data} {
+	if {$::telegram::debuglog} {
+		set fp [open $::telegram::msglogfile a]
+		puts $fp $data
+		close $fp
 	}
 }
 
