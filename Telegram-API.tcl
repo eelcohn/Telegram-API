@@ -54,6 +54,15 @@ proc ::telegram::initialize {} {
 	::telegram::putdebuglog "::telegram::debug: encodingSystem=[encoding system]"
 	::telegram::putdebuglog "::telegram::debug: parray env=[parray env]"
 
+	# Check pre-requisites
+	foreach program [list curl jq] {
+		if { [catch {
+			[exec $program --help]
+		} ] } {
+			die "libtelegram::initialize: $program not found. Please install $program before starting the Telegram-API script."
+		}
+	}
+
 	# Get some basic info about the Telegram bot
 	if {[::libtelegram::getMe] ne 0} {
 		putlog $::libtelegram::errorMessage
