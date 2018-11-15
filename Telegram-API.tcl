@@ -56,9 +56,7 @@ proc ::telegram::initialize {} {
 
 	# Check pre-requisites
 	foreach program [list curl jq] {
-		if { [catch {
-			[exec $program --help]
-		} ] } {
+		if {[catch "exec -ignorestderr $program --version"] ne 0} {
 			die "libtelegram::initialize: $program not found. Please install $program before starting the Telegram-API script."
 		}
 	}
