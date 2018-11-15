@@ -52,7 +52,7 @@ proc ::telegram::initialize {} {
 	# Output some debug info
 	::telegram::putdebuglog "::telegram::debug: ::telegram::initialize"
 	::telegram::putdebuglog "::telegram::debug: encodingSystem=[encoding system]"
-	::telegram::putdebuglog "::telegram::debug: parray env=[parray env]"
+	::telegram::putdebuglog "::telegram::debug: parray env=[parray ::env]"
 
 	# Check pre-requisites
 	foreach program [list curl jq] {
