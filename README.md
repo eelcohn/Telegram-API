@@ -126,13 +126,13 @@ All Telegram messages starting with any character in the `::telegram::cmdmodifie
 
 ## Troubleshooting
 
-`* libtelegram::initialize: curl not found. Please install curl before starting the Telegram API script.`
+#### * libtelegram::initialize: curl not found. Please install curl before starting the Telegram API script.
 You haven't installed `curl` or the script cannot find/start `curl` for some reason. (Re)install `curl` and try again.
 
-`* libtelegram::initialize: jq not found. Please install jq before starting the Telegram API script.`
+#### * libtelegram::initialize: jq not found. Please install jq before starting the Telegram API script.
 You haven't installed `jq` or the script cannot find/start `jq` for some reason. (Re)install `jq` and try again.
 
-` libtelegram::initialize: Unable to get bot info from Telegram (401 - Not authorized)`
+#### * libtelegram::initialize: Unable to get bot info from Telegram (401 - Not authorized)
 You have set an incorrect bot id and/or bot token in the `Telegram-API-config.tcl` file, and the script cannot log into the Telegram servers. Please check the bot id and token and try again.
 
 ## Feedback
