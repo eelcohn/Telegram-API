@@ -1,5 +1,6 @@
 v20181115:
 * Telegram-API.tcl: Added pre-requisites check on start-up
+* Telegram-API.tcl: Updated error handling on start-up when fetching bot info from the Telegram servers
 
 v20181114:
 * Telegram-API.tcl: Added optional logging for debug info
