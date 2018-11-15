@@ -63,9 +63,7 @@ proc ::telegram::initialize {} {
 
 	# Get some basic info about the Telegram bot
 	if {[::libtelegram::getMe] ne 0} {
-		putlog $::libtelegram::errorMessage
-		utimer $::telegram::tg_poll_freq ::telegram::initialize
-		return $::libtelegram::errorNumber
+		die "::telegram::initialize: Unable to get bot info from Telegram ($::libtelegram::errorMessage)"
 	}
 
 	# Get the Telegram bot's nickname and realname
@@ -150,7 +148,7 @@ proc ::telegram::pollTelegram {} {
 	}
 
 	# Output raw json data received from the Telegram servers to the logfile
-	::telegram::putdebuglogfile {$::libtelegram::result}
+	::telegram::putdebuglogfile $::libtelegram::result
 
 	# Cycle through each status update
 	foreach msg [split [::libjson::getValue $::libtelegram::result ".result\[\]"] "\n"] {
