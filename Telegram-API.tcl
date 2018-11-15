@@ -50,9 +50,10 @@ proc ::telegram::initialize {} {
 	global nick
 
 	# Output some debug info
-	::telegram::putdebuglog "::telegram::debug: ::telegram::initialize"
-	::telegram::putdebuglog "::telegram::debug: encodingSystem=[encoding system]"
-#	::telegram::putdebuglog "::telegram::debug: parray env=[parray ::env]"
+	::telegram::putdebuglog "::telegram::initialize: Debug info - encodingSystem=[encoding system]"
+	foreach envvar [array names ::env] {
+		::telegram::putdebuglog "::telegram::initialize: Debug info - environment variable $envvar = $::env($envvar)"
+	}
 
 	# Check pre-requisites
 	foreach program [list curl jq] {
