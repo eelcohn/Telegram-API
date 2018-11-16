@@ -135,6 +135,9 @@ You haven't installed `jq` or the script cannot find/start `jq` for some reason.
 ##### `* libtelegram::initialize: Unable to get bot info from Telegram (401 - Not authorized)`
 You have set an incorrect bot id and/or bot token in the `Telegram-API-config.tcl` file, and the script cannot log into the Telegram servers. Please check the bot id and token and try again.
 
+##### Support
+You can try to get support on the #telegram-api channel on [irc.freenode.net](irc://irc.freenode.net/#telegram-api)
+
 ## Feedback
 
 Please let me know if you use this script, if you run into bugs or problems, and of course if you like it!
