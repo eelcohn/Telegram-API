@@ -1,3 +1,24 @@
+v20181116:
+* Telegram-API.tcl: Fixed website descriptions on IRC
+* Telegram-API.tcl: Fixed #49: convert HTML entities to normal characters (ad50fc2 / bfa8e4c)
+* Telegram-API.tcl: Unified log message types
+* Telegram-API.tcl: Fixed #52: Added support for edited messages
+* lang/de.msg: Added MSG_TG_MSGEDITED
+* lang/en.msg: Added MSG_TG_MSGEDITED
+* lang/nl.msg: Added MSG_TG_MSGEDITED
+* lang/de.msg: Fixed language identifier for several messages
+* lang/en.msg: Fixed language identifier for several messages
+* lang/nl.msg: Fixed language identifier for several messages
+* README.md: Added troubleshooting and support
+
+v20181115:
+* Telegram-API.tcl: Added pre-requisites check on start-up
+* Telegram-API.tcl: Updated error handling on start-up when fetching bot info from the Telegram servers
+* libunicode.tcl: Removed 0x00a1-0x00ff from ::libunicode::escapedtable to prevent double translation of these characters; fixes # (34db2ec)
+
+v20181114:
+* Telegram-API.tcl: Added optional logging for debug info
+
 v20180922:
 * Added og:title and og:description tags for ::telegram::getWebsiteTitle (c8dc15a 82ff903 9dbe3f2)
 

@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20180919 for Eggdrop                                    #
+# Telegram-API module v20181116 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -12,15 +12,17 @@
 namespace eval ::telegram {}
 
 # Declare global variables and set default values
+set		::telegram::chanflags			"iptmsw"
+set		::telegram::cmdmodifier			"/!."
+set		::telegram::colorize_nicknames		0
+set		::telegram::debuglog			false
+set		::telegram::msglogfile			"telegram-messages.json"
+set		::telegram::locale			"en"
 set		::telegram::tg_poll_freq		5
 set		::telegram::tg_web_page_preview		false
 set		::telegram::tg_prefer_usernames		true
-set		::telegram::locale			"en"
 set		::telegram::timeformat			"%Y-%m-%d %H:%M:%S"
-set		::telegram::colorize_nicknames		0
 set		::telegram::userflags			"jlvck"
-set		::telegram::chanflags			"iptmsw"
-set		::telegram::cmdmodifier			"/!."
 
 # Declare global internal variables; not user-configurable
 set		::telegram::tg_update_id		0
@@ -47,11 +49,22 @@ array set	::telegram::filetransfers		{}
 proc ::telegram::initialize {} {
 	global nick
 
+	# Output some debug info
+	::telegram::putdebuglog "::telegram::initialize: Debug info - encodingSystem=[encoding system]"
+	foreach envvar [array names ::env] {
+		::telegram::putdebuglog "::telegram::initialize: Debug info - environment variable $envvar = $::env($envvar)"
+	}
+
+	# Check pre-requisites
+	foreach program [list curl jq] {
+		if {[catch "exec -ignorestderr $program --version"] ne 0} {
+			die "libtelegram::initialize: $program not found. Please install $program before starting the Telegram-API script."
+		}
+	}
+
 	# Get some basic info about the Telegram bot
 	if {[::libtelegram::getMe] ne 0} {
-		putlog $::libtelegram::errorMessage
-		utimer $::telegram::tg_poll_freq ::telegram::initialize
-		return $::libtelegram::errorNumber
+		die "::telegram::initialize: Unable to get bot info from Telegram ($::libtelegram::errorMessage)"
 	}
 
 	# Get the Telegram bot's nickname and realname
@@ -114,7 +127,7 @@ proc ::telegram::pollTelegram {} {
 	# Check if the bot has already joined a channel
 	if { [botonchan] != 1 } {
 		# Eggdrop hasn't joined all channels yet, so don't start polling Telegram yet
-		putlog "Telegram-API: Not connected to IRC, skipping"
+		putlog "telegram::pollTelegram: Not connected to IRC, skipping Telegram poll"
 		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
 		return -1
 	}
@@ -126,13 +139,18 @@ proc ::telegram::pollTelegram {} {
 		if {[::libjson::getValue $::libtelegram::result ".parameters"] ne "null"} {
 			if {[::libjson::getValue $::libtelegram::result ".parameters.migrate_to_chat_id"] ne "null"} {
 				# A chat group has been migrated to a supergroup, but the conf file still got the chat_id for the old group
-				putlog "Telegram-API: Please edit your conf file with your new chat_id: [::libjson::getValue $::libtelegram::result ".parameters.migrate_to_chat_id"]"
+				putlog "telegram::pollTelegram: Please edit your conf file with your new chat_id: [::libjson::getValue $::libtelegram::result ".parameters.migrate_to_chat_id"]"
 			} else {
-				putlog "Telegram-API: [::libjson::getValue $::libtelegram::result ".parameters"]"
+				putlog "telegram::pollTelegram: [::libjson::getValue $::libtelegram::result ".parameters"]"
 			}
 		}
 		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
  		return $::libtelegram::errorNumber
+	}
+
+	# Output raw json data received from the Telegram servers to the logfile
+	if {[::libjson::getValue $::libtelegram::result ".result"] ne ""} {
+		::telegram::putdebuglogfile $::libtelegram::result
 	}
 
 	# Cycle through each status update
@@ -191,8 +209,19 @@ proc ::telegram::pollTelegram {} {
 					set forwardname [::telegram::getUsername [::libjson::getValue $msg ".$msgtype.forward_from_chat"]]
 				}
 
+				# Check if this message was edited
+				if {$msgtype eq "edited_message"} {
+					set msgoriginaldate [clock format [::libjson::getValue $msg ".edited_message.date"] -format $::telegram::timeformat]
+					set msgediteddate [clock format [::libjson::getValue $msg ".edited_message.edit_date"] -format $::telegram::timeformat]
+				}
+
 				# Check if a text message has been sent to the Telegram group
 				if {[set txt [::libjson::getValue $msg ".$msgtype.text"]] ne "null"} {
+					# Modify text if it was edited
+					if {$msgtype eq "edited_message"} {
+						set txt "[::msgcat::mc MSG_TG_MSGEDITED "$txt" "$msgoriginaldate" "$msgediteddate"]"
+					}
+				
 					# Modify text if it is a reply-to or forwarded from
 					if {[info exists replyname]} {
 						set replytomsg [::libjson::getValue $msg ".$msgtype.reply_to_message.text"]
@@ -478,7 +507,7 @@ proc ::telegram::pollTelegram {} {
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							putchan $irc_channel [::msgcat::mc MSG_TG_GROUPMIGRATED "[::libunicode::utf82ascii $name] $chatid $newchatid"]
-							putlog "Telegam-API: The group with id $chatid has been migrated to a supergroup by $name. Please edit your config file and add \{$newchatid $irc_channel\}"
+							putlog "telegram::pollTelegram: The group with id $chatid has been migrated to a supergroup by $name. Please edit your config file and add \{$newchatid $irc_channel\}"
 						}
 					}
 				}
@@ -486,7 +515,7 @@ proc ::telegram::pollTelegram {} {
 
 			default {
 				# Handle any unknown messages
-				putlog "Unknown message received: $msg"
+				putlog "telegram::pollTelegram: Unknown message received: $msg"
 			}
 		}
 		incr ::telegram::tg_update_id
@@ -639,11 +668,11 @@ proc ::telegram::privateCommand {from_id msgid message} {
 				}
 
 				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERLOGIN "$::telegram::tg_bot_nickname" "$irchandle"]\n\n $lastlogin" "html" false $msgid ""
-				putlog "Telegram-API: Succesful login from $from_id, username $irchandle"
+				putlog "telegram::privateCommand: Succesful login from $from_id, username $irchandle"
 			} else {
 				# Username/password combo doesn't match
 				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERPASSWRONG]" "html" false $msgid ""
-				putlog "Telegram-API: Failed login attempt from $from_id, username $irchandle"
+				putlog "telegram::privateCommand: Failed login attempt from $from_id, username $irchandle"
 			}
 		}
 
@@ -653,7 +682,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 				setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "$from_id"
 				setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "[clock seconds]"
 				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]" "html" false $msgid ""
-				putlog "Telegram-API: Succesful logout from $from_id, username $irchandle"
+				putlog "telegram::privateCommand: Succesful logout from $from_id, username $irchandle"
 			} else {
 				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]" "html" false $msgid ""
 			}
@@ -672,7 +701,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 				set irc_hosts [getuser $irchandle HOSTS]
 				set irc_info [getuser $irchandle INFO]
 				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERINFO "$irchandle" "$from_id" "$tg_lastlogin" "$tg_lastlogout" "$tg_lastuserid" "$tg_created" "$irc_created" "$irc_laston" "irc_hosts" "$irc_info"]" "html" false $msgid ""
-				putlog "Telegram-API: My information accessed by $from_id, username $irchandle"
+				putlog "telegram::privateCommand: My information accessed by $from_id, username $irchandle"
 			} else {
 				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]" "html" false $msgid ""
 			}
@@ -977,7 +1006,7 @@ proc ::telegram::ircSendFile {nick file_id} {
 			set file_size [::libjson::getValue $::libtelegram::result ".result.file_size"]
 
 			if {$file_size > $max_file_size} {
-				putlog "irc2tg_sendFile: file $file_id too big ($file_size)"
+				putlog "telegram::ircSendFile: file $file_id too big ($file_size)"
 				puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSENDFAILED]"
 				return -1
 			} else {
@@ -1017,18 +1046,18 @@ proc ::telegram::ircSendFile {nick file_id} {
 						}
 					}
 				} else {
-					putlog "Telegram-API: irc2tg_sendFile: ::libtelegram::downloadFile failed"
+					putlog "telegram::ircSendFile: irc2tg_sendFile: ::libtelegram::downloadFile failed"
 					puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSENDFAILED]"
 					return -2
 				}
 			}
 		} else {
-			putlog "Telegram-API: irc2tg_sendFile: ::libtelegram::getFile failed"
+			putlog "telegram::ircSendFile: ::libtelegram::getFile failed"
 			puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSENDFAILED]"
 			return -3
 		}
 #	} else {
-#		putlog "Telegram-API: irc2tg_sendFile: $nick ($hostmask) attempted to download an illegal Telegram file: $file_id"
+#		putlog "telegram::ircSendFile: $nick ($hostmask) attempted to download an illegal Telegram file: $file_id"
 #		return -4
 #	}
 	return 0
@@ -1041,9 +1070,9 @@ proc ::telegram::cleanUpFiles {} {
 	foreach {filename time} [array get ::telegram::filetransfers] {
 		if {$time <= [clock seconds]} {
 			if { [catch { file delete -force $filename } error] } {
-				putlog "WARNING! DCC transfer timed out but could not delete temporary file $filename!"
+				putlog "telegram::cleanUpFiles: WARNING! DCC transfer timed out but could not delete temporary file $filename!"
 			} else {
-				putlog "DCC transfer timed out. File $filename succesfully deleted"
+				putlog "telegram::cleanUpFiles: DCC transfer timed out. File $filename succesfully deleted"
 			}
 			array unset ::telegram::filetransfers $filename
 		}
@@ -1228,6 +1257,35 @@ proc strip_html {htmlText} {
 }
 
 # ---------------------------------------------------------------------------- #
+# Replace HTML entities (&xxx;) with normal characters                         #
+# ---------------------------------------------------------------------------- #
+proc decodeHtmlEntities {text} {
+	if {![regexp & $text]} {
+		return $text
+	}
+	regsub -all {([][$\\])} $text {\\\1} new
+	regsub -all {&#([0-9][0-9]?[0-9]?[0-9]?);?} $new {[format %c [scan \1 %d tmp;set tmp]]} new
+	regsub -all {&([a-zA-Z]+)(;?)} $new {[decodeHtmlTextEntity \1 \\\2 ]} new
+	return [subst $new]
+}
+proc decodeHtmlTextEntities {text {semi {}}} {
+	global htmlEntityMap
+	set result $text$semi
+	catch {set result $htmlTextEntitiesMap($text)}
+	return $result
+}
+array set htmlTextEntitiesMap {
+	lt	<
+	gt	>
+	amp	&
+	aring	\xe5
+	atilde	\xe3
+	copy	\xa9
+	ecirc	\xea
+	egrave	\xe8
+}
+
+# ---------------------------------------------------------------------------- #
 # Encode all except "unreserved" characters; use UTF-8 for extended chars.     #
 # ---------------------------------------------------------------------------- #
 proc url_encode {str} {
@@ -1262,21 +1320,41 @@ proc ::telegram::getWebsiteTitle {url} {
 		return "[::msgcat::mc MSG_WEBPREVIEW_UNAVAILABLE]"
 	}
 
-	if {[set ogtitlestart [string first "<meta property=\"og:title\" content=" $result]] eq -1} {
+	if {[set ogtitlestart [string first "<meta property=\"og:title\" content" $result]] eq -1} {
 		if {[set titlestart [string first "<title" $result]] eq -1} {
 			return "[::msgcat::mc MSG_WEBPREVIEW_NOTITLE]"
 		} else {
 			set titlestart [string first ">" $result $titlestart]
 			set titleend [string first "</title>" $result $titlestart]
-			return [string range $result $titlestart+1 $titleend-1]
+			return [decodeHtmlEntities [string range $result $titlestart+1 $titleend-1]]
 		}
 	} else {
-		set ogtitlestart [string first "\"" $result $ogtitlestart]
-		set ogtitleend [string first "\"" $result $ogtitlestart]
-		set ogdescstart [string first "<meta property=\"og:description\" content=" $result]
-		set ogdescstart [string first "\"" $result $ogtitlestart]
-		set ogdescend [string first "\"" $result $ogdescstart]
+		set ogtitlestart [string first "\"" $result $ogtitlestart+32]
+		set ogtitleend [string first "\"" $result $ogtitlestart+1]
+		set ogdescstart [string first "<meta property=\"og:description\" content" $result]
+		set ogdescstart [string first "\"" $result $ogdescstart+38]
+		set ogdescend [string first "\"" $result $ogdescstart+1]
 		return "\002[string range $result $ogtitlestart+1 $ogtitleend-1]\002 [string range $result $ogdescstart+1 $ogdescend-1]"
+	}
+}
+
+# ---------------------------------------------------------------------------- #
+# Output debug information to the Eggdrop log                                  #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::putdebuglog {message} {
+	if {$::telegram::debuglog} {
+		putlog $message
+	}
+}
+
+# ---------------------------------------------------------------------------- #
+# Output received Telegram messages to the debug logfile                       #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::putdebuglogfile {data} {
+	if {$::telegram::debuglog} {
+		set fp [open $::telegram::msglogfile a]
+		puts $fp $data
+		close $fp
 	}
 }
 
@@ -1322,4 +1400,4 @@ bind mode - * ::telegram::ircModeChange
 
 ::telegram::pollTelegram
 
-putlog "Script loaded: Telegram-API.tcl ($::telegram::tg_bot_nickname)"
+putlog "telegram::start: Telegram-API started as $::telegram::tg_bot_nickname"
