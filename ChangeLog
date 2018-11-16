@@ -2,13 +2,14 @@ v20181116:
 * Telegram-API.tcl: Fixed website descriptions on IRC
 * Telegram-API.tcl: Fixed #49: convert HTML entities to normal characters (ad50fc2 / bfa8e4c)
 * Telegram-API.tcl: Unified log message types
-* README.md: Added troubleshooting
+* Telegram-API.tcl: Fixed #52: Added support for edited messages
 * lang/de.msg: Added MSG_TG_MSGEDITED
 * lang/en.msg: Added MSG_TG_MSGEDITED
 * lang/nl.msg: Added MSG_TG_MSGEDITED
 * lang/de.msg: Fixed language identifier for several messages
 * lang/en.msg: Fixed language identifier for several messages
 * lang/nl.msg: Fixed language identifier for several messages
+* README.md: Added troubleshooting and support
 
 v20181115:
 * Telegram-API.tcl: Added pre-requisites check on start-up
