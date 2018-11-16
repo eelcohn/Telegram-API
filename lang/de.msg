@@ -30,6 +30,7 @@
 ::msgcat::mcset de MSG_TG_MSGSENT		"%1\$s@Telegram: %2\$s"
 ::msgcat::mcset de MSG_TG_MSGREPLYTOSENT	"%1\$s (als Antwort auf %2\$s@Telegram: %3\$s)"
 ::msgcat::mcset de MSG_TG_MSGFORWARDED		"%1\$s (weitergeleitet von %2\$s)"
+::msgcat::mcset nl MSG_TG_MSGEDITED "%1\$s (Nachricht von %2\$s wurde am %3\$s geändert)"
 ::msgcat::mcset de MSG_TG_PINNEDMESSAGE		"%1\$s@Telegram: %2\$s (festgesteckt auf %3\$s)"
 ::msgcat::mcset de MSG_TG_AUDIOSENT		"%1\$s@Telegram hat eine Audiodatei gesendet: %2\$s - %3\$s (%4\$s s). Du kannst es mit !tgfile %5\$s herunterladen."
 ::msgcat::mcset en MSG_TG_ANIMATIONSENT "%1\$s@Telegram hat eine Animation gesendet%2\$s (%3\$s s). Du kannst es mit !tgfile %4\$s herunterladen."
