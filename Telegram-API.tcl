@@ -1244,6 +1244,35 @@ proc strip_html {htmlText} {
 }
 
 # ---------------------------------------------------------------------------- #
+# Replace HTML entities (&xxx;) with normal characters                         #
+# ---------------------------------------------------------------------------- #
+proc decodeHtmlEntities {text} {
+	if {![regexp & $text]} {
+		return $text
+	}
+	regsub -all {([][$\\])} $text {\\\1} new
+	regsub -all {&#([0-9][0-9]?[0-9]?);?} $new {[format %c [scan \1 %d tmp;set tmp]]} new
+	regsub -all {&([a-zA-Z]+)(;?)} $new {[decodeHtmlTextEntity \1 \\\2 ]} new
+	return [subst $new]
+}
+proc decodeHtmlTextEntities {text {semi {}}} {
+	global htmlEntityMap
+	set result $text$semi
+	catch {set result $htmlTextEntitiesMap($text)}
+	return $result
+}
+array set htmlTextEntitiesMap {
+	lt	<
+	gt	>
+	amp	&
+	aring	\xe5
+	atilde	\xe3
+	copy	\xa9
+	ecirc	\xea
+	egrave	\xe8
+}
+
+# ---------------------------------------------------------------------------- #
 # Encode all except "unreserved" characters; use UTF-8 for extended chars.     #
 # ---------------------------------------------------------------------------- #
 proc url_encode {str} {
@@ -1284,7 +1313,7 @@ proc ::telegram::getWebsiteTitle {url} {
 		} else {
 			set titlestart [string first ">" $result $titlestart]
 			set titleend [string first "</title>" $result $titlestart]
-			return [string range $result $titlestart+1 $titleend-1]
+			return [decodeHtmlEntities [string range $result $titlestart+1 $titleend-1]]
 		}
 	} else {
 		set ogtitlestart [string first "\"" $result $ogtitlestart+32]
