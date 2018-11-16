@@ -1251,7 +1251,7 @@ proc decodeHtmlEntities {text} {
 		return $text
 	}
 	regsub -all {([][$\\])} $text {\\\1} new
-	regsub -all {&#([0-9][0-9]?[0-9]?);?} $new {[format %c [scan \1 %d tmp;set tmp]]} new
+	regsub -all {&#([0-9][0-9]?[0-9]?[0-9]?);?} $new {[format %c [scan \1 %d tmp;set tmp]]} new
 	regsub -all {&([a-zA-Z]+)(;?)} $new {[decodeHtmlTextEntity \1 \\\2 ]} new
 	return [subst $new]
 }
