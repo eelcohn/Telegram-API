@@ -127,7 +127,7 @@ proc ::telegram::pollTelegram {} {
 	# Check if the bot has already joined a channel
 	if { [botonchan] != 1 } {
 		# Eggdrop hasn't joined all channels yet, so don't start polling Telegram yet
-		putlog "Telegram-API: Not connected to IRC, skipping"
+		putlog "telegram::pollTelegram: Not connected to IRC, skipping Telegram poll"
 		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
 		return -1
 	}
@@ -139,9 +139,9 @@ proc ::telegram::pollTelegram {} {
 		if {[::libjson::getValue $::libtelegram::result ".parameters"] ne "null"} {
 			if {[::libjson::getValue $::libtelegram::result ".parameters.migrate_to_chat_id"] ne "null"} {
 				# A chat group has been migrated to a supergroup, but the conf file still got the chat_id for the old group
-				putlog "Telegram-API: Please edit your conf file with your new chat_id: [::libjson::getValue $::libtelegram::result ".parameters.migrate_to_chat_id"]"
+				putlog "telegram::pollTelegram: Please edit your conf file with your new chat_id: [::libjson::getValue $::libtelegram::result ".parameters.migrate_to_chat_id"]"
 			} else {
-				putlog "Telegram-API: [::libjson::getValue $::libtelegram::result ".parameters"]"
+				putlog "telegram::pollTelegram: [::libjson::getValue $::libtelegram::result ".parameters"]"
 			}
 		}
 		utimer $::telegram::tg_poll_freq ::telegram::pollTelegram
@@ -494,7 +494,7 @@ proc ::telegram::pollTelegram {} {
 					foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 						if {$chatid eq $tg_chat_id} {
 							putchan $irc_channel [::msgcat::mc MSG_TG_GROUPMIGRATED "[::libunicode::utf82ascii $name] $chatid $newchatid"]
-							putlog "Telegam-API: The group with id $chatid has been migrated to a supergroup by $name. Please edit your config file and add \{$newchatid $irc_channel\}"
+							putlog "telegram::pollTelegram: The group with id $chatid has been migrated to a supergroup by $name. Please edit your config file and add \{$newchatid $irc_channel\}"
 						}
 					}
 				}
@@ -502,7 +502,7 @@ proc ::telegram::pollTelegram {} {
 
 			default {
 				# Handle any unknown messages
-				putlog "Unknown message received: $msg"
+				putlog "telegram::pollTelegram: Unknown message received: $msg"
 			}
 		}
 		incr ::telegram::tg_update_id
@@ -655,11 +655,11 @@ proc ::telegram::privateCommand {from_id msgid message} {
 				}
 
 				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERLOGIN "$::telegram::tg_bot_nickname" "$irchandle"]\n\n $lastlogin" "html" false $msgid ""
-				putlog "Telegram-API: Succesful login from $from_id, username $irchandle"
+				putlog "telegram::privateCommand: Succesful login from $from_id, username $irchandle"
 			} else {
 				# Username/password combo doesn't match
 				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERPASSWRONG]" "html" false $msgid ""
-				putlog "Telegram-API: Failed login attempt from $from_id, username $irchandle"
+				putlog "telegram::privateCommand: Failed login attempt from $from_id, username $irchandle"
 			}
 		}
 
@@ -669,7 +669,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 				setuser $irchandle XTRA "TELEGRAM_LASTUSERID" "$from_id"
 				setuser $irchandle XTRA "TELEGRAM_LASTLOGOUT" "[clock seconds]"
 				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERLOGOUT "$irchandle" "$from_id"]" "html" false $msgid ""
-				putlog "Telegram-API: Succesful logout from $from_id, username $irchandle"
+				putlog "telegram::privateCommand: Succesful logout from $from_id, username $irchandle"
 			} else {
 				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]" "html" false $msgid ""
 			}
@@ -688,7 +688,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 				set irc_hosts [getuser $irchandle HOSTS]
 				set irc_info [getuser $irchandle INFO]
 				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_USERINFO "$irchandle" "$from_id" "$tg_lastlogin" "$tg_lastlogout" "$tg_lastuserid" "$tg_created" "$irc_created" "$irc_laston" "irc_hosts" "$irc_info"]" "html" false $msgid ""
-				putlog "Telegram-API: My information accessed by $from_id, username $irchandle"
+				putlog "telegram::privateCommand: My information accessed by $from_id, username $irchandle"
 			} else {
 				::libtelegram::sendMessage $from_id "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]" "html" false $msgid ""
 			}
@@ -993,7 +993,7 @@ proc ::telegram::ircSendFile {nick file_id} {
 			set file_size [::libjson::getValue $::libtelegram::result ".result.file_size"]
 
 			if {$file_size > $max_file_size} {
-				putlog "irc2tg_sendFile: file $file_id too big ($file_size)"
+				putlog "telegram::ircSendFile: file $file_id too big ($file_size)"
 				puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSENDFAILED]"
 				return -1
 			} else {
@@ -1033,18 +1033,18 @@ proc ::telegram::ircSendFile {nick file_id} {
 						}
 					}
 				} else {
-					putlog "Telegram-API: irc2tg_sendFile: ::libtelegram::downloadFile failed"
+					putlog "telegram::ircSendFile: irc2tg_sendFile: ::libtelegram::downloadFile failed"
 					puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSENDFAILED]"
 					return -2
 				}
 			}
 		} else {
-			putlog "Telegram-API: irc2tg_sendFile: ::libtelegram::getFile failed"
+			putlog "telegram::ircSendFile: ::libtelegram::getFile failed"
 			puthelp "NOTICE $nick :[::msgcat::mc MSG_IRC_DCCSENDFAILED]"
 			return -3
 		}
 #	} else {
-#		putlog "Telegram-API: irc2tg_sendFile: $nick ($hostmask) attempted to download an illegal Telegram file: $file_id"
+#		putlog "telegram::ircSendFile: $nick ($hostmask) attempted to download an illegal Telegram file: $file_id"
 #		return -4
 #	}
 	return 0
@@ -1057,9 +1057,9 @@ proc ::telegram::cleanUpFiles {} {
 	foreach {filename time} [array get ::telegram::filetransfers] {
 		if {$time <= [clock seconds]} {
 			if { [catch { file delete -force $filename } error] } {
-				putlog "WARNING! DCC transfer timed out but could not delete temporary file $filename!"
+				putlog "telegram::cleanUpFiles: WARNING! DCC transfer timed out but could not delete temporary file $filename!"
 			} else {
-				putlog "DCC transfer timed out. File $filename succesfully deleted"
+				putlog "telegram::cleanUpFiles: DCC transfer timed out. File $filename succesfully deleted"
 			}
 			array unset ::telegram::filetransfers $filename
 		}
@@ -1387,4 +1387,4 @@ bind mode - * ::telegram::ircModeChange
 
 ::telegram::pollTelegram
 
-putlog "Script loaded: Telegram-API.tcl ($::telegram::tg_bot_nickname)"
+putlog "telegram::start: Telegram-API started as $::telegram::tg_bot_nickname"
