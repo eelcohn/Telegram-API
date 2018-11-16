@@ -1,3 +1,6 @@
+v20181116:
+* Telegram-API.tcl: Fixed website descriptions on IRC
+
 v20181115:
 * Telegram-API.tcl: Added pre-requisites check on start-up
 * Telegram-API.tcl: Updated error handling on start-up when fetching bot info from the Telegram servers
