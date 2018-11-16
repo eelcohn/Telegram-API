@@ -126,16 +126,26 @@ All Telegram messages starting with any character in the `::telegram::cmdmodifie
 
 ## Troubleshooting
 
-##### `* libtelegram::initialize: curl not found. Please install curl before starting the Telegram API script.`
+##### `libtelegram::initialize: curl not found. Please install curl before starting the Telegram API script.`
 You haven't installed `curl` or the script cannot find/start `curl` for some reason. (Re)install `curl` and try again.
 
-##### `* libtelegram::initialize: jq not found. Please install jq before starting the Telegram API script.`
+##### `libtelegram::initialize: jq not found. Please install jq before starting the Telegram API script.`
 You haven't installed `jq` or the script cannot find/start `jq` for some reason. (Re)install `jq` and try again.
 
-##### `* libtelegram::initialize: Unable to get bot info from Telegram (401 - Not authorized)`
+##### `libtelegram::initialize: Unable to get bot info from Telegram (401 - Not authorized)`
 You have set an incorrect bot id and/or bot token in the `Telegram-API-config.tcl` file, and the script cannot log into the Telegram servers. Please check the bot id and token and try again.
 
-##### Support
+##### `"telegram::pollTelegram: The group with id 12345 has been migrated to a supergroup by lamer. Please edit your config file and add 67890"
+The Telegram user called lamer migrated the group to a supergroup. Replace the chat_id in your Telegram-API-config.tcl file.
+
+##### `telegram::pollTelegram: Please edit your conf file with your new chat_id: 123456789`
+One of the groups in your `Telegram-API-config.tcl` file has been migrated (by you?) to a supergroup or channel. Please change it to the new chat_id.
+
+##### `telegram::pollTelegram: Unknown message received: abcxyz`
+This should not happen. Please report this error by opening an issue.
+
+## Support
+
 You can try to get support on the #telegram-api channel on [irc.freenode.net](irc://irc.freenode.net/#telegram-api)
 
 ## Feedback
