@@ -149,7 +149,9 @@ proc ::telegram::pollTelegram {} {
 	}
 
 	# Output raw json data received from the Telegram servers to the logfile
-	::telegram::putdebuglogfile $::libtelegram::result
+	if {[::libjson::getValue $::libtelegram::result ".result"] ne ""} {
+		::telegram::putdebuglogfile $::libtelegram::result
+	}
 
 	# Cycle through each status update
 	foreach msg [split [::libjson::getValue $::libtelegram::result ".result\[\]"] "\n"] {
