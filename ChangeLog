@@ -1,6 +1,6 @@
 v20181116:
 * Telegram-API.tcl: Fixed website descriptions on IRC
-* Telegram-API.tcl: Fixed #49: convert HTML entities to normal characters ad50fc2)
+* Telegram-API.tcl: Fixed #49: convert HTML entities to normal characters (ad50fc2 / bfa8e4c)
 
 v20181115:
 * Telegram-API.tcl: Added pre-requisites check on start-up
