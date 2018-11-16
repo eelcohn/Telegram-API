@@ -209,8 +209,19 @@ proc ::telegram::pollTelegram {} {
 					set forwardname [::telegram::getUsername [::libjson::getValue $msg ".$msgtype.forward_from_chat"]]
 				}
 
+				# Check if this message was edited
+				if {$msgtype eq "edited_message"} {
+					set msgoriginaldate [clock format [::libjson::getValue $msg ".edited_message.date"] -format $::telegram::timeformat]
+					set msgediteddate [clock format [::libjson::getValue $msg ".edited_message.edit_date"] -format $::telegram::timeformat]
+				}
+
 				# Check if a text message has been sent to the Telegram group
 				if {[set txt [::libjson::getValue $msg ".$msgtype.text"]] ne "null"} {
+					# Modify text if it was edited
+					if {$msgtype eq "edited_message"} {
+						set txt "[::msgcat::mc MSG_TG_MSGEDITED "$txt" "$msgoriginaldate" "$msgediteddate"]"
+					}
+				
 					# Modify text if it is a reply-to or forwarded from
 					if {[info exists replyname]} {
 						set replytomsg [::libjson::getValue $msg ".$msgtype.reply_to_message.text"]
