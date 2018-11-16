@@ -124,6 +124,17 @@ All Telegram messages starting with any character in the `::telegram::cmdmodifie
 | `modules/*.tcl` | All publically available Telegram bot commands are defined here. Optional, not needed for basic operation. |
 | `web/tg.php` | PHP script which allow IRC users to download images, video's and other attachments posted in the Telegram group. |
 
+## Troubleshooting
+
+##### `* libtelegram::initialize: curl not found. Please install curl before starting the Telegram API script.`
+You haven't installed `curl` or the script cannot find/start `curl` for some reason. (Re)install `curl` and try again.
+
+##### `* libtelegram::initialize: jq not found. Please install jq before starting the Telegram API script.`
+You haven't installed `jq` or the script cannot find/start `jq` for some reason. (Re)install `jq` and try again.
+
+##### `* libtelegram::initialize: Unable to get bot info from Telegram (401 - Not authorized)`
+You have set an incorrect bot id and/or bot token in the `Telegram-API-config.tcl` file, and the script cannot log into the Telegram servers. Please check the bot id and token and try again.
+
 ## Feedback
 
 Please let me know if you use this script, if you run into bugs or problems, and of course if you like it!
