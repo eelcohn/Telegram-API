@@ -434,12 +434,22 @@ proc ::telegram::pollTelegram {} {
 
 					# Check if we want to send a public welcome message to the new participant
 					if {[string match "*w*" $::telegram::chanflags]} {
-						::libtelegram::sendMessage $chatid [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chatid)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"] "html" false "" ""
+						# Scan all IRC channels to check if it's connected to this Telegram group
+						foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
+							if {$chatid eq $tg_chat_id} {
+								::libtelegram::sendMessage $chatid [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chatid)" "$::telegram::tg_bot_nickname" "$::telegram::serveraddress/$irc_channel" "$irc_channel"] "html" false "" ""
+							}
+						}
 					}
 
 					# Check if we want to send a private welcome message to the new participant
 					if {[string match "*W*" $::telegram::chanflags]} {
-						::libtelegram::sendMessage $new_member_id [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chatid)" "$::telegram::tg_bot_nickname" "$serveraddress/$channel" "$channel"] "html" false "" ""
+						# Scan all IRC channels to check if it's connected to this Telegram group
+						foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
+							if {$chatid eq $tg_chat_id} {
+								::libtelegram::sendMessage $new_member_id [::msgcat::mc MSG_TG_WELCOME "$::telegram::tg_chat_title($chatid)" "$::telegram::tg_bot_nickname" "$::telegram::serveraddress/$irc_channel" "$irc_channel"] "html" false "" ""
+							}
+						}
 					}
 
 					# Scan all IRC channels to check if it's connected to this Telegram group
@@ -531,8 +541,6 @@ proc ::telegram::pollTelegram {} {
 # Respond to group commands send by Telegram users                             #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
-	global serveraddress
-
 	# Don't process single character commands
 	if {[set parameter_start [string wordend $message 1]] == 1} {
 		return 0
@@ -823,8 +831,6 @@ proc ::telegram::ircSendMessage {nick hostmask handle channel msg} {
 # Inform the Telegram group(s) that someone joined an IRC channel              #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircNickJoined {nick uhost handle channel} {
-	global serveraddress
-
 	# Show the invite link for all Telegram groups connected to this IRC channel
 	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 		if {$channel eq $irc_channel} {
@@ -853,7 +859,7 @@ proc ::telegram::ircNickJoined {nick uhost handle channel} {
 				# Only send a join message to the Telegram group if the 'join'-flag is set in the user flags variable
 				if {[string match "*j*" [::telegram::getUserFlags $handle]]} {
 					if {![validuser $handle]} {
-						::libtelegram::sendMessage $tg_chat_id [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$serveraddress/$channel" "$channel"] "html" false "" ""
+						::libtelegram::sendMessage $tg_chat_id [::msgcat::mc MSG_IRC_NICKJOINED "$nick" "$::telegram::serveraddress/$channel" "$channel"] "html" false "" ""
 					}
 				}
 			}
@@ -866,8 +872,6 @@ proc ::telegram::ircNickJoined {nick uhost handle channel} {
 # Inform the Telegram group(s) that someone has left an IRC channel            #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircNickLeft {nick uhost handle channel message} {
-	global  serveraddress
-
 	# Don't notify the Telegram users when the bot leaves an IRC channel
 	if {$nick ne $::telegram::irc_bot_nickname} {
 		foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
@@ -875,7 +879,7 @@ proc ::telegram::ircNickLeft {nick uhost handle channel message} {
 				# Only send a leave message to the Telegram group if the 'leave'-flag is set in the user flags variable
 				if {[string match "*l*" [::telegram::getUserFlags $handle]]} {
 					if {![validuser $handle]} {
-						::libtelegram::sendMessage $tg_chat_id [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$serveraddress/$channel" "$channel" "$message"] "html" false "" ""
+						::libtelegram::sendMessage $tg_chat_id [::msgcat::mc MSG_IRC_NICKLEFT "$nick" "$::telegram::serveraddress/$channel" "$channel" "$message"] "html" false "" ""
 					}
 				}
 			}
@@ -918,13 +922,11 @@ proc ::telegram::ircNickChange {nick uhost handle channel newnick} {
 # Inform the Telegram group(s) that the topic of an IRC channel has changed    #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircTopicChange {nick uhost handle channel topic} {
-	global serveraddress
-
 	if {[string match "*t*" $::telegram::chanflags]} {
 		foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
 				if {$nick ne "*"} {
-					::libtelegram::sendMessage $tg_chat_id [::msgcat::mc MSG_IRC_TOPICCHANGE "$nick" "$serveraddress/$channel" "$channel" "$topic"] "html" false "" ""
+					::libtelegram::sendMessage $tg_chat_id [::msgcat::mc MSG_IRC_TOPICCHANGE "$nick" "$::telegram::serveraddress/$channel" "$channel" "$topic"] "html" false "" ""
 					if {[string match "*s*" $::telegram::chanflags]} {
 						::libtelegram::setChatTitle $tg_chat_id $topic
 					}
