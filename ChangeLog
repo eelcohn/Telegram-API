@@ -1,3 +1,8 @@
+v20181118:
+* Telegram-API: Fixed bug in ::telegram::pollTelegram for handling new_chat_member
+* Telegram-API: Fixed bug in ::telegram::privateCommand
+* Telegram-API: Renamed several chat_id variables to tg_chat_id
+
 v20181116:
 * Telegram-API.tcl: Fixed website descriptions on IRC
 * Telegram-API.tcl: Fixed #49: convert HTML entities to normal characters (ad50fc2 / bfa8e4c)
