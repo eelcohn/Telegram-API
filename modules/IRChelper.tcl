@@ -8,7 +8,9 @@
 # Shows the topic of an IRC channel                                            #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::irctopic {from_id chat_id msgid channel message parameter_start} {
-	set response "[::msgcat::mc MSG_BOT_IRCTOPIC "$::telegram::serveraddress/$channel" "$channel" "[topic $channel]"]"
+	global serveraddress
+
+	set response "[::msgcat::mc MSG_BOT_IRCTOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
 	::libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
 	putchan $channel "[strip_html $response]"
 
@@ -20,14 +22,16 @@ proc ::telegram::irctopic {from_id chat_id msgid channel message parameter_start
 # Shows detailed information about an user on IRC                              #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircuser {from_id chat_id msgid channel message parameter_start} {
+	global serveraddress
+
 	set handle [string trim [string range $message $parameter_start end]]
 
 	if {$handle != ""} {
   		if {[onchan $handle $channel]} {
 			set online_since [clock format [getchanjoin $handle $channel] -format $::telegram::timeformat]
-			set response "[::msgcat::mc MSG_BOT_IRCUSER "$handle" "$online_since" "$::telegram::serveraddress/$channel" "$channel" "[getchanhost $handle $channel]"]"
+			set response "[::msgcat::mc MSG_BOT_IRCUSER "$handle" "$online_since" "$serveraddress/$channel" "$channel" "[getchanhost $handle $channel]"]"
 		} else {
-			set response "[::msgcat::mc MSG_BOT_IRCUSERUNKNOWN "$handle" "$::telegram::serveraddress/$channel" "$channel"]"
+			set response "[::msgcat::mc MSG_BOT_IRCUSERUNKNOWN "$handle" "$serveraddress/$channel" "$channel"]"
 		}
 		::libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
 		putchan $channel "[strip_html $response]"
@@ -44,7 +48,9 @@ proc ::telegram::ircuser {from_id chat_id msgid channel message parameter_start}
 # Shows all users on an IRC channel                                            #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircusers {from_id chat_id msgid channel message parameter_start} {
-	set response "[::msgcat::mc MSG_BOT_IRCUSERS "$::telegram::serveraddress/$channel" "$channel" "[string map {" " "\n"} [chanlist $channel]]"]"
+	global serveraddress
+
+	set response "[::msgcat::mc MSG_BOT_IRCUSERS "$serveraddress/$channel" "$channel" "[string map {" " "\n"} [chanlist $channel]]"]"
 	::libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
 	putchan $channel "[strip_html $response]"
 
@@ -56,6 +62,8 @@ proc ::telegram::ircusers {from_id chat_id msgid channel message parameter_start
 # Kicks an user on an IRC channel                                              #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircKick {from_id chat_id msgid channel message parameter_start} {
+	global serveraddress
+
 	set handle [string trim [string range $message $parameter_start end]]
 
 	# Check if the Telegram user requesting the unban is logged in
@@ -75,7 +83,7 @@ proc ::telegram::ircKick {from_id chat_id msgid channel message parameter_start}
 				set response "[::msgcat::mc MSG_BOT_GOTNOPRIVS $::telegram::irc_bot_nickname]"
 			}
 		} else {
-			set response "[::msgcat::mc MSG_BOT_IRCUSERUNKNOWN "$handle" "$::telegram::serveraddress/$channel" "$channel"]"
+			set response "[::msgcat::mc MSG_BOT_IRCUSERUNKNOWN "$handle" "$serveraddress/$channel" "$channel"]"
 		}
 	} else {
 		set response "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
@@ -90,6 +98,8 @@ proc ::telegram::ircKick {from_id chat_id msgid channel message parameter_start}
 # Bans an user on an IRC channel                                               #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircBan {from_id chat_id msgid channel message parameter_start} {
+	global serveraddress
+
 	set handle [string trim [string range $message $parameter_start end]]
 
 	# Check if the Telegram user requesting the unban is logged in
@@ -109,7 +119,7 @@ proc ::telegram::ircBan {from_id chat_id msgid channel message parameter_start} 
 				set response "[::msgcat::mc MSG_BOT_GOTNOPRIVS $::telegram::irc_bot_nickname]"
 			}
 		} else {
-			set response "[::msgcat::mc MSG_BOT_IRCUSERUNKNOWN "$handle" "$::telegram::serveraddress/$channel" "$channel"]"
+			set response "[::msgcat::mc MSG_BOT_IRCUSERUNKNOWN "$handle" "$serveraddress/$channel" "$channel"]"
 		}
 	} else {
 		set response "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
