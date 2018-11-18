@@ -833,6 +833,8 @@ proc ::telegram::ircSendMessage {nick hostmask handle channel msg} {
 # Inform the Telegram group(s) that someone joined an IRC channel              #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircNickJoined {nick uhost handle channel} {
+	global serveraddress
+
 	# Show the invite link for all Telegram groups connected to this IRC channel
 	foreach {tg_chat_id irc_channel} [array get ::telegram::tg_channels] {
 		if {$channel eq $irc_channel} {
@@ -874,6 +876,8 @@ proc ::telegram::ircNickJoined {nick uhost handle channel} {
 # Inform the Telegram group(s) that someone has left an IRC channel            #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircNickLeft {nick uhost handle channel message} {
+	global serveraddress
+
 	# Don't notify the Telegram users when the bot leaves an IRC channel
 	if {$nick ne $::telegram::irc_bot_nickname} {
 		foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
@@ -924,6 +928,8 @@ proc ::telegram::ircNickChange {nick uhost handle channel newnick} {
 # Inform the Telegram group(s) that the topic of an IRC channel has changed    #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircTopicChange {nick uhost handle channel topic} {
+	global serveraddress
+
 	if {[string match "*t*" $::telegram::chanflags]} {
 		foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
 			if {$channel eq $tg_channel} {
