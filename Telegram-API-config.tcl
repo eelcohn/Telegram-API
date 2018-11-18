@@ -9,7 +9,6 @@
 # ---------------------------------------------------------------------------- #
 set	::libtelegram::bot_id		123456789
 set	::libtelegram::bot_token	AABCD-EfGhIj_KlMn_OpQrStUvWxYz12345
-set	::telegram::serveraddress	irc.freenode.net
 set	::telegram::tg_poll_freq	5
 set	::telegram::tg_web_page_preview	false
 set	::telegram::tg_prefer_usernames true
