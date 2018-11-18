@@ -3,8 +3,6 @@ v20181118:
 * Telegram-API.tcl: Fixed bug in ::telegram::privateCommand
 * Telegram-API.tcl: Renamed several chat_id variables to tg_chat_id
 * Telegram-API.tcl: Fixed serveraddress variable and welcome message when new Telegram users join
-* modules/IRCHelper.tcl: Renamed serveraddress variable to ::telegram::serveraddress
-* Telegram-API-config.tcl: Added ::telegram::serveraddress variable
 
 v20181116:
 * Telegram-API.tcl: Fixed website descriptions on IRC

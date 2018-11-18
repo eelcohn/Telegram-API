@@ -66,9 +66,6 @@ source /path/to/your/scripts/Telegram-API.tcl
 
 ## Config settings
 
-`::telegram::serveraddress`
-The address of the IRC server your Eggdrop bot is connected to. The Telegram-API script uses this to show to Telegram users what server is used by IRC users who join/leave IRC channels.
-
 `::telegram::tg_poll_freq`
 The poll frequency in seconds. The Telegram-API script uses a polling technique for fetching status updates from the Telegram servers. This variable determines the wait period between each status update poll.
 
