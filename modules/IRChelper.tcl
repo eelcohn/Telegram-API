@@ -198,7 +198,7 @@ proc ::telegram::ircSetMode {from_id chat_id msgid channel message parameter_sta
 	return 0
 }
 
-::telegram::addPublicTgCommand ircChannelInfo ::telegram::ircchaninfo "[::msgcat::mc MSG_BOT_IRCCHANINFO_HELP]"
+::telegram::addPublicTgCommand ircinfo ::telegram::ircChannelInfo "[::msgcat::mc MSG_BOT_IRCCHANINFO_HELP]"
 ::telegram::addPublicTgCommand ircuser ::telegram::ircuser "[::msgcat::mc MSG_BOT_IRCUSER_HELP]"
 ::telegram::addPublicTgCommand ircusers ::telegram::ircusers "[::msgcat::mc MSG_BOT_IRCUSERS_HELP]"
 ::telegram::addPublicTgCommand irckick ::telegram::ircKick "[::msgcat::mc MSG_BOT_IRCKICK_HELP]"
