@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# IRC helper module for Eggdrop with the Telegram-API module v20181118         #
+# IRC helper module for Eggdrop with the Telegram-API module v20181119         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -7,10 +7,10 @@
 # ---------------------------------------------------------------------------- #
 # Shows the topic of an IRC channel                                            #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::irctopic {from_id chat_id msgid channel message parameter_start} {
+proc ::telegram::ircChannelInfo {from_id chat_id msgid channel message parameter_start} {
 	global serveraddress
 
-	set response "[::msgcat::mc MSG_BOT_IRCTOPIC "$serveraddress/$channel" "$channel" "[topic $channel]"]"
+	set response "[::msgcat::mc MSG_BOT_IRCCHANINFO "$serveraddress/$channel" "$channel" "[topic $channel]" "[getchanmode $channel]"]"
 	::libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
 	putchan $channel "[strip_html $response]"
 
@@ -74,7 +74,7 @@ proc ::telegram::ircKick {from_id chat_id msgid channel message parameter_start}
 			if {[botisop $channel] || [botishalfop $channel]} {
 				foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
 					if {$chat_id eq $tg_chat_id} {
-						putkick $tg_channel $handle [::msgcat::mc MSG_IRCKICKUSER]
+						putkick $tg_channel $handle [::msgcat::mc MSG_BOT_IRCKICKUSER]
 					}
 				}
 				# Return success
@@ -131,6 +131,38 @@ proc ::telegram::ircBan {from_id chat_id msgid channel message parameter_start} 
 }
 
 # ---------------------------------------------------------------------------- #
+# Change the channel mode on an IRC channel                                    #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::ircSetMode {from_id chat_id msgid channel message parameter_start} {
+	global serveraddress
+
+	set mode [string trim [string range $message $parameter_start end]]
+
+	# Check if the Telegram user requesting the unban is logged in
+	if {[set irchandle [::telegram::getIRCNickFromTelegramID $from_id]] != -1} {
+		# Check if the bot has enough privileges to perform the ban
+		if {[botisop $channel] || [botishalfop $channel]} {
+			foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
+				if {$chat_id eq $tg_chat_id} {
+					pushmode $tg_channel $mode
+					flushmode $tg_channel
+				}
+			}
+			# Return success
+			return 0
+		} else {
+			set response "[::msgcat::mc MSG_BOT_GOTNOPRIVS $::telegram::irc_bot_nickname]"
+		}
+	} else {
+		set response "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
+	}
+	::libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
+	putchan $channel "[strip_html $response]"
+
+	return 0
+}
+
+# ---------------------------------------------------------------------------- #
 # Unbans an user on an IRC channel                                             #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircUnban {from_id chat_id msgid channel message parameter_start} {
@@ -166,9 +198,10 @@ proc ::telegram::ircUnban {from_id chat_id msgid channel message parameter_start
 	}
 }
 
-::telegram::addPublicCommand irctopic ::telegram::irctopic "[::msgcat::mc MSG_BOT_IRCTOPIC_HELP]"
+::telegram::addPublicCommand ircchaninfo ::telegram::ircchaninfo "[::msgcat::mc MSG_BOT_IRCCHANINFO_HELP]"
 ::telegram::addPublicCommand ircuser ::telegram::ircuser "[::msgcat::mc MSG_BOT_IRCUSER_HELP]"
 ::telegram::addPublicCommand ircusers ::telegram::ircusers "[::msgcat::mc MSG_BOT_IRCUSERS_HELP]"
 ::telegram::addPublicCommand irckick ::telegram::ircKick "[::msgcat::mc MSG_BOT_IRCKICK_HELP]"
 ::telegram::addPublicCommand ircban ::telegram::ircBan "[::msgcat::mc MSG_BOT_IRCBAN_HELP]"
 ::telegram::addPublicCommand ircunban ::telegram::ircUnban "[::msgcat::mc MSG_BOT_IRCUNBAN_HELP]"
+::telegram::addPublicCommand ircsetmode ::telegram::ircSetMode "[::msgcat::mc MSG_BOT_IRCSETMODE_HELP]"
