@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - German language file v20181116             #
+# Telegram-API module for Eggdrop - German language file v20181119             #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -64,18 +64,19 @@
 ::msgcat::mcset de MSG_BOT_PUBHELP		"Ich bin <i>%1\$s</i>, dein persönlicher Barkeeper. Verfügbare Befehle sind:\n"
 ::msgcat::mcset de MSG_BOT_PRVHELP		"Ich bin <i>%1\$s</i>, dein persönlicher Barkeeper. Verfügbare Befehle sind:\n"
 ::msgcat::mcset de MSG_BOT_HELP_IRCUSER		"Sie haben keinen Benutzernamen eingegeben. Type /ircuser <username> to look up information on an IRC user."
-::msgcat::mcset de MSG_BOT_IRCTOPIC		"Das Thema auf die Telegramgruppe <a href=\"%1\$s\">%2\$s</a> ist: <i>%3\$s</i>"
-::msgcat::mcset de MSG_BOT_IRCTOPIC_HELP	": Zeigen Sie das Thema für die IRC-Kanäle an, die mit dieser Telegrammgruppe verbunden sind."
+::msgcat::mcset de MSG_BOT_IRCINFO		"Das Thema auf die Telegramgruppe <a href=\"%1\$s\">%2\$s</a> ist: <i>%3\$s</i>Der Kanalmodus ist auf <i>%3\$s</i> eingestellt."
+::msgcat::mcset de MSG_BOT_IRCINFO_HELP	": Zeigen Sie Information für die IRC-Kanäle an, die mit dieser Telegrammgruppe verbunden sind."
 ::msgcat::mcset de MSG_BOT_IRCUSERS		"Die folgenden Benutzer sind auf <a href=\"%1\$s\">%2\$s\</a> bekannt:\n\n%3\$s"
 ::msgcat::mcset de MSG_BOT_IRCUSERS_HELP		": Zeigen Sie alle Benutzer auf den IRC-Kanälen an, die mit dieser Telegrammgruppe verbunden sind."
 ::msgcat::mcset de MSG_BOT_IRCUSER		"<i>%1\$s@IRC</i> ist seit dem %2\$s auf <a href=\"%3\$s\">%4\$s</a> als <i>%5\$s</i> bekannt."
 ::msgcat::mcset de MSG_BOT_IRCUSERUNKNOWN	"<i>%1\$s@IRC</i> ist nicht bekannt auf <a href=\"%2\$s\">%3\$s</a>"
 ::msgcat::mcset de MSG_BOT_IRCUSER_HELP		" <Spitzname>: Zeigen Sie detaillierte Informationen zu einem IRC-Benutzer an."
-::msgcat::mcset de MSG_IRCKICKUSER		"Sie wurden von einem Telegram-Benutzer aus diesem Kanal geworfen."
-::msgcat::mcset de MSG_IRCBANUSER		"Du wurdest von einem Telegram-Benutzer von diesem Kanal ausgeschlossen."
+::msgcat::mcset de MSG_BOT_IRCKICKUSER		"Sie wurden von einem Telegram-Benutzer aus diesem Kanal geworfen."
+::msgcat::mcset de MSG_BOT_IRCBANUSER		"Du wurdest von einem Telegram-Benutzer von diesem Kanal ausgeschlossen."
 ::msgcat::mcset de MSG_BOT_IRCKICK_HELP		" <Spitzname>: Tritt ein IRC-Benutzer aus dem IRC-Kanal."
 ::msgcat::mcset de MSG_BOT_IRCBAN_HELP		" <Spitzname>: Verbanne einen IRC-Benutzer vom IRC-Kanal."
 ::msgcat::mcset de MSG_BOT_IRCUNBAN_HELP	" <Spitzname>: Entarre einen IRC-Benutzer vom IRC-Kanal."
+::msgcat::mcset de MSG_BOT_IRCSETMODE_HELP " <Modus>: Stellen Sie den Kanalmodus für diesen Kanal ein."
 ::msgcat::mcset de MSG_BOT_TGWHOISNAME "Telegram ID %1\$s ist %2\$s und ist bekannt als %3\$s%4\$s."
 ::msgcat::mcset de MSG_BOT_TGWHOISSTATUS "Telegram ID %1\$s hat status %2\$s."
 ::msgcat::mcset de MSG_BOT_TGWHOISLANG "Telegram ID %1\$s hat ein Sprachcode von %2\$s."
