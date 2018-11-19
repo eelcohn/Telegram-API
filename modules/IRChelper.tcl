@@ -10,7 +10,7 @@
 proc ::telegram::ircChannelInfo {from_id chat_id msgid channel message parameter_start} {
 	global serveraddress
 
-	set response "[::msgcat::mc MSG_BOT_IRCCHANINFO "$serveraddress/$channel" "$channel" "[topic $channel]" "[getchanmode $channel]"]"
+	set response "[::msgcat::mc MSG_BOT_IRCINFO "$serveraddress/$channel" "$channel" "[topic $channel]" "[getchanmode $channel]"]"
 	::libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
 	putchan $channel "[strip_html $response]"
 
@@ -198,7 +198,7 @@ proc ::telegram::ircSetMode {from_id chat_id msgid channel message parameter_sta
 	return 0
 }
 
-::telegram::addPublicTgCommand ircinfo ::telegram::ircChannelInfo "[::msgcat::mc MSG_BOT_IRCCHANINFO_HELP]"
+::telegram::addPublicTgCommand ircinfo ::telegram::ircChannelInfo "[::msgcat::mc MSG_BOT_IRCINFO_HELP]"
 ::telegram::addPublicTgCommand ircuser ::telegram::ircuser "[::msgcat::mc MSG_BOT_IRCUSER_HELP]"
 ::telegram::addPublicTgCommand ircusers ::telegram::ircusers "[::msgcat::mc MSG_BOT_IRCUSERS_HELP]"
 ::telegram::addPublicTgCommand irckick ::telegram::ircKick "[::msgcat::mc MSG_BOT_IRCKICK_HELP]"
