@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - English language file v20181116            #
+# Telegram-API module for Eggdrop - English language file v20181119            #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -63,18 +63,19 @@
 # Messages for user commands for your bot
 ::msgcat::mcset en MSG_BOT_PUBHELP			"I'm <i>%1\$s</i>, your personal bartender. Available commands are:\n"
 ::msgcat::mcset en MSG_BOT_PRVHELP			"I'm <i>%1\$s</i>, your personal bartender. Available commands are:\n"
-::msgcat::mcset en MSG_BOT_IRCTOPIC		"The topic on <a href=\"%1\$s\">%2\$s</a> is: <i>%3\$s</i>"
-::msgcat::mcset en MSG_BOT_IRCTOPIC_HELP		": Show the topic for the IRC channel(s) linked to this Telegram group."
+::msgcat::mcset en MSG_BOT_IRCINFO		"The topic on <a href=\"%1\$s\">%2\$s</a> is: <i>%3\$s</i>The channel mode is set to <i>%4\$s</i>"
+::msgcat::mcset en MSG_BOT_IRCINFO_HELP		": Show the topic for the IRC channel(s) linked to this Telegram group."
 ::msgcat::mcset en MSG_BOT_IRCUSERS		"The following users are known on <a href=\"%1\$s\">%2\$s\</a>:\n\n%3\$s"
 ::msgcat::mcset en MSG_BOT_IRCUSERS_HELP		": Show all users on the IRC channel(s) linked to this Telegram group."
 ::msgcat::mcset en MSG_BOT_IRCUSER			"<i>%1\$s@IRC</i> is since %2\$s on <a href=\"%3\$s\">%4\$s</a> known as <i>%5\$s</i>"
 ::msgcat::mcset en MSG_BOT_IRCUSERUNKNOWN	"<i>%1\$s@IRC</i> is not known on <a href=\"%2\$s\">%3\$s</a>"
 ::msgcat::mcset en MSG_BOT_IRCUSER_HELP " <nickname>: Show detailed information about an user on IRC."
-::msgcat::mcset en MSG_IRCKICKUSER "You've been kicked from this channel by a Telegram user."
-::msgcat::mcset en MSG_IRCBANUSER "You've been banned from this channel by a Telegram user."
+::msgcat::mcset en MSG_BOT_IRCKICKUSER "You've been kicked from this channel by a Telegram user."
+::msgcat::mcset en MSG_BIT_IRCBANUSER "You've been banned from this channel by a Telegram user."
 ::msgcat::mcset en MSG_BOT_IRCKICK_HELP " <nickname>: Kick an IRC user from the IRC channel."
 ::msgcat::mcset en MSG_BOT_IRCBAN_HELP " <nickname>: Ban an IRC user from the IRC channel."
 ::msgcat::mcset en MSG_BOT_IRCUNBAN_HELP " <nickname>: Unban an IRC user from the IRC channel."
+::msgcat::mcset en MSG_BOT_IRCSETMODE_HELP " <mode>: Set the channel mode for the IRC channel."
 ::msgcat::mcset en MSG_BOT_TGWHOISNAME "Telegram ID %1\$s is %2\$s and is known as %3\$s%4\$s."
 ::msgcat::mcset en MSG_BOT_TGWHOISSTATUS "Telegram ID %1\$s has status %2\$s."
 ::msgcat::mcset en MSG_BOT_TGWHOISLANG "Telegram ID %1\$s has language code %2\$s."
