@@ -5,7 +5,7 @@
 # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
-# Shows the topic of an IRC channel                                            #
+# Shows information about an IRC channel                                       #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircChannelInfo {from_id chat_id msgid channel message parameter_start} {
 	global serveraddress
@@ -131,38 +131,6 @@ proc ::telegram::ircBan {from_id chat_id msgid channel message parameter_start} 
 }
 
 # ---------------------------------------------------------------------------- #
-# Change the channel mode on an IRC channel                                    #
-# ---------------------------------------------------------------------------- #
-proc ::telegram::ircSetMode {from_id chat_id msgid channel message parameter_start} {
-	global serveraddress
-
-	set mode [string trim [string range $message $parameter_start end]]
-
-	# Check if the Telegram user requesting the unban is logged in
-	if {[set irchandle [::telegram::getIRCNickFromTelegramID $from_id]] != -1} {
-		# Check if the bot has enough privileges to perform the ban
-		if {[botisop $channel] || [botishalfop $channel]} {
-			foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
-				if {$chat_id eq $tg_chat_id} {
-					pushmode $tg_channel $mode
-					flushmode $tg_channel
-				}
-			}
-			# Return success
-			return 0
-		} else {
-			set response "[::msgcat::mc MSG_BOT_GOTNOPRIVS $::telegram::irc_bot_nickname]"
-		}
-	} else {
-		set response "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
-	}
-	::libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
-	putchan $channel "[strip_html $response]"
-
-	return 0
-}
-
-# ---------------------------------------------------------------------------- #
 # Unbans an user on an IRC channel                                             #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::ircUnban {from_id chat_id msgid channel message parameter_start} {
@@ -198,10 +166,42 @@ proc ::telegram::ircUnban {from_id chat_id msgid channel message parameter_start
 	}
 }
 
-::telegram::addPublicCommand ircchaninfo ::telegram::ircchaninfo "[::msgcat::mc MSG_BOT_IRCCHANINFO_HELP]"
-::telegram::addPublicCommand ircuser ::telegram::ircuser "[::msgcat::mc MSG_BOT_IRCUSER_HELP]"
-::telegram::addPublicCommand ircusers ::telegram::ircusers "[::msgcat::mc MSG_BOT_IRCUSERS_HELP]"
-::telegram::addPublicCommand irckick ::telegram::ircKick "[::msgcat::mc MSG_BOT_IRCKICK_HELP]"
-::telegram::addPublicCommand ircban ::telegram::ircBan "[::msgcat::mc MSG_BOT_IRCBAN_HELP]"
-::telegram::addPublicCommand ircunban ::telegram::ircUnban "[::msgcat::mc MSG_BOT_IRCUNBAN_HELP]"
-::telegram::addPublicCommand ircsetmode ::telegram::ircSetMode "[::msgcat::mc MSG_BOT_IRCSETMODE_HELP]"
+# ---------------------------------------------------------------------------- #
+# Change the channel mode on an IRC channel                                    #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::ircSetMode {from_id chat_id msgid channel message parameter_start} {
+	global serveraddress
+
+	set mode [string trim [string range $message $parameter_start end]]
+
+	# Check if the Telegram user requesting the unban is logged in
+	if {[set irchandle [::telegram::getIRCNickFromTelegramID $from_id]] != -1} {
+		# Check if the bot has enough privileges to perform the ban
+		if {[botisop $channel] || [botishalfop $channel]} {
+			foreach {tg_chat_id tg_channel} [array get ::telegram::tg_channels] {
+				if {$chat_id eq $tg_chat_id} {
+					pushmode $tg_channel $mode
+					flushmode $tg_channel
+				}
+			}
+			# Return success
+			return 0
+		} else {
+			set response "[::msgcat::mc MSG_BOT_GOTNOPRIVS $::telegram::irc_bot_nickname]"
+		}
+	} else {
+		set response "[::msgcat::mc MSG_BOT_NOTLOGGEDIN]"
+	}
+	::libtelegram::sendMessage $chat_id "$response" "html" false $msgid ""
+	putchan $channel "[strip_html $response]"
+
+	return 0
+}
+
+::telegram::addPublicTgCommand ircchaninfo ::telegram::ircchaninfo "[::msgcat::mc MSG_BOT_IRCCHANINFO_HELP]"
+::telegram::addPublicTgCommand ircuser ::telegram::ircuser "[::msgcat::mc MSG_BOT_IRCUSER_HELP]"
+::telegram::addPublicTgCommand ircusers ::telegram::ircusers "[::msgcat::mc MSG_BOT_IRCUSERS_HELP]"
+::telegram::addPublicTgCommand irckick ::telegram::ircKick "[::msgcat::mc MSG_BOT_IRCKICK_HELP]"
+::telegram::addPublicTgCommand ircban ::telegram::ircBan "[::msgcat::mc MSG_BOT_IRCBAN_HELP]"
+::telegram::addPublicTgCommand ircunban ::telegram::ircUnban "[::msgcat::mc MSG_BOT_IRCUNBAN_HELP]"
+::telegram::addPublicTgCommand ircsetmode ::telegram::ircSetMode "[::msgcat::mc MSG_BOT_IRCSETMODE_HELP]"
