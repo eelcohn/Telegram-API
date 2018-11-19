@@ -64,7 +64,7 @@
 ::msgcat::mcset en MSG_BOT_PUBHELP			"I'm <i>%1\$s</i>, your personal bartender. Available commands are:\n"
 ::msgcat::mcset en MSG_BOT_PRVHELP			"I'm <i>%1\$s</i>, your personal bartender. Available commands are:\n"
 ::msgcat::mcset en MSG_BOT_IRCINFO		"The topic on <a href=\"%1\$s\">%2\$s</a> is: <i>%3\$s</i>The channel mode is set to <i>%4\$s</i>"
-::msgcat::mcset en MSG_BOT_IRCINFO_HELP		": Show the topic for the IRC channel(s) linked to this Telegram group."
+::msgcat::mcset en MSG_BOT_IRCINFO_HELP		": Show information on the IRC channel(s) linked to this Telegram group."
 ::msgcat::mcset en MSG_BOT_IRCUSERS		"The following users are known on <a href=\"%1\$s\">%2\$s\</a>:\n\n%3\$s"
 ::msgcat::mcset en MSG_BOT_IRCUSERS_HELP		": Show all users on the IRC channel(s) linked to this Telegram group."
 ::msgcat::mcset en MSG_BOT_IRCUSER			"<i>%1\$s@IRC</i> is since %2\$s on <a href=\"%3\$s\">%4\$s</a> known as <i>%5\$s</i>"
