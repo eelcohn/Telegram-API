@@ -1,3 +1,27 @@
+v20181119:
+* Telegram-API.tcl: Renamed ::telegram::public_commands variable to ::telegram::tg_public_commands
+* Telegram-API.tcl: Renamed ::telegram::public_commands_help variable to ::telegram::tg_public_commands_help
+* Telegram-API.tcl: Renamed ::telegram::private_commands variable to ::telegram::tg_private_commands
+* Telegram-API.tcl: Renamed ::telegram::private_commands_help variable to ::telegram::tg_private_commands_help
+* Telegram-API.tcl: Renamed ::telegram::addPublicCommand procedure to ::telegram::addPublicTgCommand
+* Telegram-API.tcl: Renamed ::telegram::delPublicCommand procedure to ::telegram::delPublicTgCommand
+* Telegram-API.tcl: Renamed ::telegram::addPrivateCommand procedure to ::telegram::addPrivateTgCommand
+* Telegram-API.tcl: Renamed ::telegram::delPrivateCommand procedure to ::telegram::delPrivateTgCommand
+* Telegram-API.tcl: Added ::telegram::irc_public_commands variable
+* Telegram-API.tcl: Added ::telegram::irc_public_commands_help variable
+* Telegram-API.tcl: Added ::telegram::irc_private_commands variable
+* Telegram-API.tcl: Added ::telegram::irc_private_commands_help variable
+* Telegram-API.tcl: Added ::telegram::addPrivateIRCCommand procedure
+* Telegram-API.tcl: Added ::telegram::delPrivateIRCCommand procedure
+* modules/IRCHelper.tcl: Added ircChanInfo procedure
+* modules/IRCHelper.tcl: Added ircSetMode procedure
+* modules/IRCHelper.tcl: Removed ircTopic / Bugfixes
+* lang/nl.msg: Added MSG_BOT_IRCCHANINFO
+* lang/nl.msg: Added MSG_BOT_IRCCHANINFO_HELP
+* lang/nl.msg: Added MSG_BOT_IRCSETMODE_HELP
+* lang/nl.msg: Removed MSG_BOT_IRCTOPIC
+* lang/nl.msg: Removed MSG_BOT_IRCTOPIC_HELP
+
 v20181118:
 * Telegram-API.tcl: Fixed bug in ::telegram::pollTelegram for handling new_chat_member
 * Telegram-API.tcl: Fixed bug in ::telegram::privateCommand
