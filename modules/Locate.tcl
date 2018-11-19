@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Locate module for Eggdrop with the Telegram-API module v20180730             #
+# Locate module for Eggdrop with the Telegram-API module v20181119             #
 #                                                                              #
 # written by Eelco Huininga 2017-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -45,4 +45,4 @@ proc openstreetmaps_getLocation {from_id chat_id msgid channel message parameter
 	}
 }
 
-::telegram::addPublicCommand locate openstreetmaps_getLocation "[::msgcat::mc MSG_LOCATE_HELP]"
+::telegram::addPublicTgCommand locate openstreetmaps_getLocation "[::msgcat::mc MSG_LOCATE_HELP]"

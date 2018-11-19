@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Image Search module for Eggdrop with the Telegram-API module v20180810       #
+# Image Search module for Eggdrop with the Telegram-API module v20181119       #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -112,5 +112,5 @@ proc ::ImageSearch::getGif {from_id chat_id msgid channel message parameter_star
 	}
 }
 
-::telegram::addPublicCommand get ::ImageSearch::getImage "[::msgcat::mc MSG_IMAGESEARCH_HELP]"
-::telegram::addPublicCommand gif ::ImageSearch::getGif "[::msgcat::mc MSG_GIFSEARCH_HELP]"
+::telegram::addPublicTgCommand get ::ImageSearch::getImage "[::msgcat::mc MSG_IMAGESEARCH_HELP]"
+::telegram::addPublicTgCommand gif ::ImageSearch::getGif "[::msgcat::mc MSG_GIFSEARCH_HELP]"

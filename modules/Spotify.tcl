@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Spotify module for Eggdrop with the Telegram-API module v20180730            #
+# Spotify module for Eggdrop with the Telegram-API module v20181119            #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -44,4 +44,4 @@ proc spotify_getTrack {from_id chat_id msgid channel message parameter_start} {
 	}
 }
 
-::telegram::addPublicCommand spotify spotify_getTrack "[::msgcat::mc MSG_SPOTIFY_HELP]"
+::telegram::addPublicTgCommand spotify spotify_getTrack "[::msgcat::mc MSG_SPOTIFY_HELP]"

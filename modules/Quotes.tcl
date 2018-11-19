@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Quote module for Eggdrop v20180730                              #
+# Telegram-API Quote module for Eggdrop v20181119                              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -86,5 +86,5 @@ proc quotes_addQuote {from_id chat_id msgid channel message parameter_start} {
 	}
 }
 
-::telegram::addPublicCommand quote quotes_getQuote "[::msgcat::mc MSG_QUOTE_HELP]"
-::telegram::addPublicCommand addquote quotes_addQuote "[::msgcat::mc MSG_QUOTE_ADDHELP]"
+::telegram::addPublicTgCommand quote quotes_getQuote "[::msgcat::mc MSG_QUOTE_HELP]"
+::telegram::addPublicTgCommand addquote quotes_addQuote "[::msgcat::mc MSG_QUOTE_ADDHELP]"

@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20181118 for Eggdrop                                    #
+# Telegram-API module v20181119 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -33,10 +33,14 @@ array set	::telegram::tg_chat_title		{}
 array set	::telegram::tg_chat_description		{}
 array set	::telegram::tg_pinned_messages		{}
 array set	::telegram::tg_invite_link		{}
-array set	::telegram::public_commands		{}
-array set	::telegram::public_commands_help	{}
-array set	::telegram::private_commands		{}
-array set	::telegram::private_commands_help	{}
+array set	::telegram::tg_public_commands		{}
+array set	::telegram::tg_public_commands_help	{}
+array set	::telegram::tg_private_commands		{}
+array set	::telegram::tg_private_commands_help	{}
+array set	::telegram::irc_public_commands		{}
+array set	::telegram::irc_public_commands_help	{}
+array set	::telegram::irc_private_commands	{}
+array set	::telegram::irc_private_commands_help	{}
 array set	::telegram::filetransfers		{}
 
 
@@ -569,18 +573,18 @@ proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 
 	if {$command eq "help"} {
 		set response "[::msgcat::mc MSG_BOT_PUBHELP "$::telegram::irc_bot_nickname"]\n\n"
-		foreach {command helpmessage} [lsort -stride 2 [array get ::telegram::public_commands_help]] {
+		foreach {command helpmessage} [lsort -stride 2 [array get ::telegram::tg_public_commands_help]] {
 			append response "/$command $helpmessage\n"
 		}
 		::libtelegram::sendMessage $chat_id "[url_encode $response]" "html" false $msgid ""
 		putchan $channel "[strip_html $response]"
 	} else {
 		# Not one of the standard bot commands, so check if the bot command is in our dynamic command list
-		foreach {cmd prc} [array get ::telegram::public_commands] {
+		foreach {cmd prc} [array get ::telegram::tg_public_commands] {
 			if {$command == $cmd} {
 				if {[$prc $from_id $chat_id $msgid $channel $message $parameter_start] ne 0} {
 					# The module returned an error, so show the help message for the specified command
-					set response "/$command $::telegram::public_commands_help($command)"
+					set response "/$command $::telegram::tg_public_commands_help($command)"
 					::libtelegram::sendMessage $chat_id "[url_encode $response]" "html" false $msgid ""
 					putchan $channel "[strip_html $response]"
 				}	
@@ -599,18 +603,18 @@ proc ::telegram::publicCommand {from_id chat_id msgid channel message} {
 # ---------------------------------------------------------------------------- #
 # Add a bot command to the dynamic bot command list                            #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::addPublicCommand {keyword procedure helpmessage} {
-	set ::telegram::public_commands($keyword) $procedure
-	set ::telegram::public_commands_help($keyword) $helpmessage
+proc ::telegram::addPublicTgCommand {keyword procedure helpmessage} {
+	set ::telegram::tg_public_commands($keyword) $procedure
+	set ::telegram::tg_public_commands_help($keyword) $helpmessage
 }
 
 # ---------------------------------------------------------------------------- #
 # Remove a bot command from the dynamic bot command list                       #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::delPublicCommand {keyword} {
-	if {[info exists ::telegram::public_commands($keyword)]} {
-		unset -nocomplain ::telegram::public_commands($keyword)
-		unset -nocomplain ::telegram::public_commands_help($keyword)
+proc ::telegram::delPublicTgCommand {keyword} {
+	if {[info exists ::telegram::tg_public_commands($keyword)]} {
+		unset -nocomplain ::telegram::tg_public_commands($keyword)
+		unset -nocomplain ::telegram::tg_public_commands_help($keyword)
 		return true
 	} else {
 		return false
@@ -629,7 +633,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 	switch $command {
 		"help" {
 			set response "[::msgcat::mc MSG_BOT_PRVHELP "$::telegram::irc_bot_nickname"]\n\n"
-			foreach {command helpmessage} [lsort -stride 2 [array get ::telegram::private_commands_help]] {
+			foreach {command helpmessage} [lsort -stride 2 [array get ::telegram::tg_private_commands_help]] {
 				append response "/$command $helpmessage\n"
 			}
 			::libtelegram::sendMessage $from_id "[url_encode $response]" "html" false $msgid ""
@@ -719,7 +723,7 @@ proc ::telegram::privateCommand {from_id msgid message} {
 
 		default {
 			# Not one of the standard bot commands, so check if the bot command is in our dynamic command list
-			foreach {cmd prc} [array get ::telegram::private_commands] {
+			foreach {cmd prc} [array get ::telegram::tg_private_commands] {
 				if {$command == $cmd} {
 					$prc $from_id $msgid $channel $message $parameter_start
 					return
@@ -735,18 +739,18 @@ proc ::telegram::privateCommand {from_id msgid message} {
 # ---------------------------------------------------------------------------- #
 # Add a bot command to the dynamic bot command list                            #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::addPrivateCommand {keyword procedure helpmessage} {
-	set ::telegram::private_commands($keyword) $procedure
-	set ::telegram::private_commands_help($keyword) $procedure
+proc ::telegram::addPrivateTgCommand {keyword procedure helpmessage} {
+	set ::telegram::tg_private_commands($keyword) $procedure
+	set ::telegram::tg_private_commands_help($keyword) $procedure
 }
 
 # ---------------------------------------------------------------------------- #
 # Remove a bot command from the dynamic bot command list                       #
 # ---------------------------------------------------------------------------- #
-proc ::telegram::delPrivateCommand {keyword} {
-	if {[info exists ::telegram::private_commands($keyword)]} {
-		unset -nocomplain ::telegram::private_commands($keyword)
-		unset -nocomplain ::telegram::private_commands_help($keyword)
+proc ::telegram::delPrivateTgCommand {keyword} {
+	if {[info exists ::telegram::tg_private_commands($keyword)]} {
+		unset -nocomplain ::telegram::tg_private_commands($keyword)
+		unset -nocomplain ::telegram::tg_private_commands_help($keyword)
 		return true
 	} else {
 		return false
@@ -1228,6 +1232,28 @@ proc ::telegram::tgAdminsInfo {channel nick} {
 		}
 	}
 }
+
+# ---------------------------------------------------------------------------- #
+# Add an IRC command to the dynamic IRC command list                           #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::addPrivateIRCCommand {keyword procedure helpmessage} {
+	set ::telegram::irc_private_commands($keyword) $procedure
+	set ::telegram::irc_private_commands_help($keyword) $procedure
+}
+
+# ---------------------------------------------------------------------------- #
+# Remove an IRC command from the dynamic IRC command list                      #
+# ---------------------------------------------------------------------------- #
+proc ::telegram::delPrivateIRCCommand {keyword} {
+	if {[info exists ::telegram::irc_private_commands($keyword)]} {
+		unset -nocomplain ::telegram::irc_private_commands($keyword)
+		unset -nocomplain ::telegram::irc_private_commands_help($keyword)
+		return true
+	} else {
+		return false
+	}
+}
+
 
 
 

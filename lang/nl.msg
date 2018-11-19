@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module for Eggdrop - Dutch language file v20181116              #
+# Telegram-API module for Eggdrop - Dutch language file v20181119              #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -63,18 +63,19 @@
 # Messages for user commands for your bot
 ::msgcat::mcset nl MSG_BOT_PUBHELP		"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. De beschikbare commando's zijn:"
 ::msgcat::mcset nl MSG_BOT_PRVHELP			"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. De beschikbare commando's zijn:\n"
-::msgcat::mcset nl MSG_BOT_IRCTOPIC		  "Het onderwerp op <a href=\"%1\$s\">%2\$s</a> is: <i>%3\$s</i>"
-::msgcat::mcset nl MSG_BOT_IRCTOPIC_HELP		": Geef het onderwerp weer op het IRC kanaal."
+::msgcat::mcset nl MSG_BOT_IRCCHANINFO		  "Het onderwerp op <a href=\"%1\$s\">%2\$s</a> is: <i>%3\$s</i>\nDe kanaalmodus is ingesteld op <i>%4\$s</i>"
+::msgcat::mcset nl MSG_BOT_IRCCHANINFO_HELP		": Laat informatie over het IRC kanaal zien."
 ::msgcat::mcset nl MSG_BOT_IRCUSERS		"Op <a href=\"%1\$s\">%2\$s\</a> zijn de volgende gebruikers bekend:\n\n%3\$s"
 ::msgcat::mcset nl MSG_BOT_IRCUSERS_HELP		": Geeft alle gebruikers op het IRC kanaal weer."
 ::msgcat::mcset nl MSG_BOT_IRCUSER		"<i>%1\$s@IRC</i> is sinds %2\$s op <a href=\"%3\$s\">%4\$s</a> bekend als <i>%5\$s</i>"
 ::msgcat::mcset nl MSG_BOT_IRCUSERUNKNOWN	"<i>%1\$s@IRC</i> is niet bekend op <a href=\"%2\$s\">%3\$s</a>"
 ::msgcat::mcset nl MSG_BOT_IRCUSER_HELP " <nickname>: Laat gedetailleerde informatie zien over een gebruiker op IRC."
-::msgcat::mcset nl MSG_IRCKICKUSER "Je bent door een Telegram gebruiker van dit kanaal getrapt."
-::msgcat::mcset nl MSG_IRCBANUSER "Je bent door een Telegram gebruiker van dit kanaal verbannen."
+::msgcat::mcset nl MSG_BOT_IRCKICKUSER "Je bent door een Telegram gebruiker van dit kanaal getrapt."
+::msgcat::mcset nl MSG_BOT_IRCBANUSER "Je bent door een Telegram gebruiker van dit kanaal verbannen."
 ::msgcat::mcset nl MSG_BOT_IRCKICK_HELP " <nickname>: Trap een gebruiker op IRC van het IRC kanaal af."
 ::msgcat::mcset nl MSG_BOT_IRCBAN_HELP " <nickname>: Verbant een gebruiker op IRC van het IRC kanaal."
 ::msgcat::mcset nl MSG_BOT_IRCUNBAN_HELP " <nickname>: Hef een verbanning van een gebruiker op IRC op het IRC kanaal op."
+::msgcat::mcset nl MSG_BOT_IRCSETMODE_HELP " <modus>: Zet een kanaalmodus voor het IRC kanaal."
 ::msgcat::mcset nl MSG_BOT_TGWHOISNAME "Telegram ID %1\$s is %2\$s en is bekend als %3\$s%4\$s."
 ::msgcat::mcset nl MSG_BOT_TGWHOISSTATUS "Telegram ID %1\$s heeft als status %2\$s."
 ::msgcat::mcset nl MSG_BOT_TGWHOISLANG "Telegram ID %1\$s heeft als taalcode %2\$s."
