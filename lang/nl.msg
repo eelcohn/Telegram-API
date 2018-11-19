@@ -63,8 +63,8 @@
 # Messages for user commands for your bot
 ::msgcat::mcset nl MSG_BOT_PUBHELP		"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. De beschikbare commando's zijn:"
 ::msgcat::mcset nl MSG_BOT_PRVHELP			"Ik ben <i>%1\$s</i>, je persoonlijke barkeeper. De beschikbare commando's zijn:\n"
-::msgcat::mcset nl MSG_BOT_IRCCHANINFO		  "Het onderwerp op <a href=\"%1\$s\">%2\$s</a> is: <i>%3\$s</i>\nDe kanaalmodus is ingesteld op <i>%4\$s</i>"
-::msgcat::mcset nl MSG_BOT_IRCCHANINFO_HELP		": Laat informatie over het IRC kanaal zien."
+::msgcat::mcset nl MSG_BOT_IRCINFO		  "Het onderwerp op <a href=\"%1\$s\">%2\$s</a> is: <i>%3\$s</i>\nDe kanaalmodus is ingesteld op <i>%4\$s</i>"
+::msgcat::mcset nl MSG_BOT_IRCINFO_HELP		": Laat informatie over het IRC kanaal zien."
 ::msgcat::mcset nl MSG_BOT_IRCUSERS		"Op <a href=\"%1\$s\">%2\$s\</a> zijn de volgende gebruikers bekend:\n\n%3\$s"
 ::msgcat::mcset nl MSG_BOT_IRCUSERS_HELP		": Geeft alle gebruikers op het IRC kanaal weer."
 ::msgcat::mcset nl MSG_BOT_IRCUSER		"<i>%1\$s@IRC</i> is sinds %2\$s op <a href=\"%3\$s\">%4\$s</a> bekend als <i>%5\$s</i>"
