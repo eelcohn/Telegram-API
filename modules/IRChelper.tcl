@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# IRC helper module for Eggdrop with the Telegram-API module v20181118         #
+# IRC helper module for Eggdrop with the Telegram-API module v20181119         #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -166,9 +166,9 @@ proc ::telegram::ircUnban {from_id chat_id msgid channel message parameter_start
 	}
 }
 
-::telegram::addPublicCommand irctopic ::telegram::irctopic "[::msgcat::mc MSG_BOT_IRCTOPIC_HELP]"
-::telegram::addPublicCommand ircuser ::telegram::ircuser "[::msgcat::mc MSG_BOT_IRCUSER_HELP]"
-::telegram::addPublicCommand ircusers ::telegram::ircusers "[::msgcat::mc MSG_BOT_IRCUSERS_HELP]"
-::telegram::addPublicCommand irckick ::telegram::ircKick "[::msgcat::mc MSG_BOT_IRCKICK_HELP]"
-::telegram::addPublicCommand ircban ::telegram::ircBan "[::msgcat::mc MSG_BOT_IRCBAN_HELP]"
-::telegram::addPublicCommand ircunban ::telegram::ircUnban "[::msgcat::mc MSG_BOT_IRCUNBAN_HELP]"
+::telegram::addPublicTgCommand irctopic ::telegram::irctopic "[::msgcat::mc MSG_BOT_IRCTOPIC_HELP]"
+::telegram::addPublicTgCommand ircuser ::telegram::ircuser "[::msgcat::mc MSG_BOT_IRCUSER_HELP]"
+::telegram::addPublicTgCommand ircusers ::telegram::ircusers "[::msgcat::mc MSG_BOT_IRCUSERS_HELP]"
+::telegram::addPublicTgCommand irckick ::telegram::ircKick "[::msgcat::mc MSG_BOT_IRCKICK_HELP]"
+::telegram::addPublicTgCommand ircban ::telegram::ircBan "[::msgcat::mc MSG_BOT_IRCBAN_HELP]"
+::telegram::addPublicTgCommand ircunban ::telegram::ircUnban "[::msgcat::mc MSG_BOT_IRCUNBAN_HELP]"
