@@ -146,7 +146,7 @@ This should not happen. Please report this error by opening an issue.
 
 ## Support
 
-You can try to get support on the `#telegram-api` channel on `[irc.freenode.net](https://irc.freenode.net/#telegram-api)`
+You can try to get support on the `#telegram-api` channel on [irc.freenode.net](irc://irc.freenode.net/#telegram-api)
 
 ## Feedback
 
