@@ -16,8 +16,18 @@ v20181119:
 * modules/IRCHelper.tcl: Added ircChanInfo procedure
 * modules/IRCHelper.tcl: Added ircSetMode procedure
 * modules/IRCHelper.tcl: Removed ircTopic / Bugfixes
-* lang/nl.msg: Added MSG_BOT_IRCCHANINFO
-* lang/nl.msg: Added MSG_BOT_IRCCHANINFO_HELP
+* lang/de.msg: Added MSG_BOT_IRCINFO
+* lang/de.msg: Added MSG_BOT_IRCINFO_HELP
+* lang/de.msg: Added MSG_BOT_IRCSETMODE_HELP
+* lang/de.msg: Removed MSG_BOT_IRCTOPIC
+* lang/de.msg: Removed MSG_BOT_IRCTOPIC_HELP
+* lang/en.msg: Added MSG_BOT_IRCINFO
+* lang/en.msg: Added MSG_BOT_IRCINFO_HELP
+* lang/en.msg: Added MSG_BOT_IRCSETMODE_HELP
+* lang/en.msg: Removed MSG_BOT_IRCTOPIC
+* lang/en.msg: Removed MSG_BOT_IRCTOPIC_HELP
+* lang/nl.msg: Added MSG_BOT_IRCINFO
+* lang/nl.msg: Added MSG_BOT_IRCINFO_HELP
 * lang/nl.msg: Added MSG_BOT_IRCSETMODE_HELP
 * lang/nl.msg: Removed MSG_BOT_IRCTOPIC
 * lang/nl.msg: Removed MSG_BOT_IRCTOPIC_HELP
