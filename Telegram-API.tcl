@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20181119 for Eggdrop                                    #
+# Telegram-API module v20181128 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -1301,7 +1301,7 @@ proc decodeHtmlEntities {text} {
 	}
 	regsub -all {([][$\\])} $text {\\\1} new
 	regsub -all {&#([0-9][0-9]?[0-9]?[0-9]?);?} $new {[format %c [scan \1 %d tmp;set tmp]]} new
-	regsub -all {&([a-zA-Z]+)(;?)} $new {[decodeHtmlTextEntity \1 \\\2 ]} new
+	regsub -all {&([a-zA-Z]+)(;?)} $new {[decodeHtmlTextEntities \1 \\\2 ]} new
 	return [subst $new]
 }
 proc decodeHtmlTextEntities {text {semi {}}} {
