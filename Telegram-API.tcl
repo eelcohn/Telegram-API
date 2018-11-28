@@ -1310,15 +1310,37 @@ proc decodeHtmlTextEntities {text {semi {}}} {
 	catch {set result $htmlTextEntitiesMap($text)}
 	return $result
 }
+# A list of HTML entities is at https://www.w3schools.com/charsets/ref_html_entities_4.asp
 array set htmlTextEntitiesMap {
-	lt	<
-	gt	>
-	amp	&
+	lt	\x3c
+	gt	\x3e
+	amp	\x26
+	apos	\x27
 	aring	\xe5
 	atilde	\xe3
+	brvbar	\xa6
+	cent	\xa2
 	copy	\xa9
+	curren	\xa4
 	ecirc	\xea
 	egrave	\xe8
+	ensp	\x2002
+	emsp	\x2003
+	euro	\x20ac
+	iexcl	\xa1
+	iquest	\xbf
+	mdash	\x2014
+	micro	\xb5
+	ndash	\x2013
+	nbsp	\xa0
+	pound	\xa3
+	quot	\x22
+	reg	\xae
+	sect	\xa7
+	shy	\xad
+	trade	\x2122
+	uml	\xa8
+	yen	\xa5
 }
 
 # ---------------------------------------------------------------------------- #
