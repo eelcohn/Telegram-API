@@ -1296,29 +1296,49 @@ proc strip_html {htmlText} {
 # Replace HTML entities (&xxx;) with normal characters                         #
 # ---------------------------------------------------------------------------- #
 proc decodeHtmlEntities {text} {
+	global htmlTextEntitiesMap
+
 	if {![regexp & $text]} {
 		return $text
 	}
+	set text [string map [array get htmlTextEntitiesMap] $text]
 	regsub -all {([][$\\])} $text {\\\1} new
 	regsub -all {&#([0-9][0-9]?[0-9]?[0-9]?);?} $new {[format %c [scan \1 %d tmp;set tmp]]} new
 	regsub -all {&([a-zA-Z]+)(;?)} $new {[decodeHtmlTextEntities \1 \\\2 ]} new
 	return [subst $new]
 }
-proc decodeHtmlTextEntities {text {semi {}}} {
-	global htmlEntityMap
-	set result $text$semi
-	catch {set result $htmlTextEntitiesMap($text)}
-	return $result
-}
+# A list of HTML entities is at https://www.w3schools.com/charsets/ref_html_entities_4.asp
 array set htmlTextEntitiesMap {
-	lt	<
-	gt	>
-	amp	&
-	aring	\xe5
-	atilde	\xe3
-	copy	\xa9
-	ecirc	\xea
-	egrave	\xe8
+	&#10;		\x20
+	&amp;		\x26
+	&apos;		\x27
+	&aring;		\xe5
+	&atilde		\xe3
+	&brvbar		\xa6
+	&cent;		\xa2
+	&copy;		\xa9
+	&curren;	\xa4
+	&ecirc;		\xea
+	&egrave;	\xe8
+	&ensp;		\x2002
+	&emsp;		\x2003
+	&euro;		\x20ac
+	&gt;		\x3e
+	&iexcl;		\xa1
+	&iquest;	\xbf
+	&lt;		\x3c
+	&mdash;		\x2014
+	&micro;		\xb5
+	&ndash;		\x2013
+	&nbsp;		\xa0
+	&pound;		\xa3
+	&quot;		\x22
+	&reg;		\xae
+	&sect;		\xa7
+	&shy;		\xad
+	&trade;		\x2122
+	&uml;		\xa8
+	&yen;		\xa5
 }
 
 # ---------------------------------------------------------------------------- #

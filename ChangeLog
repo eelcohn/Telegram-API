@@ -1,5 +1,6 @@
 v20181128:
 * Telegram-API.tcl: Fixed bug in function call to decodeHtmlTextEntities
+* Telegram-API.tcl: Added extra HTML entities
 
 v20181119:
 * Telegram-API.tcl: Renamed ::telegram::public_commands variable to ::telegram::tg_public_commands
