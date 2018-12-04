@@ -30,7 +30,7 @@ proc ::libunicode::ascii2escaped {txt} {
 # Convert UTF-8 encoded Unicode to ASCII characters                            #
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::utf82ascii {txt} {
-	set txt [encoding convertfrom utf-8 $txt]
+#	set txt [encoding convertfrom utf-8 $txt]
 
 	foreach {utf8 ascii} [array get ::libunicode::utf8table] {
 		set txt [string map -nocase "$utf8 $ascii" $txt]
@@ -42,7 +42,7 @@ proc ::libunicode::utf82ascii {txt} {
 # Convert ASCII characters to UTF-8 encoded Unicode                            #
 # ---------------------------------------------------------------------------- #
 proc ::libunicode::ascii2utf8 {txt} {
-	set txt [encoding convertto utf-8 $txt]
+#	set txt [encoding convertto utf-8 $txt]
 
 	foreach {utf8 ascii} [array get ::libunicode::utf8table] {
 		set txt [string map -nocase "$ascii $utf8" $txt]
