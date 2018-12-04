@@ -1,3 +1,6 @@
+v20181204:
+* lib.libunicode.tcl: Removed [encoding convertfrom/convertto] from utf82ascii and ascii2utf8 (c4c9da1)
+
 v20181128:
 * Telegram-API.tcl: Fixed bug in function call to decodeHtmlTextEntities
 * Telegram-API.tcl: Added extra HTML entities
