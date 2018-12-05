@@ -141,6 +141,9 @@ The Telegram user called lamer migrated the group to a supergroup. Replace the c
 ##### `telegram::pollTelegram: Please edit your conf file with your new chat_id: 123456789`
 One of the groups in your `Telegram-API-config.tcl` file has been migrated (by you?) to a supergroup or channel. Please change it to the new chat_id.
 
+##### `telegram::getUpdates: 429 - Too Many Request: retry after x`
+The Telegram servers complain that the poll frequency for your bot is set too low, and you're sending too many update requests. Increase the `::telegram::tg_poll_freq` setting in your config file by a couple of seconds.
+
 ##### `telegram::pollTelegram: Unknown message received: abcxyz`
 This should not happen. Please report this error by opening an issue.
 
