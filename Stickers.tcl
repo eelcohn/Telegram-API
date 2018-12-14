@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API Sticker module for Eggdrop v20180211                            #
+# Telegram-API Sticker module for Eggdrop v20181214                            #
 #                                                                              #
 # written by Eelco Huininga 2016-2018                                          #
 # ---------------------------------------------------------------------------- #
@@ -111,5 +111,5 @@ array set stickertable {
 	{CAADAgADJQQAAgi3GQKS4b910iYMrgI}	{"Victor Lustig"}
 	{CAADAgADeQMAAgi3GQIE0j5N4LIhQQI}	{"Vlad the Impaler"}
 	{CAADAgADIwQAAgi3GQIp7k4OQeIooQI}	{"Vladimir Lenin"}
-	{CAADAgAD6wcAAgi3GQLh6oKAnDyHSAI}	{"unknown military guy with sunglasses saluting"}
+	{CAADAgAD6wcAAgi3GQLh6oKAnDyHSAI}	{"Augusto Pinochet"}
 }
