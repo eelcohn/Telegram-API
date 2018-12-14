@@ -87,6 +87,7 @@ array set stickertable {
 	{CAADAgADDwQAAgi3GQKn6x4arMBASgI}	{"Albert Fish"}
 	{CAADAgADLwQAAgi3GQIqOMZ-BTCsXAI}	{"Aleister Crowley"}
 	{CAADAgADIQQAAgi3GQJm4nUGNLXssAI}	{"Anton LaVey"}
+	{CAADAgAD6wcAAgi3GQLh6oKAnDyHSAI}	{"Augusto Pinochet"}
 	{CAADAgADgwMAAgi3GQJR9yC4FrbWZAI}	{"Benito Mussolini"}
 	{CAADAgADlgMAAgi3GQL1c5fysxo50QI}	{"Caligula"}
 	{CAADAgADEgQAAgi3GQKgpTqoAoh63AI}	{"Elisabeth Bathory"}
@@ -111,5 +112,4 @@ array set stickertable {
 	{CAADAgADJQQAAgi3GQKS4b910iYMrgI}	{"Victor Lustig"}
 	{CAADAgADeQMAAgi3GQIE0j5N4LIhQQI}	{"Vlad the Impaler"}
 	{CAADAgADIwQAAgi3GQIp7k4OQeIooQI}	{"Vladimir Lenin"}
-	{CAADAgAD6wcAAgi3GQLh6oKAnDyHSAI}	{"Augusto Pinochet"}
 }
