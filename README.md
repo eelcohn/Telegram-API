@@ -57,6 +57,13 @@ source /path/to/your/scripts/Telegram-API.tcl
 <br>
 14. You're done! Enjoy!<br>
 
+## Installation in Eggdrop's Docker image
+
+The standard Docker image for Eggdrop does not contain `curl` and `jq`, so you'll need to add these packages manually to the Docker image. You'll also need to do this everytime you upgrade the Docker image to the latest version. To do this, open a `bash` command prompt inside Docker and type:
+```
+# apk add curl jq
+```
+
 ## Upgrading to the current branch
 
 1. Rename the `Telegram-API` folder to `Telegram-API.bak` (ALWAYS create a backup!)
