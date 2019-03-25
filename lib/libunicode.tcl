@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Unicode library for Tcl - v20181115                                          #
+# Unicode library for Tcl - v20190209                                          #
 #                                                                              #
-# written by Eelco Huininga 2016-2018                                          #
+# written by Eelco Huininga 2016-2019                                          #
 # ---------------------------------------------------------------------------- #
 
 namespace eval libunicode {}
@@ -612,8 +612,8 @@ array set ::libunicode::escapedtable {
 	{\\u27bf}			{:double_curly_loop:}
 	{\\u2935}			{:arrow_heading_down:}
 	{\\u2b05}			{:arrow_left:}
-	{\\u2b1b}			{:black_large_square:}
-	{\\u2b1c}			{:white_large_square:}
+	{\\u2b1b}			{:black_square:}
+	{\\u2b1c}			{:white_square:}
 	{\\u2b50}			{:star:}
 	{\\u2b55}			{:circle:}
 	{\\u3030}			{:wavy_dash:}
@@ -1936,10 +1936,10 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\udd31}		{:trident:}
 	{\\ud83d\\udd32}		{:black_square_button:}
 	{\\ud83d\\udd33}		{:white_square_button:}
-	{\\ud83d\\udd34}		{:large_red_circle:}
-	{\\ud83d\\udd35}		{:large_blue_circle:}
-	{\\ud83d\\udd36}		{:large_orange_diamond:}
-	{\\ud83d\\udd37}		{:large_blue_diamond:}
+	{\\ud83d\\udd34}		{:red_circle:}
+	{\\ud83d\\udd35}		{:blue_circle:}
+	{\\ud83d\\udd36}		{:orange_diamond:}
+	{\\ud83d\\udd37}		{:blue_diamond:}
 	{\\ud83d\\udd38}		{:small_orange_diamond:}
 	{\\ud83d\\udd39}		{:small_blue_diamond:}
 	{\\ud83d\\udd3a}		{:red_triangle_up:}
@@ -2302,6 +2302,7 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\uded0}		{:place_of_worship:}
 	{\\ud83d\\uded1}		{:stop_sign:}
 	{\\ud83d\\uded2}		{:shopping_cart:}
+	{\\ud83d\\uded5}		{:hindu_temple:}
 	{\\ud83d\\udee0}		{:hammer_and_wrench:}
 	{\\ud83d\\udee1}		{:shield:}
 	{\\ud83d\\udee2}		{:oildrum:}
@@ -2319,7 +2320,24 @@ array set ::libunicode::escapedtable {
 	{\\ud83d\\udef7}		{:sled:}
 	{\\ud83d\\udef8}		{:ufo:}
 	{\\ud83d\\udef9}		{:skateboard:}
+	{\\ud83d\\udefa}		{:tuktuk:}
 
+	{\\ud83d\\udfe0}		{:orange_circle:}
+	{\\ud83d\\udfe1}		{:yellow_circle:}
+	{\\ud83d\\udfe2}		{:green_circle:}
+	{\\ud83d\\udfe3}		{:purple_circle:}
+	{\\ud83d\\udfe4}		{:brown_circle:}
+	{\\ud83d\\udfe5}		{:red_square:}
+	{\\ud83d\\udfe6}		{:blue_square:}
+	{\\ud83d\\udfe7}		{:orange_square:}
+	{\\ud83d\\udfe8}		{:yellow_square:}
+	{\\ud83d\\udfe9}		{:green_square:}
+	{\\ud83d\\udfea}		{:purple_square:}
+	{\\ud83d\\udfeb}		{:brown_square:}
+
+	{\\ud83e\\udd0d}		{:heart_white:}
+	{\\ud83e\\udd0e}		{:heart_brown:}
+	{\\ud83e\\udd0f}		{:hand_pinching:}
 	{\\ud83e\\udd10}		{:zipper_mouth:}
 	{\\ud83e\\udd11}		{:money_mouth:}
 	{\\ud83e\\udd12}		{:face_with_thermometer:}
@@ -2366,6 +2384,7 @@ array set ::libunicode::escapedtable {
 	{\\ud83e\\udd3c}		{:wrestling:}
 	{\\ud83e\\udd3d}		{:person_playing_water_polo:}
 	{\\ud83e\\udd3e}		{:person_playing_handball:}
+	{\\ud83e\\udd3f}		{:diving_mask:}
 	{\\ud83e\\udd40}		{:wilted_flower:}
 	{\\ud83e\\udd41}		{:drum:}
 	{\\ud83e\\udd42}		{:clinking_glasses:}
@@ -2414,11 +2433,13 @@ array set ::libunicode::escapedtable {
 	{\\ud83e\\udd6e}		{:cake:}
 	{\\ud83e\\udd6f}		{:bagel:}
 	{\\ud83e\\udd70}		{:in_love_face:}
+	{\\ud83e\\udd71}		{:yawning_face:}
 	{\\ud83e\\udd73}		{:party_face:}
 	{\\ud83e\\udd74}		{:drunk_face:}
 	{\\ud83e\\udd75}		{:hot_face:}
 	{\\ud83e\\udd76}		{:cold_face:}
 	{\\ud83e\\udd7a}		{:begging_face:}
+	{\\ud83e\\udd7b}		{:sari:}
 	{\\ud83e\\udd7c}		{:lab_coat:}
 	{\\ud83e\\udd7d}		{:goggles:}
 	{\\ud83e\\udd7e}		{:hiking_boot:}
@@ -2458,6 +2479,14 @@ array set ::libunicode::escapedtable {
 	{\\ud83e\\udda0}		{:microbe:}
 	{\\ud83e\\udda1}		{:badget:}
 	{\\ud83e\\udda2}		{:swan:}
+	{\\ud83e\\udda5}		{:sloth:}
+	{\\ud83e\\udda6}		{:otter:}
+	{\\ud83e\\udda7}		{:orangutan:}
+	{\\ud83e\\udda8}		{:skunk:}
+	{\\ud83e\\udda9}		{:flamingo:}
+	{\\ud83e\\uddaa}		{:oyster:}
+	{\\ud83e\\uddae}		{:guide_dog:}
+	{\\ud83e\\uddaf}		{:blind_person:}
 	{\\ud83e\\uddb0}		{:red_haired:}
 	{\\ud83e\\uddb1}		{:curly_haired:}
 	{\\ud83e\\uddb2}		{:bald:}
@@ -2468,9 +2497,26 @@ array set ::libunicode::escapedtable {
 	{\\ud83e\\uddb7}		{:tooth:}
 	{\\ud83e\\uddb8}		{:superhero:}
 	{\\ud83e\\uddb9}		{:supervillain:}
+	{\\ud83e\\uddba}		{:safety_vest:}
+	{\\ud83e\\uddbb}		{:hearing_aid:}
+	{\\ud83e\\uddbc}		{:motorized_wheelchair:}
+	{\\ud83e\\uddbd}		{:manual_wheelchair:}
+	{\\ud83e\\uddbe}		{:mechanical_arm:}
+	{\\ud83e\\uddbf}		{:mechanical_leg:}
 	{\\ud83e\\uddc0}		{:cheese:}
 	{\\ud83e\\uddc1}		{:cupcake:}
 	{\\ud83e\\uddc2}		{:salt:}
+	{\\ud83e\\uddc3}		{:juice_box:}
+	{\\ud83e\\uddc4}		{:garlic:}
+	{\\ud83e\\uddc5}		{:onion:}
+	{\\ud83e\\uddc6}		{:falafel:}
+	{\\ud83e\\uddc7}		{:waffle:}
+	{\\ud83e\\uddc8}		{:butter:}
+	{\\ud83e\\uddc9}		{:mater_drink:}
+	{\\ud83e\\uddca}		{:ice_cube:}
+	{\\ud83e\\uddcd}		{:person_standing:}
+	{\\ud83e\\uddce}		{:person_kneeling:}
+	{\\ud83e\\uddcf}		{:deaf_person:}
 	{\\ud83e\\uddd0}		{:face_monocle:}
 	{\\ud83e\\uddd1}		{:adult:}
 	{\\ud83e\\uddd2}		{:child:}
@@ -2519,6 +2565,23 @@ array set ::libunicode::escapedtable {
 	{\\ud83e\\uddfd}		{:sponge:}
 	{\\ud83e\\uddfe}		{:receipt:}
 	{\\ud83e\\uddff}		{:amulet:}
+
+	{\\ud83e\\ude70}		{:ballet_shoes:}
+	{\\ud83e\\ude71}		{:swimsuit:}
+	{\\ud83e\\ude72}		{:swim_brief:}
+	{\\ud83e\\ude73}		{:shorts:}
+	{\\ud83e\\ude78}		{:blood_drop:}
+	{\\ud83e\\ude79}		{:bandaid:}
+	{\\ud83e\\ude7a}		{:stethoscope:}
+	{\\ud83e\\ude80}		{:yoyo:}
+	{\\ud83e\\ude81}		{:kite:}
+	{\\ud83e\\ude82}		{:parachute:}
+	{\\ud83e\\ude90}		{:ringed_planet:}
+	{\\ud83e\\ude91}		{:chair:}
+	{\\ud83e\\ude92}		{:razor:}
+	{\\ud83e\\ude93}		{:axe:}
+	{\\ud83e\\ude94}		{:diya_lamp:}
+	{\\ud83e\\ude95}		{:banjo:}
 
 	{\\udbb8\\uddc4}		{:monkey_face:}
 	{\\uddba\\udf1a}		{:hearts:}
