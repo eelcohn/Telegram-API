@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20181128 for Eggdrop                                    #
+# Telegram-API module v20190325 for Eggdrop                                    #
 #                                                                              #
-# written by Eelco Huininga 2016-2018                                          #
+# written by Eelco Huininga 2016-2019                                          #
 # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
@@ -1390,7 +1390,7 @@ proc ::telegram::getWebsiteTitle {url} {
 		set ogdescstart [string first "<meta property=\"og:description\" content" $result]
 		set ogdescstart [string first "\"" $result $ogdescstart+38]
 		set ogdescend [string first "\"" $result $ogdescstart+1]
-		return "\002[string range $result $ogtitlestart+1 $ogtitleend-1]\002 [string range $result $ogdescstart+1 $ogdescend-1]"
+		return "\002[decodeHtmlEntities [string range $result $ogtitlestart+1 $ogtitleend-1]]\002 [decodeHtmlEntities [string range $result $ogdescstart+1 $ogdescend-1]]"
 	}
 }
 
