@@ -5,7 +5,7 @@ A gateway between [IRC](https://en.wikipedia.org/wiki/Internet_Relay_Chat) chat 
 ## Pre-requisites
 
 This script requires `tcl`, `eggdrop`, `curl` and `jq`:
-* [Tcl](https://www.tcl.tk/) - The language this script is programmed in
+* [Tcl](https://www.tcl.tk/) version 8.6.x or higher - The language this script is programmed in
 * [Eggdrop](https://www.eggheads.org/) - The IRC bot used for connecting to your favourite IRC channels
 * [cURL](https://curl.haxx.se/) - Used for querying the Telegram servers
 * [jq](https://stedolan.github.io/jq/) - Used for processing the JSON data
@@ -56,6 +56,7 @@ source /path/to/your/scripts/Telegram-API.tcl
 ```
 <br>
 14. You're done! Enjoy!<br>
+Please note that the only file you should modify is `Telegram-API-config.tcl`.
 
 ## Installation in Eggdrop's Docker image
 
