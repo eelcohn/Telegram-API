@@ -1,3 +1,6 @@
+v20190731:
+* Telegram-API.tcl: Added Tcl version check on startup
+
 v20190325:
 * Telegram-API.tcl: Fixed decoding HTML entities in website title from <meta property> tags
 
