@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20190325 for Eggdrop                                    #
+# Telegram-API module v20190731 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2019                                          #
 # ---------------------------------------------------------------------------- #
@@ -51,7 +51,7 @@ array set	::telegram::filetransfers		{}
 # Initialize some variables (botnames)                                         #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::initialize {} {
-	global nick
+	global tcl_version nick
 
 	# Output some debug info
 	::telegram::putdebuglog "::telegram::initialize: Debug info - encodingSystem=[encoding system]"
@@ -60,15 +60,21 @@ proc ::telegram::initialize {} {
 	}
 
 	# Check pre-requisites
+	if {$tcl_version < "8.6"} {
+		putlog "telegram::initialize: Error - Telegram-API needs Tcl version 8.6 or higher"
+		return false
+	}
 	foreach program [list curl jq] {
 		if {[catch "exec -ignorestderr $program --version"] ne 0} {
-			die "libtelegram::initialize: $program not found. Please install $program before starting the Telegram-API script."
+			putlog "libtelegram::initialize: Error - $program not found. Please install $program before starting the Telegram-API script."
+			return false
 		}
 	}
 
 	# Get some basic info about the Telegram bot
 	if {[::libtelegram::getMe] ne 0} {
-		die "::telegram::initialize: Unable to get bot info from Telegram ($::libtelegram::errorMessage)"
+		putlog "::telegram::initialize: Unable to get bot info from Telegram ($::libtelegram::errorMessage)"
+		return false
 	}
 
 	# Get the Telegram bot's nickname and realname
@@ -117,7 +123,7 @@ proc ::telegram::initialize {} {
 			}
 		}
 	}
-	return 0
+	return true
 }
 
 
@@ -1452,8 +1458,9 @@ bind topc - * ::telegram::ircTopicChange
 bind kick - * ::telegram::ircNickKicked
 bind mode - * ::telegram::ircModeChange
 
-::telegram::initialize
-
-::telegram::pollTelegram
-
-putlog "telegram::start: Telegram-API started as $::telegram::tg_bot_nickname"
+if {[::telegram::initialize] == true} {
+	::telegram::pollTelegram
+	putlog "telegram::start: Telegram-API started as $::telegram::tg_bot_nickname"
+} else {
+	putlog "telegram::start: Telegram-API exited"
+}
