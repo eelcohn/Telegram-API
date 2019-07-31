@@ -155,6 +155,9 @@ The Telegram servers complain that the poll frequency for your bot is set too lo
 ##### `telegram::pollTelegram: Unknown message received: abcxyz`
 This should not happen. Please report this error by opening an issue.
 
+##### `bad option "decode": must be format or scan`
+You're probably running an older version of Tcl. Please update Tcl to the latest version.
+
 ## Support
 
 You can try to get support on the `#telegram-api` channel on `irc.freenode.net`
