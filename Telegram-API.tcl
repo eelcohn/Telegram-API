@@ -54,9 +54,10 @@ proc ::telegram::initialize {} {
 	global tcl_version nick
 
 	# Output some debug info
-	::telegram::putdebuglog "::telegram::initialize: Debug info - encodingSystem=[encoding system]"
+	::telegram::putdebuglog "telegram::initialize: Debug - Tcl version=$tcl_version"
+	::telegram::putdebuglog "telegram::initialize: Debug - encodingSystem=[encoding system]"
 	foreach envvar [array names ::env] {
-		::telegram::putdebuglog "::telegram::initialize: Debug info - environment variable $envvar = $::env($envvar)"
+		::telegram::putdebuglog "telegram::initialize: Debug - environment variable $envvar = $::env($envvar)"
 	}
 
 	# Check pre-requisites
@@ -66,14 +67,14 @@ proc ::telegram::initialize {} {
 	}
 	foreach program [list curl jq] {
 		if {[catch "exec -ignorestderr $program --version"] ne 0} {
-			putlog "libtelegram::initialize: Error - $program not found. Please install $program before starting the Telegram-API script."
+			putlog "telegram::initialize: Error - $program not found. Please install $program before starting the Telegram-API script."
 			return false
 		}
 	}
 
 	# Get some basic info about the Telegram bot
 	if {[::libtelegram::getMe] ne 0} {
-		putlog "::telegram::initialize: Unable to get bot info from Telegram ($::libtelegram::errorMessage)"
+		putlog "telegram::initialize: Unable to get bot info from Telegram ($::libtelegram::errorMessage)"
 		return false
 	}
 
