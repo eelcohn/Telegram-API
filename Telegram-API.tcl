@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20190731 for Eggdrop                                    #
+# Telegram-API module v20190801 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2019                                          #
 # ---------------------------------------------------------------------------- #
@@ -61,7 +61,7 @@ proc ::telegram::initialize {} {
 
 	# Check pre-requisites
 	if {$tcl_version < "8.6"} {
-		putlog "telegram::initialize: Error - Telegram-API needs Tcl version 8.6 or higher"
+		putlog "telegram::initialize: Error - Your Tcl version is $tcl_version, but Telegram-API needs Tcl version 8.6 or higher"
 		return false
 	}
 	foreach program [list curl jq] {
