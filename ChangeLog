@@ -1,3 +1,6 @@
+v20190801:
+* Telegram-API.tcl: Improved error handling on Tcl version conflict
+
 v20190731:
 * Telegram-API.tcl: Added Tcl version check on startup
 
