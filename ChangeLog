@@ -1,3 +1,6 @@
+v20190803:
+* Telegram-API.tcl: Added more debug logging
+
 v20190801:
 * Telegram-API.tcl: Improved error handling on Tcl version conflict
 
