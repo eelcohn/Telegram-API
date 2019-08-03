@@ -62,7 +62,7 @@ proc ::telegram::initialize {} {
 	}
 
 	# Check pre-requisites: curl
-	if {[catch {set curl_version [exec -ignorestderr curl --version"]}] ne 0} {
+	if {[catch {set curl_version [exec -ignorestderr curl --version]}]} {
 		putlog "telegram::initialize: Error - curl not found. Please install curl before starting the Telegram-API script."
 		return false
 	} else {
@@ -70,7 +70,7 @@ proc ::telegram::initialize {} {
 	}
 
 	# Check pre-requisites: jq
-	if {[catch {set jq_version [exec -ignorestderr jq --version"]}] ne 0} {
+	if {[catch {set jq_version [exec -ignorestderr jq --version]}]} {
 		putlog "telegram::initialize: Error - jq not found. Please install jq before starting the Telegram-API script."
 		return false
 	} else {
@@ -133,11 +133,11 @@ proc ::telegram::initialize {} {
 						putlog $::libtelegram::errorMessage
 					}
 					set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result//empty"]
+					::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_invite_link=$tg_invite_link($tg_chat_id)"
 				}
 				if {$::telegram::tg_invite_link($tg_chat_id) eq ""} {
 					unset -nocomplain ::telegram::tg_invite_link($tg_chat_id)
 				}
-				::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_invite_link=$tg_invite_link($tg_chat_id)"
 			}
 		}
 	}
