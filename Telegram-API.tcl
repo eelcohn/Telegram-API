@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20190801 for Eggdrop                                    #
+# Telegram-API module v20190803 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2019                                          #
 # ---------------------------------------------------------------------------- #
@@ -53,23 +53,34 @@ array set	::telegram::filetransfers		{}
 proc ::telegram::initialize {} {
 	global tcl_version nick
 
-	# Output some debug info
-	::telegram::putdebuglog "telegram::initialize: Debug - Tcl version=$tcl_version"
-	::telegram::putdebuglog "telegram::initialize: Debug - encodingSystem=[encoding system]"
-	foreach envvar [array names ::env] {
-		::telegram::putdebuglog "telegram::initialize: Debug - environment variable $envvar = $::env($envvar)"
-	}
-
-	# Check pre-requisites
+	# Check pre-requisites: Tcl
 	if {$tcl_version < "8.6"} {
 		putlog "telegram::initialize: Error - Your Tcl version is $tcl_version, but Telegram-API needs Tcl version 8.6 or higher"
 		return false
+	} else {
+		::telegram::putdebuglog "telegram::initialize: Debug - Tcl version=$tcl_version"
 	}
-	foreach program [list curl jq] {
-		if {[catch "exec -ignorestderr $program --version"] ne 0} {
-			putlog "telegram::initialize: Error - $program not found. Please install $program before starting the Telegram-API script."
-			return false
-		}
+
+	# Check pre-requisites: curl
+	if {[catch {set curl_version [exec -ignorestderr curl --version"]}] ne 0} {
+		putlog "telegram::initialize: Error - curl not found. Please install curl before starting the Telegram-API script."
+		return false
+	} else {
+		::telegram::putdebuglog "telegram::initialize: Debug - curl version=$curl_version"
+	}
+
+	# Check pre-requisites: jq
+	if {[catch {set jq_version [exec -ignorestderr jq --version"]}] ne 0} {
+		putlog "telegram::initialize: Error - jq not found. Please install jq before starting the Telegram-API script."
+		return false
+	} else {
+		::telegram::putdebuglog "telegram::initialize: Debug - jq version=$jq_version"
+	}
+
+	# Output some debug info
+	::telegram::putdebuglog "telegram::initialize: Debug - encodingSystem=[encoding system]"
+	foreach envvar [array names ::env] {
+		::telegram::putdebuglog "telegram::initialize: Debug - environment variable $envvar = $::env($envvar)"
 	}
 
 	# Get some basic info about the Telegram bot
@@ -95,6 +106,10 @@ proc ::telegram::initialize {} {
 			set ::telegram::tg_chat_title($tg_chat_id) [::libunicode::utf82ascii [::libjson::getValue $::libtelegram::result ".result.title//empty"]]
 			set ::telegram::tg_chat_description($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result.description//empty"]
 			set ::telegram::tg_chat_photo($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result.photo.big_file_id//empty"]
+			::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_chat_type=$tg_chat_type($tg_chat_id)"
+			::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_chat_title=$tg_chat_title($tg_chat_id)"
+			::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_chat_description=$tg_chat_description($tg_chat_id)"
+			::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_chat_photo=$tg_chat_photo($tg_chat_id)"
 		}
 
 		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
@@ -104,6 +119,7 @@ proc ::telegram::initialize {} {
 				if {$::telegram::tg_pinned_messages($tg_chat_id) eq ""} {
 					unset -nocomplain ::telegram::tg_pinned_messages($tg_chat_id)
 				}
+				::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_pinned_message=$tg_pinned_messages($tg_chat_id)"
 			}
 		}
 
@@ -121,6 +137,7 @@ proc ::telegram::initialize {} {
 				if {$::telegram::tg_invite_link($tg_chat_id) eq ""} {
 					unset -nocomplain ::telegram::tg_invite_link($tg_chat_id)
 				}
+				::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_invite_link=$tg_invite_link($tg_chat_id)"
 			}
 		}
 	}
@@ -249,6 +266,7 @@ proc ::telegram::pollTelegram {} {
 						if {$chatid eq $tg_chat_id} {
 							# Treat each line seperate
 							foreach line [split [string map {\\n \n} [::libunicode::utf82ascii $txt]] "\n"] {
+								::telegram::putdebuglog "telegram::pollTelegram: Debug - tg_chat_id=$tg_chat_id irc_channel=$irc_channel name=$name text=$line"
 								putchan $irc_channel [::msgcat::mc MSG_TG_MSGSENT "$name" "$line"]
 		
 								# If the text contains an URL, get the title of the website
