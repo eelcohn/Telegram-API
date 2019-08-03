@@ -106,10 +106,10 @@ proc ::telegram::initialize {} {
 			set ::telegram::tg_chat_title($tg_chat_id) [::libunicode::utf82ascii [::libjson::getValue $::libtelegram::result ".result.title//empty"]]
 			set ::telegram::tg_chat_description($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result.description//empty"]
 			set ::telegram::tg_chat_photo($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result.photo.big_file_id//empty"]
-			::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_chat_type=$tg_chat_type($tg_chat_id)"
-			::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_chat_title=$tg_chat_title($tg_chat_id)"
-			::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_chat_description=$tg_chat_description($tg_chat_id)"
-			::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_chat_photo=$tg_chat_photo($tg_chat_id)"
+			::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_chat_type=$::telegram::tg_chat_type($tg_chat_id)"
+			::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_chat_title=$::telegram::tg_chat_title($tg_chat_id)"
+			::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_chat_description=$::telegram::tg_chat_description($tg_chat_id)"
+			::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_chat_photo=$::telegram::tg_chat_photo($tg_chat_id)"
 		}
 
 		# Pinned messages: Only get pinned messages for (super)groups we haven't queried yet
@@ -118,8 +118,9 @@ proc ::telegram::initialize {} {
 				set ::telegram::tg_pinned_messages($tg_chat_id) [::telegram::getPinnedMessage $chattype [::libjson::getValue $::libtelegram::result ".result.pinned_message"]]
 				if {$::telegram::tg_pinned_messages($tg_chat_id) eq ""} {
 					unset -nocomplain ::telegram::tg_pinned_messages($tg_chat_id)
+				} else {
+					::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_pinned_message=$::telegram::tg_pinned_messages($tg_chat_id)"
 				}
-				::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_pinned_message=$tg_pinned_messages($tg_chat_id)"
 			}
 		}
 
@@ -133,10 +134,11 @@ proc ::telegram::initialize {} {
 						putlog $::libtelegram::errorMessage
 					}
 					set ::telegram::tg_invite_link($tg_chat_id) [::libjson::getValue $::libtelegram::result ".result//empty"]
-					::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_invite_link=$tg_invite_link($tg_chat_id)"
 				}
 				if {$::telegram::tg_invite_link($tg_chat_id) eq ""} {
 					unset -nocomplain ::telegram::tg_invite_link($tg_chat_id)
+				} else {
+					::telegram::putdebuglog "telegram::initialize: Debug - tg_chat_id=$tg_chat_id tg_invite_link=$::telegram::tg_invite_link($tg_chat_id)"
 				}
 			}
 		}
