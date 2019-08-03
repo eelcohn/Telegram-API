@@ -191,6 +191,7 @@ proc ::telegram::pollTelegram {} {
 #		set msgtype [::libjson::getValue $msg ". | keys\[\] | select(. != \"update_id\")"]
 		set msgtype [::libjson::getValue $msg "keys_unsorted\[1\]"]
 		set chattype [::libjson::getValue $msg ".$msgtype.chat.type"]
+		::telegram::putdebuglog "telegram::pollTelegram: Debug - Processing update_id $::telegram::tg_update_id msgtype=$msgtype chattype=$chattype"
 
  		switch $chattype {
 			"private" {
