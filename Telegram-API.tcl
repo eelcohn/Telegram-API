@@ -16,7 +16,7 @@ set		::telegram::chanflags			"iptmsw"
 set		::telegram::cmdmodifier			"/!."
 set		::telegram::colorize_nicknames		0
 set		::telegram::debuglog			false
-set		::telegram::msglogfile			"telegram-messages.json"
+set		::telegram::msglogfile			"/tmp/telegram-messages.json"
 set		::telegram::locale			"en"
 set		::telegram::tg_poll_freq		5
 set		::telegram::tg_web_page_preview		false
