@@ -55,10 +55,10 @@ proc ::telegram::initialize {} {
 
 	# Check pre-requisites: Tcl
 	if {$tcl_version < "8.6"} {
-		putlog "telegram::initialize: Error - Your Tcl version is $tcl_version, but Telegram-API needs Tcl version 8.6 or higher"
+		putlog "telegram::initialize: Error - Your Tcl version is [info patchlevel], but Telegram-API needs Tcl version 8.6 or higher"
 		return false
 	} else {
-		::telegram::putdebuglog "telegram::initialize: Debug - Tcl version=$tcl_version"
+		::telegram::putdebuglog "telegram::initialize: Debug - Tcl version=[info patchlevel]"
 	}
 
 	# Check pre-requisites: curl
