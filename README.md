@@ -8,7 +8,7 @@ This script requires `tcl`, `eggdrop`, `curl` and `jq`:
 * [Tcl](https://www.tcl.tk/) version 8.6.x or higher - The language this script is programmed in
 * [Eggdrop](https://www.eggheads.org/) - The IRC bot used for connecting to your favourite IRC channels
 * [cURL](https://curl.haxx.se/) - Used for querying the Telegram servers
-* [jq](https://stedolan.github.io/jq/) - Used for processing the JSON data
+* [jq](https://stedolan.github.io/jq/) version 1.5 or higher - Used for processing the JSON data
 
 ## Features
 
