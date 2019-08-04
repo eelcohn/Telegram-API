@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20190803 for Eggdrop                                    #
+# Telegram-API module v20190804 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2019                                          #
 # ---------------------------------------------------------------------------- #
@@ -62,7 +62,7 @@ proc ::telegram::initialize {} {
 	}
 
 	# Check pre-requisites: curl
-	if {[catch {set curl_version [exec -ignorestderr curl --version]}]} {
+	if {[catch {set curl_version [lindex [exec -ignorestderr curl --version] 1]}]} {
 		putlog "telegram::initialize: Error - curl not found. Please install curl before starting the Telegram-API script."
 		return false
 	} else {
@@ -70,11 +70,15 @@ proc ::telegram::initialize {} {
 	}
 
 	# Check pre-requisites: jq
-	if {[catch {set jq_version [exec -ignorestderr jq --version]}]} {
+	if {[catch {set jq_version [lindex [split [exec -ignorestderr jq --version] " -"] end]}]} {
 		putlog "telegram::initialize: Error - jq not found. Please install jq before starting the Telegram-API script."
 		return false
 	} else {
 		::telegram::putdebuglog "telegram::initialize: Debug - jq version=$jq_version"
+		if {$jq_version < "1.5"} {
+			putlog "telegram::initialize: Error - Your jq version is $jq_version, but Telegram-API needs jq version 1.5 or higher"
+			return false
+		}
 	}
 
 	# Output some debug info
