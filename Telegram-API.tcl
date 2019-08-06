@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20190804 for Eggdrop                                    #
+# Telegram-API module v20190806 for Eggdrop                                    #
 #                                                                              #
 # written by Eelco Huininga 2016-2019                                          #
 # ---------------------------------------------------------------------------- #
@@ -67,6 +67,10 @@ proc ::telegram::initialize {} {
 		return false
 	} else {
 		::telegram::putdebuglog "telegram::initialize: Debug - curl version=$curl_version"
+		if {$curl_version < "7.34.0"} {
+			putlog "telegram::initialize: Error - Your curl version is $curl_version, but Telegram-API needs curl version 7.34.0 or higher"
+			return false
+		}
 	}
 
 	# Check pre-requisites: jq
