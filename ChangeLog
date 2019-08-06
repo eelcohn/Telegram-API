@@ -1,3 +1,6 @@
+v20190806:
+* Telegram-API.tcl: Addec curl version check
+
 v20190804:
 * Telegram-API.tcl: Added jq version check
 
