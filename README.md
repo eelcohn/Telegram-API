@@ -164,4 +164,6 @@ You can try to get support on the `#telegram-api` channel on `irc.freenode.net`
 
 ## Feedback
 
-Please let me know if you use this script, if you run into bugs or problems, and of course if you like it!
+Please let me know if you use this script, if you run into bugs or problems, and of course if you like it! Or you can buy me a cup of coffee ;-)
+
+[![paypal](https://www.paypalobjects.com/en_US/NL/i/btn/btn_donateCC_LG.gif)](UEE477V44JWKY)
