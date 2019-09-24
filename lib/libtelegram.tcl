@@ -1,8 +1,8 @@
 # ---------------------------------------------------------------------------- #
-# Telegram API library for Tcl - v20180810                                     #
+# Telegram API library for Tcl - v20190924                                     #
 # This library has functions for interacting with the Telegram servers         #
 #                                                                              #
-# written by Eelco Huininga 2016-2018                                          #
+# written by Eelco Huininga 2016-2019                                          #
 # ---------------------------------------------------------------------------- #
 
 namespace eval libtelegram {
@@ -568,7 +568,7 @@ proc ::libtelegram::promoteChatMember {chat_id user_id can_change_info can_post_
 # ---------------------------------------------------------------------------- #
 # ::libtelegram::exportChatInviteLink                                          #
 # ---------------------------------------------------------------------------- #
-# Promote or demote a user in a chat group or channel in Telegram              #
+# Generate a new invite link for a chat; revokes any previously generated link #
 # https://core.telegram.org/bots/api#exportchatinvitelink                      #
 # ---------------------------------------------------------------------------- #
 proc ::libtelegram::exportChatInviteLink {chat_id} {
