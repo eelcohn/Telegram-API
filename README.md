@@ -34,7 +34,7 @@ How do I setup this IRC-Telegram gateway?<br>
 5. Enter the username of the bot you want to create<br>
 6. You'll see confirmation message like this:<br>
 ```
-Done! Congratulations on your new bot. You will find it at telegram.me/<BOTBNAME>. You can now add a description, about section and profile picture for your bot, see /help for a list of commands. By the way, when you.ve finished creating your cool bot, ping out Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this.
+Done! Congratulations on your new bot. You will find it at telegram.me/<BOTNAME>. You can now add a description, about section and profile picture for your bot, see /help for a list of commands. By the way, when you.ve finished creating your cool bot, ping out Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this.
 
 Use this token to access the HTTP API:
 123456789:AABCD-EfGhIj_KlMn_OpQrStUvWxYz12345
