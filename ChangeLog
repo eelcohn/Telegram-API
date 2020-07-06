@@ -1,3 +1,6 @@
+v20200706:
+* Fix username for non-color configuration
+
 v20190806:
 * Telegram-API.tcl: Addec curl version check
 
