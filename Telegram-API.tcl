@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Telegram-API module v20190806 for Eggdrop                                    #
+# Telegram-API module v20200706 for Eggdrop                                    #
 #                                                                              #
-# written by Eelco Huininga 2016-2019                                          #
+# written by Eelco Huininga 2016-2020                                          #
 # ---------------------------------------------------------------------------- #
 
 # ---------------------------------------------------------------------------- #
@@ -822,9 +822,12 @@ proc ::telegram::getUsername {userobject} {
 	} else {
 		set name [concat [::libjson::getValue $userobject ".first_name//empty"] [::libjson::getValue $userobject ".last_name//empty"]]
 	}
-	set name "\003[::telegram::getColorFromUserID [::libjson::getValue $userobject ".id"]][::libunicode::utf82ascii $name]\003"
 
-	return $name
+	if {$::telegram::colorize_nicknames == 0} {
+		return $name
+	} else {
+		return "\003[::telegram::getColorFromUserID [::libjson::getValue $userobject ".id"]][::libunicode::utf82ascii $name]\003"
+	}
 }
 
 
@@ -1393,7 +1396,7 @@ proc url_encode {str} {
 # Calculate an IRC color code for a user ID                                    #
 # ---------------------------------------------------------------------------- #
 proc ::telegram::getColorFromUserID {user_id} {
-	if {($::telegram::colorize_nicknames == 0) || ($::telegram::colorize_nicknames > 15)} {
+	if {$::telegram::colorize_nicknames > 15} {
 		# Default color is black for no colorization
 		return 1
 	} else {
